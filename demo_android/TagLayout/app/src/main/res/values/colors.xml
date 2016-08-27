@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@android:color/transparent</color>
+    <color name="colorPrimaryDark">@color/color_lay_bg</color>
+    <color name="colorAccent">#FF4081</color>
+    <!-- normal -->
+    <color name="color_txt_light_gray">#ffe0e0e0</color>
+    <color name="banner_default_color">#ebebeb</color>
+    <!-- menu item text color -->
+    <color name="color_tab_bar_normal_color">#777777</color>
+    <color name="color_gray">#828282</color>
+    <color name="color_black">#000000</color>
+    <color name="color_white">#ffffff</color>
+    <color name="color_white_press">#ebebeb</color>
+    <color name="color_red">#df1c1c</color>
+    <color name="color_pop_translucence">#B2000000</color>
+    <!--<color name="color_gray_second">#a0a0a0</color>-->
+    <!--<color name="color_gray_third">#c8c8c8</color>-->
+    <color name="color_transparent">#00000000</color>
+    <color name="color_tabBg">#ffffff</color>
+    <color name="color_tabTextSelected">#f59527</color>
+    <color name="color_tabTextDefault">#000000</color>
+    <!--替换为color_lay_bg-->
+    <!--<color name="color_special_select_bg">#f6f6f6</color>-->
+    <!--矩形边框颜色-->
+    <color name="color_rectangle">#C3C3C3</color>
+
+    <!--所有黄色按钮-->
+    <color name="color_btn_yellow">#ffb94a</color>
+    <color name="color_btn_yellow_press">#F8B349</color>
+
+    <!-- ========背景颜色======== -->
+    <!--页面背景色-->
+    <color name="color_lay_bg">#F6F6F6</color>
+    <!--确认订单背景色 -->
+    <color name="color_lay_ensure_bg">#e9e9e9</color>
+    <color name="color_lay_help_bg">#e6ededed</color>
+    <color name="color_lay_gray">#f6f6f6</color>
+    <!-- ========背景颜色======== -->
+
+    <!-- =========线条========= -->
+    <color name="color_horizontaldivision">#e6e6e6</color>
+    <!-- =========线条========= -->
+
+    <!-- ========文字颜色======== -->
+    <!--灰色一般 次要文字-->
+    <color name="color_txt_gray">#999999</color>
+    <!--灰色最浅的 填选框提示文字-->
+    <color name="color_txt_gray_min">#c8c8c8</color>
+    <!--黑色文字 普通段落文字-->
+    <color name="color_txt_black">#3c3c3c</color>
+    <!--黑色文字 重要文字-->
+    <color name="color_txt_black_important">#f69603</color>
+    <!--黄文字  着重强调的文字,可点击的文字类容-->
+    <color name="color_txt_yellow">#f69603</color>
+    <!--输入框提示文字-->
+    <color name="color_hint">#c8c8c8</color>
+    <!--换联系人-->
+    <color name="color_hint_contact">#9a9a9a</color>
+    <!-- ========文字颜色======== -->
+
+    <!-- 一级页面底色 -->
+    <color name="color_frame_stroke">@color/color_list_divider</color>
+    <color name="color_hint_content">#ff999999</color>
+    <color name="color_list_item_bk_pressed">#80D9D9D9</color>
+    <color name="color_list_item_bk_selected">#80D9D9D9</color>
+    <color name="color_list_item_bk_disable">@color/color_gray</color>
+    <color name="color_list_item_bk_normal">@color/color_white</color>
+    <color name="color_text_history_line">#A0A0A0</color>
+    <!-- prior value: #cacaca -->
+    <color name="color_list_divider">#dedede</color>
+    <!-- 标题 -->
+    <color name="color_title_bg">#403c5d</color>
+    <color name="color_tab_color">@color/color_txt_yellow</color>
+    <color name="color_title_txt_left">#CEEBEB</color>
+    <!-- 订单详情 -->
+    <color name="color_order_detail_status_text_gray">#FFC079</color>
+    <!-- 填写订单 -->
+    <color name="color_cost_detail_bg">#F0F0F0</color>
+    <!-- 专车填订单 提交 -->
+    <color name="color_white_gray">#FAFAFA</color>
+    <!-- 选择框的背景色 -->
+    <color name="color_cost_select_bg">#EFEFF4</color>
+    <!-- 协议字体颜色 -->
+    <color name="color_agreement_bg">#AFAEAE</color>
+    <color name="pickerview_timebtn_nor">#057dff</color>
+    <color name="pickerview_timebtn_pre">#c2daf5</color>
+    <color name="pickerview_bg_topbar">#f5f5f5</color>
+    <color name="pickerview_topbar_title">#000000</color>
+    <color name="pickerview_wheelview_textcolor_out">#a8a8a8</color>
+    <color name="pickerview_wheelview_textcolor_center">#2a2a2a</color>
+    <color name="pickerview_wheelview_textcolor_divider">#d5d5d5</color>
+    <!-- 覆盖颜色 -->
+    <color name="bgColor_overlay">#60000000</color>
+    <!-- 选择器的半透明色 -->
+    <!-- 温馨提示 内容 -->
+    <color name="color_black_gray">#3C3C3C</color>
+    <!-- 专线地址 线-->
+    <color name="color_address_line">#CACACA</color>
+    <color name="color_address_overlay">#33f69603</color>
+    <!-- 包车转账 -->
+    <!-- 优惠过期或已使用 -->
+    <color name="color_coupon_use_or_expired">#D2D2D2</color>
+    <color name="color_coupon_can_use">#FAB347</color>
+    <!-- 新首页 -->
+    <color name="color_special_home_tip_img">#F96138</color>
+
+</resources>

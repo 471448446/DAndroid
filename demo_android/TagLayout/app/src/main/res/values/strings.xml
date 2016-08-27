@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- PulltoRefreshListView -->
+    <string name="str_load_pull_label">下拉加载更多…</string>
+    <string name="str_load_release_label">松开加载更多…</string>
+    <string name="str_load_refreshing_label">正在载入…</string>
+    <!-- volley error -->
+    <string name="str_volley_noconnection">没有网络连接，请检查网络连接</string>
+    <string name="str_volley_unknownerror">服务器异常,请稍后再试!</string>
+    <string name="str_volley_timeout">网络慢</string>
+    <!-- common -->
+    <string name="str_exit_msg">再按一次返回键退出!</string>
+    <string name="app_name">TagLayout</string>
+    <string name="str_cancel">取消</string>
+    <string name="str_confirm">确定</string>
+    <string name="str_search">搜索</string>
+    <string name="str_callPhone">拨打电话</string>
+    <string name="str_call">呼叫</string>
+    <string name="str_phone">电话</string>
+    <string name="str_rename">修改姓名</string>
+    <string name="str_submit">提交</string>
+    <string name="str_version_code">V%1$s </string>
+    <string name="str_usually_line">常用路线</string>
+    <string name="str_usually_address">常用地址</string>
+    <string name="str_next">下一步</string>
+    <string name="str_exception">异常</string>
+    <string name="str_map">地图</string>
+    <string name="str_yuan">元</string>
+    <string name="str_type_order_type">城际专车</string>
+    <string name="service">400-822-5285</string>
+    <!-- test -->
+    <string name="str_test_txt">--.--</string>
+    <!--permission-->
+    <string name="str_permission_refuse_title">权限申请</string>
+    <string name="str_permission_app_title">开启以来客运</string>
+    <string name="str_permission_refuse_leftStr">@string/str_cancel</string>
+    <string name="str_permission_refuse_rightStr">去设置</string>
+    <string name="str_permission_refuse_phone">请在设置-应用-易来客运-权限管理中开启电话权限,开启后你可以拨打电话</string>
+    <string name="str_permission_refuse_phoneStatus">请在设置-应用-易来客运-权限管理中开启电话权限,否者你将无法正常使用易来客运。</string>
+    <string name="str_permission_refuse_location">请在设置-应用-易来客运-权限管理中开启定位权限,以便更好的使用您当前的位置。</string>
+    <string name="str_permission_refuse_contact">请在设置-应用-易来客运-权限管理中开启通讯录权限,开启后你可以选择通讯录中的好友。</string>
+    <string name="str_permission_refuse_file">我们需要获取你的存储空间,为您存储个人信息;否者你将无法正常使用易来客运。</string>
+    <string name="str_permission_refuse_splash">为了您能正常的使用以来客运,需要以下信息:\n</string>
+    <string name="str_permission_refuse_updata">我们需要获取你的存储空间,为您下载最新安装包。</string>
+    <string name="str_permission_location">位置信息</string>
+    <string name="str_permission_device">设备信息</string>
+    <string name="str_permission_file">存储信息</string>
+    <!-- load message -->
+    <string name="str_loading">加载中……</string>
+    <string name="str_loading_wait">请稍候…</string>
+    <string name="str_loading_logout">正在退出…</string>
+    <string name="str_dialog_apk_downloding_msg">正在下载客户端(%1$d %2$s)</string>
+    <string name="str_login_now">立即登录</string>
+    <string name="str_login_tip">您还没有登录,请登录后查询订单!</string>
+    <!-- 列表footer -->
+    <string name="str_footer_load_last">已加载全部</string>
+    <!-- toast and retry -->
+    <string name="str_toast_newversion">已是最新版本</string>
+    <string name="str_toast_frendly">敬请期待</string>
+    <string name="str_toast_null_psw">密码不能为空</string>
+    <string name="str_toast_null_phone">手机号不能为空</string>
+    <string name="str_toast_null_authcode">验证码不能为空</string>
+    <string name="str_toast_psw_format_error">密码格式错误，密码长度为6&#8211;12位数字或字母</string>
+    <string name="str_toast_phone_frmat_error">手机号码有误，请重新输入</string>
+    <string name="str_toast_name_frmat_error">姓名长度为2到10个字符</string>
+    <string name="str_hint_name_please">请输入联系人姓名</string>
+    <string name="str_hint_phone_please">请输入联系人号码</string>
+    <string name="str_toast_address_no">没有找到您搜索的地址信息</string>
+    <string name="str_feedBack_hint">请输入反馈，我们将为您不断改进！</string>
+    <string name="str_feedBack_num">（200字以内）</string>
+    <!-- dialog or loading -->
+    <string name="str_dialog_update_title">软件升级</string>
+    <string name="str_dialog_update_now">立即更新</string>
+    <string name="str_dialog_update_after">以后更新</string>
+    <string name="str_dialog_update_new">新版本更新</string>
+    <!-- 分享 -->
+    <string name="str_share_txt">易来客运，安全、专业的互联网客运服务平台，专注城际专车和政企包车业务，为您提供出行专业用车服务。</string>
+    <string name="str_share_no_action">为您提供上门接送服务，让您享受“全天候”、“全区域”、“门到门”的安全、便捷、温暖出行体验，帮您实现真正的一键回家。</string>
+    <string name="str_share_no_action_title">易来客运 城际专车----长途出行神器 老司机上门接驾</string>
+    <string name="str_share">分享</string>
+    <string name="str_shareSuccess">分享成功了</string>
+    <string name="str_shareFail">分享失败了</string>
+    <string name="str_shareCancel">用户取消</string>
+    <string name="str_shareSpecialTitle">%1$s&#160;&#160;%2$s元&#160;城际长途，上门接送；拼车价格，专车享受!</string>
+    <string name="str_shareSpecialContent">易来客运城际专车－－长途出行神器，老司机上门接驾！快和我一起去坐专车吧!</string>
+    <!-- Main -->
+    <string name="str_nav_home">首页</string>
+    <string name="str_nav_order">订单</string>
+    <string name="str_nav_center">我的</string>
+    <!-- 快速登录 -->
+    <string name="str_quick_login_title_context">快速登录</string>
+    <string name="str_account_login_title">账号登录</string>
+    <string name="str_quick_login_title_write_name">填写姓名</string>
+    <string name="str_quick_login_agree_rule">点击登录，即表示同意</string>
+    <string name="str_quick_login_register_rule">《注册协议》</string>
+    <string name="str_quick_login_auth_code_enter_error">您输入的验证码有误！</string>
+    <string name="str_quick_login_mobile_enter_error">您输入的手机号不正确！</string>
+    <string name="str_quick_login_please_write_user_name">请填写您的真实姓名</string>
+    <string name="str_quick_login_write_save_user_name">保存</string>
+    <!-- 登陆 找回密码  修改密码 -->
+    <string name="str_account_login_tip">初次使用，请通过短信验证登录创建账号</string>
+    <string name="str_input_phone">请输入手机号</string>
+    <string name="str_input_authcode">请输入验证码</string>
+    <string name="str_input_psw_format">请输入密码(6&#8211;12位数字或字母)</string>
+    <string name="str_set_psw_protect_account">为保障您的账号安全，请设置登录密码</string>
+    <string name="str_set_psw_title">设置登录密码</string>
+    <string name="str_input_psw_format_new">请输入新密码(6&#8211;12位数字或字母)</string>
+    <string name="str_input_psw">请输入密码</string>
+    <string name="str_psw_findout">找回密码</string>
+    <string name="str_pwd_digits">0123456789abcdefjhigklmnopqrstuvwxyzABCDEFjHIGKLMNOPQRSTUVWXYZ</string>
+    <string name="str_login">登录</string>
+    <string name="str_psw_forget">忘记密码?</string>
+    <string name="str_psw_alter">修改密码</string>
+    <string name="str_psw_old">请输入旧密码</string>
+    <string name="str_psw_new">请输入新密码</string>
+    <!-- 注册 -->
+    <string name="str_regsiter">注册</string>
+    <string name="str_regsiter_new">新用户注册</string>
+    <string name="str_regsiter_mobile_dismatch">当前输入号码，与获取验证码号码不符</string>
+    <string name="str_null_authcode">请输入验证码</string>
+    <string name="str_agree_agreement">我已阅读并同意&#160;&#160;</string>
+    <string name="str_regsiter_aggrement_link"><u>注册协议</u></string>
+    <string name="str_regsiter_aggrement_uncheck">请阅读并选中注册协议</string>
+    <string name="str_regsiter_sendauthcode">获取验证码</string>
+    <string name="str_regsiter_sendauyhcode_again">重新获取</string>
+    <string name="str_regsiterinfo_nullname">请输入真实姓名</string>
+    <string name="str_regsiter_success_invite">分享给朋友</string>
+    <string name="str_regsiter_success_into_order">开始订车</string>
+    <string name="str_regsiter_success_result">&#160;注册成功！</string>
+    <string name="str_regsiter_success_share_hint">把易来客运分享给朋友们吧！</string>
+    <!-- 协议 -->
+    <string name="str_user_guide_view_title">用户指南</string>
+    <string name="str_regsiter_aggrement_view_title">注册协议</string>
+    <string name="str_use_car_aggrement_view_title">用车协议</string>
+    <string name="str_about_us_view_title">关于我们</string>
+    <string name="str_special_line_return_money_aggrement_view_title">城际专车退款协议</string>
+    <string name="str_freedom_charter_free_instructions">短期包车计费说明</string>
+    <string name="str_shut_unsub_instructions">接送机退款协议</string>
+    <string name="str_freedom_charter_return_money_aggrement_view_title">短期包车退款协议</string>
+    <string name="str_invoice_center_view_title">发票中心</string>
+    <string name="str_coupon_use_rule">使用规则</string>
+    <!-- 个人中心 -->
+    <string name="str_center_invite_friends">邀请好友</string>
+    <!-- 邀请好友 -->
+    <string name="str_invite_friends_register">快邀请好友注册&#160;<b>易来客运</b>吧 ！</string>
+    <string name="str_invite_friends_get_coupon">您将最高获得<![CDATA[<font color="#f69603">%1$s元</font>]]>优惠券，乘坐城际专车<![CDATA[<font color="#f69603">立减</font>]]>！</string>
+    <string name="str_immediately_invite">立即邀请</string>
+    <string name="str_activity_rules"><u>活动规则</u></string>
+    <string name="str_activity_rules_no_underline">活动规则</string>
+    <string name="str_friends_register_success">好友成功注册后，下拉刷新此页面，查看优惠券！</string>
+    <string name="str_activity_rules_tip">邀请好友注册易来客运，您将获得%1$s元优惠券，乘坐城际专车立减！</string>
+    <!-- 优惠券 -->
+    <string name="str_coupon_effective_data">%1$s&#160;前有效</string>
+    <string name="str_coupon_num">%1$d张可用</string>
+    <string name="str_can_use_coupon_over">你选择的优惠券已经够用啦！</string>
+    <string name="str_you_no_choose_coupon_tip">您还没有选择优惠券，是否确定不使用？</string>
+    <string name="str_no_coupon_tip">当前无可用优惠券！</string>
+    <string name="str_center_my_preferential_menu">我的优惠券</string>
+    <string name="str_center_my_coupon_use_rule">使用规则</string>
+    <string name="str_center_order">我的订单</string>
+    <string name="str_center_msg_">消息通知</string>
+    <string name="str_center_makeinvoice">填写发票</string>
+    <string name="str_call_customerService">联系客服</string>
+    <string name="str_center_setting">设置</string>
+    <string name="str_center_unlogin">点击登录或注册</string>
+    <string name="str_setting_commonproblem">常见问题</string>
+    <string name="str_setting_commonproblem_help">常见问题帮助</string>
+    <string name="str_setting_userguide">用户指南</string>
+    <string name="str_setting_usecardeal">用车协议</string>
+    <string name="str_setting_switch_sound">声音开关</string>
+    <string name="str_setting_switch_vibrate">震动开关</string>
+    <string name="str_setting_offlinemap">离线地图</string>
+    <string name="str_setting_updata">版本更新</string>
+    <string name="str_setting_lawinfo">法律条款</string>
+    <string name="str_setting_aboutus">关于我们</string>
+    <string name="str_setting_logout">退出登录</string>
+    <string name="str_feedBack">意见反馈</string>
+    <string name="str_feedBack_IWant">我要反馈</string>
+    <string name="str_feedBack_write_contact">联系方式:</string>
+    <string name="str_feedBack_write_mobile">请填写您的手机号，方便我们联系您！</string>
+    <!-- home fragment -->
+    <string name="str_home_city_commonly_used">常用城市:</string>
+    <string name="str_home_pass_passenger_number">%1$d人</string>
+    <!-- 订单 -->
+    <string name="str_order_vehicleNum">预定车辆:%1$d辆</string>
+    <string name="str_order_time_usecar">@string/str_order_detail_hide_detail_use_time</string>
+    <string name="str_order_peoplecount">乘车人数:%1$s</string>
+    <string name="str_order_person_to_contact">联系人:%1$s</string>
+    <string name="str_order_person_contract_phone">联系电话:%1$s</string>
+    <string name="str_order_license_plate">车牌号:%1$s</string>
+    <string name="str_order_time_range">用车时段:%1$s</string>
+    <string name="str_order_travel_line">行驶线路:%1$s</string>
+    <string name="str_order_remark_travel">备注:%1$s</string>
+    <string name="str_order_type_free">短期包车</string>
+    <string name="str_order_type_traffic">交通车</string>
+    <!-- search line -->
+    <string name="str_city_start">出发地</string>
+    <string name="str_city_end">目的地</string>
+    <string name="str_city_start_hint">请选择出发地</string>
+    <string name="str_city_hint">请输入城市名称</string>
+    <string name="str_city_end_hint">请选择目的地</string>
+    <string name="str_city_search_noresult">没有查找到该城市</string>
+    <!--================金额 相关-->
+    <string name="str_money_num_yuan">%1$s元</string>
+    <string name="str_money_reduce_num_yuan">-%1$s元</string>
+    <string name="str_money_space_num_money">&#160;%1$s元</string>
+    <string name="str_money_num_yuan_red"><![CDATA[<font color="#df1c1c">&#160;%1$s元</font>]]></string>
+    <string name="str_money_num_yuan_yellow"><![CDATA[<font color="#f69603">&#160;%1$s元</font>]]></string>
+    <string name="str_money_all_redAll"><![CDATA[<font color="#828282">总计:</font><font color="#df1c1c">&#160;%1$s元</font>]]></string>
+    <string name="str_money_all_redAll_num"><![CDATA[<font color="#df1c1c">总计:&#160;%1$s元</font>]]></string>
+    <string name="str_money_all_yellowAll_num"><![CDATA[<font color="#f69603">总计:&#160;%1$s元</font>]]></string>
+    <string name="str_money_all_yellow_num"><![CDATA[<font color="#3c3c3c">共计:</font><font color="#f69603"><strong> &#160;%1$s元</strong> </font>]]></string>
+    <string name="str_money_all_num_yuan">总计：%1$s元</string>
+    <string name="str_money_refund">退款金额</string>
+    <string name="str_money_real_pay_num_yuan">实付金额:%1$s元</string>
+    <string name="str_money_should_refund">应退金额</string>
+    <string name="str_money_pay">支付金额</string>
+    <string name="str_money_pay_real">实付金额</string>
+    <string name="str_money_should_pay">应付金额</string>
+    <string name="str_money_makeInvoice">开票金额:</string>
+    <string name="str_money_trip_cast">行程费用：%1$s元×%2$s人</string>
+    <string name="str_money_favourable_deductions">优惠抵扣：-%1$s元</string>
+    <string name="str_money_favourable_less_deductions">优惠抵扣：%1$s元</string>
+    <string name="str_money_poundage">手续费</string>
+    <string name="str_money_poundage_num_yuan">&#160;%1$s元</string>
+    <string name="str_money_poundage_num_less_yuan">-%1$s元</string>
+    <string name="str_money_estimatedCost_price">核算价格：<![CDATA[<font color="#f69603">%1$s元</font>]]></string>
+    <string name="str_money_adjust_price">估算价格：%1$s元</string>
+    <string name="str_money_amount_fee">预估价：<![CDATA[<font color="#f69603">%1$s元</font>]]></string>
+    <string name="str_money_time_fee">时长费：%1$s元</string>
+    <string name="str_money_km_fee">里程费：%1$s元</string>
+    <!--==================数量单位-->
+    <string name="str_num_a_sheet">%1$d张</string>
+    <string name="str_num_a_person">%1$d人</string>
+    <!-- order detail -->
+    <string name="str_order_un_subscriber_dialog_title">是否确认申请退款？</string>
+    <string name="str_order_detail_counter_down_tip">需要您在&#160;%1$s&#160;内完成支付，否则订单自动失效。</string>
+    <string name="str_order_detail_title">订单详情</string>
+    <string name="str_order_detail_no_pay">已提交</string>
+    <string name="str_order_detail_already_pay">已支付</string>
+    <string name="str_order_detail_already_start">已派车</string>
+    <string name="str_special_status_running">行程中</string>
+    <string name="str_order_detail_finsh">完成</string>
+    <string name="str_unsubscribe">退订</string>
+    <string name="str_unsubscribe_reason_des">退订说明:%1$s</string>
+    <string name="str_unsubscribe_money">退款</string>
+    <string name="str_unsubscribe_choose_reason">请选择您申请的退款原因</string>
+    <string name="str_unsubscribe_reason">退款原因</string>
+    <string name="str_unsub_num">（300字以内）</string>
+    <string name="str_order_contact">联系人：%1$s%2$s</string>
+    <string name="str_order_remark">【上车地点备注】%1$s</string>
+    <string name="str_special_order_remark">【备注】&#160;%1$s</string>
+    <string name="str_order_detail_go_pay">去支付</string>
+    <string name="str_cancle_order">取消订单</string>
+    <string name="str_order_detail_start_address">上车地点：%1$s</string>
+    <string name="str_order_detail_end_address">下车地点：%1$s</string>
+    <string name="str_order_detail_unsub_instructions">请输入退订说明</string>
+    <string name="str_order_detail_unsub_pay_mode">支付方式</string>
+    <string name="str_order_detail_unsub_mode">退款方式</string>
+    <string name="str_order_detail_unsub_reason">退款原因</string>
+    <string name="str_order_detail_unsub_instruct">退款说明</string>
+    <string name="str_order_detail_unsub_agreement"><u>退款协议</u></string>
+    <string name="str_order_detail_unsub_agreement_brackets">《退款协议》</string>
+    <string name="str_order_detail_no_select_return_agreement">请勾选同意退款协议</string>
+    <string name="str_order_detail_unsub_already_submit">退款申请</string>
+    <string name="str_order_detail_unsub_submit">提交申请</string>
+    <string name="str_order_detail_unsub_submit_time">申请时间</string>
+    <string name="str_order_detail_unsub_expected_time">预计审核时间</string>
+    <string name="str_order_detail_unsub_checking">已申请</string>
+    <string name="str_order_detail_unsub_finsh">退款成功</string>
+    <string name="str_order_detail_ticket_num">退订人数</string>
+    <string name="str_order_detail_unsub_number">退订编号</string>
+    <string name="str_order_detail_goto_evaluate">去评价</string>
+    <string name="str_order_detail_finish_order">完成订单</string>
+    <string name="str_order_detail_running_please_contact_server">如需联系客服，请拨打</string>
+    <string name="str_order_detail_special_had_pay_tip"><![CDATA[<font color="#f69603">支付成功！</font><br>%1$s</br>]]></string>
+    <string name="str_order_detail_special_send_car_tip"><![CDATA[<font color="#f69603">系统已派车。</font><br>%1$s</br>]]></string>
+    <string name="str_order_detail_special_running_tip"><![CDATA[<font color="#f69603">提示：</font>]]>%1$s</string>
+
+    <string name="str_fore_cast">预计<![CDATA[<font color="#f69603">%1$s</font>]]>分钟到达</string>
+    <string name="str_immediately_arrive">即刻到达</string>
+    <string name="str_vehicle_monitor_up_car_address">上车地址：%1$s</string>
+    <string name="str_order_return_return_ticket_number">退订：%1$d人&#160;&#160;剩余：%2$d人</string>
+    <string name="str_order_detail_car_monitor">行车监控</string>
+    <string name="str_order_detail_driver_name_contact">司机：%1$s&#160;&#160;%2$s</string>
+    <string name="str_order_detail_driver_cancle_order_tip">确定取消订单吗？</string>
+    <string name="str_order_detail_car_and_number">车型：%1$s&#160;【&#160;%2$s】</string>
+    <string name="str_order_detail_hide_detail_line">路线：%1$s</string>
+    <string name="str_order_detail_license_plate_number">%1$s【%2$s】</string>
+    <string name="str_order_detail_hide_detail_use_time">用车时间：%1$s</string>
+    <string name="str_order_detail_phone_dialog_content">您确定要拨打电话：%1$s吗？</string>
+    <string name="str_order_detail_send_car_info">%1$s&#160;【%2$s】</string>
+    <string name="str_order_detail_free_price_change_reason">*调价原因：%1$s</string>
+    <string name="str_order_detail_free_price_change_reason_no_get_position">*调价原因：</string>
+
+    <!-- 评价订单 -->
+    <string name="str_evaluate_order_submit">提交</string>
+    <string name="str_evaluate_order_title">评价订单</string>
+    <string name="str_evaluate_order_detail_hint">写下对此次行程的评价吧！</string>
+    <string name="str_evaluate_order_text">评价</string>
+    <!-- payorder -->
+    <string name="str_pay_back_confirm">确认离开</string>
+    <string name="str_pay_dialog_continue_pay">继续支付</string>
+    <string name="str_pay_back_dialog_title">确定要退出支付页？</string>
+    <string name="str_pay_count_down_tip">请在&#160;%1$s&#160;内完成支付，否则订单自动失效。</string>
+    <string name="str_pay_count_down_zero">支付超时，请重新购买！</string>
+    <string name="str_write_new_order">%1$s重新购买</string>
+    <string name="str_pay_order_submit">提交支付</string>
+    <string name="str_pay_order_number">您预定的%1$s,从%2$s的订单已经生成，订单号%3$s。</string>
+    <string name="str_pay_order_chose_pay_mode">选择支付方式</string>
+    <string name="str_pay_order_pay_mode_unionpay">银联支付</string>>
+    <string name="str_pay_order_pay_mode_unionpay_tip">储蓄卡、信用卡无卡支付</string>
+    <string name="str_pay_order_pay_mode_banktranfer">转账支付</string>
+    <string name="str_pay_order_pay_mode_banktranfer_tip">储蓄卡转账支付</string>
+    <string name="str_pay_order_pay_mode_alipay">支付宝支付</string>
+    <string name="str_pay_order_pay_mode_alipay_tip">支付宝账户支付</string>
+    <string name="str_pay_order_pay_mode_weixin">微信支付</string>
+    <string name="str_pay_order_pay_mode_weixin_tip">微信账户支付</string>
+    <string name="str_pay_order_cancle_tip">温馨提示</string>
+    <string name="str_pay_order_pay_finish">完成支付</string>
+    <string name="str_pay_order_pay_success">支付成功</string>
+    <string name="str_pay_order_pay_success_tip">您的订单已成功支付，司机将在出发前与您取得联系。</string>
+    <string name="str_backtrack">预订返程</string>
+    <string name="str_special_pay_success">查看《乘车须知》详情</string>
+    <string name="str_special_pay_success_tip">乘车须知：\n1、儿童（含婴儿）须购全票。\n2、可免费带一件非超限行李。\n3、携宠物上车需自带宠物笼。\n4、禁止携带违禁物品上车。</string>
+    <!-- ensure order -->
+    <string name="str_shuttle_machine_ensure_order_line">路线：</string>
+    <string name="str_ensure_ordertitle">确认订单</string>
+    <string name="str_ensure_order_car_vehicle">车型：%1$s</string>
+    <string name="str_free_ensure_order_car_vehicle">车型：%1$s&#160;×&#160;%2$d</string>
+    <string name="str_ensure_order_car_number">车辆：%1$s&#160;×&#160;1</string>
+
+    <string name="str_ensure_order_start_place"> 上车地点：%1$s</string>
+    <string name="str_ensure_order_end_place"> 下车地点：%1$s</string>
+    <string name="str_ensure_order_to_pay">支付</string>
+    <!-- write order -->
+    <string name="str_exchange_contact">换联系人</string>
+    <string name="str_half_day_only_in_cd">*仅限成都市区内行程包车</string>
+    <string name="str_line_iteme_footer_oil">油</string>
+    <string name="str_line_iteme_footer_insurance">险</string>
+    <string name="str_line_iteme_footer_drive">驾</string>
+    <string name="str_line_title_userneedknow">乘车须知</string>
+    <string name="str_home_special_line_charter">包车</string>
+    <string name="str_home_special_line_price_num">%1$s元</string>
+    <string name="str_home_special_line_price_ticket_code">%1$s元/票</string>
+    <string name="str_home_special_line_price_car_code">%1$s元/车</string>
+    <string name="str_home_add_contact_title">添加联系人</string>
+    <string name="str_special_line_terms">《用车协议》</string>
+    <string name="str_home_update_contact_title">更换联系人</string>
+    <string name="str_home_add_contact_sure">确认</string>
+
+    <!-- order fragment -->
+    <string name="str_order_share_coupon">分享行程,立即获得优惠券!</string>
+    <string name="str_order_coupon_money_next">%1$s</string>
+    <string name="str_order_coupon_money">%1$s元优惠券</string>
+    <string name="str_order_my_order">我的订单</string>
+    <string name="str_order_current_text">当前订单</string>
+    <string name="str_order_finsh_text">已完成</string>
+    <string name="str_order_unsub_text">已退订</string>
+    <string name="str_order_number">订单号：%1$s</string>
+    <string name="str_order_special_order_time">下单时间：%1$s</string>
+    <string name="str_order_freedom_charter_start_time">上车时间：%1$s</string>
+    <string name="str_order_type_ticket">城际专车</string>
+    <string name="str_order_uunsub_number">退单号:%1$s</string>
+    <string name="str_order_unsub_time">申请时间：%1$s</string>
+    <string name="str_order_cancelFail">取消订单失败，需要返回首页吗？</string>
+    <string name="str_order_pay_type">支付方式：%1$s</string>
+    <string name="str_order_test_time">2015年10月28日</string>
+    <string name="str_order_list_car_info">%1$s<![CDATA[<font color="#f69603">【%2$s】</font>]]></string>
+    <string name="str_order_detail_vehicle_info_brand">车型：%1$s</string>
+    <string name="str_order_detail_vehicle_info_master_name">司机：%1$s</string>
+    <string name="str_order_detail_vehicle_info_under_line">%1$s</string>
+    <string name="str_order_detail_vehicle_info_exception_tip">车辆异常，平台正在处理中。\n若有疑问，请拨打</string>
+    <!-- 消息列表 -->
+    <string name="str_message_text">消息</string>
+    <!-- 新增地址 -->
+    <string name="str_getaddress_loading">获取地址中</string>
+    <string name="str_chooseaddress_location">当前定位:&#160;%1$s</string>
+    <string name="str_address_item_anothername">[%1$s]</string>
+    <string name="str_chooseaddress_add">新增地址</string>
+    <string name="str_chooseaddress_dialog_hint">请输入别名</string>
+    <string name="str_chooseaddress_dialog_title">别名</string>
+    <string name="str_chooseaddress_tips">地址请选择五成内,若超出五成范围,我们将拒绝接受您的订单</string>
+    <string name="str_name">姓名</string>
+    <string name="str_test_location">成都</string>
+    <string name="str_edit">编辑</string>
+    <string name="str_delete">删除</string>
+    <string name="str_editfile">个人资料</string>
+    <string name="str_getaddress_error">抱歉，未能找到结果</string>
+    <!-- 包车填写订单 -->
+    <string name="str_freedom_charter_contact_default">本人（%1$s）</string>
+    <string name="str_freedom_charter_choose_days">选择行程天数</string>
+    <string name="str_freedom_charter_start_date">什么时候出发</string>
+    <string name="str_freedom_charter_need_back">需要返程</string>
+    <string name="str_freedom_charter_estimate_tip">如需发票,请在发票中心提交开票信息。</string>
+    <string name="str_freedom_charter_billing_instructions">计费说明</string>
+    <string name="str_commit">提交</string>
+    <string name="str_feedback">反馈</string>
+    <string name="str_freedom_charter_one_day_price">起/天</string>
+    <string name="str_freedom_charter_half_defalut_day_price">起/半天</string>
+    <string name="str_freedom_charter_one_km_price">/公里</string>
+    <string name="str_freedom_charter_one_day_price_red">%1$s元起/天</string>
+    <string name="str_freedom_charter_half_day_price_red">%1$s元起/半天</string>
+    <string name="str_freedom_charter_one_km_price_red">%1$s元/公里</string>
+    <string name="str_freedom_charter_estimate">预估价：%1$s元</string>
+    <string name="str_freedom_charter_fee_tip_start">费用：含</string>
+    <string name="str_freedom_charter_fee_tip_end">,不含过路费</string>
+    <string name="str_freedom_charter_no_days_tip">请选择行程天数</string>
+    <string name="str_freedom_charter_no_time_tip">请选择出发时间</string>
+    <string name="str_freedom_charter_no_start_point_tip">请选择上车地点</string>
+    <string name="str_freedom_charter_no_end_point_tip">请选择下车地点</string>
+    <string name="str_freedom_charter_no_select_rule">请勾选同意用车协议</string>
+    <string name="str_freedom_charter_carnumber_choose">%1$d辆</string>
+    <!-- 车辆详情 -->
+    <string name="str_freedom_charter_vheicle_info_time_fee">时长费（%1$s,含%2$s公里）×%3$d辆</string>
+    <string name="str_freedom_charter_vehicle_info_km_fee">里程费（%1$d公里×%2$s元/公里）*%3$d辆</string>
+    <!-- 包车填写订单>>>>>输入行程 -->
+    <string name="str_freedom_charter_write_order_input_trip_title">输入行程</string>
+    <string name="str_freedom_charter_write_order_input_trip_content">输入行程获取报价</string>
+    <string name="str_freedom_charter_write_order_input_trip_get_fee">获取报价</string>
+    <string name="str_freedom_charter_write_order_input_trip_start_place_one">上车地点：</string>
+    <string name="str_freedom_charter_write_order_input_trip_next_place_one">下一站：</string>
+    <string name="str_freedom_charter_write_order_input_trip_end_place">终点：</string>
+    <string name="str_freedom_charter_ensure_order_type">类型：短期包车（%1$s）</string>
+    <string name="str_freedom_charter_ensure_order_vehicle_num">%1$s×%2$d</string>
+    <!-- 包车订单详情 -->
+    <string name="str_freedom_charter_order_detail_use_time">上车时间：%1$s</string>
+    <string name="str_freedom_charter_order_detail_car_num">预定总数：%1$d辆</string>
+    <string name="str_freedom_charter_order_detail_invoice">开具发票</string>
+    <string name="str_freedom_charter_order_detail_need_pay">待付款</string>
+    <string name="str_freedom_charter_order_detail_go_pay">去支付</string>
+    <string name="str_freedom_charter_oredr_detail_bank_transfer">转账信息</string>
+    <!--<string name="str_freedom_charter_order_detail_cancle_order">取消订单</string>-->
+    <!--<string name="str_freedom_charter_order_detail_service">联系客服</string>-->
+    <!--<string name="str_freedom_charter_order_detail_return_order">退订</string>-->
+    <string name="str_freedom_charter_order_detail_start_address">上车地点：%1$s</string>
+    <string name="str_freedom_charter_order_detail_end_address">终点：%1$s</string>
+    <string name="pickerview_year">年</string>
+    <string name="pickerview_month">月</string>
+    <string name="pickerview_day">日</string>
+    <string name="pickerview_hours">时</string>
+    <string name="pickerview_minutes">分</string>
+    <!-- 个人中心 -->
+    <string name="str_personal_center_update_name_no_name">请输入您要修改的名称</string>
+    <string name="str_personal_center_update_name_equals_current_name">与当前名称一致，无需修改。</string>
+    <!-- 开票 -->
+    <string name="str_makeinvoice_title">发票抬头:</string>
+    <string name="str_makeinvoice_content">发票内容:</string>
+    <string name="str_makeinvoice_remark">备注:</string>
+    <string name="str_makeinvoice_receive">收件人:</string>
+    <string name="str_makeinvoice_phone">联系电话:</string>
+    <string name="str_makeinvoice_addressdetaile">详细地址:</string>
+    <string name="str_makeinvoice_pricetype">旅客运输</string>
+    <string name="str_makeinvoice_hint_title">请输入公司名称或个人</string>
+    <string name="str_makeinvoice_hint_receive">请输入收件人姓名</string>
+    <string name="str_makeinvoice_hint_phone">请输入联系电话</string>
+    <string name="str_makeinvoice_hint_address">请输入详细收票地址</string>
+    <string name="str_make_invoice_tip">发票由出车公司开具,发票信息提交后不可更改，请仔细核对后提交!</string>
+    <string name="str_make_invoice_hint_remark">填写备注事项,没有可不填</string>
+    <string name="str_hassubmit">已提交</string>
+    <!-- 消息 -->
+    <string name="str_msg_detail">查看详情</string>
+    <string name="title_activity_common_problem">CommonProblemActivity</string>
+    <string name="title_activity_law">LawActivity</string>
+    <string name="str_start">*</string>
+    <string name="str_freedom_charter_preday">(每天含%1$s公里)</string>
+    <string name="str_freedom_charter_preday_container_ten">(含%1$s公里，含10小时)</string>
+    <string name="str_freedom_charter_half_preday">(含4小时，%1$s公里)</string>
+    <string name="str_freedom_charter_beyong_mila">(超出里程)</string>
+    <!-- 行程天数超时提醒 -->
+    <string name="str_timeout_title">【易来客运】 人工服务</string>
+    <string name="str_timeout_rexian">客服热线</string>
+    <string name="str_timeout_remind">温馨提示：【接送机】服务项目仅限于成都市。</string>
+    <string name="str_timeout_out_msg">您预订的用车天数较多，请拨打客服热线享受VIP定制服务！</string>
+    <string name="str_exceed_car_msg">您预订的车辆、车型数量较多，请拨打客服热线享受VIP定制服务！</string>
+    <!-- passenger number -->
+    <string name="str_passenger_number_one">1</string>
+    <string name="str_passenger_number_two">2</string>
+    <string name="str_passenger_number_three">3</string>
+    <string name="str_passenger_number_four">4</string>
+    <string name="str_passenger_number_five">5</string>
+    <string name="str_passenger_number_six">6</string>
+    <string name="str_passenger_number_hint">温馨提示:</string>
+    <string name="str_passenger_number_hint_one">&#160;儿童(含婴儿)需购全票。乘车人数超过6人请联系客服：</string>
+    <string name="str_passenger_number_no_ticket_hint">该时段票已售罄，请重新选择出发时间!</string>
+    <!-- 专车出发时间选择提示信息 -->
+    <string name="str_start_detail_time_zero_ticket_hint">%1$s&#160;%2$s&#160;&#160;</string>
+    <string name="str_start_use_time_back">%1$s&#160;%2$s</string>
+    <string name="str_starting_time_hint">温馨提示:\n具体上车时间平台将会提前以短信告知!</string>
+    <!-- 更换联系人 -->
+    <string name="str_update_contact_remind">订车成功后将短信通知该乘车人！</string>
+    <string name="str_update_contact_phonebook">通讯录</string>
+    <string name="str_update_contact_namenull">姓名不能为空！</string>
+    <string name="str_update_contact_phoneguding">客观目前暂时不支持固定号码，请输入手机号码</string>
+    <string name="str_update_contact_phonenull">电话号码不能为空！</string>
+    <string name="str_update_contact_phoneformat">电话号码格式不正确！</string>
+    <string name="str_i_know">我知道了</string>
+    <string name="str_never_tip">不再提示</string>
+    <string name="str_gentle_tip">温馨提示</string>
+    <string name="str_gentle_add_upaddress">亲爱的乘客朋友，为了方便您称车，请勿将【上车地点】选择在小区内或司机师傅无法停靠车辆的地方！</string>
+    <string name="str_please_choose">请选择</string>
+    <!-- 新城际专线订单详情 -->
+    <string name="detaile_information_ensureorder">确认订单</string>
+    <string name="detaile_information_contacttxt">联系人</string>
+    <string name="detaile_information_line">路线：%1$s</string>
+    <string name="detaile_information_starttimetxt">上车时间：</string>
+    <string name="detaile_information_start_time">--:--</string>
+    <!--<string name="detaile_information_cartype">乘坐车型：%1$s</string>-->
+    <string name="detaile_information_startplace">%1$s</string>
+    <string name="detaile_information_startplacetxt">上车地点：</string>
+    <string name="detaile_information_discounttxt">优惠抵扣：</string>
+    <string name="detaile_information_moneytxt">行程费用：</string>
+    <string name="detaile_information_show_money">%1$s元×%2$s人</string>
+
+    <string name="detaile_information_paynow">提交订单</string>
+    <string name="detaile_information_endplacetxt">下车地点：</string>
+    <string name="detaile_information_endplace">%1$s</string>
+    <string name="detaile_information_contact">联系人：&#160;&#160;&#160;&#160;%1$s&#160;%2$s</string>
+    <string name="detaile_information_starttime_remind">（具体上车时间平台将会在出发前一天短信告知）</string>
+    <!-- 新城际专线订单 -->
+    <string name="str_special_write_order_show_user_nameandphone">%1$s(%2$s)</string>
+    <string name="str_address_take_onme">到哪接我</string>
+    <string name="str_gainaddress_hint_off">送我去哪儿</string>
+    <string name="str_gainaddress_hint_on">到哪儿接我</string>
+    <string name="str_gainaddress_outservice">您所定位的地址已超出我们的服务范围，建议重新移动地图！</string>
+    <string name="str_gainaddress_hint_top_up">请选择车辆方便停靠的地点！</string>
+    <string name="str_special_write_order_show_starttime">%1$s月%2$s日&#160;%3$s</string>
+    <string name="str_home_people_number">乘车人数</string>
+    <string name="str_home_where_start">到哪儿接我</string>
+    <string name="str_home_where_end">送我去哪儿</string>
+    <string name="str_home_price_danwei">元/人</string>
+    <string name="str_home_price_old">原价%1$s元/人</string>
+    <!-- 总价 发票中心也在用-->
+
+    <string name="str_home_comit_sure">确定提交</string>
+    <string name="str_special_write_order_remind_starttime">请选择出发时间</string>
+    <string name="str_special_write_order_remind_choosestarttimefirst">请您先选择出发时间</string>
+    <string name="str_special_write_order_remind_passengernum">请选择上车人数</string>
+    <string name="str_special_write_order_remind_stratplace">请选择上车地点</string>
+    <string name="str_special_write_order_remind_endplace">请选择下车地点</string>
+    <string name="str_special_write_order_remind_agreement">请勾选用车协议</string>
+    <string name="str_speciale_life_safe_info">[含60万个人保险]</string>
+    <!-- 乘车须知 -->
+    <string name="str_passengernotice">乘车须知</string>
+    <string name="str_passangernotice_persion"><![CDATA[<font color="#000000">儿童(含婴儿)需购</font><font color="#f69603">全票</font><font color="#000000">。</font>]]></string>
+    <string name="str_passangernotice_package"><![CDATA[<font color="#000000">可免费带一件</font><font color="#f69603">非超限</font><font color="#000000">行李</font><font color="#000000">。</font>]]></string>
+    <string name="str_passangernotice_pet"><![CDATA[<font color="#000000">携宠物上车需自带</font><font color="#f69603">宠物笼</font><font color="#000000">。</font>]]></string>
+    <string name="str_passangernotice_ban"><![CDATA[<font color="#f69603">禁止</font><font color="#000000">携带违禁物品上车</font><font color="#000000">。</font>]]></string>
+    <string name="str_passengernotice_detail"><u>查看详情</u></string>
+    <string name="str_confir_travel">确认行程</string>
+    <!-- 转账支付 -->
+    <string name="str_rank_transfer_ordernum">订单号</string>
+    <string name="str_rank_transfer_orderinfo">订单信息</string>
+    <string name="str_rank_transfer_needpay_money">需付款</string>
+    <string name="str_rank_transfer_title">转账支付</string>
+    <string name="str_rank_transfer_hint">选择转账支付后不能更改支付方式，请使用订单号或您的登录手机号作为转账备注。完成转账后，请务必保留转账凭证。</string>
+    <string name="str_rank_transfer_over">我已转账</string>
+    <string name="str_rank_transfer_account_info_hint">请使用即时到账方式汇款至以下账户:</string>
+    <string name="str_rank_transfer_company_name">户&#160;&#160;&#160;名</string>
+    <string name="str_rank_transfer_company_account">账&#160;&#160;&#160;号</string>
+    <string name="str_rank_transfer_bank_name">开户行</string>
+    <string name="str_bank_transfer_tips">温馨提示：</string>
+    <string name="str_bank_transfer_account_remark"><![CDATA[<font color="#df1c1c">*</font>]]>&#160;请使用订单号或您的登录手机号作为转账备注。</string>
+    <string name="str_bank_transfer_confirm_tran"><![CDATA[<font color="#df1c1c">*</font>]]>&#160;完成转账后，请务必保留转账凭证。</string>
+    <string name="str_bank_transfer_foryou_sentcar"><![CDATA[<font color="#df1c1c">*</font>]]>&#160;平台到款后将为您安排车辆。</string>
+    <string name="str_bank_transfer_feedback_problems">*&#160;如有疑问，请联系平台客服</string>
+    <string name="str_bank_transfer_tips_feedback">请使用订单号或您登录手机号作为转账备注。完成转账后，请点击下方"我已转账"按钮，平台将对到款状态进行确认。如有疑问，请联系平台客服400&#8211;822&#8211;5285</string>
+    <string name="str_bank_transfer_toparagraph_updata_status">到款后将更新订单支付状态</string>
+    <!-- 开票中心 -->
+    <string name="str_invoicecenter_caninvoice">可开票</string>
+    <string name="str_invoicecenter_waitinvoice">待开票</string>
+    <string name="str_invoicecenter_alreadyinvoice">已开票</string>
+    <!-- 景区直通车-->
+    <string name="str_scenic_train_cancellation_title">是否确认退订？</string>
+    <string name="str_scenic_train_cancellation_content">退订规则：一经预订如需更改乘车班次或取消订单，请在出发日期前7个工作日致电%1$s,逾期则需承担违约金：\n1.使用日期前1天之前申请取消，不收取损失费；\n2.使用日期前1天12:00之前申请取消，收取50%2$s损失费；\n3.收取日期前1天12:00之后申请取消，收取100%3$s损失费。\n举例:3月15日出发，3月14日之前取消不收取损失，3月14日当天12:00之前取消收取50%4$s损失，3月14日当天12:00之后取消收取100%5$s损失。</string>
+    <string name="str_apply_for_success">申请成功</string>
+    <string name="str_apply_for_success_content">请等待客服审核。审核成功后，退款金额将原路退回至您的银行卡！</string>
+    <!-- 景区直通车填写订单 -->
+    <string name="str_scenic_train_write_order_activity_title">填写订单</string>
+    <string name="str_scenic_train_submit_order">提交订单</string>
+    <string name="str_scenic_train_time">出行日期</string>
+    <string name="str_scenic_train_write_start_off">请选择出行日期</string>
+    <string name="str_scenic_train_start_passenger_num">出行人数</string>
+    <string name="str_scenic_train_contact_info">联系人信息</string>
+    <string name="str_scenic_train_order_detail_look">（填写后用于查看订单）：</string>
+    <string name="str_scenic_train_mobile">手机号</string>
+    <string name="str_scenic_train_auth_code">验证码</string>
+    <string name="str_scenic_train_passenger_info">旅客信息</string>
+    <string name="str_scenic_train_passenger_buy_insurance">（填写后用于购买出行保险）：</string>
+    <string name="str_scenic_train_passenger_info_first">旅客1</string>
+    <string name="str_scenic_train_write_passenger_info_please">请填写旅客信息</string>
+    <string name="str_scenic_train_pay_info">支付信息：</string>
+    <string name="str_scenic_train_contact_service">如有疑问或特殊要求请联系客服：</string>
+    <string name="str_scenic_train_price">商品单价</string>
+    <string name="str_scenic_train_passenger_num">1</string>
+    <!-- 接送机 -->
+    <string name="str_shuttle_machine_estimate">预估价：%1$s元&#160;></string>
+    <string name="str_shuttle_machine_title">接送机</string>
+    <string name="str_pick_up_tab_host_txt">接机</string>
+    <string name="str_delivery_machine_tab_host_txt">送机</string>
+    <string name="str_please_write_contact">请填写联系人</string>
+    <string name="str_please_write_pick_up_number">请输入航班号，司机会免费等您（非必填）</string>
+    <string name="str_please_write_pick_up_receiver_air">飞机抵达时间</string>
+    <string name="str_shuttle_machine_use_car_time">用车时间</string>
+    <string name="str_shuttle_machine_start_place">请输入起点</string>
+    <string name="str_shuttle_machine_end_place">请输入终点</string>
+    <string name="str_please_choose_air_arrival_time">请选择飞机抵达时间</string>
+    <string name="str_please_choose_car_arrival_address">请选择下车位置</string>
+    <string name="str_please_choose_boarding_address">请选择上车位置</string>
+    <string name="str_please_choose_use_car_time">请选择用车时间</string>
+    <string name="str_shuttle_machine_price_detail">%1$s元&#160;+&#160;%2$s元/公里&#160;></string>
+    <string name="str_shuttle_machine_mileage">(含%1$d公里)</string>
+    <string name="str_shuttle_machine_mileage_container">(%1$s)</string>
+    <string name="str_shuttle_machine_single_price">单价</string>
+    <string name="str_shuttle_machine_ensure_order_type">类型：%1$s</string>
+    <string name="str_shuttle_machine_base_price">基础价：%1$s元</string>
+    <string name="str_shuttle_machine_airport_number">航班号：%1$s</string>
+    <!-- 新首页 -->
+    <string name="str_new_home_special_tip">门到门接送，一键回家</string>
+    <string name="str_new_home_special_search_btn">查询</string>
+    <string name="str_new_home_special_line_hot">热：&#160;</string>
+    <string name="str_new_home_travel_line">景区直达</string>
+    <string name="str_new_home_government_enterprise_line">政企用车</string>
+    <string name="str_new_home_shuttle_machine_coupon_intro">奔驰豪华车型</string>
+    <string name="str_new_home_free_coupon_intro">尊享夏季特惠</string>
+    <string name="str_recommend">推荐</string>
+    <string name="str_unsub_reason_choose_plase">请选择退款原因</string>
+    <string name="str_unsub_reason_write_please">请填写退款原因</string>
+</resources>

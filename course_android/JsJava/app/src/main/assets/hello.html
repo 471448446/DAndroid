@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta name="Better" content="test"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <meta charset="utf-8" />
+    <style name="inter_style" type="text/css">
+    body{background-color: write}
+    .testDiv{text-align:right;color:red;background:#e6db22}
+    .catalogue{text-align: center;color: red;font-size:45px;}
+    .subtitleAll{text-align: left;color: #56cfef;font-size:20px;margin-left: 20px;margin-bottom: 8px}
+    .subtitle{text-align: left;color: #ad80f1;font-size:30px;padding-left: 200px;background-color: yellow}
+    span.testSpanColor{color: #d3e1f6;}
+    </style>
+    head
+  </head>
+  <body class="index" >
+    <header>
+    	<h1 style="background-color:red;font-family:verdana;text-align:center">基本的四个标签</h1>
+    	<p align="right" bgcolor="yellow">h,p,a,img</p>
+    	<hr />
+    </header>
+    <a href="tel:4080-225-285">4080-225-285</a>
+    <p>
+      <!--命名锚经常用于在大型文档开始位置上创建目录。可以为每个章节赋予一个命名锚，然后把链接到这些锚的链接放到文档的上部。如果您经常访问百度百科，您会发现其中几乎每个词条都采用这样的导航方式-->
+    <div class="catalogue"><a name="mulu"><p >目录</p></a></div>
+    <div class="subtitleAll"><a href="#mulu1">1 链接</a><br /></div>
+    <div class="subtitleAll"><a href="#mulu2">2 图片</a><br /></div>
+    <div class="subtitleAll"><a href="#mulu3">3 表格</a><br /></div>
+    <div class="subtitleAll"><a href="#mulu4">4 列表</a><br /></div>
+    <div class="subtitleAll"><a href="#mulu5">5 div，span</a><br /></div>
+    </p>
+    <p>
+    <div class="subtitle"><a name="mulu1"> <p >链接demo</p><br/></a></div>
+    <a href="#tips">1 瞄的用法：点击跳转到tips</a><br/>
+    <a href="http://www.baidu.com">2 百度一下</a> <br/>
+    3 点击图片<a href="http://www.baidu.com" target="_blank"><img src="next.png" width="30" height="40">
+    </a>
+    <br/>
+    </p>
+    <!--假如某个 HTML 文件包含十个图像，那么为了正确显示这个页面，需要加载 11 个文件。加载图片是需要时间的，所以我们的建议是：慎用图片。=======>很明显还是要加载图片-->
+    <div class="subtitle"><a name="mulu2"> <p >图片<img src="/ws/eg_cute.gif">demo</p><br/></a></div>
+    <!--通过改变 img 标签的 "height" 和 "width" 属性的值，您可以放大或缩小图像。-->
+    <img src="/ws/hellos.png" alt="本来是一张图片,没有加载出来" width="300" height="300"/>
+    <img src="/ws/hello.png" alt="本来是一张图片" width="500" height="300"/><br />
+    1 网页背景图片：<!--<body background="/ws/hello.png">--><br/>
+    <!--请注意，bottom 对齐方式是默认的对齐方式。-->
+    2 字中间<img src="/ws/eg_cute.gif" align="top">插图片
+    3 <p><img src="/ws/eg_cute.gif" align="left">浮动图片，你知道是什么么？带有图像的一个段落。图像的 align 属性设置为 "left"。图像将浮动到文本的左侧。带有图像的一个段落。图像的 align 属性设置为 "right"。图像将浮动到文本的右侧。</p><br />
+    4 为图片显示替换文本 5 调整图像尺寸 6 制作图像链接 7 背景图片 8 创建图像映射
+    <br/>
+    <div class="subtitle"><p ><a name="mulu3">表格</a></p></div>
+    <table border="5" style="background:white" cellspace="5">
+        <caption>大表头---标题，感觉有点像表的描述，第几张表,表格背景色是白色哦</caption>
+        <tr><th style="background:red">表头：大多数浏览器会把表头显示为粗体居中的文本</th> <th>table的border属性添加边框 border="1" 添加边框值越大边框外边框越黑</th></tr>
+        <tr>
+            <td>表格元素</td>
+            <td>表格元素图片<img src="/ws/hello.png" alt="表格元素图片" width="100" height="30"></td>
+            <td rowspan="3">我占三列</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>空元素:这个空的单元格的边框没有被显示出来。为了避免这种情况，在空单元格中添加一个空格占位符，就可以将边框显示出来。</td>
+        </tr>
+        <tr>
+            <td>嵌套table 有cellPadding,cellspacing</td>
+            <td>
+                <table border="1" cellpadding="15" cellspacing="10" background="/ws/hello.png"> 
+                    <tr><td>A</td><td>B</td></tr>
+                    <tr><td>B</td><td>D</td></tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" style="text-align:center">我占三行</td>
+        </tr>
+        <tr>
+            <td background="/ws/hello.png">单元格背景颜色以及图片</td>
+            <td style="text-align:right">在表格单元中排列内容，文字对齐方式：style以及align</td>
+        </tr>
+        <tr>
+            <td>frame 属性无法在 Internet Explorer 中正确地显示。演示如何使用 "frame" 属性来控制围绕表格的边框</td>
+            <td >
+                <table>
+                    <tr>
+                        <td>
+                            <table frame="box" cellpadding="15" cellspacing="10" > 
+                                <tr><td>A</td><td>B</td></tr>
+                                <tr><td>B</td><td>D</td></tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table frame="vsides" cellpadding="15" cellspacing="10" > 
+                                <tr><td>A</td><td>B</td></tr>
+                                <tr><td>B</td><td>D</td></tr>
+                             </table>
+                        </td>
+                        <td>
+                            <table frame="below" cellpadding="15" cellspacing="10" > 
+                                <tr><td>A</td><td>B</td></tr>
+                                <tr><td>B</td><td>D</td></tr>
+                             </table>
+                        </td>
+                        <td>
+                            <table frame="above" cellpadding="15" cellspacing="10" > 
+                                <tr><td>A</td><td>B</td></tr>
+                                <tr><td>B</td><td>D</td></tr>
+                             </table>
+                        </td>
+                        <td>
+                            <table frame="hsides" cellpadding="15" cellspacing="10" > 
+                                <tr><td>A</td><td>B</td></tr>
+                                <tr><td>B</td><td>D</td></tr>
+                             </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <div class="subtitle"><p ><a name="mulu4">列表</a></p></div>
+    两个序列标签，以及嵌套，定义列表<br/>
+    <p>无序列表<br />
+        问：你妈妈跟你女朋友同事掉进水里，你改先救谁？
+        <ul type="选择题">
+            <li>A.先救妈妈
+                <ul type="reason">
+                    <li>生体发肤受之父母</li>
+                    <li>不解释</li>
+                </ul>
+            </li>
+            <li>B.先救女朋友
+                <ol start="99">
+                    <li>离得进一点</li>
+                    <li>test</li>
+                </ol>
+            </li>
+        </ul>
+    </p>
+    <p>有顺序列表
+        <ol start="1" type="答案">
+            <li>A</li>
+            <li>B</li>
+        </ol>
+    </p>
+    <div>
+       <div class="subtitle"><a name="mulu5"> <p >div,span</p></a></div>
+       <p>大多数 HTML 元素被定义为块级元素或内联元素。块：&nbsp;块例子：&lt;h1&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;table&gt;</p><br/>内链：&lt;a&gt;&lt;img&gt;
+       HTML &lt;div&gt; 元素是块级元素，它是可用于组合其他 HTML 元素的容器。&lt;div&gt; 元素的另一个常见的用途是文档布局。它取代了使用表格定义布局的老式方法。使用 &lt;table&gt;元素进行文档布局不是表格的正确用法。&lt;table&gt;元素的作用是显示表格化的数据。<br/>
+       <div style="color:#00ff00">
+        <p>你看到的&lt;p&gt;</p>
+        <p>两个在一个div下面</p>
+        <p><span class="testSpanColor">span 包裹some text.</span>//span zai div 中.没用span的颜色是div定义的颜色</p>
+       </div>
+       <p><span class="testSpanColor">span 包裹some text.</span>//span 不在 div 中.注意span与div在&lt;style&gt;申明class不一样，区别。</p>
+       <div class="testDiv">
+        <p>你看到的&lt;p&gt;</p>
+        <p>两个在一个div下面</p>
+       </div>
+    </div>
+
+    <p><q>Is you a SB.</p><blockquote cite="http://wwww.baidu.com">from baidu cite</blockquote>
+    <p>To open a file, select:</p>
+    <p><kbd>File | Open...</kbd></p><br/>
+    代码样式
+    <code > var version={
+      firstName:"Bill",
+      lastName:"Fuck"
+      height:"50"
+    }</code><br />
+    <samp>for(int i=50;i<100;i++){
+      print("this is p="+i);
+    }
+    </samp><br/>
+    <a name="tips">这是一个提示，你等会跳转过来啊。</a>
+ </html>

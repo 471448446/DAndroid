@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_unsub_reason_item_Lay"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="@dimen/border_space_normal">
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/dialog_unsub_reason_item_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_unsub_reason_choose"
+        android:paddingBottom="@dimen/border_space_normal"
+        android:paddingLeft="@dimen/border_space_sec"
+        android:paddingRight="@dimen/border_space_sec"
+        android:paddingTop="@dimen/border_space_normal"
+        android:singleLine="true"
+        android:text="@string/str_test_txt"
+        android:textColor="@color/unsub_reason_txt"
+        android:textSize="@dimen/text_size_ms" />
+
+</LinearLayout>

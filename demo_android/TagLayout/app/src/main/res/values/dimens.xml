@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- 通用文字大小 -->
+    <!-- 最小使用字体，如：时间显示 -->
+    <dimen name="text_size_micro_micro">11sp</dimen>
+    <dimen name="text_size_micro">12sp</dimen>
+    <dimen name="text_size_micro_plus">13sp</dimen>
+    <!-- 小字体，如：兑奖信息 -->
+    <dimen name="text_size_small">14sp</dimen>
+    <!-- 二级内容，如：赠送列表理由，内容 -->
+    <dimen name="text_size_ms">15sp</dimen>
+    <!-- 常规内容字体，如：赠送列表描述 -->
+    <dimen name="text_size_ml">16sp</dimen>
+    <!--用于黄色按钮-->
+    <dimen name="text_size_ml_plus">17sp</dimen>
+    <!-- 中号字体，如：我的，姓名 -->
+    <dimen name="text_size_medium">18sp</dimen>
+    <!-- 大字体，如：标题 -->
+    <dimen name="text_size_bl">20sp</dimen>
+    <!--文字间距 一般-->
+    <dimen name="text_line_space_simple">3dp</dimen>
+    <!-- 优惠价格 -->
+    <dimen name="text_size_coupon_big">48sp</dimen>
+    <dimen name="text_size_action_big">22sp</dimen>
+    <dimen name="common_radius">7dp</dimen>
+    <dimen name="radius_bottomOrderAction">3dp</dimen>
+
+    <!-- 边距 -->
+    <dimen name="border_space">8dip</dimen>
+    <dimen name="border_space_half">4dip</dimen>
+    <dimen name="border_space_normal">6dip</dimen>
+    <dimen name="border_space_sec">10dip</dimen>
+    <dimen name="border_space_sec_max">15dip</dimen>
+    <dimen name="border_space_sec_max_m">20dip</dimen>
+    <dimen name="border_search">40dp</dimen>
+    <dimen name="border_space_max">50dp</dimen>
+    <dimen name="border_space_max_half">25dp</dimen>
+    <!-- 标题，导航栏 -->
+    <dimen name="tab_height">45dip</dimen>
+    <dimen name="top_bar_height">45dip</dimen>
+    <dimen name="bottom_bar_height">53dip</dimen>
+    <dimen name="title_back_padding_left">15dp</dimen>
+    <dimen name="title_back_padding_right">15dp</dimen>
+    <!-- title操作字体，如：取消，确认等 -->
+    <dimen name="title_operation_text_size">17sp</dimen>
+    <!-- 文本框   比如个人中心  输入框 -->
+    <dimen name="input_edit_layout_height">44dip</dimen>
+    <!-- 退订详情 -->
+    <dimen name="unsub_order_detail_item_height">44dip</dimen>
+    <!-- 订单详情 -->
+    <dimen name="order_detail_running_item_height">43dip</dimen>
+    <dimen name="order_detail_running_item_left">@dimen/border_space_sec_max</dimen>
+    <dimen name="order_detail_running_item_right">18dip</dimen>
+    <dimen name="order_detail_bottom_btn_height">36dip</dimen>
+    <!-- 自由包车订单详情 -->
+    <dimen name="freedom_charter_order_detail_item_left_distance">25dip</dimen>
+    <dimen name="freedom_charter_order_detail_money_distance">2dip</dimen>
+    <!-- 顶部按钮栏高度 -->
+    <dimen name="pickerview_topbar_height">44dp</dimen>
+    <!-- 顶部按钮paddingLeft -->
+    <dimen name="pickerview_topbar_paddingleft">10dp</dimen>
+    <!-- 顶部按钮paddingRight -->
+    <dimen name="pickerview_topbar_paddingright">30dp</dimen>
+    <!-- 顶部按钮文字大小 -->
+    <dimen name="pickerview_topbar_btn_textsize">20sp</dimen>
+    <dimen name="pickerview_topbar_title_textsize">21sp</dimen>
+    <dimen name="textview_padd_top">15dp</dimen>
+    <!-- 城际专线标题间距 -->
+    <dimen name="special_padd_top">4dip</dimen>
+    <!-- 对话框圆角大小 -->
+    <dimen name="corner_dialog">5dp</dimen>
+    <!-- 设置wheelview上下间距 -->
+    <dimen name="whl_view_margin">65dip</dimen>
+    <dimen name="alphabet_size">12dip</dimen>
+    <dimen name="umeng_socialize_pad_window_height">350dip</dimen>
+    <dimen name="umeng_socialize_pad_window_width">580dip</dimen>
+    <dimen name="freedom_charter_hide_vehicle_width">100dip</dimen>
+    <dimen name="freedom_charter_hide_vehicle_height">40dip</dimen>
+    <!-- 地址 drawable padding -->
+    <dimen name="address_drawable_padding">@dimen/border_space_sec</dimen>
+    <!-- 景区车填写订单顶部包裹图片的高度 -->
+    <dimen name="scenic_train_container_height">120dip</dimen>
+    <dimen name="scenic_train_preferential_project_padding">2dip</dimen>
+
+</resources>
