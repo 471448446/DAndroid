@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FlowTagLayout">
+        <!--tag对齐方式-->
+        <attr name="tagGravity">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+        <!--最大行数-->
+        <attr name="tagMaxRow" format="integer" />
+    </declare-styleable>
+</resources>

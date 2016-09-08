@@ -2,6 +2,7 @@ package better.taglayout;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,12 @@ public class MainActivity extends AppCompatActivity {
 //                ((TagsAdapter)tagLayout.getAdapter()).setList(getList2());
 //            }
 //        },3000);
+        List<String> list=new ArrayList<>();
+        list.add("傻逼1");
+        list.add("傻逼2");
+        list.add("傻逼3");
+        ((FlowTagLayout)findViewById(R.id.tagLayout2)).setAdapter(new ArrayAdapter<>(
+                MainActivity.this,R.layout.dialog_item_unsubreason2, R.id.dialog_unsub_reason_item_tv,list));
     }
 
     private List<String> getList() {
