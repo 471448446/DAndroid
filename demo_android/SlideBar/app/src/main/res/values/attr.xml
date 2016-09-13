@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SlideBarView">
+        <attr name="slideBarTextSize" format="dimension" />
+        <attr name="slideBarTextColor" format="reference|color" />
+        <attr name="slideBarTextPressColor" format="reference|color" />
+    </declare-styleable>
+</resources>
