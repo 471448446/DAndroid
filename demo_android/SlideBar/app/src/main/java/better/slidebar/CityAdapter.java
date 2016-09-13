@@ -24,9 +24,9 @@ public class CityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (head == viewType) {
-            return new HeadHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_head, parent, false));
+            return new HeadHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_slide_head, parent, false));
         } else {
-            return new CityHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_city, parent, false));
+            return new CityHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_slide_city, parent, false));
         }
     }
 
