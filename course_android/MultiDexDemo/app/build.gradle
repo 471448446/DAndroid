@@ -1,0 +1,45 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.1"
+
+    defaultConfig {
+        applicationId "better.myapplication"
+        minSdkVersion 15
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+
+        // Enabling multidex support.
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    //Error:java.lang.OutOfMemoryError: GC overhead limit exceeded
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+}
+//这步是引用aar的第一步:这个是添加一个本地仓库，并把libs目录作为仓库的地址。
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:support-v4:24.2.0'
+    compile 'com.android.support:design:24.2.0'
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+    compile 'com.android.support:multidex:1.0.0'
+    //这步是引用aar的第二步:name是aar的文件名称 其中name就是libs目录下 xx.aar文件名称.ext,就是 xx.aar的扩展名
+    compile(name:'fresco-0.13.0', ext:'aar')
+}
