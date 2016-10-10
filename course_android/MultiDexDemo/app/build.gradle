@@ -1,9 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
+//    signingConfigs {
+//        config {
+//            keyPassword '**'
+//            storeFile file('/Users/better/Documents/WorkSpace/android/Key/betterandroidkey.jks')
+//            storePassword '**'
+//        }
+//    }
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
-
     defaultConfig {
         applicationId "better.myapplication"
         minSdkVersion 15
@@ -41,5 +47,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile 'com.android.support:multidex:1.0.0'
     //这步是引用aar的第二步:name是aar的文件名称 其中name就是libs目录下 xx.aar文件名称.ext,就是 xx.aar的扩展名
-    compile(name:'fresco-0.13.0', ext:'aar')
+    compile(name: 'fresco-0.13.0', ext: 'aar')
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
 }
