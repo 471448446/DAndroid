@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/empty_bg"
+    android:clickable="true" >
+
+    <LinearLayout
+        android:id="@+id/lr_proxy_loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:padding="12dip" >
+
+        <ProgressBar
+            android:layout_width="30dip"
+            android:layout_height="30dip"
+            android:indeterminate="false"
+            android:indeterminateDrawable="@drawable/empty_loading_progress" />
+
+        <TextView
+            android:id="@+id/lr_proxy_loading_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip"
+            android:text="@string/str_loading_wait"
+            android:textColor="#ffc0c0c0"
+            android:textSize="16sp" >
+        </TextView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/lr_proxy_retry"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" >
+
+        <TextView
+            android:id="@+id/lr_proxy_retry_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="@string/str_loading_retry_hint"
+            android:textColor="#ffc0c0c0" />
+
+        <Button
+            android:id="@+id/lr_proxy_button_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="42dip"
+            android:layout_below="@id/lr_proxy_retry_message"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:background="@null"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/str_loading_retry"
+            android:textColor="@color/color_retry_button_txt"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

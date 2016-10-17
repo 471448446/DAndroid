@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BRecyclerView">
+        <!-- 是否显示loadingmore view-->
+        <attr name="isNeedFooter" format="boolean"/>
+        <attr name="isNeedHeader" format="boolean"/>
+        <attr name="isNeedEmptyView" format="boolean"/>
+    </declare-styleable>
+</resources>

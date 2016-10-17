@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BetterLib</string>
+
+    <string name="str_loading_wait">请稍候…</string>
+    <string name="str_loading_retry">重新加载</string>
+    <string name="str_loading_retry_hint">网络连接失败，请稍候再试！</string>
+    <string name="str_loading_refresh">刷新</string>
+
+    <string name="str_loading_footer_all">已加载全部</string>
+    <string name="str_loading_header_all">已加载全部</string>
+</resources>
