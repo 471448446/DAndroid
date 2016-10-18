@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">帮助</string>
+    <string name="lock">锁屏</string>
+    <string name="short_cat">快捷方式</string>
+    <string name="des">点击激活会锁定屏幕</string>
+    <string name="reboot">重启</string>
+</resources>
