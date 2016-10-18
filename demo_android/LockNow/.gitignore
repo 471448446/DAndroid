@@ -1,6 +1,6 @@
 #https://github.com/github/gitignore/blob/master/Android.gitignore
 #built application files
-#*.apk
+*.apk
 *.ap_
 
 # files for the dex VM
@@ -51,5 +51,6 @@ captures/
 
 # Keystore files
 *.jks
+
 
 
