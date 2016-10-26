@@ -6,9 +6,8 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 import better.hello.App;
-import better.hello.http.call.RequestCallback;
+import better.hello.http.call.RequestInfo;
 import better.hello.util.Utils;
-import better.lib.waitpolicy.WaitPolicy;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 
@@ -18,44 +17,38 @@ import rx.Subscriber;
  */
 public class BaseSubscriber<T> extends Subscriber<T> {
 
-    private RequestCallback<T> mRequestCallback;
-    private WaitPolicy mWaitPolicy;
-
-    public BaseSubscriber(RequestCallback<T> requestCallback) {
-        mRequestCallback = requestCallback;
-    }
-
-    public BaseSubscriber(RequestCallback<T> requestCallback, WaitPolicy wait) {
-        mRequestCallback = requestCallback;
-        this.mWaitPolicy = wait;
+    private RequestInfo<T> mRequestInfo;
+    public BaseSubscriber(RequestInfo<T> info){
+        this.mRequestInfo=info;
     }
 
     @CallSuper
     @Override
     public void onStart() {
         super.onStart();
-        if (null != mWaitPolicy) mWaitPolicy.displayLoading();
-        if (mRequestCallback != null) {
-            mRequestCallback.onStart(mWaitPolicy);
+        if (null != mRequestInfo && null != mRequestInfo.getWaitPolicy())
+            mRequestInfo.getWaitPolicy().displayLoading();
+        if (null != mRequestInfo && mRequestInfo.getRequestCallback() != null) {
+            mRequestInfo.getRequestCallback().onStart(mRequestInfo);
         }
     }
 
     @CallSuper
     @Override
     public void onCompleted() {
-        if (null != mWaitPolicy) {
-            mWaitPolicy.disappear();
+        if (null != mRequestInfo && null != mRequestInfo.getWaitPolicy()) {
+            mRequestInfo.getWaitPolicy().disappear();
         }
-        if (mRequestCallback != null) {
-            mRequestCallback.onComplete(mWaitPolicy);
+        if (null != mRequestInfo && mRequestInfo.getRequestCallback() != null) {
+            mRequestInfo.getRequestCallback().onComplete(mRequestInfo);
         }
     }
 
     @CallSuper
     @Override
     public void onNext(T t) {
-        if (mRequestCallback != null) {
-            mRequestCallback.onSuccess(mWaitPolicy, t);
+        if (null != mRequestInfo && mRequestInfo.getRequestCallback() != null) {
+            mRequestInfo.getRequestCallback().onSuccess(mRequestInfo, t,"");
         }
     }
 
@@ -84,10 +77,10 @@ public class BaseSubscriber<T> extends Subscriber<T> {
         } else if (e instanceof SocketTimeoutException) {
             errorMsg = "网络连接超时！";
         }
-        if (null != mWaitPolicy)
-            mWaitPolicy.displayRetry(errorMsg);
-        if (mRequestCallback != null)
-            mRequestCallback.onError(mWaitPolicy, errorMsg);
+        if (null != mRequestInfo && null != mRequestInfo.getWaitPolicy())
+            mRequestInfo.getWaitPolicy().displayRetry(errorMsg);
+        if (null != mRequestInfo && mRequestInfo.getRequestCallback() != null)
+            mRequestInfo.getRequestCallback().onError(mRequestInfo, errorMsg);
     }
 
 }

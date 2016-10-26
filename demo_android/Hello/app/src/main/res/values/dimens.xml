@@ -2,4 +2,31 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- 通用文字大小 -->
+    <!-- 最小使用字体，如：时间显示 -->
+    <dimen name="text_size_micro_micro">11sp</dimen>
+    <dimen name="text_size_micro">12sp</dimen>
+    <dimen name="text_size_micro_plus">13sp</dimen>
+    <!-- 小字体，如：兑奖信息 -->
+    <dimen name="text_size_small">14sp</dimen>
+    <!-- 二级内容，如：赠送列表理由，内容 -->
+    <dimen name="text_size_ms">15sp</dimen>
+    <!-- 常规内容字体，如：赠送列表描述 -->
+    <dimen name="text_size_ml">16sp</dimen>
+    <!--用于黄色按钮-->
+    <dimen name="text_size_ml_plus">17sp</dimen>
+    <!-- 中号字体，如：我的，姓名 -->
+    <dimen name="text_size_medium">18sp</dimen>
+    <!-- 大字体，如：标题 -->
+    <dimen name="text_size_bl">20sp</dimen>
+    <!-- 边距 -->
+    <dimen name="border_space">8dip</dimen>
+    <dimen name="border_space_half">4dip</dimen>
+    <dimen name="border_space_normal">6dip</dimen>
+    <dimen name="border_space_sec">10dip</dimen>
+    <dimen name="border_space_sec_max">15dip</dimen>
+    <dimen name="border_space_sec_max_m">20dip</dimen>
+    <dimen name="border_search">40dp</dimen>
+    <dimen name="border_space_max">50dp</dimen>
+    <dimen name="border_space_max_half">25dp</dimen>
 </resources>

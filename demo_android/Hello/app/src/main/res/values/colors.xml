@@ -3,4 +3,36 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <!--背景颜色 灰-->
+    <color name="colorLayBg">@color/colorBackgroundSimple</color>
+
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#3C3C3C</color>
+    <color name="colorGray">#A0A0A0</color>
+    <color name="colorGrayPress">#EDE9E9</color>
+    <color name="colorGreen">#15F910</color>
+    <!-- 需要分白天黑夜的 ===========s===========-->
+    <!-- 分割线颜色-->
+    <color name="colorHorizontalDivision">#EBEBEB</color>
+    <!--一般的lay背景-->
+    <color name="colorBackgroundSimple">#FAFAFA</color>
+    <color name="colorBackgroundSimplePress">#D3E5F5</color>
+    <color name="colorPreferenceFragmentBg">#FAFAFA</color>
+    <!--比如list-->
+    <!--<color name="colorDividerSimple">#EAEEF4</color>-->
+    <!--一般字体颜色 黑色-->
+    <color name="textColorPrimary">#1C1C1C</color>
+    <color name="textColorSecond">#383838</color>
+    <color name="textColorThird">#777777</color>
+    <color name="colorTabTextSelect">#ffffff</color>
+    <color name="colorTabTextDefault">#DCDCDC</color>
+
+    <!--listView-->
+    <color name="colorListDividerSimple">#EAEEF4</color>
+    <color name="colorListItemSimple">#FAFAFA</color>
+    <color name="colorListItemSimplePress">#F0EBEB</color>
+    <!-- 需要分白天黑夜的 ===========e===========-->
+
+    <color name="color_yellow">#f69603</color>
+    <color name="color_yellow_press">#F8B349</color>
 </resources>

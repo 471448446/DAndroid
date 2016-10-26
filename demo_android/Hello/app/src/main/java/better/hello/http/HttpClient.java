@@ -24,10 +24,13 @@ public class HttpClient {
         public Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
             long t1 = System.nanoTime();
-            Utils.d(C.HTTP_TAG, String.format("Sending request %s on %s%n%s", request.url(), chain.connection(), request.headers()));
+            Utils.d(C.HTTP_TAG, String.format("---->Sending request %s on %s%n%s", request.url(), chain.connection(), request.headers()));
             Response response = chain.proceed(request);
             long t2 = System.nanoTime();
-            Utils.d(C.HTTP_TAG, String.format(Locale.getDefault(), "Received response for %s in %.1fms%n%s", response.request().url(), (t2 - t1) / 1e6d, response.headers()));
+            Utils.d(C.HTTP_TAG, String.format(Locale.getDefault(), "---->Received response for %s in %.1fms%n%s", response.request().url(), (t2 - t1) / 1e6d, response.headers()));
+//            if (response.body()!=null&&response.body().bytes()!=null){
+//                Utils.d(C.HTTP_TAG,String.valueOf(response.body().bytes()));
+//            }
             return response;
         }
     };

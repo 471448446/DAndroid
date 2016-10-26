@@ -6,6 +6,30 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--ERROR:This Activity already has an action bar supplied by the window decor. Do not request Window.FEATURE_SUPPORT_ACTION_BAR and set windowActionBar to false in your theme to use a Toolbar instead.-->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <!--====细线====-->
+    <!-- 竖直分割线 -->
+    <style name="verticaldivision">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/colorHorizontalDivision</item>
+    </style>
+    <!-- 水平分割线 -->
+    <style name="horizontalDivision">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/colorHorizontalDivision</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="news_summary_photo_iv">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">@dimen/border_space_normal</item>
+        <item name="android:scaleType">centerCrop</item>
     </style>
 
 </resources>

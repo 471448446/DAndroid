@@ -48,6 +48,7 @@ public class NewsListBean {
     private boolean hasIcon;
     private String docid;
     private String title;
+    private String ltitle;
     private int order;
     private int priority;
     private String lmodify;
@@ -302,6 +303,14 @@ public class NewsListBean {
 
     public void setImgextra(List<ImgextraBean> imgextra) {
         this.imgextra = imgextra;
+    }
+
+    public String getLtitle() {
+        return ltitle;
+    }
+
+    public void setLtitle(String ltitle) {
+        this.ltitle = ltitle;
     }
 
     public static class AdsBean {
