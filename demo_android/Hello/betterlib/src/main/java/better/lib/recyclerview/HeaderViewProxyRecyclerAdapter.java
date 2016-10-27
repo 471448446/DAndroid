@@ -92,9 +92,11 @@ public class HeaderViewProxyRecyclerAdapter extends RecyclerView.Adapter<Recycle
     }
     public void addHeadViewProxy(EmptyViewProxy headViewProxy){
         this.mHeadViewProxy=headViewProxy;
+        notifyDataSetChanged();
     }
     public void addFooterViewProxy(EmptyViewProxy footerViewProxy){
         this.mFooterViewProxy=footerViewProxy;
+        notifyDataSetChanged();
     }
 
     public EmptyViewProxy getHeadViewProxy() {
@@ -105,12 +107,14 @@ public class HeaderViewProxyRecyclerAdapter extends RecyclerView.Adapter<Recycle
         return mFooterViewProxy;
     }
 
-    public void setIsShowFooterView(boolean isShowFooterView) {
+    public HeaderViewProxyRecyclerAdapter setIsShowFooterView(boolean isShowFooterView) {
         this.isShowFooterView = isShowFooterView;
+        return this;
     }
 
-    public void setIsShowHeaderView(boolean isShowHeaderView) {
+    public HeaderViewProxyRecyclerAdapter setIsShowHeaderView(boolean isShowHeaderView) {
         this.isShowHeaderView = isShowHeaderView;
+        return this;
     }
 
     public void showHeaderView(){

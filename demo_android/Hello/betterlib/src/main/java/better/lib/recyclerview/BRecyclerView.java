@@ -3,7 +3,6 @@ package better.lib.recyclerview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -85,18 +84,16 @@ public class BRecyclerView extends RecyclerView {
     @Override
     public void setAdapter(Adapter adapter) {
         super.setAdapter(prepareProxyAdapter(adapter));
-        if (isNeedEmptyView) {
-            if (null != adapter) {
-                adapter.registerAdapterDataObserver(emptyObserver);
-            }
-            emptyObserver.onChanged();//不一定有用，没有完成布局 获取不到parent
-        }
     }
 
     private HeaderViewProxyRecyclerAdapter prepareProxyAdapter(Adapter adapter) {
-        proxyRecyclerAdapter = new HeaderViewProxyRecyclerAdapter(adapter);
-        proxyRecyclerAdapter.setIsShowFooterView(isNeedFooter);
-        proxyRecyclerAdapter.setIsShowHeaderView(isNeedHeader);
+        if (null == proxyRecyclerAdapter){
+            proxyRecyclerAdapter = new HeaderViewProxyRecyclerAdapter(adapter).setIsShowFooterView(isNeedFooter).setIsShowHeaderView(isNeedHeader);
+            proxyRecyclerAdapter.registerAdapterDataObserver(emptyObserver);
+        }else {
+            proxyRecyclerAdapter.setAdapter(adapter);
+        }
+        emptyObserver.onChanged();//不一定有用，没有完成布局 获取不到parent
         return proxyRecyclerAdapter;
     }
 
@@ -173,36 +170,30 @@ public class BRecyclerView extends RecyclerView {
             removeRecyclerEmptyView();
             mEmptyViewProxy = proxy;
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-            this.getViewTreeObserver().removeOnGlobalLayoutListener(layoutListener);
         if (getWidth() == 0) {
-            this.getViewTreeObserver().addOnGlobalLayoutListener(getLayoutListener());
+            this.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    if (!hasPreparedEmpty) {
+                        hasPreparedEmpty = true;
+                        if (isNeedEmptyView) {
+                            addRecyclerEmptyView();
+                        }
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                            BRecyclerView.this.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+                }
+            });
         } else {
             addRecyclerEmptyView();
         }
     }
 
-    @NonNull
-    private ViewTreeObserver.OnGlobalLayoutListener getLayoutListener() {
-        layoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (!hasPreparedEmpty) {
-                    hasPreparedEmpty = true;
-                    if (isNeedEmptyView) {
-                        addRecyclerEmptyView();
-                    }
-                }
-            }
-        };
-        return layoutListener;
-    }
 
     private void adapterItemChanged() {
-        Adapter<?> adapter = getWrappedAdapter();
-        if (null != adapter && null != mEmptyViewProxy && hasPreparedEmpty) {
-            log("adapter count=" + adapter.getItemCount());
-            if (mDefaultItemCount == adapter.getItemCount()) {
+        if (null != proxyRecyclerAdapter && null != mEmptyViewProxy && hasPreparedEmpty) {
+            log("adapter count=" + proxyRecyclerAdapter.getItemCount());
+            if (mDefaultItemCount == proxyRecyclerAdapter.getItemCount()) {
                 BaseUtils.setGone(BRecyclerView.this);
                 BaseUtils.setVisible(mEmptyViewProxy.getProxyView());
             } else {

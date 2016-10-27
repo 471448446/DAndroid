@@ -50,7 +50,7 @@ public abstract class DataSourceDbImpl<T> implements DataSource<T> {
     public boolean isNeedLoadFromNet() {
         if (isLocalEmpty) {
             isLocalEmpty = false;
-            return false;
+            return true;
         }
         return isLocalEmpty;
     }
