@@ -23,6 +23,10 @@ public class HttpUtil {
                 .compose(new BaseSchedulerTransformer<Map<String, List<NewsListBean>>>());
     }
 
+    /**
+     * Des 新闻详情
+     * Create By better on 2016/10/26 13:42.
+     */
     public static Observable<Map<String, NewsDetailsBean>> getNewDetail(String postId) {
         return RetrofitHelper.getInstance(HostType.NETEASE_NEWS_VIDEO).getApiService().getNewsDetail(postId)
                 .compose(new BaseSchedulerTransformer<Map<String, NewsDetailsBean>>());

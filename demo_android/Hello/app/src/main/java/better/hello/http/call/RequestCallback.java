@@ -17,15 +17,15 @@ public interface RequestCallback<T> {
      *
      * @param data 数据
      */
-    void onSuccess(RequestInfo<T> requestInfo, T data,Object o);
+    void onSuccess(RequestInfo<T> requestInfo, T data, Object o);
 
     /**
-     * 请求之前调用
+     * 请求之前调用《默认效果在BaseSubscribe里面已经实现
      */
     void onStart(RequestInfo<T> requestInfo);
 
     /**
-     * 请求完成调用
+     * 请求完成调用《默认效果在BaseSubscribe里面已经实现
      */
     void onComplete(RequestInfo<T> requestInfo);
 }

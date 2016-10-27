@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.news.detail.NewsPhotoDetailActivity" />
-        <activity android:name=".ui.news.detail.NewsTextDetailsActivity"/>
+        <activity android:name=".ui.news.detail.NewsTextDetailsActivity" />
+        <activity android:name=".ui.splash.SplashActivity"></activity>
     </application>
 
 </manifest>

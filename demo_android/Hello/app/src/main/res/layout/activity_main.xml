@@ -6,19 +6,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="better.hello.ui.MainActivity">
-
-    <com.roughike.bottombar.BottomBar
-        android:id="@+id/main_bottomNav"
+    <!--
+    底部导航栏高度默认是 56dp。
+    菜单元素只能是 3~5 个。如果个数少于3个或者多于5个，则会报错。
+    icon 的选中颜色默认是 @color/colorPrimary。当然你也可以使用 app:itemIconTint="@android:color/white" 来自定义，这样定以后，所有的 icon 颜色都是这个了。
+    菜单元素文字的默认颜色是 @color/colorPrimary。你可以使用 app:itemTextColor="@android:color/white" 自定义。
+    底部导航栏背景颜色默认是当前样式的背景色（白色/黑色），你可以使用 app:itemBackground="@android:color/black" 来更改
+    -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="bottom"
-        app:bb_tabXmlResource="@xml/bottombar_tabs_three" />
+        android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/main_Content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/main_bottomNav" />
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/main_bottomNav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            app:menu="@menu/bottombar_tabs_three" />
+
+        <FrameLayout
+            android:id="@+id/main_Content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/main_bottomNav" />
+    </RelativeLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

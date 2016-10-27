@@ -6,8 +6,14 @@ package better.hello.common;
  */
 
 public interface RefreshListener {
+    /*重试 RecyclerView */
     void onRetryListEmptyView();
+
     void onRetryFootEmptyView();
+
+    /*下拉刷新 RecyclerView*/
     void onRefreshList();
+
+    /*上拉刷新 RecyclerView*/
     void onBottomList();
 }

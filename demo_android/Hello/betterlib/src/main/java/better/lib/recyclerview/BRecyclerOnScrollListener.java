@@ -38,7 +38,7 @@ public abstract class BRecyclerOnScrollListener extends RecyclerView.OnScrollLis
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
-        log("onScrolled");
+//        log("onScrolled");
         RecyclerView.LayoutManager manager=recyclerView.getLayoutManager();
         if(null==manager) throw new RuntimeException("添加了ScrollLisetner 但是没事设置LayoutManager");
         if (null==layoutManagerType){

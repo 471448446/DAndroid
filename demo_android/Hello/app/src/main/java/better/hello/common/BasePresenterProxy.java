@@ -8,7 +8,7 @@ import rx.Subscription;
  */
 public class BasePresenterProxy<T extends BaseView> implements BasePresenter {
 
-    protected Subscription mSubscribe;
+    protected Subscription mSubscription;
     protected T mView;
 
     public BasePresenterProxy(T mView) {
@@ -17,7 +17,7 @@ public class BasePresenterProxy<T extends BaseView> implements BasePresenter {
 
     @Override
     public void onDestroyAction() {
-        if (null!= mSubscribe) mSubscribe.unsubscribe();
+        if (null!= mSubscription) mSubscription.unsubscribe();
         mView=null;
     }
 }
