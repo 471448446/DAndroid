@@ -116,6 +116,8 @@ public class Api {
 
     // 图片详情
     public static final String SINA_PHOTO_DETAIL_ID = "hdpic_hdpic_toutiao_4";
+    ///========
+    public static final String SPLASH_IMG="http://news-at.zhihu.com/api/4/start-image/1080*1776";
 
     /**
      * 新闻类别获取类型

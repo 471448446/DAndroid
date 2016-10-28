@@ -40,6 +40,8 @@ public class MainActivity extends BaseActivity implements MainContract.view {
         mBottomItem = new BottomItems(R.id.main_Content, bottomNavigationView, getSupportFragmentManager());
         mBottomItem.put(R.id.tab_favorites, new NewsTabFragment());
         mBottomItem.showFragment(R.id.tab_favorites);
+
+        mainPresenter.asyncPlashImage();
     }
 
     static class BottomItems {

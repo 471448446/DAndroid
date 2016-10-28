@@ -9,7 +9,7 @@ import better.hello.common.BaseView;
 
 public interface MainContract {
     interface presenter extends BasePresenter {
-
+        void asyncPlashImage();
     }
 
     interface view extends BaseView {

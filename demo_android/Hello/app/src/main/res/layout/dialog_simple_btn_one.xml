@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/dialog_simple_btn_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_dialog__btn_one"
+        android:paddingBottom="@dimen/border_space_sec"
+        android:paddingTop="@dimen/border_space_sec"
+        android:text="@string/str_confirm"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/text_size_ms" />
+
+</LinearLayout><!-- 对话框底部 一个 btn -->

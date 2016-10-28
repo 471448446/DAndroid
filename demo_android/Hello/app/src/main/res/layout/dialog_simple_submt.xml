@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/dialog_simple_title_center"/>
+
+    <TextView
+        android:id="@+id/dialog_simple_submit_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_ml"
+        android:gravity="left"
+        android:paddingTop="@dimen/border_space_sec_max"
+        android:paddingBottom="@dimen/border_space_sec_max_m"
+        android:paddingLeft="@dimen/border_space_normal"
+        android:paddingRight="@dimen/border_space_normal"
+        android:text="@string/str_test_txt" />
+
+    <include layout="@layout/dialog_simple_btn_two" />
+</LinearLayout>

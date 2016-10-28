@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.leakcanary.RefWatcher;
+
+import better.hello.App;
 import better.hello.util.Utils;
 import butterknife.ButterKnife;
 
@@ -26,6 +29,13 @@ public abstract class BaseFragment extends Fragment {
             initWhenNullRootView();
         }
         return mRootView;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = App.getRefWatcher(getActivity());
+        if (null!=refWatcher)refWatcher.watch(this);
     }
 
     protected abstract int getRootViewId();

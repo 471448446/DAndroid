@@ -3,10 +3,12 @@ package better.hello.http;
 import java.util.List;
 import java.util.Map;
 
+import better.hello.common.BaseSchedulerTransformer;
 import better.hello.data.bean.NewsDetailsBean;
 import better.hello.data.bean.NewsListBean;
+import better.hello.data.bean.SplashZhiHuBean;
 import better.hello.http.api.HostType;
-import better.hello.common.BaseSchedulerTransformer;
+import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -32,4 +34,21 @@ public class HttpUtil {
                 .compose(new BaseSchedulerTransformer<Map<String, NewsDetailsBean>>());
     }
 
+    /**
+     * Des 下载欢迎页图片
+     * Create By better on 2016/10/28 09:28.
+     */
+    public static Observable<ResponseBody> getImage(String url) {
+        return RetrofitHelper.getInstance(HostType.NETEASE_NEWS_VIDEO).getApiService().getImage(url);
+//                .compose(new BaseSchedulerTransformer<ResponseBody>());
+    }
+
+    /**
+     * Des 下载欢迎页图片
+     * Create By better on 2016/10/28 09:28.
+     */
+    public static Observable<SplashZhiHuBean> getSplashBean(String url) {
+        return RetrofitHelper.getInstance(HostType.NETEASE_NEWS_VIDEO).getApiService().getSplashBean(url)
+                .compose(new BaseSchedulerTransformer<SplashZhiHuBean>());
+    }
 }

@@ -3,6 +3,7 @@ package better.hello.ui.base;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,9 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import better.hello.R;
+import better.hello.util.PermissionGrantHelper;
+import better.hello.util.Utils;
+import better.lib.waitpolicy.dialog.WaitDialog;
 import butterknife.ButterKnife;
 
 /**
@@ -20,11 +24,42 @@ public class BaseActivity extends AppCompatActivity {
     public static final int REQ_NONE = -100;
 
     public Activity mContext;
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (null != grantResults && grantResults.length != 0) {
+            if (PermissionGrantHelper.isGranted(grantResults[0])) {
+                onPerMissionGranted(requestCode, permissions[0], grantResults[0]);
+            } else {
+                onPerMissionRefuse(requestCode, permissions[0], grantResults[0]);
+                if (!PermissionGrantHelper.shouldShowRequestPermissionRationale(mContext, permissions[0])) {
+                    onShouldShowRequestPermissionRationale(requestCode, permissions[0], grantResults[0]);
+                }
+            }
+        }
+    }
 
+    protected void onPerMissionGranted(int requestCode, String permissions, int grantResults) {
+        if (PermissionGrantHelper.REQ_CODE_PHONE == requestCode) {
+        }
+    }
+
+    protected void onPerMissionRefuse(int requestCode, String permissions, int grantResults) {
+
+    }
+
+    protected void onShouldShowRequestPermissionRationale(int requestCode, String permissions, int grantResults) {
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        WaitDialog.destroyDialog(mContext);
     }
 
     @Override
@@ -34,7 +69,12 @@ public class BaseActivity extends AppCompatActivity {
         getArgs();
         initData();
     }
-
+    protected void l(String msg){
+        Utils.d(this.getClass().getSimpleName(),msg);
+    }
+    protected void toast(String msg){
+        Utils.toastShort(mContext,msg);
+    }
     /**
      * 参数传递
      */

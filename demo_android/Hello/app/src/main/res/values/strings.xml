@@ -2,5 +2,23 @@
     <string name="app_name">Hello</string>
     <string name="photo_collections">图集：%1$s</string>
     <string name="image">图片新闻</string>
+    <string name="str_test_txt">-.-</string>
+    <string name="str_cancel">取消</string>
+    <string name="str_confirm">确定</string>
+
+    <string name="str_permission_refuse_title">权限申请</string>
+    <string name="str_permission_app_title">开启APP</string>
+    <string name="str_permission_refuse_leftStr">@string/str_cancel</string>
+    <string name="str_permission_refuse_rightStr">去设置</string>
+    <string name="str_permission_refuse_phone">请在设置-应用-APP-权限管理中开启电话权限,开启后你可以拨打电话</string>
+    <string name="str_permission_refuse_phoneStatus">请在设置-应用-APP-权限管理中开启电话权限,否者你将无法正常使用APP。</string>
+    <string name="str_permission_refuse_location">请在设置-应用-APP-权限管理中开启定位权限,以便更好的使用您当前的位置。</string>
+    <string name="str_permission_refuse_contact">请在设置-应用-APP-权限管理中开启通讯录权限,开启后你可以选择通讯录中的好友。</string>
+    <string name="str_permission_refuse_file">我们需要获取你的存储空间,为您存储个人信息;否者你将无法正常使用APP。</string>
+    <string name="str_permission_refuse_splash">为了您能正常的使用以来客运,需要以下信息:\n</string>
+    <string name="str_permission_refuse_updata">我们需要获取你的存储空间,为您下载最新安装包。</string>
+    <string name="str_permission_location">位置信息</string>
+    <string name="str_permission_device">设备信息</string>
+    <string name="str_permission_file">存储信息</string>
 
 </resources>

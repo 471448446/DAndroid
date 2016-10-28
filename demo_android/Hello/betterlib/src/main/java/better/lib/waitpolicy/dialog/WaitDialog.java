@@ -3,8 +3,12 @@ package better.lib.waitpolicy.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import better.lib.R;
 
@@ -15,17 +19,15 @@ import better.lib.R;
  */
 public class WaitDialog extends Dialog {
 
+    private static Map<String, WaitDialog> listWaitDialog = new HashMap<>();
+
     private WaitDialog(Context context, int theme) {
         super(context, theme);
     }
 
-    //用于销毁
     private WaitDialog(Context context) {
         super(context);
     }
-
-    private static WaitDialog waitDialog = null;
-    private static Context mContext;
 
     public static WaitDialog getInstance(Context context) {
         return getInstance(context, false);
@@ -34,47 +36,53 @@ public class WaitDialog extends Dialog {
     /**
      * 因需要可以取消的waitDialog 所以改范围private为public  151215
      */
-    public static WaitDialog getInstance(Context context, boolean isCancelable) {
-        if (waitDialog == null || context != mContext) {
-            mContext = context;
-            View view = View.inflate(mContext, R.layout.loading, null);
-            waitDialog = new WaitDialog(mContext, R.style.alert_dialog_style);
-            waitDialog.setContentView(view);
-            waitDialog.setCancelable(isCancelable);
+    public static WaitDialog getInstance(@NonNull Context context, boolean isCancelable) {
+        final String key = context.getClass().getSimpleName();
+        if (null == listWaitDialog.get(key)) {
+            synchronized (WaitDialog.class) {
+                if (null == listWaitDialog.get(key)) {
+                    View view = View.inflate(context, R.layout.loading, null);
+                    WaitDialog dialog = new WaitDialog(context, R.style.alert_dialog_style);
+                    dialog.setContentView(view);
+                    dialog.setCancelable(isCancelable);
+                    listWaitDialog.put(key, dialog);
+                }
+            }
         }
-        return waitDialog;
-    }
-
-    public static WaitDialog getDestroyAction(Context context) {
-        return new WaitDialog(context);
+        return listWaitDialog.get(key);
     }
 
     public void showWaitDialog(int msgId) {
-        showWaitDialog(mContext.getString(msgId));
+        showWaitDialog(getContext().getString(msgId));
     }
 
     public void showWaitDialog() {
-        showWaitDialog(mContext.getString(R.string.str_loading_wait));
+        showWaitDialog(getContext().getString(R.string.str_loading_wait));
     }
 
     public void showWaitDialog(String msg) {
-        TextView msgTv = (TextView) waitDialog.findViewById(R.id.loading_msg);
+        TextView msgTv = (TextView) findViewById(R.id.loading_msg);
         msgTv.setText(msg);
-        if (!waitDialog.isShowing()) {
-            waitDialog.show();
+        if (!this.isShowing()) {
+            this.show();
         }
     }
 
     public void dismissWaitDialog() {
-        if (null != waitDialog && waitDialog.isShowing()) {
-            waitDialog.dismiss();
-            mContext = null;
-//            waitDialog = null;
+        if (this.isShowing()) {
+            this.dismiss();
         }
     }
 
-    // 不确定显示没有就调用这个 是否Context
-    public static void onDestroyAction(Context context) {
-        if (null != mContext && mContext == context/*创建了没有dismiss*/) mContext = null;
+    /**
+     * Des 用到的地方，都要手动释放，建议放在BaseActivity中
+     * Create By better on 2016/10/20 09:50.
+     */
+    public static void destroyDialog(@NonNull Context context) {
+        final String key = context.getClass().getSimpleName();
+        if (null != listWaitDialog.get(key)) {
+            listWaitDialog.get(key).dismissWaitDialog();
+            listWaitDialog.remove(key);
+        }
     }
 }

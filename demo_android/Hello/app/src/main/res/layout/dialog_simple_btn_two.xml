@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/dialog_simple_btn_cancel"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="1dip"
+        android:layout_weight="1"
+        android:paddingBottom="@dimen/border_space_sec"
+        android:paddingTop="@dimen/border_space_sec"
+        android:background="@drawable/shape_dialog_btn_two_left"
+        android:text="@string/str_cancel"
+        android:textSize="@dimen/text_size_ms"
+        android:textColor="@color/colorWhite" />
+
+    <Button
+        android:id="@+id/dialog_simple_btn_confirm"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="@dimen/text_size_ms"
+        android:paddingBottom="@dimen/border_space_sec"
+        android:paddingTop="@dimen/border_space_sec"
+        android:background="@drawable/shape_dialog_btn_two_right"
+        android:text="@string/str_confirm"
+        android:textColor="@color/colorWhite" />
+
+</LinearLayout>

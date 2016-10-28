@@ -2,6 +2,8 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- 对话框圆角大小 -->
+    <dimen name="corner_dialog">5dp</dimen>
     <!-- 通用文字大小 -->
     <!-- 最小使用字体，如：时间显示 -->
     <dimen name="text_size_micro_micro">11sp</dimen>

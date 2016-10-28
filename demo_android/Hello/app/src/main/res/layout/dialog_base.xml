@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_dialog_bg_corn"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        style="@style/wrapHeight"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/border_space_sec_max"
+        android:paddingTop="@dimen/border_space_sec_max_m" >
+
+        <TextView
+            android:id="@+id/dialog_base_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/border_space_sec"
+            android:text="@string/str_test_txt"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_ml" />
+
+        <ScrollView style="@style/wrapHeight" >
+
+            <FrameLayout
+                android:id="@+id/dialog_base_framelay_content"
+                style="@style/wrapHeight" >
+            </FrameLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/dialog_simple_btn_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_dialog__btn_one"
+        android:text="@string/str_confirm"
+        android:textColor="@color/colorWhite" />
+
+</LinearLayout>
+<!-- 不用 -->

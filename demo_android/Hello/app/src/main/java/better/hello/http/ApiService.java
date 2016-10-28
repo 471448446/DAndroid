@@ -5,8 +5,12 @@ import java.util.Map;
 
 import better.hello.data.bean.NewsDetailsBean;
 import better.hello.data.bean.NewsListBean;
+import better.hello.data.bean.SplashZhiHuBean;
+import okhttp3.ResponseBody;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Streaming;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -29,4 +33,11 @@ public interface ApiService {
      */
     @GET("nc/article/{postId}/full.html")
     Observable<Map<String, NewsDetailsBean>> getNewsDetail(@Path("postId") String postId);
+
+    @GET
+    Observable<SplashZhiHuBean> getSplashBean(@Url String url);
+
+    @GET
+    @Streaming
+    Observable<ResponseBody> getImage(@Url String url);
 }

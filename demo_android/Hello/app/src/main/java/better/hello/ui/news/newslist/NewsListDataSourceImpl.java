@@ -19,7 +19,6 @@ import better.hello.http.HttpUtil;
 import better.hello.http.call.RequestInfo;
 import better.hello.util.C;
 import better.hello.util.JsonUtils;
-import better.hello.util.Utils;
 import rx.Subscription;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -60,7 +59,7 @@ public class NewsListDataSourceImpl extends DataSourceDbImpl<List<NewsListBean>>
 
     @Override
     public Subscription getLocalInfo(RequestInfo<List<NewsListBean>> info) {
-        Utils.d("Better", "getLocalInfo() " + info.getRequestTye());
+//        Utils.d("Better", "getLocalInfo() " + info.getRequestTye());
         return db.createQuery(TableInfo.NewsListTable.TABLE_NAME, TableInfo.getNewsByType((String) info.getPrams().get(C.EXTRA_SECOND)))
                 .mapToList(mapper)
                 .doOnNext(new Action1<List<NewsListBean>>() {

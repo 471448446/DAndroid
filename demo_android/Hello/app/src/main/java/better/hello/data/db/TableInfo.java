@@ -32,6 +32,6 @@ public class TableInfo {
         return "select * from "+NewsListTable.TABLE_NAME+" where "+NewsListTable.TYPE_ID+"='"+type+"'";
     }
     public static String deleteNewsByType(String type){
-        return "delete * from "+NewsListTable.TABLE_NAME+" where "+NewsListTable.TYPE_ID+"='"+type+"'";
+        return "delete from "+NewsListTable.TABLE_NAME+" where "+NewsListTable.TYPE_ID+"='"+type+"'";
     }
 }

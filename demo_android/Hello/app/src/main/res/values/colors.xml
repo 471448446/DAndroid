@@ -3,6 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!--所有黄色按钮-->
+    <color name="color_btn_yellow">#ffb94a</color>
+    <color name="color_btn_yellow_press">#F8B349</color>
     <!--背景颜色 灰-->
     <color name="colorLayBg">@color/colorBackgroundSimple</color>
 
