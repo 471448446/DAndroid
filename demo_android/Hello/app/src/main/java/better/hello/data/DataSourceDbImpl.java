@@ -13,6 +13,7 @@ import rx.schedulers.Schedulers;
 
 /**
  * Des 列表数据，需要缓冲在本地db中
+ * http://blog.chengyunfeng.com/?p=991
  * Create By better on 2016/10/27 09:37.
  */
 public abstract class DataSourceDbImpl<T> implements DataSource<T> {

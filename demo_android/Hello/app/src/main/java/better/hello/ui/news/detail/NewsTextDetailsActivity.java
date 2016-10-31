@@ -23,6 +23,7 @@ import butterknife.BindView;
 /**
  * Des 新闻文本信息
  * 有问题 https://c.m.163.com/nc/article/C4ABE546000380BQ/full.html
+ * 内马尔 BUPAUSEM05298PQT
  * Create By better on 2016/10/26 10:25.
  */
 public class NewsTextDetailsActivity extends BaseActivity implements NewsTextDetailsContract.view {
@@ -59,7 +60,6 @@ public class NewsTextDetailsActivity extends BaseActivity implements NewsTextDet
     protected void getArgs() {
         super.getArgs();
         key_postId = getIntent().getStringExtra(C.EXTRA_BEAN);
-
     }
 
     @Override

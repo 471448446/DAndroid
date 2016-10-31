@@ -6,6 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="better.hello.ui.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/main_appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/main_news_toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:tabIndicatorColor="@color/colorWhite"
+            app:tabSelectedTextColor="@color/colorTabTextSelect"
+            app:tabTextColor="@color/colorTabTextDefault" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/main_Content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/main_appBar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     <!--
     底部导航栏高度默认是 56dp。
     菜单元素只能是 3~5 个。如果个数少于3个或者多于5个，则会报错。
@@ -13,24 +37,16 @@
     菜单元素文字的默认颜色是 @color/colorPrimary。你可以使用 app:itemTextColor="@android:color/white" 自定义。
     底部导航栏背景颜色默认是当前样式的背景色（白色/黑色），你可以使用 app:itemBackground="@android:color/black" 来更改
     -->
-    <RelativeLayout
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/main_bottomNav"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/main_bottomNav"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
-            app:menu="@menu/bottombar_tabs_three" />
-
-        <FrameLayout
-            android:id="@+id/main_Content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/main_bottomNav" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        app:itemBackground="@color/colorWhite"
+        app:layout_behavior="better.hello.common.BottomScrollBehavior"
+        app:menu="@menu/bottombar_tabs_three" />
 
 
 </android.support.design.widget.CoordinatorLayout>

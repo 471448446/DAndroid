@@ -19,7 +19,7 @@ import better.hello.util.Utils;
 
 public class SourceHelper {
 
-    public static List<NewsChannleBean> getNewsCHannle() {
+    public static List<NewsChannleBean> getNewsChannel() {
         List<NewsChannleBean> list = new ArrayList<>();
         InputStream is = FileUtils.readFileFromRaw(R.raw.news_api);
         Document document = Utils.getDocmentByIS(is);

@@ -43,7 +43,7 @@ public class ImageGetter implements Html.ImageGetter {
         final MyDrawable d = new MyDrawable();
         if (null != list)
             for (NewsDetailsBean.ImgBean bean : list) {
-                if (bean.getSrc().toLowerCase().equals(source)) {
+                if (bean.getSrc().toLowerCase().equals(source.toLowerCase())) {
                     matrix = setBitmapPosition(d, RegularUtils.wh(bean.getPixel()));
                 }
             }

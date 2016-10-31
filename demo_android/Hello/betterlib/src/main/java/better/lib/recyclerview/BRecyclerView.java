@@ -38,7 +38,6 @@ public class BRecyclerView extends RecyclerView {
             adapterItemChanged();
         }
     };
-    private ViewTreeObserver.OnGlobalLayoutListener layoutListener;
 
     private HeaderViewProxyRecyclerAdapter proxyRecyclerAdapter;
 

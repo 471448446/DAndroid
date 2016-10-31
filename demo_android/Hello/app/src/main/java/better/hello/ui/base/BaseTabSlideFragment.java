@@ -24,6 +24,16 @@ public abstract class BaseTabSlideFragment extends BaseFragment {
         reSetTabLayoutMode(tabLayout);
     }
 
+    protected void initTabSlide(TabLayout tab, ViewPager pager) {
+        tabLayout = tab;
+        viewPager = pager;
+        viewPager.setAdapter(getPagerAdapter());
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);//不设置gravity没有效果
+        reSetTabLayoutMode(tabLayout);
+    }
+
     /**
      * 重写 设置TabLayout的模式
      */

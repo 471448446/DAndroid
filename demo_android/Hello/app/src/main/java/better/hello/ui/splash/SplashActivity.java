@@ -94,7 +94,6 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void prePermissionGrant() {
-        toast("dsds");
         if (!Utils.isBelowAndroidVersion(Build.VERSION_CODES.N)) {
             loadSplashImage();
         } else {
