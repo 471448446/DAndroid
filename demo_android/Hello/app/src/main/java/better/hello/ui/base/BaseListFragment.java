@@ -92,24 +92,22 @@ public abstract class BaseListFragment<E> extends BaseFragment implements SwipeR
     public void postRequestSuccess(RequestType requestType, List<E> list, String requestMeg) {
         mRefreshLayout.setRefreshing(false);
         boolean isEmpty = null == list||list.isEmpty();
-        BaseRecyclerViewAdapter baseAdapter = (BaseRecyclerViewAdapter) mRecyclerView.getWrappedAdapter();
         switch (requestType) {
             case DATA_REQUEST_INIT:
                 if (isEmpty && mRecyclerView.isNeedEmptyView())
                     mRecyclerView.getEmptyViewProxy().displayRetry(requestMeg);
-                if (null != baseAdapter) baseAdapter.addDownData(list);
+                if (null != mAdapter) mAdapter.addDownData(list);
                 break;
             case DATA_REQUEST_DOWN_REFRESH:
                 if (mRecyclerView.isNeedEmptyView())
                     Utils.setGone(mRecyclerView.getEmptyViewProxy().getProxyView());
-//                if (isEmpty) Utils.toastShort(getActivity(), R.string.str_loading_header_all);
                 if (isEmpty) {
-                    if (baseAdapter.getItemCount() > 0)
+                    if (mAdapter.getItemCount() > 0)
                         Utils.toastShort(getActivity(), R.string.str_loading_header_all);
                     else if (null != mRecyclerView.getHeadViewProxy())
                         mRecyclerView.getHeadViewProxy().displayMessage(requestMeg);
                 }
-                if (null != baseAdapter) baseAdapter.addDownData(list);
+                if (null != mAdapter) mAdapter.addDownData(list);
                 break;
             case DATA_REQUEST_UP_REFRESH:
                 isLoadingBottom = false;
@@ -118,7 +116,7 @@ public abstract class BaseListFragment<E> extends BaseFragment implements SwipeR
                 if (isEmpty)
                     if (null != mRecyclerView.getFooterViewProxy())
                         mRecyclerView.getFooterViewProxy().displayMessage(getString(R.string.str_loading_footer_all));
-                if (null != baseAdapter) baseAdapter.addPullData(list);
+                if (null != mAdapter) mAdapter.addPullData(list);
                 break;
         }
     }

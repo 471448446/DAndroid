@@ -40,7 +40,7 @@ public class NewsTabFragment extends BaseTabSlideFragment implements NewsTabCont
         tabPagerAdapter = new TabPagerAdapter(getChildFragmentManager(), name) {
             @Override
             public Fragment getItem(int position) {
-                return NewsListFragment.newInstace(lis.get(position).getType(), lis
+                return NewsListFragment.newInstance(lis.get(position).getType(), lis
                         .get(position).getChannleId());
             }
         };

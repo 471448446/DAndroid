@@ -57,7 +57,8 @@ public class NewsListPresenter extends BasePresenterProxy<NewsListFragment> impl
 
     @Override
     public void onError(RequestInfo<List<NewsListBean>> requestInfo, String msg) {
-        Utils.d("Better", "error type=" + requestInfo.getRequestTye() + ",msg=" + msg);
+//        Utils.d("Better", "error type=" + requestInfo.getRequestTye() + ",msg=" + msg);
+        mSubscription.unsubscribe();
         if (newsDataSource.isNeedLoadFromNet()) {
             newsDataSource.asyncUrlInfo(requestInfo);
         } else {
@@ -67,7 +68,9 @@ public class NewsListPresenter extends BasePresenterProxy<NewsListFragment> impl
 
     @Override
     public void onSuccess(RequestInfo<List<NewsListBean>> requestInfo, List<NewsListBean> data, Object o) {
-//        Utils.d("Better", "最终数据" + String.valueOf(null == data));
+        Utils.d("Better", "最终数据" + String.valueOf(null == data));
+        //保存数据前先关闭绑定，不然save 里面Transaction会一直回调这个方法，没找到原因的。
+        mSubscription.unsubscribe();
         mView.postRequestSuccess(requestInfo.getRequestTye(), data, (String) o);
         startPage += 20;
         newsDataSource.save(data, requestInfo);

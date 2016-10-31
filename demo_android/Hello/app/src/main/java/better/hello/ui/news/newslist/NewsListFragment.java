@@ -26,7 +26,7 @@ public class NewsListFragment extends BaseListFragment<NewsListBean> implements 
     private NewsListPresenter mPresenter;
     private String type, id;
 
-    public static NewsListFragment newInstace(String type, String id) {
+    public static NewsListFragment newInstance(String type, String id) {
         Bundle bundle = new Bundle();
         bundle.putString(C.EXTRA_TAG_Type, type);
         bundle.putString(C.EXTRA_TAG_ID, id);
