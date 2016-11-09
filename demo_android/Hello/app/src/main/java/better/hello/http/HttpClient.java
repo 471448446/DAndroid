@@ -17,7 +17,7 @@ import okhttp3.Response;
 
 public class HttpClient {
     static HttpClient instance;
-    private final int TIME_OUT = 15;
+    private final int TIME_OUT = 20;
     private OkHttpClient mOkHttpClient;
     private final Interceptor mLoggingInterceptor = new Interceptor() {
         @Override

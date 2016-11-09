@@ -32,12 +32,19 @@ public class HtmlUtil {
         }
     }
 
-    private static String getImgTag(NewsDetailsBean.ImgBean bean) {
+//    private static String getImgTag(NewsDetailsBean.ImgBean bean) {
+////        int[] wh=RegularUtils.wh(bean.getPixel());
+////        if (null!=wh&&wh.length>1){
+////            return "<img src=\"" + bean.getSrc()+"\"width=\""+wh[0]+"\" "+"height=\""+wh[1]+"\"" + "/>";
+////        }
+//        return "<img src=\"" + bean.getSrc() + "\"/>";
+//    }
+    private static String getImgTag(String url) {
 //        int[] wh=RegularUtils.wh(bean.getPixel());
 //        if (null!=wh&&wh.length>1){
 //            return "<img src=\"" + bean.getSrc()+"\"width=\""+wh[0]+"\" "+"height=\""+wh[1]+"\"" + "/>";
 //        }
-        return "<img src=\"" + bean.getSrc() + "\"/>";
+        return "<img src=\"" + url+ "\"/>";
     }
 
 
@@ -51,7 +58,15 @@ public class HtmlUtil {
             for (int i = 0, l = bean.getImg().size(); i < l; i++) {
                 if (body.contains(bean.getImg().get(i).getRef())) {
                     boolean isLast = i == l - 1;
-                    body = body.replace(bean.getImg().get(i).getRef(), getImgTag(bean.getImg().get(i)) + getExchangeLineTag(isLast));
+                    body = body.replace(bean.getImg().get(i).getRef(), getImgTag(bean.getImg().get(i).getSrc()) + getExchangeLineTag(isLast));
+                }
+            }
+        }
+        if (null!=bean.getVideo()&&!bean.getVideo().isEmpty()){
+            for (int i = 0, l = bean.getVideo().size(); i < l; i++) {
+                if (body.contains(bean.getVideo().get(i).getRef())) {
+                    boolean isLast = i == l - 1;
+                    body = body.replace(bean.getVideo().get(i).getRef(), getImgTag(bean.getVideo().get(i).getCover()+C.MAP4) + getExchangeLineTag(isLast));
                 }
             }
         }

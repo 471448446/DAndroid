@@ -26,7 +26,7 @@ public class MainPresenter extends BasePresenterProxy<MainActivity> implements M
 
     @Override
     public void asyncPlashImage() {
-        if (FileUtils.isLoadTodaySplash(mView)) {
+        if (FileUtils.isLoadCanLoadSplash(mView)) {
             return;
         }
         HttpUtil.getSplashBean(Api.SPLASH_IMG).subscribe(new Action1<SplashZhiHuBean>() {
@@ -40,16 +40,16 @@ public class MainPresenter extends BasePresenterProxy<MainActivity> implements M
     }
 
     private void down(String path) {
-        HttpUtil.getImage(path).subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io()).map(new Func1<ResponseBody, Boolean>() {
+        HttpUtil.downFile(path).subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io()).map(new Func1<ResponseBody, Boolean>() {
             @Override
             public Boolean call(ResponseBody inputStream) {
                 try {
-                    FileUtils.writeSplash(mView, inputStream.byteStream());
+                    FileUtils.writeSplash(mView, inputStream);
                 } catch (IOException e) {
                     e.printStackTrace();
                     throw new RuntimeException(e.getMessage(), e);
                 }
-                return FileUtils.isLoadTodaySplash(mView);
+                return FileUtils.isLoadCanLoadSplash(mView);
             }
         }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Boolean>() {
             @Override

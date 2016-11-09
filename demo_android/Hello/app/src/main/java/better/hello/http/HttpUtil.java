@@ -35,11 +35,11 @@ public class HttpUtil {
     }
 
     /**
-     * Des 下载欢迎页图片
+     * Des 得到文件流
      * Create By better on 2016/10/28 09:28.
      */
-    public static Observable<ResponseBody> getImage(String url) {
-        return RetrofitHelper.getInstance(HostType.NETEASE_NEWS_VIDEO).getApiService().getImage(url);
+    public static Observable<ResponseBody> downFile(String url) {
+        return RetrofitHelper.getInstance(HostType.NETEASE_NEWS_VIDEO).getApiService().getFileStream(url);
 //                .compose(new BaseSchedulerTransformer<ResponseBody>());
     }
 

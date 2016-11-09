@@ -46,4 +46,5 @@ public class Utils extends BaseUtils {
     public static boolean isBelowAndroidVersion(int version) {
         return Build.VERSION.SDK_INT < version;
     }
+
 }

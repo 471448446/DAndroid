@@ -20,5 +20,8 @@
     <string name="str_permission_location">位置信息</string>
     <string name="str_permission_device">设备信息</string>
     <string name="str_permission_file">存储信息</string>
+    <string name="down_start">开始下载</string>
+    <string name="down_ok">下载成功</string>
+    <string name="down_tip_3gp">要用流量下载？？</string>
 
 </resources>

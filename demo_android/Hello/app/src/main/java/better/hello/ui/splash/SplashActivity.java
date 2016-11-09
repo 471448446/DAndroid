@@ -28,6 +28,7 @@ import rx.functions.Func1;
 
 /**
  * Des http://news-at.zhihu.com/api/4/start-image/1080*1776
+ * todo 默认加载昨天的
  * Create By better on 2016/10/26 11:08.
  */
 public class SplashActivity extends BaseActivity {
@@ -114,7 +115,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void loadSplashImage() {
-        if (!FileUtils.isLoadTodaySplash(mContext)) {
+        if (!FileUtils.isLoadCanLoadSplash(mContext)) {
             img.setBackgroundResource(R.drawable.splash);
             mHandler.sendEmptyMessage(MSG_START_MAIN_ACTIVITY);
         } else {

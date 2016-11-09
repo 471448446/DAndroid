@@ -47,6 +47,12 @@ public class EmptyViewWaitPolicy extends WaitPolicy {
     public void disappear() {
         BaseUtils.setGone(emptyViewProxy.getProxyView());
     }
+
+    @Override
+    public void onNext(Object bean) {
+
+    }
+
     @Override
     public void disappear(String msg) {
         disappear();

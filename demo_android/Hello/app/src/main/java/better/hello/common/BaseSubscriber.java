@@ -53,6 +53,7 @@ public class BaseSubscriber<T> extends Subscriber<T> {
         if (null != mRequestInfo && mRequestInfo.getRequestCallback() != null) {
             mRequestInfo.getRequestCallback().onSuccess(mRequestInfo, t,"");
         }
+        if (null!=mRequestInfo&&null!=mRequestInfo.getWaitPolicy())mRequestInfo.getWaitPolicy().onNext(t);
     }
 
     @CallSuper

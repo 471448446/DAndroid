@@ -5,7 +5,7 @@ import android.content.Context;
 /**
  * Created by Better on 2016/3/14.
  */
-public abstract class WaitPolicy {
+public abstract class WaitPolicy{
     protected boolean isToastError,isToastSuccess;
     protected Context mContext;
     ///////////////准备请求
@@ -32,4 +32,5 @@ public abstract class WaitPolicy {
      * 请求页面取消显示
      */
     public abstract void disappear();
+    public abstract void onNext(Object bean);
 }

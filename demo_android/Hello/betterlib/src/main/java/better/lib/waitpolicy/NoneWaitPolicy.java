@@ -47,6 +47,11 @@ public class NoneWaitPolicy extends WaitPolicy {
     }
 
     @Override
+    public void onNext(Object bean) {
+
+    }
+
+    @Override
     public void disappear(String msg) {
         disappear();
         if (isToastSuccess && null != mContext) BaseUtils.toastShort(mContext, msg);

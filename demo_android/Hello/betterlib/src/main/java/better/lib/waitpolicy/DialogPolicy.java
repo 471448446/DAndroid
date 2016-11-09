@@ -49,9 +49,13 @@ public class DialogPolicy extends WaitPolicy {
     public void disappear() {
         WaitDialog.getInstance(mContext).dismissWaitDialog();
     }
+
     @Override
     public void disappear(String msg) {
         disappear();
         if(isToastSuccess&&null!=mContext)BaseUtils.toastShort(mContext, msg);
+    }
+    @Override
+    public void onNext(Object bean) {
     }
 }

@@ -110,6 +110,27 @@ public class NewsDetailsBean {
      */
 
     private List<RelativeSysBean> relative_sys;
+    /**
+     * commentid : C3PFFA98008535RB
+     * topicid : 1000
+     * broadcast : in
+     * videosource : 新媒体
+     * commentboard : video_bbs
+     * appurl :
+     * mp4Hd_url : http://flv2.bn.netease.com/videolib3/1610/31/vSkze3141/HD/vSkze3141-mobile.mp4
+     * url_m3u8 : http://flv2.bn.netease.com/videolib3/1610/31/vSkze3141/SD/vSkze3141-mobile.mp4
+     * size :
+     * ref : <!--VIDEO#0-->
+     * cover : http://vimg3.ws.126.net/image/snapshot/2016/10/S/M/VC3PFG2SM.jpg
+     * url_mp4 : http://flv2.bn.netease.com/videolib3/1610/31/vSkze3141/SD/vSkze3141-mobile.mp4
+     * alt : 山西两女子和一条狗围攻老人 警方：正调查
+     * mp4_url : http://flv2.bn.netease.com/videolib3/1610/31/vSkze3141/SD/vSkze3141-mobile.mp4
+     * m3u8Hd_url : http://flv2.bn.netease.com/videolib3/1610/31/vSkze3141/HD/movie_index.m3u8
+     * m3u8_url : http://flv2.bn.netease.com/videolib3/1610/31/vSkze3141/SD/movie_index.m3u8
+     * vid : VC3PFFA98
+     */
+
+    private List<VideoBean> video;
 
     public String getBody() {
         return body;
@@ -341,6 +362,14 @@ public class NewsDetailsBean {
 
     public void setRelative_sys(List<RelativeSysBean> relative_sys) {
         this.relative_sys = relative_sys;
+    }
+
+    public List<VideoBean> getVideo() {
+        return video;
+    }
+
+    public void setVideo(List<VideoBean> video) {
+        this.video = video;
     }
 
     public static class SpinfoBean {
@@ -589,6 +618,162 @@ public class NewsDetailsBean {
 
         public void setHref(String href) {
             this.href = href;
+        }
+    }
+
+    public static class VideoBean {
+        private String commentid;
+        private String topicid;
+        private String broadcast;
+        private String videosource;
+        private String commentboard;
+        private String appurl;
+        private String mp4Hd_url;
+        private String url_m3u8;
+        private String size;
+        private String ref;
+        private String cover;
+        private String url_mp4;
+        private String alt;
+        private String mp4_url;
+        private String m3u8Hd_url;
+        private String m3u8_url;
+        private String vid;
+
+        public String getCommentid() {
+            return commentid;
+        }
+
+        public void setCommentid(String commentid) {
+            this.commentid = commentid;
+        }
+
+        public String getTopicid() {
+            return topicid;
+        }
+
+        public void setTopicid(String topicid) {
+            this.topicid = topicid;
+        }
+
+        public String getBroadcast() {
+            return broadcast;
+        }
+
+        public void setBroadcast(String broadcast) {
+            this.broadcast = broadcast;
+        }
+
+        public String getVideosource() {
+            return videosource;
+        }
+
+        public void setVideosource(String videosource) {
+            this.videosource = videosource;
+        }
+
+        public String getCommentboard() {
+            return commentboard;
+        }
+
+        public void setCommentboard(String commentboard) {
+            this.commentboard = commentboard;
+        }
+
+        public String getAppurl() {
+            return appurl;
+        }
+
+        public void setAppurl(String appurl) {
+            this.appurl = appurl;
+        }
+
+        public String getMp4Hd_url() {
+            return mp4Hd_url;
+        }
+
+        public void setMp4Hd_url(String mp4Hd_url) {
+            this.mp4Hd_url = mp4Hd_url;
+        }
+
+        public String getUrl_m3u8() {
+            return url_m3u8;
+        }
+
+        public void setUrl_m3u8(String url_m3u8) {
+            this.url_m3u8 = url_m3u8;
+        }
+
+        public String getSize() {
+            return size;
+        }
+
+        public void setSize(String size) {
+            this.size = size;
+        }
+
+        public String getRef() {
+            return ref;
+        }
+
+        public void setRef(String ref) {
+            this.ref = ref;
+        }
+
+        public String getCover() {
+            return cover;
+        }
+
+        public void setCover(String cover) {
+            this.cover = cover;
+        }
+
+        public String getUrl_mp4() {
+            return url_mp4;
+        }
+
+        public void setUrl_mp4(String url_mp4) {
+            this.url_mp4 = url_mp4;
+        }
+
+        public String getAlt() {
+            return alt;
+        }
+
+        public void setAlt(String alt) {
+            this.alt = alt;
+        }
+
+        public String getMp4_url() {
+            return mp4_url;
+        }
+
+        public void setMp4_url(String mp4_url) {
+            this.mp4_url = mp4_url;
+        }
+
+        public String getM3u8Hd_url() {
+            return m3u8Hd_url;
+        }
+
+        public void setM3u8Hd_url(String m3u8Hd_url) {
+            this.m3u8Hd_url = m3u8Hd_url;
+        }
+
+        public String getM3u8_url() {
+            return m3u8_url;
+        }
+
+        public void setM3u8_url(String m3u8_url) {
+            this.m3u8_url = m3u8_url;
+        }
+
+        public String getVid() {
+            return vid;
+        }
+
+        public void setVid(String vid) {
+            this.vid = vid;
         }
     }
 }

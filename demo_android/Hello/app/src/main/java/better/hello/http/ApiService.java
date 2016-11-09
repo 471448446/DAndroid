@@ -39,5 +39,5 @@ public interface ApiService {
 
     @GET
     @Streaming
-    Observable<ResponseBody> getImage(@Url String url);
+    Observable<ResponseBody> getFileStream(@Url String url);
 }

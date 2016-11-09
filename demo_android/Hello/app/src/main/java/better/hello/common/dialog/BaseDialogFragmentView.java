@@ -45,7 +45,7 @@ public class BaseDialogFragmentView extends DialogFragment {
 	 * 显示
 	 */
 	public void showDialog(FragmentManager manager){
-		// DialogFragment.show() will take care of adding the fragment
+		// DialogFragment.onNext() will take care of adding the fragment
 	    // in a transaction.  We also want to remove any currently showing
 	    // dialog, so make our own transaction and take care of that here.
 //	    FragmentTransaction ft = manager.beginTransaction();
@@ -55,7 +55,7 @@ public class BaseDialogFragmentView extends DialogFragment {
 //	    }
 //	    ft.addToBackStack(null);
 //
-//	    this.show(ft, "dialog");
+//	    this.onNext(ft, "dialog");
 		FragmentTransaction ft = manager.beginTransaction();
 //		Fragment prev = manager.findFragmentByTag("dialog");
 //		if (prev != null) {
@@ -63,7 +63,7 @@ public class BaseDialogFragmentView extends DialogFragment {
 //		}
 //		ft.addToBackStack(null);
 //
-//		this.show(ft, "dialog");
+//		this.onNext(ft, "dialog");
 		ft.add(BaseDialogFragmentView.this,"dialog");
 		ft.commitAllowingStateLoss();
 	}

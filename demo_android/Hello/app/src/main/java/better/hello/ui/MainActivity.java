@@ -6,10 +6,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.util.ArrayMap;
 import android.view.MenuItem;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import better.hello.R;
 import better.hello.ui.base.BaseActivity;
@@ -31,6 +29,9 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        UIHelper.downLoad(mContext, FileUtils.getVideoFileDir(this)+ File.separator+"yy"+ ".apk","http://wdj-uc1-apk.wdjcdn.com/0/7c/64897f147d519fc4173c989868a1a7c0.apk");
+//        UIHelper.downLoad(new RequestInfo<DownloadingInfo>(new NotificationWaitPolice()), FileUtils.getVideoFileDir(this)+ File.separator+"yy"+ ".apk","http://wdj-uc1-apk.wdjcdn.com/0/7c/64897f147d519fc4173c989868a1a7c0.apk");
+//        UIHelper.downLoad(new RequestInfo<DownloadingInfo>(new NotificationWaitPolice()),FileUtils.getVideoFileDir(this)+ File.separator+"ok"+ FileUtils.MAP_4,"http://flv2.bn.netease.com/videolib3/1610/31/GRiHf1453/SD/GRiHf1453-mobile.mp4");
     }
 
     @Override
@@ -48,7 +49,7 @@ public class MainActivity extends BaseActivity implements MainContract.view {
         private int containerId;
         private BottomNavigationView bottomNavigationView;
         private FragmentManager manager;
-        private Map<Integer, Fragment> items = new HashMap<>();
+        private ArrayMap<Integer, Fragment> items = new ArrayMap<>();
 
         public BottomItems(int containerId, BottomNavigationView bottomNavigationView, FragmentManager manager) {
             this.containerId = containerId;

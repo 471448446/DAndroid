@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import better.hello.R;
 import better.hello.common.RefreshListener;
 import better.hello.common.RefreshListenerPresentImpl;
+import better.hello.common.UIHelper;
 import better.hello.data.bean.ImagesDetailsBean;
 import better.hello.data.bean.NewsListBean;
 import better.hello.ui.base.BaseListFragment;
@@ -15,7 +16,6 @@ import better.hello.ui.base.adapter.BaseRecyclerViewAdapter;
 import better.hello.ui.news.detail.NewsPhotoDetailActivity;
 import better.hello.ui.news.detail.NewsTextDetailsActivity;
 import better.hello.util.C;
-import better.hello.util.UiHelper;
 import better.lib.http.RequestType;
 
 /**
@@ -77,7 +77,7 @@ public class NewsListFragment extends BaseListFragment<NewsListBean> implements 
         @Override
         public void onClickNews(boolean isPhoto, NewsListBean bean) {
             if (isPhoto){
-                NewsPhotoDetailActivity.start(mContext.getActivity(), UiHelper.getImage(bean.getImgextra(),bean.getAds()));
+                NewsPhotoDetailActivity.start(mContext.getActivity(), UIHelper.getImage(bean.getImgextra(),bean.getAds()));
             }else {
                 NewsTextDetailsActivity.start(mContext.getActivity(),bean.getPostid());
             }

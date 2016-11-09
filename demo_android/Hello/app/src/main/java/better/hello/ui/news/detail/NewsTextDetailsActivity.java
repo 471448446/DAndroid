@@ -11,19 +11,21 @@ import android.widget.TextView;
 import java.util.List;
 
 import better.hello.R;
+import better.hello.common.UIHelper;
 import better.hello.data.bean.NewsDetailsBean;
+import better.hello.data.bean.VideoBean;
 import better.hello.ui.base.BaseActivity;
 import better.hello.util.C;
 import better.hello.util.HtmlUtil;
 import better.hello.util.ImageGetter;
 import better.hello.util.LinkMovementMethodExt;
-import better.hello.util.UiHelper;
 import butterknife.BindView;
 
 /**
  * Des 新闻文本信息
  * 有问题 https://c.m.163.com/nc/article/C4ABE546000380BQ/full.html
  * 内马尔 BUPAUSEM05298PQT
+ * 视频 C4N82B2N000187VE
  * Create By better on 2016/10/26 10:25.
  */
 public class NewsTextDetailsActivity extends BaseActivity implements NewsTextDetailsContract.view {
@@ -33,6 +35,8 @@ public class NewsTextDetailsActivity extends BaseActivity implements NewsTextDet
     TextView detail;
     private NewsTextDetailsPresenter presenter;
     private String key_postId;
+
+    private NewsDetailsBean mBean;
 
     public static void start(Activity activity, String postId) {
         Intent i = new Intent(activity, NewsTextDetailsActivity.class);
@@ -60,24 +64,50 @@ public class NewsTextDetailsActivity extends BaseActivity implements NewsTextDet
     protected void getArgs() {
         super.getArgs();
         key_postId = getIntent().getStringExtra(C.EXTRA_BEAN);
+//        key_postId = "C4N82B2N000187VE";
     }
 
     @Override
     public void showNews(NewsDetailsBean bean) {
+        mBean = bean;
         toolbar.setTitle(bean.getTitle());
-        final List<NewsDetailsBean.ImgBean> list = bean.getImg();
-        detail.setText(HtmlUtil.from(bean.getBody(), new ImageGetter(detail, list)));
+        detail.setText(HtmlUtil.from(bean.getBody(), new ImageGetter(detail, bean.getImg())));
         detail.setMovementMethod(new LinkMovementMethodExt().setOnClickImageSpans(new LinkMovementMethodExt.OnClickImageSpan() {
             @Override
             public void onClick(ImageSpan span) {
-                int defaultP = 0;
-                for (int i = 0, l = list.size(); i < l; i++) {
-                    if (list.get(i).getSrc().equals(span.getSource())) {
-                        defaultP = i;
-                    }
+                if (span.getSource().contains(".mp4")) {
+                    showVideoInfo(span);
+                } else {
+                    showImageInfo(span);
                 }
-                NewsPhotoDetailActivity.start(mContext, UiHelper.getImage(list), defaultP);
             }
         }));
+    }
+
+    @Override
+    public void showImageInfo(ImageSpan span) {
+        List<NewsDetailsBean.ImgBean> list = mBean.getImg();
+        int defaultP = 0;
+        for (int i = 0, l = list.size(); i < l; i++) {
+            if (list.get(i).getSrc().equals(span.getSource())) {
+                defaultP = i;
+            }
+        }
+        NewsPhotoDetailActivity.start(mContext, UIHelper.getImage(list), defaultP);
+    }
+
+    @Override
+    public void showVideoInfo(ImageSpan span) {
+        VideoBean bean = null;
+        for (NewsDetailsBean.VideoBean b : mBean.getVideo()) {
+            if (span.getSource().contains(b.getCover())) {
+                String url = b.getMp4Hd_url();
+                if (TextUtils.isEmpty(url)) url = b.getMp4_url();
+                else url = b.getUrl_m3u8();
+                bean = new VideoBean(b.getCover(), b.getAlt(), url);
+            }
+        }
+        if (null == bean) return;
+        NewsVideoActivity.start(mContext, bean);
     }
 }
