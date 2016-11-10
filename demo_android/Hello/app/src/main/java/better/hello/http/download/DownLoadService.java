@@ -45,7 +45,8 @@ public class DownLoadService extends Service implements RequestCallback<Download
     }
 
     protected void onHandleIntent(Intent intent) {
-        Utils.d(TAG,"onHandleIntent");
+        Utils.d(TAG, "onHandleIntent");
+        if (null == intent) return;
         mDownloadInfo = intent.getParcelableExtra(C.EXTRA_BEAN);
         if (null == mDownloadInfo || TextUtils.isEmpty(mDownloadInfo.getFileName()) || TextUtils.isEmpty(mDownloadInfo.getUrl()))
             return;

@@ -22,7 +22,7 @@ public class SourceHelper {
     public static List<NewsChannleBean> getNewsChannel() {
         List<NewsChannleBean> list = new ArrayList<>();
         InputStream is = FileUtils.readFileFromRaw(R.raw.news_api);
-        Document document = Utils.getDocmentByIS(is);
+        Document document = Utils.getDocumentByIS(is);
         if (null == document) return list;
         NodeList listName = document.getElementsByTagName("name");
         NodeList listId = document.getElementsByTagName("id");

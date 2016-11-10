@@ -50,6 +50,8 @@ public class UIHelper {
                     downLoadWithNotify(activity, bean);
                 }
             }).showDialog(((AppCompatActivity) activity).getSupportFragmentManager());
+        }else {
+            downLoadWithNotify(activity, bean);
         }
         return bean;
     }

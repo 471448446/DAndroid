@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.text.TextUtils;
 
 import better.hello.App;
 import better.hello.R;
@@ -51,11 +52,12 @@ public class NotificationWaitPolice extends WaitPolicy {
 
     @Override
     public void displayRetry(String message) {
+        if (!TextUtils.isEmpty(message)) Utils.toastShort(mContext, message);
     }
 
     @Override
     public void displayRetry() {
-        displayRetry("");
+        displayRetry(mContext.getString(R.string.down_fail));
     }
 
     @Override

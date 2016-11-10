@@ -8,6 +8,7 @@ import better.hello.data.bean.NewsListBean;
 import better.hello.data.bean.SplashZhiHuBean;
 import okhttp3.ResponseBody;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
@@ -31,6 +32,7 @@ public interface ApiService {
      * https://c.m.163.com/nc/article/C3NRQ1J8000187VE/full.html
      * Create By better on 2016/10/19 13:30.
      */
+    @Headers("Cache-Control: public, max-age=3600")
     @GET("nc/article/{postId}/full.html")
     Observable<Map<String, NewsDetailsBean>> getNewsDetail(@Path("postId") String postId);
 
@@ -39,5 +41,6 @@ public interface ApiService {
 
     @GET
     @Streaming
+    @Headers("Cache-Control: public, max-age=60")
     Observable<ResponseBody> getFileStream(@Url String url);
 }

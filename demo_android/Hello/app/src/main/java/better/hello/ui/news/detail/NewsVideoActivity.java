@@ -28,6 +28,7 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 /**
  * Des https://github.com/lipangit/JieCaoVideoPlayer
+ * 有些链接视频不能下载
  * Create By better on 2016/11/2 15:43.
  */
 public class NewsVideoActivity extends BaseActivity {

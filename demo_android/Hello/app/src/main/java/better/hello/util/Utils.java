@@ -19,7 +19,7 @@ import better.lib.utils.BaseUtils;
  */
 
 public class Utils extends BaseUtils {
-    public static Document getDocmentByIS(InputStream is) {
+    public static Document getDocumentByIS(InputStream is) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;
         Document doc = null;

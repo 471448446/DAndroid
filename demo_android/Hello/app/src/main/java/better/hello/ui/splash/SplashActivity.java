@@ -95,7 +95,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void prePermissionGrant() {
-        if (!Utils.isBelowAndroidVersion(Build.VERSION_CODES.N)) {
+        if (Utils.isBelowAndroidVersion(Build.VERSION_CODES.N)) {
             loadSplashImage();
         } else {
             if (!PermissionGrantHelper.isGrantedThisPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {

@@ -25,6 +25,7 @@ public class FileUtils {
     /*二级目录-欢迎页图片*/
     public static final String FILE_SPLASH = "splash";
     public static final String FILE_VIDEO = "video";
+    public static final String FILE_CACHE = "cache";
 
     public static final String MAP_4 = ".mp4";
 
@@ -219,6 +220,9 @@ public class FileUtils {
 
     public static String getVideoFileDir(Context context) {
         return makeDir(getStorageRootPath(context) + File.separator + FILE_VIDEO);
+    }
+    public static String getCacheFileDir(Context context) {
+        return makeDir(getStorageRootPath(context) + File.separator + FILE_CACHE);
     }
 
     public static String getDiskCacheDir(Context context, String uniqueName) {
