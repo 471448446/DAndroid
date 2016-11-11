@@ -61,6 +61,13 @@ public class ImageGetter implements Html.ImageGetter {
         asyncBitmap(urlType, source, d, matrix);
         return d;
     }
+//    private int[] handleImageWh(String s){
+//        int[] position= RegularUtils.wh(s);
+//        if (position[1]>position[0]*C.roatImage){
+//            position[1]= (int) (position[0]*C.roatImage);
+//        }
+//        return position;
+//    }
 
     private void asyncBitmap(final int urlType, String source, final MyDrawable d, final Matrix matrix) {
         Glide.with(App.getApplication()).load(source).asBitmap().into(new SimpleTarget<Bitmap>() {
@@ -97,9 +104,10 @@ public class ImageGetter implements Html.ImageGetter {
         } else {
             //大图
             Matrix matrix = new Matrix();
-            float scale = wh[0] / canUseW;
+            float scale = (float)canUseW / wh[0];
             matrix.postScale(scale, scale);
             int canUseH = (int) (wh[1] * scale);
+//            Utils.d("Better","大图 "+scale+";"+wh[0]+","+wh[1]+";"+canUseW+","+canUseH+".");
 
             Rect dis = new Rect(0, 0, canUseW, canUseH);
             d.setBounds(dis);
