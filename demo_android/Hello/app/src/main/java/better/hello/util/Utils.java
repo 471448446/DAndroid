@@ -2,9 +2,12 @@ package better.hello.util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.webkit.MimeTypeMap;
+import android.widget.ImageView;
 
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -54,10 +57,10 @@ public class Utils extends BaseUtils {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setAction(android.content.Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.fromFile(temp_file), getMimeType(temp_file.getAbsolutePath()));
-        if (null!=intent.resolveActivity(activity.getPackageManager())){
+        if (null != intent.resolveActivity(activity.getPackageManager())) {
             activity.startActivity(intent);
-        }else {
-            Utils.toastShort(activity,"没有打开文件的应用");
+        } else {
+            Utils.toastShort(activity, "没有打开文件的应用");
         }
     }
 
@@ -79,5 +82,23 @@ public class Utils extends BaseUtils {
     public static boolean isBelowAndroidVersion(int version) {
         return Build.VERSION.SDK_INT < version;
     }
+
+    /**
+     * Des 欢迎页图片不回收应用使用内存20M回收后11.9M
+     * Create By better on 2016/11/11 16:57.
+     */
+    public static void recycleImageViewBitmap(ImageView... imageViews) {
+        if (null == imageViews || imageViews.length == 0) return;
+        for (ImageView imageView : imageViews) {
+            Drawable drawable = imageView.getDrawable();
+            if (drawable instanceof BitmapDrawable) {
+                BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+                if (null != bitmapDrawable.getBitmap()) {
+                    bitmapDrawable.getBitmap().recycle();
+                }
+            }
+        }
+    }
+
 
 }

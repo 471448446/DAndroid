@@ -111,6 +111,7 @@ public class SplashActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
+        Utils.recycleImageViewBitmap(img);
     }
 
     private void loadSplashImage() {
@@ -118,7 +119,7 @@ public class SplashActivity extends BaseActivity {
             img.setBackgroundResource(R.drawable.splash);
             mHandler.sendEmptyMessage(MSG_START_MAIN_ACTIVITY);
         } else {
-            Observable.just(FileUtils.getTodaySplashImagePath(mContext)).compose(new BaseSchedulerTransformer<String>()).map(new Func1<String, Bitmap>() {
+            mSubscription=Observable.just(FileUtils.getTodaySplashImagePath(mContext)).compose(new BaseSchedulerTransformer<String>()).map(new Func1<String, Bitmap>() {
                 @Override
                 public Bitmap call(String s) {
                     return BitmapFactory.decodeFile(s);

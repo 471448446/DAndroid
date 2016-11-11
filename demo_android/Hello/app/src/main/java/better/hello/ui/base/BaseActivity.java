@@ -15,6 +15,7 @@ import better.hello.util.PermissionGrantHelper;
 import better.hello.util.Utils;
 import better.lib.waitpolicy.dialog.WaitDialog;
 import butterknife.ButterKnife;
+import rx.Subscription;
 
 /**
  * Created by better on 2016/10/17.
@@ -22,6 +23,7 @@ import butterknife.ButterKnife;
 
 public class BaseActivity extends AppCompatActivity {
     public static final int REQ_NONE = -100;
+    protected Subscription mSubscription;
 
     public Activity mContext;
     @Override
@@ -60,6 +62,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         WaitDialog.destroyDialog(mContext);
+        if (null!=mSubscription)mSubscription.unsubscribe();
     }
 
     @Override
