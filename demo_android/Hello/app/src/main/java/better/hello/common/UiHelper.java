@@ -27,6 +27,7 @@ import okhttp3.ResponseBody;
 import rx.Emitter;
 import rx.Observable;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -80,7 +81,7 @@ public class UIHelper {
                     }
                 }, Emitter.BackpressureMode.BUFFER);
             }
-        }).onBackpressureBuffer().observeOn(Schedulers.io()).subscribe(new BaseSubscriber<>(requestInfo));
+        }).onBackpressureBuffer().observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseSubscriber<>(requestInfo));
     }
 
     public static List<ImagesDetailsBean> getImage(List<NewsListBean.ImgextraBean> listImg, List<NewsListBean.AdsBean> listAds) {

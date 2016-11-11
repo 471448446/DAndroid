@@ -30,6 +30,11 @@
         </activity>
 
         <service android:name=".http.download.DownLoadService"/>
+        <receiver android:name=".reciver.NotificationClickReciver">
+            <intent-filter android:priority="1">
+                <action android:name="better.hello.notification.click"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

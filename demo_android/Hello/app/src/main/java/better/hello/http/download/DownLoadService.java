@@ -84,7 +84,7 @@ public class DownLoadService extends Service implements RequestCallback<Download
     @Override
     public void onComplete(RequestInfo<DownloadingInfo> requestInfo) {
         if (null != requestInfo.getWaitPolicy()) {
-            requestInfo.getWaitPolicy().disappear(mDownloadInfo.getTitle());
+            ((NotificationWaitPolice) requestInfo.getWaitPolicy()).disappear(mDownloadInfo);
         }
         stopSelf();
     }
