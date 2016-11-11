@@ -24,5 +24,6 @@
     <string name="down_ok">下载成功</string>
     <string name="down_tip_3gp">要用流量下载？？</string>
     <string name="down_fail">下载失败</string>
+    <string name="splash_ok">已更新欢迎页图片</string>
 
 </resources>

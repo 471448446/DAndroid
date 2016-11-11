@@ -28,7 +28,7 @@ import rx.functions.Func1;
 
 /**
  * Des http://news-at.zhihu.com/api/4/start-image/1080*1776
- * todo 默认加载昨天的
+ * 默认加载以前的图片
  * Create By better on 2016/10/26 11:08.
  */
 public class SplashActivity extends BaseActivity {
@@ -39,7 +39,6 @@ public class SplashActivity extends BaseActivity {
     private static final long TIME_LOAD_MIN = 2000; // 页面最短停留时间
     private static final long TIME_LOAD_MAX = 5000; // 页面最长留时间
     private long loadTime = 0, startTime; // 记录启动新页面之前，花费的总时间
-
 
     private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
@@ -115,7 +114,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void loadSplashImage() {
-        if (!FileUtils.isLoadCanLoadSplash(mContext)) {
+        if (!FileUtils.isCanLoadSplash(mContext)) {
             img.setBackgroundResource(R.drawable.splash);
             mHandler.sendEmptyMessage(MSG_START_MAIN_ACTIVITY);
         } else {

@@ -2,13 +2,14 @@ package better.hello.util;
 
 import android.content.Context;
 import android.os.Environment;
-import android.text.format.DateFormat;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Calendar;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import better.hello.App;
 import better.hello.data.bean.DownloadingInfo;
@@ -28,18 +29,11 @@ public class FileUtils {
     public static final String FILE_CACHE = "cache";
 
     public static final String MAP_4 = ".mp4";
+    public static final String JPG = ".jpg";
+    public static final String SPLASH_FILE_NAME = "splash" + JPG;
 
     public static InputStream readFileFromRaw(int fileID) {
         return App.getApplication().getResources().openRawResource(fileID);
-    }
-
-    public static boolean isLoadCanLoadSplash(Context ctx) {
-        return new File(getTodaySplashImagePath(ctx)).exists();
-    }
-
-    public static String getTodaySplashImagePath(Context ctx) {
-        String todayFileName = (String) DateFormat.format("yyyy-MM-dd", Calendar.getInstance());
-        return getSplashFileDir(ctx) + File.separator + todayFileName + ".jpg";
     }
 
     public static String makeDir(String path) {
@@ -50,12 +44,6 @@ public class FileUtils {
         } else {
             return path;
         }
-    }
-
-    public static boolean writeSplash(Context ctx, ResponseBody ins) throws IOException {
-        Utils.d("Better", "今日文件路径：" + getTodaySplashImagePath(ctx));
-        File todayFile = new File(getTodaySplashImagePath(ctx));
-        return writeFile(ins, todayFile);
     }
 
 //    public static boolean writeFile(InputStream ins, File file) throws IOException {
@@ -221,6 +209,7 @@ public class FileUtils {
     public static String getVideoFileDir(Context context) {
         return makeDir(getStorageRootPath(context) + File.separator + FILE_VIDEO);
     }
+
     public static String getCacheFileDir(Context context) {
         return makeDir(getStorageRootPath(context) + File.separator + FILE_CACHE);
     }
@@ -258,8 +247,39 @@ public class FileUtils {
         file.createNewFile();
         return file;
     }
-    public static String getVideoFileName(Context context,String fileName){
-        return getVideoFileDir(context)+File.separator+fileName+MAP_4;
+
+    public static String getVideoFileName(Context context, String fileName) {
+        return getVideoFileDir(context) + File.separator + fileName + MAP_4;
+    }
+
+    public static String getTodaySplashImagePath(Context ctx) {
+        return getSplashFileDir(ctx) + File.separator + SPLASH_FILE_NAME;
+    }
+
+    /**
+     * Des 不存在且今天没下载
+     * Create By better on 2016/11/11 14:43.
+     */
+    public static boolean isNeedDownLoadTodaySplash(Context ctx) {
+        File splashFile = new File(getTodaySplashImagePath(ctx));
+        if (!splashFile.exists()) return true;
+        DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        String today = f.format(new Date());
+        return !today.equalsIgnoreCase(f.format(new Date(splashFile.lastModified())));
+    }
+
+    public static boolean isCanLoadSplash(Context ctx) {
+        return new File(getTodaySplashImagePath(ctx)).exists();
+    }
+
+    public static boolean writeSplash(Context ctx, ResponseBody ins) throws IOException {
+//        Utils.d("Better", "今日文件路径：" + getTodaySplashImagePath(ctx));
+        File todayFile = new File(getTodaySplashImagePath(ctx));
+        if (todayFile.exists()) {
+            String newName = new SimpleDateFormat("yyyy-MM-dd").format(new Date(todayFile.lastModified())) + JPG;
+            todayFile.renameTo(new File(getSplashFileDir(ctx) + File.separator + newName));
+        }
+        return writeFile(ins, todayFile);
     }
 
 //    public static String getFilePathName(String... args) {

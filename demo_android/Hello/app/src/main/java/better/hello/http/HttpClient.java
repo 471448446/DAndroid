@@ -20,6 +20,7 @@ import okhttp3.Response;
 /**
  * cache:http://www.jianshu.com/p/9c3b4ea108a7
  * http://mushuichuan.com/2016/03/01/okhttpcache/
+ * http://aiwoapp.blog.51cto.com/8677066/1619654
  * 缓存：默认不开启，手动配置开不开
  * Created by better on 2016/10/17.
  */

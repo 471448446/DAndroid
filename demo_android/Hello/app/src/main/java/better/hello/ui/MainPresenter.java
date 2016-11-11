@@ -2,6 +2,7 @@ package better.hello.ui;
 
 import java.io.IOException;
 
+import better.hello.R;
 import better.hello.common.BasePresenterProxy;
 import better.hello.data.bean.SplashZhiHuBean;
 import better.hello.http.HttpUtil;
@@ -26,7 +27,7 @@ public class MainPresenter extends BasePresenterProxy<MainActivity> implements M
 
     @Override
     public void asyncPlashImage() {
-        if (FileUtils.isLoadCanLoadSplash(mView)) {
+        if (!FileUtils.isNeedDownLoadTodaySplash(mView)) {
             return;
         }
         HttpUtil.getSplashBean(Api.SPLASH_IMG).subscribe(new Action1<SplashZhiHuBean>() {
@@ -49,23 +50,22 @@ public class MainPresenter extends BasePresenterProxy<MainActivity> implements M
                     e.printStackTrace();
                     throw new RuntimeException(e.getMessage(), e);
                 }
-                return FileUtils.isLoadCanLoadSplash(mView);
+                return FileUtils.isNeedDownLoadTodaySplash(mView);
             }
         }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Boolean>() {
             @Override
             public void onCompleted() {
-
             }
 
             @Override
             public void onError(Throwable e) {
-                Utils.d("Better", "首页图片eror=" + e.getMessage());
+                Utils.d("Better", "首页图片error=" + e.getMessage());
             }
 
             @Override
             public void onNext(Boolean aBoolean) {
-                Utils.toastShort(mView, "首页图片准备好了"+String.valueOf(aBoolean));
-                Utils.d("Better", "首页图片 首页图片准备好了");
+                Utils.toastShort(mView, mView.getString(R.string.splash_ok));
+                Utils.d("Better", mView.getString(R.string.splash_ok)+String.valueOf(aBoolean));
             }
         });
     }
