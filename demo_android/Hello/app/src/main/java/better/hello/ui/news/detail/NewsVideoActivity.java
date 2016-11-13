@@ -83,15 +83,19 @@ public class NewsVideoActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Sensor accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensorManager.registerListener(sensorEventListener, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if (null!=sensorManager){
+            Sensor accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            sensorManager.registerListener(sensorEventListener, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        sensorManager.unregisterListener(sensorEventListener);
-        JCVideoPlayer.releaseAllVideos();
+        if (null!=sensorManager){
+            sensorManager.unregisterListener(sensorEventListener);
+            JCVideoPlayer.releaseAllVideos();
+        }
     }
 
     @Override

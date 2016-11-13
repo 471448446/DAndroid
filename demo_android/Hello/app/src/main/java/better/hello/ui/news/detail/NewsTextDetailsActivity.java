@@ -104,6 +104,7 @@ public class NewsTextDetailsActivity extends BaseActivity implements NewsTextDet
             if (span.getSource().contains(b.getCover())) {
                 String url = b.getMp4Hd_url();
                 if (TextUtils.isEmpty(url)) url = b.getMp4_url();
+                else if (!TextUtils.isEmpty(b.getUrl_mp4())) url = b.getUrl_mp4();
                 else url = b.getUrl_m3u8();
                 bean = new VideoBean(b.getCover(), b.getAlt(), url);
             }
