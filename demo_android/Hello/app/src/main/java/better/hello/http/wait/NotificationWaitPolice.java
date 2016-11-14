@@ -71,7 +71,7 @@ public class NotificationWaitPolice extends WaitPolicy {
     }
 
     public void disappear(DownloadInfo des) {
-        if (null == des || TextUtils.isEmpty(des.getFileName())) {
+        if (null == des || TextUtils.isEmpty(des.getTitle())) {
             disappear();
             return;
         }

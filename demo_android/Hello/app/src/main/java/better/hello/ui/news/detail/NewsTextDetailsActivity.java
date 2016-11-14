@@ -52,6 +52,12 @@ public class NewsTextDetailsActivity extends BaseActivity implements NewsTextDet
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        detail=null;
+    }
+
+    @Override
     protected void initData() {
         super.initData();
         presenter = new NewsTextDetailsPresenter(this);
