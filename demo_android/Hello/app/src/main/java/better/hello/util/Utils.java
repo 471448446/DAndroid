@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,7 +39,7 @@ public class Utils extends BaseUtils {
         }
         try {
             doc = builder.parse(is);
-            is.close();
+            close(is);
         } catch (SAXException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -96,6 +97,13 @@ public class Utils extends BaseUtils {
                 if (null != bitmapDrawable.getBitmap()) {
                     bitmapDrawable.getBitmap().recycle();
                 }
+            }
+        }
+    }
+    public static void close(Closeable...closeables) throws IOException {
+        if (null!=closeables){
+            for (Closeable closeable:closeables){
+                if (null!=closeable)closeable.close();
             }
         }
     }

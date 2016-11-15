@@ -81,8 +81,21 @@ public class UIHelper {
                     }
                 }, Emitter.BackpressureMode.BUFFER);
             }
-        }).onBackpressureBuffer().observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseSubscriber<>(requestInfo));
+        }).onBackpressureLatest().observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseSubscriber<>(requestInfo));
     }
+//    public static Subscription downLoad(RequestInfo<DownloadingInfo> requestInfo, final String fileName, String mp4_url) {
+//        return HttpUtil.downFile(mp4_url).subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io()).flatMap(new Func1<ResponseBody, Observable<DownloadingInfo>>() {
+//            @Override
+//            public Observable<DownloadingInfo> call(final ResponseBody responseBody) {
+//                return Observable.fromEmitter(new Action1<Emitter<DownloadingInfo>>() {
+//                    @Override
+//                    public void call(Emitter<DownloadingInfo> downloadInfoEmitter) {
+//                        FileUtils.writeFile(downloadInfoEmitter, responseBody, fileName);
+//                    }
+//                }, Emitter.BackpressureMode.BUFFER);
+//            }
+//        }).onBackpressureBuffer().observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseSubscriber<>(requestInfo));
+//    }
 
     public static List<ImagesDetailsBean> getImage(List<NewsListBean.ImgextraBean> listImg, List<NewsListBean.AdsBean> listAds) {
         ArrayList<ImagesDetailsBean> list = new ArrayList<>();

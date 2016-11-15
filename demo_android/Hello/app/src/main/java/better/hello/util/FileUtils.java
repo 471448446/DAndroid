@@ -138,16 +138,8 @@ public class FileUtils {
                 subscriber.onNext(info);
                 Utils.d("Better", "下载了==" + readSize + ",total=" + length);
             }
-            if (null != outputStream) {
-                outputStream.flush();
-                outputStream.close();
-            }
-            if (null != ins) {
-                ins.close();
-            }
-            if (null != body) {
-                body.close();
-            }
+            outputStream.flush();
+            Utils.close(outputStream,ins,body);
         } catch (Exception e) {
             e.printStackTrace();
             subscriber.onError(e);
