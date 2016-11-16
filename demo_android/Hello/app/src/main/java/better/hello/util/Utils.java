@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+import android.support.v4.content.FileProvider;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 
@@ -54,16 +55,30 @@ public class Utils extends BaseUtils {
      */
     public static void openFile(Context activity, String path) {
         File temp_file = new File(path);
+        Uri fileUri = FileProvider.getUriForFile(activity, "better.hello.fileprovider", temp_file);
         Intent intent = new Intent();
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.setAction(android.content.Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(temp_file), getMimeType(temp_file.getAbsolutePath()));
+        intent.setDataAndType(fileUri, getMimeType(temp_file.getAbsolutePath()));
         if (null != intent.resolveActivity(activity.getPackageManager())) {
             activity.startActivity(intent);
         } else {
             Utils.toastShort(activity, "没有打开文件的应用");
         }
     }
+//    public static void openFile(Context activity, String path) {
+//        File temp_file = new File(path);
+//        Intent intent = new Intent();
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.setAction(android.content.Intent.ACTION_VIEW);
+//        intent.setDataAndType(Uri.fromFile(temp_file), getMimeType(temp_file.getAbsolutePath()));
+//        if (null != intent.resolveActivity(activity.getPackageManager())) {
+//            activity.startActivity(intent);
+//        } else {
+//            Utils.toastShort(activity, "没有打开文件的应用");
+//        }
+//    }
 
     private static String getMimeType(String url) {
         String parts[] = url.split("\\.");
@@ -100,10 +115,11 @@ public class Utils extends BaseUtils {
             }
         }
     }
-    public static void close(Closeable...closeables) throws IOException {
-        if (null!=closeables){
-            for (Closeable closeable:closeables){
-                if (null!=closeable)closeable.close();
+
+    public static void close(Closeable... closeables) throws IOException {
+        if (null != closeables) {
+            for (Closeable closeable : closeables) {
+                if (null != closeable) closeable.close();
             }
         }
     }
