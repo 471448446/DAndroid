@@ -91,13 +91,12 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NewsListBean, Recyc
             title = newsSummary.getTitle();
         }
         String pTime = newsSummary.getPtime();
-        String digest = newsSummary.getDigest();
-        String imgSrc = newsSummary.getImgsrc();
+//        String digest = newsSummary.getDigest();
         holder.itemView.setOnClickListener(new ItemClickListener(false, newsSummary));
 
         holder.mNewsSummaryTitleTv.setText(title);
         holder.mNewsSummaryPtimeTv.setText(pTime);
-        holder.mNewsSummaryDigestTv.setText(digest);
+//        holder.mNewsSummaryDigestTv.setText(digest);
         ImageUtil.load(App.getApplication(), newsSummary.getImgsrc(), holder.mNewsSummaryPhotoIv);
     }
 
@@ -212,8 +211,8 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NewsListBean, Recyc
         ImageView mNewsSummaryPhotoIv;
         @BindView(R.id.news_summary_title_tv)
         TextView mNewsSummaryTitleTv;
-        @BindView(R.id.news_summary_digest_tv)
-        TextView mNewsSummaryDigestTv;
+//        @BindView(R.id.news_summary_digest_tv)
+//        TextView mNewsSummaryDigestTv;
         @BindView(R.id.news_summary_ptime_tv)
         TextView mNewsSummaryPtimeTv;
 
