@@ -10,7 +10,8 @@ import better.hello.common.RefreshListener;
 import better.hello.common.RefreshListenerPresentImpl;
 import better.hello.common.UIHelper;
 import better.hello.data.bean.ImagesDetailsBean;
-import better.hello.data.bean.NewsListBean;
+import better.hello.data.bean.NetEaseNewsListBean;
+import better.hello.data.bean.NewsChannelBean;
 import better.hello.ui.base.BaseListFragment;
 import better.hello.ui.base.adapter.BaseRecyclerViewAdapter;
 import better.hello.ui.news.detail.NewsPhotoDetailActivity;
@@ -22,14 +23,22 @@ import better.lib.http.RequestType;
  * Created by better on 2016/10/14.
  */
 
-public class NewsListFragment extends BaseListFragment<NewsListBean> implements NewsListContract.view {
+public class NewsListFragment extends BaseListFragment<NetEaseNewsListBean> implements NewsListContract.view {
     private NewsListPresenter mPresenter;
-    private String type, id;
+//    private String type, id;
+    private NewsChannelBean mNewsChannelBean;
 
-    public static NewsListFragment newInstance(String type, String id) {
+//    public static NewsListFragment newInstance(String type, String id) {
+//        Bundle bundle = new Bundle();
+//        bundle.putString(C.EXTRA_TAG_Type, type);
+//        bundle.putString(C.EXTRA_TAG_ID, id);
+//        NewsListFragment fragment = new NewsListFragment();
+//        fragment.setArguments(bundle);
+//        return fragment;
+//    }
+    public static NewsListFragment newInstance(NewsChannelBean bean) {
         Bundle bundle = new Bundle();
-        bundle.putString(C.EXTRA_TAG_Type, type);
-        bundle.putString(C.EXTRA_TAG_ID, id);
+        bundle.putParcelable(C.EXTRA_BEAN, bean);
         NewsListFragment fragment = new NewsListFragment();
         fragment.setArguments(bundle);
         return fragment;
@@ -38,7 +47,7 @@ public class NewsListFragment extends BaseListFragment<NewsListBean> implements 
     @Override
     protected void initWhenNullRootView() {
         super.initWhenNullRootView();
-        mPresenter = new NewsListPresenter(NewsListFragment.this, type, id);
+        mPresenter = new NewsListPresenter(NewsListFragment.this, mNewsChannelBean.getType(), mNewsChannelBean.getChannelId());
         initRefresh(R.id.simpleRefresh_SwipeRefresh, R.id.simpleRefresh_recyclerView);
         mPresenter.asyncList(RequestType.DATA_REQUEST_INIT);
     }
@@ -48,8 +57,9 @@ public class NewsListFragment extends BaseListFragment<NewsListBean> implements 
         super.getArgs();
         Bundle b = getArguments();
         if (null != b) {
-            type = b.getString(C.EXTRA_TAG_Type);
-            id = b.getString(C.EXTRA_TAG_ID);
+//            type = b.getString(C.EXTRA_TAG_Type);
+//            id = b.getString(C.EXTRA_TAG_ID);
+            mNewsChannelBean=b.getParcelable(C.EXTRA_BEAN);
         }
     }
 
@@ -75,7 +85,7 @@ public class NewsListFragment extends BaseListFragment<NewsListBean> implements 
 
     private NewsItemClickListener newsItemClickListener = new NewsItemClickListener() {
         @Override
-        public void onClickNews(boolean isPhoto, NewsListBean bean) {
+        public void onClickNews(boolean isPhoto, NetEaseNewsListBean bean) {
             if (isPhoto){
                 NewsPhotoDetailActivity.start(mContext.getActivity(), UIHelper.getImage(bean.getImgextra(),bean.getAds()));
             }else {
@@ -84,14 +94,14 @@ public class NewsListFragment extends BaseListFragment<NewsListBean> implements 
         }
     };
 
-    private ArrayList<ImagesDetailsBean> getNewsImage(NewsListBean bean) {
+    private ArrayList<ImagesDetailsBean> getNewsImage(NetEaseNewsListBean bean) {
         ArrayList<ImagesDetailsBean> list=new ArrayList<>();
         if (null!=bean.getAds()){
-            for (NewsListBean.AdsBean im :bean.getAds()){
+            for (NetEaseNewsListBean.AdsBean im :bean.getAds()){
                 list.add(new ImagesDetailsBean(im.getTitle(),im.getImgsrc()));
             }
         }else if (null!=bean.getImgextra()){
-            for (NewsListBean.ImgextraBean im :bean.getImgextra()){
+            for (NetEaseNewsListBean.ImgextraBean im :bean.getImgextra()){
                 list.add(new ImagesDetailsBean("",im.getImgsrc()));
             }
         }
@@ -103,6 +113,6 @@ public class NewsListFragment extends BaseListFragment<NewsListBean> implements 
      * Create By better on 2016/10/19 14:29.
      */
     public interface NewsItemClickListener {
-        void onClickNews(boolean isPhoto, NewsListBean bean);
+        void onClickNews(boolean isPhoto, NetEaseNewsListBean bean);
     }
 }

@@ -13,28 +13,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity"/>
-        <activity android:name=".ui.splash.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-        <activity android:name=".ui.news.detail.NewsPhotoDetailActivity"/>
-        <activity android:name=".ui.news.detail.NewsTextDetailsActivity">
-
-        </activity>
-        <activity android:name=".ui.news.detail.NewsVideoActivity">
-
-        </activity>
-
         <service android:name=".http.download.DownLoadService"/>
+
         <receiver android:name=".reciver.NotificationClickReciver">
             <intent-filter android:priority="1">
                 <action android:name="better.hello.notification.click"/>
             </intent-filter>
         </receiver>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="better.hello.fileprovider"
@@ -44,6 +30,19 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/fileprovider"/>
         </provider>
+
+        <activity android:name=".ui.MainActivity"/>
+        <activity android:name=".ui.splash.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.news.detail.NewsPhotoDetailActivity"/>
+        <activity android:name=".ui.news.detail.NewsTextDetailsActivity"/>
+        <activity android:name=".ui.news.detail.NewsVideoActivity"/>
+        <activity android:name=".ui.news.detail.NewsDetailsActivity"/>
     </application>
 
 </manifest>

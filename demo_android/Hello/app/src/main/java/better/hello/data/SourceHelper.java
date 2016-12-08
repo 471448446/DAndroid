@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import better.hello.R;
-import better.hello.data.bean.NewsChannleBean;
+import better.hello.data.bean.NewsChannelBean;
 import better.hello.http.api.Api;
+import better.hello.http.api.NewsSourceType;
 import better.hello.util.FileUtils;
 import better.hello.util.Utils;
 
@@ -19,15 +20,15 @@ import better.hello.util.Utils;
 
 public class SourceHelper {
 
-    public static List<NewsChannleBean> getNewsChannel() {
-        List<NewsChannleBean> list = new ArrayList<>();
+    public static List<NewsChannelBean> getNewsChannel() {
+        List<NewsChannelBean> list = new ArrayList<>();
         InputStream is = FileUtils.readFileFromRaw(R.raw.news_api);
         Document document = Utils.getDocumentByIS(is);
         if (null == document) return list;
         NodeList listName = document.getElementsByTagName("name");
         NodeList listId = document.getElementsByTagName("id");
         for (int i = 0, l = listName.getLength(); i < l; i++) {
-            list.add(new NewsChannleBean(listName.item(i).getTextContent(), listId.item(i).getTextContent(), Api.getType(listId.item(i).getTextContent())));
+            list.add(new NewsChannelBean(listName.item(i).getTextContent(), listId.item(i).getTextContent(), Api.getType(listId.item(i).getTextContent()), NewsSourceType.NETEASE));
         }
         return list;
     }

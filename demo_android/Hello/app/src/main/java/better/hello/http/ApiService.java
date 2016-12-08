@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import better.hello.data.bean.NewsDetailsBean;
-import better.hello.data.bean.NewsListBean;
+import better.hello.data.bean.NetEaseNewsListBean;
 import better.hello.data.bean.SplashZhiHuBean;
 import okhttp3.ResponseBody;
 import retrofit2.http.GET;
@@ -25,7 +25,7 @@ public interface ApiService {
      * Create By better on 2016/10/17 15:11.
      */
     @GET("nc/article/{type}/{id}/{startPage}-20.html")
-    Observable<Map<String, List<NewsListBean>>> asyncNewsList(@Path("type") String type, @Path("id") String id, @Path("startPage") int startPage);
+    Observable<Map<String, List<NetEaseNewsListBean>>> asyncNewsList(@Path("type") String type, @Path("id") String id, @Path("startPage") int startPage);
 
     /**
      * Des 新闻详情

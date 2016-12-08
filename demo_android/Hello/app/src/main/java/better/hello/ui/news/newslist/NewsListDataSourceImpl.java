@@ -13,7 +13,7 @@ import java.util.Map;
 import better.hello.common.BaseSchedulerTransformer;
 import better.hello.common.BaseSubscriber;
 import better.hello.data.DataSourceDbImpl;
-import better.hello.data.bean.NewsListBean;
+import better.hello.data.bean.NetEaseNewsListBean;
 import better.hello.data.db.TableInfo;
 import better.hello.http.HttpUtil;
 import better.hello.http.call.RequestInfo;
@@ -27,12 +27,12 @@ import rx.functions.Func1;
  * Des 新闻Model
  * Create By better on 2016/10/26 14:24.
  */
-public class NewsListDataSourceImpl extends DataSourceDbImpl<List<NewsListBean>> {
-    private Func1<Cursor, NewsListBean> mapper = new Func1<Cursor, NewsListBean>() {
+public class NewsListDataSourceImpl extends DataSourceDbImpl<List<NetEaseNewsListBean>> {
+    private Func1<Cursor, NetEaseNewsListBean> mapper = new Func1<Cursor, NetEaseNewsListBean>() {
         @Override
-        public NewsListBean call(Cursor cursor) {
+        public NetEaseNewsListBean call(Cursor cursor) {
 
-            return JsonUtils.fromJson(cursor.getString(cursor.getColumnIndexOrThrow(TableInfo.NewsListTable.JSON)), NewsListBean.class);
+            return JsonUtils.fromJson(cursor.getString(cursor.getColumnIndexOrThrow(TableInfo.NewsListTable.JSON)), NetEaseNewsListBean.class);
         }
     };
 
@@ -45,12 +45,12 @@ public class NewsListDataSourceImpl extends DataSourceDbImpl<List<NewsListBean>>
     }
 
     @Override
-    public Subscription asyncUrlInfo(final RequestInfo<List<NewsListBean>> info) {
+    public Subscription asyncUrlInfo(final RequestInfo<List<NetEaseNewsListBean>> info) {
         return HttpUtil.getNewsList((String) info.getPrams().get(C.EXTRA_FIRST), (String) info.getPrams().get(C.EXTRA_SECOND), (int) info.getPrams().get(C.EXTRA_THIRD))
-                .map(new Func1<Map<String, List<NewsListBean>>, List<NewsListBean>>() {
+                .map(new Func1<Map<String, List<NetEaseNewsListBean>>, List<NetEaseNewsListBean>>() {
                     @Override
-                    public List<NewsListBean> call(Map<String, List<NewsListBean>> stringListMap) {
-                        List<NewsListBean> list= stringListMap.get(info.getPrams().get(C.EXTRA_SECOND));
+                    public List<NetEaseNewsListBean> call(Map<String, List<NetEaseNewsListBean>> stringListMap) {
+                        List<NetEaseNewsListBean> list= stringListMap.get(info.getPrams().get(C.EXTRA_SECOND));
                         isLoadFromNetSuccess=null!=list&&!list.isEmpty();
                         return list;
                     }
@@ -58,32 +58,32 @@ public class NewsListDataSourceImpl extends DataSourceDbImpl<List<NewsListBean>>
     }
 
     @Override
-    public Subscription getLocalInfo(RequestInfo<List<NewsListBean>> info) {
+    public Subscription getLocalInfo(RequestInfo<List<NetEaseNewsListBean>> info) {
 //        Utils.d("Better", "getLocalInfo() " + info.getRequestTye());
         return db.createQuery(TableInfo.NewsListTable.TABLE_NAME, TableInfo.getNewsByType((String) info.getPrams().get(C.EXTRA_SECOND)))
                 .mapToList(mapper)
-                .doOnNext(new Action1<List<NewsListBean>>() {
+                .doOnNext(new Action1<List<NetEaseNewsListBean>>() {
                     @Override
-                    public void call(List<NewsListBean> listBeen) {
+                    public void call(List<NetEaseNewsListBean> listBeen) {
                         isLocalEmpty = listBeen.isEmpty();
                         if (isLocalEmpty) {
                             throw new IllegalArgumentException("本地列表 null");
                         }
                     }
                 })
-                .compose(new BaseSchedulerTransformer<List<NewsListBean>>())
+                .compose(new BaseSchedulerTransformer<List<NetEaseNewsListBean>>())
                 .subscribe(new BaseSubscriber<>(info));
     }
 
 
     @Override
-    public void save(List<NewsListBean> beans, RequestInfo<List<NewsListBean>> info) {
+    public void save(List<NetEaseNewsListBean> beans, RequestInfo<List<NetEaseNewsListBean>> info) {
         if (!isNeedCache(info.getRequestTye()))return;
         BriteDatabase.Transaction transaction = db.newTransaction();
         String type_id=(String) info.getPrams().get(C.EXTRA_SECOND);
         try {
             db.execute(TableInfo.deleteNewsByType(type_id));
-            for (NewsListBean bean : beans) {
+            for (NetEaseNewsListBean bean : beans) {
                 ContentValues values = new ContentValues();
                 values.put(TableInfo.NewsListTable.TITLE, bean.getTitle());
                 values.put(TableInfo.NewsListTable.JSON, JsonUtils.toJson(bean));

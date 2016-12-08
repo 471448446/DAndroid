@@ -5,7 +5,7 @@ import android.support.v4.util.ArrayMap;
 import java.util.List;
 
 import better.hello.common.BasePresenterProxy;
-import better.hello.data.bean.NewsListBean;
+import better.hello.data.bean.NetEaseNewsListBean;
 import better.hello.http.call.RequestCallback;
 import better.hello.http.call.RequestInfo;
 import better.hello.util.C;
@@ -18,7 +18,7 @@ import better.lib.waitpolicy.NoneWaitPolicy;
  * Created by better on 2016/10/18.
  */
 
-public class NewsListPresenter extends BasePresenterProxy<NewsListFragment> implements NewsListContract.presenter, RequestCallback<List<NewsListBean>> {
+public class NewsListPresenter extends BasePresenterProxy<NewsListFragment> implements NewsListContract.presenter, RequestCallback<List<NetEaseNewsListBean>> {
     /*请求参数*/
     private int startPage = 0;
     private String mNewsType;
@@ -47,16 +47,16 @@ public class NewsListPresenter extends BasePresenterProxy<NewsListFragment> impl
         map.put(C.EXTRA_THIRD, startPage);
         requestInfo.setPrams(map);
         mSubscription = newsDataSource.get(requestInfo);
-//        mSubscription= HttpUtil.getNewsList(mNewsType, mNewsId, startPage).map(new Func1<Map<String, List<NewsListBean>>, List<NewsListBean>>() {
+//        mSubscription= HttpUtil.getNewsList(mNewsType, mNewsId, startPage).map(new Func1<Map<String, List<NetEaseNewsListBean>>, List<NetEaseNewsListBean>>() {
 //            @Override
-//            public List<NewsListBean> call(Map<String, List<NewsListBean>> stringListMap) {
+//            public List<NetEaseNewsListBean> call(Map<String, List<NetEaseNewsListBean>> stringListMap) {
 //                return stringListMap.get(mNewsId);
 //            }
 //        }).subscribe(new BaseSubscriber<>(requestInfo));
     }
 
     @Override
-    public void onError(RequestInfo<List<NewsListBean>> requestInfo, String msg) {
+    public void onError(RequestInfo<List<NetEaseNewsListBean>> requestInfo, String msg) {
 //        Utils.d("Better", "error type=" + requestInfo.getRequestTye() + ",msg=" + msg);
         mSubscription.unsubscribe();
         if (newsDataSource.isNeedLoadFromNet()) {
@@ -67,7 +67,7 @@ public class NewsListPresenter extends BasePresenterProxy<NewsListFragment> impl
     }
 
     @Override
-    public void onSuccess(RequestInfo<List<NewsListBean>> requestInfo, List<NewsListBean> data, Object o) {
+    public void onSuccess(RequestInfo<List<NetEaseNewsListBean>> requestInfo, List<NetEaseNewsListBean> data, Object o) {
         Utils.d("Better", "最终数据" + String.valueOf(null == data));
         //保存数据前先关闭绑定，不然save 里面Transaction会一直回调这个方法，没找到原因的。
         mSubscription.unsubscribe();
@@ -77,12 +77,12 @@ public class NewsListPresenter extends BasePresenterProxy<NewsListFragment> impl
     }
 
     @Override
-    public void onStart(RequestInfo<List<NewsListBean>> requestInfo) {
+    public void onStart(RequestInfo<List<NetEaseNewsListBean>> requestInfo) {
 
     }
 
     @Override
-    public void onComplete(RequestInfo<List<NewsListBean>> requestInfo) {
+    public void onComplete(RequestInfo<List<NetEaseNewsListBean>> requestInfo) {
 
     }
 }

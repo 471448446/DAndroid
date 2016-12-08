@@ -5,7 +5,7 @@ import java.util.Map;
 
 import better.hello.common.BaseSchedulerTransformer;
 import better.hello.data.bean.NewsDetailsBean;
-import better.hello.data.bean.NewsListBean;
+import better.hello.data.bean.NetEaseNewsListBean;
 import better.hello.data.bean.SplashZhiHuBean;
 import better.hello.http.api.HostType;
 import okhttp3.ResponseBody;
@@ -20,9 +20,9 @@ public class HttpUtil {
      * Des 新闻列表
      * Create By better on 2016/10/17 16:14.
      */
-    public static Observable<Map<String, List<NewsListBean>>> getNewsList(String type, final String id, int startPage) {
+    public static Observable<Map<String, List<NetEaseNewsListBean>>> getNewsList(String type, final String id, int startPage) {
         return RetrofitHelper.getInstance(HostType.NETEASE_NEWS_VIDEO).getApiService().asyncNewsList(type, id, startPage)
-                .compose(new BaseSchedulerTransformer<Map<String, List<NewsListBean>>>());
+                .compose(new BaseSchedulerTransformer<Map<String, List<NetEaseNewsListBean>>>());
     }
 
     /**

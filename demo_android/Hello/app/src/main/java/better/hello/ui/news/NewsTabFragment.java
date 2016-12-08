@@ -11,7 +11,7 @@ import java.util.List;
 
 import better.hello.R;
 import better.hello.data.SourceHelper;
-import better.hello.data.bean.NewsChannleBean;
+import better.hello.data.bean.NewsChannelBean;
 import better.hello.ui.base.BaseTabSlideFragment;
 import better.hello.ui.base.adapter.TabPagerAdapter;
 import better.hello.ui.news.newslist.NewsListFragment;
@@ -32,7 +32,7 @@ public class NewsTabFragment extends BaseTabSlideFragment implements NewsTabCont
 
     @Override
     protected PagerAdapter getPagerAdapter() {
-        final List<NewsChannleBean> lis = SourceHelper.getNewsChannel();
+        final List<NewsChannelBean> lis = SourceHelper.getNewsChannel();
         name = new String[lis.size()];
         for (int i = 0, l = lis.size(); i < l; i++) {
             name[i] = lis.get(i).getName();
@@ -40,8 +40,7 @@ public class NewsTabFragment extends BaseTabSlideFragment implements NewsTabCont
         tabPagerAdapter = new TabPagerAdapter(getChildFragmentManager(), name) {
             @Override
             public Fragment getItem(int position) {
-                return NewsListFragment.newInstance(lis.get(position).getType(), lis
-                        .get(position).getChannleId());
+                return NewsListFragment.newInstance(lis.get(position));
             }
         };
         return tabPagerAdapter;

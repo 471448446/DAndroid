@@ -15,7 +15,7 @@ import better.hello.data.bean.DownloadInfo;
 import better.hello.data.bean.DownloadingInfo;
 import better.hello.data.bean.ImagesDetailsBean;
 import better.hello.data.bean.NewsDetailsBean;
-import better.hello.data.bean.NewsListBean;
+import better.hello.data.bean.NetEaseNewsListBean;
 import better.hello.http.HttpUtil;
 import better.hello.http.call.RequestInfo;
 import better.hello.http.download.DownLoadService;
@@ -97,14 +97,14 @@ public class UIHelper {
 //        }).onBackpressureBuffer().observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseSubscriber<>(requestInfo));
 //    }
 
-    public static List<ImagesDetailsBean> getImage(List<NewsListBean.ImgextraBean> listImg, List<NewsListBean.AdsBean> listAds) {
+    public static List<ImagesDetailsBean> getImage(List<NetEaseNewsListBean.ImgextraBean> listImg, List<NetEaseNewsListBean.AdsBean> listAds) {
         ArrayList<ImagesDetailsBean> list = new ArrayList<>();
         if (null != listAds) {
-            for (NewsListBean.AdsBean im : listAds) {
+            for (NetEaseNewsListBean.AdsBean im : listAds) {
                 list.add(new ImagesDetailsBean(im.getTitle(), im.getImgsrc()));
             }
         } else if (null != listImg) {
-            for (NewsListBean.ImgextraBean im : listImg) {
+            for (NetEaseNewsListBean.ImgextraBean im : listImg) {
                 list.add(new ImagesDetailsBean("", im.getImgsrc()));
             }
         }

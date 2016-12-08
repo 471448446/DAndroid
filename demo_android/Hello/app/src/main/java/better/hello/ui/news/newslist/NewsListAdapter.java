@@ -13,7 +13,7 @@ import java.util.List;
 
 import better.hello.App;
 import better.hello.R;
-import better.hello.data.bean.NewsListBean;
+import better.hello.data.bean.NetEaseNewsListBean;
 import better.hello.ui.base.adapter.BaseRecyclerViewAdapter;
 import better.hello.util.ImageUtil;
 import better.hello.util.Utils;
@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
  * Created by better on 2016/10/18.
  */
 
-public class NewsListAdapter extends BaseRecyclerViewAdapter<NewsListBean, RecyclerView.ViewHolder> {
+public class NewsListAdapter extends BaseRecyclerViewAdapter<NetEaseNewsListBean, RecyclerView.ViewHolder> {
     private final int TYPE_NEWS = 1;
     private final int TYPE_PHOTO = TYPE_NEWS + 1;
     private NewsListFragment.NewsItemClickListener newsItemClickListener;
@@ -73,7 +73,7 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NewsListBean, Recyc
     }
 
     private void setPhotoItem(PhotoViewHolder holder, int position) {
-        NewsListBean newsSummary = mList.get(position);
+        NetEaseNewsListBean newsSummary = mList.get(position);
         String title = newsSummary.getTitle();
         String ptime = newsSummary.getPtime();
 
@@ -85,7 +85,7 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NewsListBean, Recyc
     }
 
     private void setNewsItem(ItemViewHolder holder, int position) {
-        NewsListBean newsSummary = mList.get(position);
+        NetEaseNewsListBean newsSummary = mList.get(position);
         String title = newsSummary.getLtitle();
         if (title == null) {
             title = newsSummary.getTitle();
@@ -100,7 +100,7 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NewsListBean, Recyc
         ImageUtil.load(App.getApplication(), newsSummary.getImgsrc(), holder.mNewsSummaryPhotoIv);
     }
 
-    private void setImageViewList(PhotoViewHolder holder, NewsListBean newsSummary) {
+    private void setImageViewList(PhotoViewHolder holder, NetEaseNewsListBean newsSummary) {
         int PhotoThreeHeight = ViewUtil.dp2px(App.getApplication(), 90f);
         int PhotoTwoHeight = ViewUtil.dp2px(App.getApplication(), 120);
         int PhotoOneHeight = ViewUtil.dp2px(App.getApplication(), 150);
@@ -112,7 +112,7 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NewsListBean, Recyc
         ViewGroup.LayoutParams layoutParams = holder.mNewsSummaryPhotoIvGroup.getLayoutParams();
 
         if (newsSummary.getAds() != null) {
-            List<NewsListBean.AdsBean> adsBeanList = newsSummary.getAds();
+            List<NetEaseNewsListBean.AdsBean> adsBeanList = newsSummary.getAds();
             int size = adsBeanList.size();
             if (size >= 3) {
                 imgSrcLeft = adsBeanList.get(0).getImgsrc();
@@ -192,9 +192,9 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NewsListBean, Recyc
 
     public class ItemClickListener implements View.OnClickListener {
         private boolean isPhoto;
-        private NewsListBean bean;
+        private NetEaseNewsListBean bean;
 
-        public ItemClickListener(boolean isPhoto, NewsListBean bean) {
+        public ItemClickListener(boolean isPhoto, NetEaseNewsListBean bean) {
             this.isPhoto = isPhoto;
             this.bean = bean;
         }
