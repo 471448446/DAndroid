@@ -20,7 +20,7 @@ public abstract class DataSourceDbImpl<T> implements DataSource<T> {
     protected BriteDatabase db;
     //avoid CallBack Hell 因为本地加载和网络加载用的一个回调
     protected boolean isLocalEmpty = false;
-    protected boolean isLoadFromNetSuccess = false;
+//    protected boolean isLoadFromNetSuccess = false;
 
     /**
      * Des
@@ -40,9 +40,9 @@ public abstract class DataSourceDbImpl<T> implements DataSource<T> {
         }
     }
 
-    public boolean isNeedCache(RequestType type) {
-        return type != RequestType.DATA_REQUEST_UP_REFRESH && isLoadFromNetSuccess;
-    }
+//    public boolean isNeedCache(RequestType type) {
+//        return type != RequestType.DATA_REQUEST_UP_REFRESH && isLoadFromNetSuccess;
+//    }
 
     /**
      * Des 只能用一次

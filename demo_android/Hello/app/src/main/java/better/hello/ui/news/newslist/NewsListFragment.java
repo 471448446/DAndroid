@@ -3,15 +3,11 @@ package better.hello.ui.news.newslist;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
-
 import better.hello.R;
 import better.hello.common.RefreshListener;
 import better.hello.common.RefreshListenerPresentImpl;
-import better.hello.common.UIHelper;
-import better.hello.data.bean.ImagesDetailsBean;
-import better.hello.data.bean.NetEaseNewsListBean;
 import better.hello.data.bean.NewsChannelBean;
+import better.hello.data.bean.NewsListBean;
 import better.hello.ui.base.BaseListFragment;
 import better.hello.ui.base.adapter.BaseRecyclerViewAdapter;
 import better.hello.ui.news.detail.NewsPhotoDetailActivity;
@@ -23,19 +19,10 @@ import better.lib.http.RequestType;
  * Created by better on 2016/10/14.
  */
 
-public class NewsListFragment extends BaseListFragment<NetEaseNewsListBean> implements NewsListContract.view {
+public class NewsListFragment extends BaseListFragment<NewsListBean> implements NewsListContract.view {
     private NewsListPresenter mPresenter;
-//    private String type, id;
     private NewsChannelBean mNewsChannelBean;
 
-//    public static NewsListFragment newInstance(String type, String id) {
-//        Bundle bundle = new Bundle();
-//        bundle.putString(C.EXTRA_TAG_Type, type);
-//        bundle.putString(C.EXTRA_TAG_ID, id);
-//        NewsListFragment fragment = new NewsListFragment();
-//        fragment.setArguments(bundle);
-//        return fragment;
-//    }
     public static NewsListFragment newInstance(NewsChannelBean bean) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(C.EXTRA_BEAN, bean);
@@ -47,8 +34,8 @@ public class NewsListFragment extends BaseListFragment<NetEaseNewsListBean> impl
     @Override
     protected void initWhenNullRootView() {
         super.initWhenNullRootView();
-        mPresenter = new NewsListPresenter(NewsListFragment.this, mNewsChannelBean.getType(), mNewsChannelBean.getChannelId());
         initRefresh(R.id.simpleRefresh_SwipeRefresh, R.id.simpleRefresh_recyclerView);
+        mPresenter = new NewsListPresenter(NewsListFragment.this, mNewsChannelBean);
         mPresenter.asyncList(RequestType.DATA_REQUEST_INIT);
     }
 
@@ -57,8 +44,6 @@ public class NewsListFragment extends BaseListFragment<NetEaseNewsListBean> impl
         super.getArgs();
         Bundle b = getArguments();
         if (null != b) {
-//            type = b.getString(C.EXTRA_TAG_Type);
-//            id = b.getString(C.EXTRA_TAG_ID);
             mNewsChannelBean=b.getParcelable(C.EXTRA_BEAN);
         }
     }
@@ -75,7 +60,7 @@ public class NewsListFragment extends BaseListFragment<NetEaseNewsListBean> impl
 
     @Override
     protected BaseRecyclerViewAdapter getAdapter() {
-        return new NewsListAdapter(mContext, newsItemClickListener);
+        return new NewsListAdapterPlus(mContext, newsItemClickListener);
     }
 
     @Override
@@ -85,34 +70,20 @@ public class NewsListFragment extends BaseListFragment<NetEaseNewsListBean> impl
 
     private NewsItemClickListener newsItemClickListener = new NewsItemClickListener() {
         @Override
-        public void onClickNews(boolean isPhoto, NetEaseNewsListBean bean) {
+        public void onClickNews(boolean isPhoto, NewsListBean bean) {
             if (isPhoto){
-                NewsPhotoDetailActivity.start(mContext.getActivity(), UIHelper.getImage(bean.getImgextra(),bean.getAds()));
+                NewsPhotoDetailActivity.start(mContext.getActivity(), bean.getImgs());
             }else {
-                NewsTextDetailsActivity.start(mContext.getActivity(),bean.getPostid());
+                NewsTextDetailsActivity.start(mContext.getActivity(),bean.getNewsId());
             }
         }
     };
-
-    private ArrayList<ImagesDetailsBean> getNewsImage(NetEaseNewsListBean bean) {
-        ArrayList<ImagesDetailsBean> list=new ArrayList<>();
-        if (null!=bean.getAds()){
-            for (NetEaseNewsListBean.AdsBean im :bean.getAds()){
-                list.add(new ImagesDetailsBean(im.getTitle(),im.getImgsrc()));
-            }
-        }else if (null!=bean.getImgextra()){
-            for (NetEaseNewsListBean.ImgextraBean im :bean.getImgextra()){
-                list.add(new ImagesDetailsBean("",im.getImgsrc()));
-            }
-        }
-        return list;
-    }
 
     /**
      * Des todoApp
      * Create By better on 2016/10/19 14:29.
      */
     public interface NewsItemClickListener {
-        void onClickNews(boolean isPhoto, NetEaseNewsListBean bean);
+        void onClickNews(boolean isPhoto, NewsListBean bean);
     }
 }

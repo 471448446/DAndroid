@@ -3,6 +3,11 @@ package better.hello.data.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
+import better.hello.common.UIHelper;
+import better.hello.util.JsonUtils;
+
 /**
  * Created by better on 2016/11/24.
  */
@@ -12,11 +17,29 @@ public class NewsListBean implements Parcelable {
     private String des;
     private String imgSrc;
     private String newsId;
-    private long pub_date;
+    private String pub_date;
     private String source;
     private String title;
     private int type;
     private String url_3w;
+    private List<ImagesDetailsBean> imgs;
+    private String json;
+
+    public String getJson() {
+        return json;
+    }
+
+    public void setJson(String json) {
+        this.json = json;
+    }
+
+    public List<ImagesDetailsBean> getImgs() {
+        return imgs;
+    }
+
+    public void setImgs(List<ImagesDetailsBean> imgs) {
+        this.imgs = imgs;
+    }
 
     public String getBoardid() {
         return boardid;
@@ -50,11 +73,11 @@ public class NewsListBean implements Parcelable {
         this.newsId = newsId;
     }
 
-    public long getPub_date() {
+    public String getPub_date() {
         return pub_date;
     }
 
-    public void setPub_date(long pub_date) {
+    public void setPub_date(String pub_date) {
         this.pub_date = pub_date;
     }
 
@@ -90,6 +113,18 @@ public class NewsListBean implements Parcelable {
         this.url_3w = url_3w;
     }
 
+    public NewsListBean() {
+    }
+    public static NewsListBean convert(NetEaseNewsListBean bean,boolean isNeedJsonStr){
+        NewsListBean n=new NewsListBean();
+        n.setTitle(bean.getTitle());
+        n.setPub_date(bean.getPtime());
+        n.setImgSrc(bean.getImgsrc());
+        n.setImgs(UIHelper.getImage(bean.getImgextra(),bean.getAds()));
+        if (isNeedJsonStr)n.setJson(JsonUtils.toJson(bean));
+        return n;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -101,14 +136,13 @@ public class NewsListBean implements Parcelable {
         dest.writeString(this.des);
         dest.writeString(this.imgSrc);
         dest.writeString(this.newsId);
-        dest.writeLong(this.pub_date);
+        dest.writeString(this.pub_date);
         dest.writeString(this.source);
         dest.writeString(this.title);
         dest.writeInt(this.type);
         dest.writeString(this.url_3w);
-    }
-
-    public NewsListBean() {
+        dest.writeTypedList(this.imgs);
+        dest.writeString(this.json);
     }
 
     protected NewsListBean(Parcel in) {
@@ -116,14 +150,16 @@ public class NewsListBean implements Parcelable {
         this.des = in.readString();
         this.imgSrc = in.readString();
         this.newsId = in.readString();
-        this.pub_date = in.readLong();
+        this.pub_date = in.readString();
         this.source = in.readString();
         this.title = in.readString();
         this.type = in.readInt();
         this.url_3w = in.readString();
+        this.imgs = in.createTypedArrayList(ImagesDetailsBean.CREATOR);
+        this.json = in.readString();
     }
 
-    public static final Parcelable.Creator<NewsListBean> CREATOR = new Parcelable.Creator<NewsListBean>() {
+    public static final Creator<NewsListBean> CREATOR = new Creator<NewsListBean>() {
         @Override
         public NewsListBean createFromParcel(Parcel source) {
             return new NewsListBean(source);

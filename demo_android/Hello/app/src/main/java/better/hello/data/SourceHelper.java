@@ -28,7 +28,8 @@ public class SourceHelper {
         NodeList listName = document.getElementsByTagName("name");
         NodeList listId = document.getElementsByTagName("id");
         for (int i = 0, l = listName.getLength(); i < l; i++) {
-            list.add(new NewsChannelBean(listName.item(i).getTextContent(), listId.item(i).getTextContent(), Api.getType(listId.item(i).getTextContent()), NewsSourceType.NETEASE));
+            list.add(new NewsChannelBean(listName.item(i).getTextContent(), NewsSourceType.NETEASE,
+                    new NewsChannelBean.NetEaseChannel(listId.item(i).getTextContent(), Api.getType(listId.item(i).getTextContent()))));
         }
         return list;
     }

@@ -2,7 +2,6 @@ package better.hello.ui.news.newslist;
 
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,7 +12,8 @@ import java.util.List;
 
 import better.hello.App;
 import better.hello.R;
-import better.hello.data.bean.NetEaseNewsListBean;
+import better.hello.data.bean.ImagesDetailsBean;
+import better.hello.data.bean.NewsListBean;
 import better.hello.ui.base.adapter.BaseRecyclerViewAdapter;
 import better.hello.util.ImageUtil;
 import better.hello.util.Utils;
@@ -25,12 +25,12 @@ import butterknife.ButterKnife;
  * Created by better on 2016/10/18.
  */
 
-public class NewsListAdapter extends BaseRecyclerViewAdapter<NetEaseNewsListBean, RecyclerView.ViewHolder> {
+public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, RecyclerView.ViewHolder> {
     private final int TYPE_NEWS = 1;
     private final int TYPE_PHOTO = TYPE_NEWS + 1;
     private NewsListFragment.NewsItemClickListener newsItemClickListener;
 
-    public NewsListAdapter(Fragment context, NewsListFragment.NewsItemClickListener listener) {
+    public NewsListAdapterPlus(Fragment context, NewsListFragment.NewsItemClickListener listener) {
         super(context);
         this.newsItemClickListener = listener;
     }
@@ -38,7 +38,7 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NetEaseNewsListBean
     @Override
     public int getItemViewType(int position) {
         if (null == mList) return super.getItemViewType(position);
-        if (!TextUtils.isEmpty(mList.get(position).getDigest())) {
+        if (null == mList.get(position) || mList.get(position).getImgs().isEmpty()) {
             return TYPE_NEWS;
         } else {
             return TYPE_PHOTO;
@@ -73,9 +73,9 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NetEaseNewsListBean
     }
 
     private void setPhotoItem(PhotoViewHolder holder, int position) {
-        NetEaseNewsListBean newsSummary = mList.get(position);
+        NewsListBean newsSummary = mList.get(position);
         String title = newsSummary.getTitle();
-        String ptime = newsSummary.getPtime();
+        String ptime = newsSummary.getPub_date();
 
         holder.mNewsSummaryTitleTv.setText(title);
         holder.mNewsSummaryPtimeTv.setText(ptime);
@@ -85,22 +85,22 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NetEaseNewsListBean
     }
 
     private void setNewsItem(ItemViewHolder holder, int position) {
-        NetEaseNewsListBean newsSummary = mList.get(position);
-        String title = newsSummary.getLtitle();
+        NewsListBean newsSummary = mList.get(position);
+        String title = newsSummary.getTitle();
         if (title == null) {
             title = newsSummary.getTitle();
         }
-        String pTime = newsSummary.getPtime();
+        String pTime = newsSummary.getPub_date();
 //        String digest = newsSummary.getDigest();
         holder.itemView.setOnClickListener(new ItemClickListener(false, newsSummary));
 
         holder.mNewsSummaryTitleTv.setText(title);
         holder.mNewsSummaryPtimeTv.setText(pTime);
 //        holder.mNewsSummaryDigestTv.setText(digest);
-        ImageUtil.load(App.getApplication(), newsSummary.getImgsrc(), holder.mNewsSummaryPhotoIv);
+        ImageUtil.load(App.getApplication(), newsSummary.getImgSrc(), holder.mNewsSummaryPhotoIv);
     }
 
-    private void setImageViewList(PhotoViewHolder holder, NetEaseNewsListBean newsSummary) {
+    private void setImageViewList(PhotoViewHolder holder, NewsListBean bean) {
         int PhotoThreeHeight = ViewUtil.dp2px(App.getApplication(), 90f);
         int PhotoTwoHeight = ViewUtil.dp2px(App.getApplication(), 120);
         int PhotoOneHeight = ViewUtil.dp2px(App.getApplication(), 150);
@@ -111,48 +111,30 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NetEaseNewsListBean
 
         ViewGroup.LayoutParams layoutParams = holder.mNewsSummaryPhotoIvGroup.getLayoutParams();
 
-        if (newsSummary.getAds() != null) {
-            List<NetEaseNewsListBean.AdsBean> adsBeanList = newsSummary.getAds();
+        if (bean.getImgs() != null) {
+            List<ImagesDetailsBean> adsBeanList = bean.getImgs();
             int size = adsBeanList.size();
             if (size >= 3) {
-                imgSrcLeft = adsBeanList.get(0).getImgsrc();
-                imgSrcMiddle = adsBeanList.get(1).getImgsrc();
-                imgSrcRight = adsBeanList.get(2).getImgsrc();
+                imgSrcLeft = adsBeanList.get(0).getSrc();
+                imgSrcMiddle = adsBeanList.get(1).getSrc();
+                imgSrcRight = adsBeanList.get(2).getSrc();
 
                 layoutParams.height = PhotoThreeHeight;
 
                 holder.mNewsSummaryTitleTv.setText(App.getApplication()
                         .getString(R.string.photo_collections, adsBeanList.get(0).getTitle()));
             } else if (size >= 2) {
-                imgSrcLeft = adsBeanList.get(0).getImgsrc();
-                imgSrcMiddle = adsBeanList.get(1).getImgsrc();
+                imgSrcLeft = adsBeanList.get(0).getSrc();
+                imgSrcMiddle = adsBeanList.get(1).getSrc();
 
                 layoutParams.height = PhotoTwoHeight;
             } else if (size >= 1) {
-                imgSrcLeft = adsBeanList.get(0).getImgsrc();
-
-                layoutParams.height = PhotoOneHeight;
-            }
-        } else if (newsSummary.getImgextra() != null) {
-            int size = newsSummary.getImgextra().size();
-            if (size >= 3) {
-                imgSrcLeft = newsSummary.getImgextra().get(0).getImgsrc();
-                imgSrcMiddle = newsSummary.getImgextra().get(1).getImgsrc();
-                imgSrcRight = newsSummary.getImgextra().get(2).getImgsrc();
-
-                layoutParams.height = PhotoThreeHeight;
-            } else if (size >= 2) {
-                imgSrcLeft = newsSummary.getImgextra().get(0).getImgsrc();
-                imgSrcMiddle = newsSummary.getImgextra().get(1).getImgsrc();
-
-                layoutParams.height = PhotoTwoHeight;
-            } else if (size >= 1) {
-                imgSrcLeft = newsSummary.getImgextra().get(0).getImgsrc();
+                imgSrcLeft = adsBeanList.get(0).getSrc();
 
                 layoutParams.height = PhotoOneHeight;
             }
         } else {
-            imgSrcLeft = newsSummary.getImgsrc();
+            imgSrcLeft = bean.getImgSrc();
 
             layoutParams.height = PhotoOneHeight;
         }
@@ -192,16 +174,16 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NetEaseNewsListBean
 
     public class ItemClickListener implements View.OnClickListener {
         private boolean isPhoto;
-        private NetEaseNewsListBean bean;
+        private NewsListBean bean;
 
-        public ItemClickListener(boolean isPhoto, NetEaseNewsListBean bean) {
+        public ItemClickListener(boolean isPhoto, NewsListBean bean) {
             this.isPhoto = isPhoto;
             this.bean = bean;
         }
 
         @Override
         public void onClick(View v) {
-//            newsItemClickListener.onClickNews(isPhoto, bean);
+            newsItemClickListener.onClickNews(isPhoto, bean);
         }
     }
 
