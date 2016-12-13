@@ -10,8 +10,8 @@ import better.hello.data.bean.NewsChannelBean;
 import better.hello.data.bean.NewsListBean;
 import better.hello.ui.base.BaseListFragment;
 import better.hello.ui.base.adapter.BaseRecyclerViewAdapter;
+import better.hello.ui.news.detail.NewsDetailsActivity;
 import better.hello.ui.news.detail.NewsPhotoDetailActivity;
-import better.hello.ui.news.detail.NewsTextDetailsActivity;
 import better.hello.util.C;
 import better.lib.http.RequestType;
 
@@ -74,7 +74,8 @@ public class NewsListFragment extends BaseListFragment<NewsListBean> implements 
             if (isPhoto){
                 NewsPhotoDetailActivity.start(mContext.getActivity(), bean.getImgs());
             }else {
-                NewsTextDetailsActivity.start(mContext.getActivity(),bean.getNewsId());
+//                NetEasyNewsDetailsActivity.start(mContext.getActivity(),bean.getNewsId());
+                NewsDetailsActivity.start(getActivity(),bean);
             }
         }
     };

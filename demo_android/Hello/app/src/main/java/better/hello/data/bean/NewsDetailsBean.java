@@ -67,7 +67,7 @@ public class NewsDetailsBean {
 
     private List<SpinfoBean> spinfo;
     private List<?> ydbaike;
-    private List<?> link;
+    private List<LinkBean> link;
     /**
      * ref : <!--IMG#0-->
      * pixel : 1439*960
@@ -300,12 +300,12 @@ public class NewsDetailsBean {
         this.ydbaike = ydbaike;
     }
 
-    public List<?> getLink() {
+    public List<LinkBean> getLink() {
         return link;
     }
 
-    public void setLink(List<?> link) {
-        this.link = link;
+    public void setLink(List<LinkBean> linkBean) {
+        this.link = linkBean;
     }
 
     public List<ImgBean> getImg() {
@@ -774,6 +774,35 @@ public class NewsDetailsBean {
 
         public void setVid(String vid) {
             this.vid = vid;
+        }
+    }
+    public static class LinkBean {
+        private String href;
+        private String ref;
+        private String title;
+
+        public String getHref() {
+            return href;
+        }
+
+        public void setHref(String href) {
+            this.href = href;
+        }
+
+        public String getRef() {
+            return ref;
+        }
+
+        public void setRef(String ref) {
+            this.ref = ref;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
         }
     }
 }

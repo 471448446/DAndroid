@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.news.detail.NewsPhotoDetailActivity"/>
-        <activity android:name=".ui.news.detail.NewsTextDetailsActivity"/>
+        <activity android:name=".ui.news.detail.NetEasyNewsDetailsActivity"/>
         <activity android:name=".ui.news.detail.NewsVideoActivity"/>
         <activity android:name=".ui.news.detail.NewsDetailsActivity"/>
     </application>

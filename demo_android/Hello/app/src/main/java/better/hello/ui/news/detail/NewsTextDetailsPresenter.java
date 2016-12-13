@@ -16,9 +16,9 @@ import rx.functions.Func1;
  * Created by better on 2016/10/21.
  */
 
-public class NewsTextDetailsPresenter extends BasePresenterProxy<NewsTextDetailsActivity> implements NewsTextDetailsContract.presenter {
+public class NewsTextDetailsPresenter extends BasePresenterProxy<NetEasyNewsDetailsActivity> implements NewsTextDetailsContract.presenter {
 
-    public NewsTextDetailsPresenter(NewsTextDetailsActivity mView) {
+    public NewsTextDetailsPresenter(NetEasyNewsDetailsActivity mView) {
         super(mView);
     }
 

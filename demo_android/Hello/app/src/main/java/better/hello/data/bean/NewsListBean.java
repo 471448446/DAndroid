@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import java.util.List;
 
 import better.hello.common.UIHelper;
+import better.hello.http.api.NewsSourceType;
 import better.hello.util.JsonUtils;
 
 /**
@@ -24,7 +25,18 @@ public class NewsListBean implements Parcelable {
     private int type;
     private String url_3w;
     private List<ImagesDetailsBean> imgs;
+    /*保存第一手信息*/
     private String json;
+    /*数据种类*/
+    private int sourceType;
+
+    public int getSourceType() {
+        return sourceType;
+    }
+
+    public void setSourceType(int sourceType) {
+        this.sourceType = sourceType;
+    }
 
     public String getJson() {
         return json;
@@ -116,14 +128,16 @@ public class NewsListBean implements Parcelable {
 
     public NewsListBean() {
     }
-    public static NewsListBean convert(NetEaseNewsListBean bean,boolean isNeedJsonStr){
-        NewsListBean n=new NewsListBean();
+
+    public static NewsListBean convert(NetEaseNewsListBean bean, boolean isNeedJsonStr) {
+        NewsListBean n = new NewsListBean();
         n.setTitle(bean.getTitle());
         n.setPub_date(bean.getPtime());
         n.setImgSrc(bean.getImgsrc());
         n.setNewsId(bean.getPostid());
-        n.setImgs(UIHelper.getImage(bean.getImgextra(),bean.getAds()));
-        if (isNeedJsonStr)n.setJson(JsonUtils.toJson(bean));
+        n.setSourceType(NewsSourceType.NETEASE);
+        n.setImgs(UIHelper.getImage(bean.getImgextra(), bean.getAds()));
+        if (isNeedJsonStr) n.setJson(JsonUtils.toJson(bean));
         return n;
     }
 
@@ -145,6 +159,7 @@ public class NewsListBean implements Parcelable {
         dest.writeString(this.url_3w);
         dest.writeTypedList(this.imgs);
         dest.writeString(this.json);
+        dest.writeInt(this.sourceType);
     }
 
     protected NewsListBean(Parcel in) {
@@ -159,6 +174,7 @@ public class NewsListBean implements Parcelable {
         this.url_3w = in.readString();
         this.imgs = in.createTypedArrayList(ImagesDetailsBean.CREATOR);
         this.json = in.readString();
+        this.sourceType = in.readInt();
     }
 
     public static final Creator<NewsListBean> CREATOR = new Creator<NewsListBean>() {

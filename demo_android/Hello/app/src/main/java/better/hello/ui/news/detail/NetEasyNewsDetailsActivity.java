@@ -29,7 +29,7 @@ import butterknife.BindView;
  * 大图：https://c.m.163.com/nc/article/C5J2OAO90001875O/full.html
  * Create By better on 2016/10/26 10:25.
  */
-public class NewsTextDetailsActivity extends BaseActivity implements NewsTextDetailsContract.view {
+public class NetEasyNewsDetailsActivity extends BaseActivity implements NewsTextDetailsContract.view {
     @BindView(R.id.news_detail_toolbar)
     Toolbar toolbar;
     @BindView(R.id.news_detail_txt)
@@ -40,7 +40,7 @@ public class NewsTextDetailsActivity extends BaseActivity implements NewsTextDet
     private NewsDetailsBean mBean;
 
     public static void start(Activity activity, String postId) {
-        Intent i = new Intent(activity, NewsTextDetailsActivity.class);
+        Intent i = new Intent(activity, NetEasyNewsDetailsActivity.class);
         i.putExtra(C.EXTRA_BEAN, postId);
         activity.startActivity(i);
     }
