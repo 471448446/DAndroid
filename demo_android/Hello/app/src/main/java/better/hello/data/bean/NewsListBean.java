@@ -16,6 +16,7 @@ public class NewsListBean implements Parcelable {
     private String boardid;
     private String des;
     private String imgSrc;
+    /*文章详情*/
     private String newsId;
     private String pub_date;
     private String source;
@@ -120,6 +121,7 @@ public class NewsListBean implements Parcelable {
         n.setTitle(bean.getTitle());
         n.setPub_date(bean.getPtime());
         n.setImgSrc(bean.getImgsrc());
+        n.setNewsId(bean.getPostid());
         n.setImgs(UIHelper.getImage(bean.getImgextra(),bean.getAds()));
         if (isNeedJsonStr)n.setJson(JsonUtils.toJson(bean));
         return n;
