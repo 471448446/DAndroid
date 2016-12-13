@@ -36,7 +36,45 @@ public class MainActivity extends AppCompatActivity {
         adapter = new NameAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        helloRx();
+//        helloRx();
+        testFlatMap();
+    }
+
+    private void testFlatMap() {
+        Observable.just("A", "B", "C", "D", "E").flatMap(new Func1<String, Observable<String>>() {
+            @Override
+            public Observable<String> call(final String s) {
+                return Observable.create(new Observable.OnSubscribe<String>() {
+                    @Override
+                    public void call(Subscriber<? super String> subscriber) {
+                        for (int i = 0, l = 1000; i < l; i++) {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            subscriber.onNext(s);
+                            l("传递一个"+s);
+                        }
+                    }
+                });
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
+            @Override
+            public void onCompleted() {
+                l("完成");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                l("错误=" + e.getMessage());
+            }
+
+            @Override
+            public void onNext(String s) {
+                l("得到=" + s);
+            }
+        });
     }
 
     private void helloRx() {
