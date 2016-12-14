@@ -6,6 +6,8 @@ body {
     font-family:monospace, 'Helvetica Neue',Helvetica,Arial,Sans-serif;
 }
 .content {
+  position: relative;
+  width: 100%;
   color: #444;
   line-height: 1.7em;
   margin: 10px 0 25px;
@@ -20,3 +22,9 @@ body {
 font-size: 14px;
   color: #888;
 }
+    .video-holder{
+      position: relative; width: 100%;
+    }
+    .play-icon{
+      position: absolute; z-index: 2;  top: 40%; left: 40%;
+    }

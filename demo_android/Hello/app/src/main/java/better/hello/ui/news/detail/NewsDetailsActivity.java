@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import java.util.List;
 
@@ -50,13 +49,13 @@ public class NewsDetailsActivity extends BaseActivity {
         mWebView.getSettings().setBuiltInZoomControls(true);
         mWebView.getSettings().setDisplayZoomControls(false);
         mWebView.addJavascriptInterface(new ClickJs(), "app");
-        mWebView.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                addImageClickListener();
-            }
-        });
+//        mWebView.setWebViewClient(new WebViewClient() {
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//                super.onPageFinished(view, url);
+//                addImageClickListener();
+//            }
+//        });
         mNewsContentHelper = new NewsContentHelper(this, mNewsListBean.getSourceType(), mNewsListBean.getNewsId(), mWebView);
         mNewsContentHelper.showContent();
     }
@@ -86,29 +85,45 @@ public class NewsDetailsActivity extends BaseActivity {
     class ClickJs {
         @JavascriptInterface
         public void openImage(String src) {
-            int defaultP = 0;
-            List<ImagesDetailsBean> list = mNewsContentHelper.getListImgs();
-            for (int i = 0, l = list.size(); i < l; i++) {
-                if (list.get(i).getSrc().equals(src)) {
-                    defaultP = i;
+            if (src.contains(C.MAP4)) {
+                VideoBean bean = null;
+                for (NewsDetailsBean.VideoBean b : mNewsContentHelper.getNewsDetailsBean().getVideo()) {
+                    if (src.contains(b.getCover())) {
+                        String url = b.getMp4Hd_url();
+                        if (TextUtils.isEmpty(url)) url = b.getMp4_url();
+                        else if (!TextUtils.isEmpty(b.getUrl_mp4())) url = b.getUrl_mp4();
+                        else url = b.getUrl_m3u8();
+                        bean = new VideoBean(b.getCover(), b.getAlt(), url);
+                    }
                 }
-            }
-            NewsPhotoDetailActivity.start(mContext, list, defaultP);
-        }
-        @JavascriptInterface
-        public void openVideo(String src) {
-            VideoBean bean = null;
-            for (NewsDetailsBean.VideoBean b : mNewsContentHelper.getNewsDetailsBean().getVideo()) {
-                if (src.contains(b.getCover())) {
-                    String url = b.getMp4Hd_url();
-                    if (TextUtils.isEmpty(url)) url = b.getMp4_url();
-                    else if (!TextUtils.isEmpty(b.getUrl_mp4())) url = b.getUrl_mp4();
-                    else url = b.getUrl_m3u8();
-                    bean = new VideoBean(b.getCover(), b.getAlt(), url);
+                if (null == bean) return;
+                NewsVideoActivity.start(mContext, bean);
+            } else {
+                int defaultP = 0;
+                List<ImagesDetailsBean> list = mNewsContentHelper.getListImgs();
+                for (int i = 0, l = list.size(); i < l; i++) {
+                    if (list.get(i).getSrc().equals(src)) {
+                        defaultP = i;
+                    }
                 }
+                NewsPhotoDetailActivity.start(mContext, list, defaultP);
             }
-            if (null == bean) return;
-            NewsVideoActivity.start(mContext, bean);
         }
+
+//        @JavascriptInterface
+//        public void openVideo(String src) {
+//            VideoBean bean = null;
+//            for (NewsDetailsBean.VideoBean b : mNewsContentHelper.getNewsDetailsBean().getVideo()) {
+//                if (src.contains(b.getCover())) {
+//                    String url = b.getMp4Hd_url();
+//                    if (TextUtils.isEmpty(url)) url = b.getMp4_url();
+//                    else if (!TextUtils.isEmpty(b.getUrl_mp4())) url = b.getUrl_mp4();
+//                    else url = b.getUrl_m3u8();
+//                    bean = new VideoBean(b.getCover(), b.getAlt(), url);
+//                }
+//            }
+//            if (null == bean) return;
+//            NewsVideoActivity.start(mContext, bean);
+//        }
     }
 }
