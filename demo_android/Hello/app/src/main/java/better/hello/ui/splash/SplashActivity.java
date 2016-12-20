@@ -60,19 +60,20 @@ public class SplashActivity extends BaseActivity {
         switch (requestCode) {
             case PermissionGrantHelper.REQ_CODE_STORAGE:
                 if (PermissionGrantHelper.isGranted(grantResults[0])) {
-//                    if (!PermissionGrantHelper.isGrantedThisPermission(mContext, Manifest.permission.READ_PHONE_STATE)) {
-//                        PermissionGrantHelper.grantPermission(mContext, PermissionGrantHelper.REQ_CODE_PHONE, Manifest.permission.READ_PHONE_STATE);
-//                    } else {
+                    if (!PermissionGrantHelper.isGrantedThisPermission(mContext, Manifest.permission.READ_PHONE_STATE)) {
+                        PermissionGrantHelper.grantPermission(mContext, PermissionGrantHelper.REQ_CODE_PHONE, Manifest.permission.READ_PHONE_STATE);
+                    } else {
 //                        preStartMainActivity();
-//                    }
-                    loadSplashImage();
+                        loadSplashImage();
+                    }
                 } else {
                     showPermissionMsg(R.string.str_permission_refuse_file);
                 }
                 break;
             case PermissionGrantHelper.REQ_CODE_PHONE:
                 if (PermissionGrantHelper.isGranted(grantResults[0])) {
-                    preStartMainActivity();
+//                    preStartMainActivity();
+                    loadSplashImage();
                 } else {
                     showPermissionMsg(R.string.str_permission_refuse_phoneStatus);
                 }
@@ -99,9 +100,9 @@ public class SplashActivity extends BaseActivity {
         } else {
             if (!PermissionGrantHelper.isGrantedThisPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 PermissionGrantHelper.grantPermission(mContext, PermissionGrantHelper.REQ_CODE_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            }/* else if (!PermissionGrantHelper.isGrantedThisPermission(mContext, Manifest.permission.READ_PHONE_STATE)) {
+            } else if (!PermissionGrantHelper.isGrantedThisPermission(mContext, Manifest.permission.READ_PHONE_STATE)) {
                 PermissionGrantHelper.grantPermission(mContext, PermissionGrantHelper.REQ_CODE_PHONE, Manifest.permission.READ_PHONE_STATE);
-            } */ else {
+            } else {
                 loadSplashImage();
             }
         }
@@ -119,7 +120,7 @@ public class SplashActivity extends BaseActivity {
             img.setBackgroundResource(R.drawable.splash);
             mHandler.sendEmptyMessage(MSG_START_MAIN_ACTIVITY);
         } else {
-            mSubscription=Observable.just(FileUtils.getTodaySplashImagePath(mContext)).compose(new BaseSchedulerTransformer<String>()).map(new Func1<String, Bitmap>() {
+            mSubscription = Observable.just(FileUtils.getTodaySplashImagePath(mContext)).compose(new BaseSchedulerTransformer<String>()).map(new Func1<String, Bitmap>() {
                 @Override
                 public Bitmap call(String s) {
                     return BitmapFactory.decodeFile(s);

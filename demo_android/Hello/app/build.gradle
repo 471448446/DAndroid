@@ -1,17 +1,35 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    compileSdkVersion 25
+    buildToolsVersion "24.0.0"
     defaultConfig {
         applicationId "better.hello"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+        productFlavors {
+            Test {
+                buildConfigField "int", "appProductType", "$rootProject.ext.appTypeTest"
+                resValue("string", "Bugly_ID", "$rootProject.ext.buglyId")
+            }
+            Product {
+                buildConfigField "int", "appProductType", "$rootProject.ext.appTypeProduct"
+                resValue("string", "Bugly_ID", "$rootProject.ext.buglyId")
+            }
+        }
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -22,27 +40,31 @@ repositories {
     flatDir {
         dirs 'libs'
     }
-}
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    dependencies {
+        compile fileTree(include: ['*.jar'], dir: 'libs')
 //    compile(name:'jiecaovideoplayer-4.8.1', ext:'aar')
-    compile project(':betterlib')
-    testCompile 'junit:junit:4.12'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    compile 'com.android.support:design:25.0.0'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    compile 'com.squareup.sqlbrite:sqlbrite:0.8.0'
-    compile 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'fm.jiecao:jiecaovideoplayer:4.8.1'
+        compile project(':betterlib')
+        testCompile 'junit:junit:4.12'
+        androidTestCompile 'junit:junit:4.12'
 
+        debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4'
+        releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
+        androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+            exclude group: 'com.android.support', module: 'support-annotations'
+        })
+        compile 'com.android.support:appcompat-v7:25.0.0'
+        compile 'com.android.support:design:25.0.0'
+        compile 'io.reactivex:rxandroid:1.2.1'
+        compile 'com.squareup.retrofit2:retrofit:2.1.0'
+        compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+        compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+        compile 'com.squareup.sqlbrite:sqlbrite:0.8.0'
+        compile 'com.jakewharton:butterknife-compiler:8.4.0'
+        compile 'com.jakewharton:butterknife:8.4.0'
+        compile 'com.github.bumptech.glide:glide:3.7.0'
+        compile 'fm.jiecao:jiecaovideoplayer:4.8.1'
+        compile 'com.tencent.bugly:crashreport:latest.release'
+        //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+        compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    }
 }

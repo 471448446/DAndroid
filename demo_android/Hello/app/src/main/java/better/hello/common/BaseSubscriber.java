@@ -16,7 +16,7 @@ import rx.Subscriber;
  * Create By better on 2016/10/17 16:02.
  */
 public class BaseSubscriber<T> extends Subscriber<T> {
-
+    private final String TAG="BaseSubscriber";
     private RequestInfo<T> mRequestInfo;
     public BaseSubscriber(RequestInfo<T> info){
         this.mRequestInfo=info;
@@ -26,7 +26,7 @@ public class BaseSubscriber<T> extends Subscriber<T> {
     @Override
     public void onStart() {
         super.onStart();
-//        Utils.d("Better","BaseSubscriber onStart ----》");
+        Utils.d(TAG,"BaseSubscriber onStart ----》");
         if (null != mRequestInfo && null != mRequestInfo.getWaitPolicy())
             mRequestInfo.getWaitPolicy().displayLoading();
         if (null != mRequestInfo && mRequestInfo.getRequestCallback() != null) {
@@ -37,7 +37,7 @@ public class BaseSubscriber<T> extends Subscriber<T> {
     @CallSuper
     @Override
     public void onCompleted() {
-//        Utils.d("Better","BaseSubscriber onCompleted ----》");
+        Utils.d(TAG,"BaseSubscriber onCompleted ----》");
         if (null != mRequestInfo && null != mRequestInfo.getWaitPolicy()) {
             mRequestInfo.getWaitPolicy().disappear();
         }
@@ -49,7 +49,7 @@ public class BaseSubscriber<T> extends Subscriber<T> {
     @CallSuper
     @Override
     public void onNext(T t) {
-//        Utils.d("Better","BaseSubscriber onNext ----》");
+        Utils.d(TAG,"BaseSubscriber onNext ----》");
         if (null != mRequestInfo && mRequestInfo.getRequestCallback() != null) {
             mRequestInfo.getRequestCallback().onSuccess(mRequestInfo, t,"");
         }
@@ -59,7 +59,7 @@ public class BaseSubscriber<T> extends Subscriber<T> {
     @CallSuper
     @Override
     public void onError(Throwable e) {
-//        Utils.d("Better","BaseSubscriber onError ----》"+e.getMessage());
+        Utils.d(TAG,"BaseSubscriber onError ----》"+e.getMessage());
         String errorMsg;
         if (e instanceof HttpException) {
             switch (((HttpException) e).code()) {

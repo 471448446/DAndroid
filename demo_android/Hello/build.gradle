@@ -21,3 +21,12 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+ext {
+    /* app 环境1=开发 2=测试 3=生产 */
+    appTypeDevelop = 1
+    appTypeTest = 2
+    appTypeProduct = 3
+
+    buglyId = "c879d2d5e5"
+
+}
