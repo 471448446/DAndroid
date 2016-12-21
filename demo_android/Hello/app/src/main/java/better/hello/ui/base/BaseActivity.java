@@ -29,14 +29,16 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (null != grantResults && grantResults.length != 0) {
-            if (PermissionGrantHelper.isGranted(grantResults[0])) {
-                onPerMissionGranted(requestCode, permissions[0], grantResults[0]);
-            } else {
-                onPerMissionRefuse(requestCode, permissions[0], grantResults[0]);
-                if (!PermissionGrantHelper.shouldShowRequestPermissionRationale(mContext, permissions[0])) {
-                    onShouldShowRequestPermissionRationale(requestCode, permissions[0], grantResults[0]);
-                }
+        if (null == grantResults && grantResults.length == 0) {
+            l("授权---->onRequestPermissionsResult() null");
+            return;
+        }
+        if (PermissionGrantHelper.isGranted(grantResults[0])) {
+            onPerMissionGranted(requestCode, permissions[0], grantResults[0]);
+        } else {
+            onPerMissionRefuse(requestCode, permissions[0], grantResults[0]);
+            if (!PermissionGrantHelper.shouldShowRequestPermissionRationale(mContext, permissions[0])) {
+                onShouldShowRequestPermissionRationale(requestCode, permissions[0], grantResults[0]);
             }
         }
     }
