@@ -22,7 +22,7 @@ public class BottomScrollBehavior extends CoordinatorLayout.Behavior<View> {
 
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, View child, View dependency) {
-        float translationY = Math.abs(dependency.getTop());
+        float translationY = (float) (Math.abs(dependency.getTop())*1.3);
         child.setTranslationY(translationY);
         return true;
     }
