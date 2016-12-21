@@ -87,14 +87,25 @@ public class HttpClient {
             }
         }
     };
+    private Interceptor userAgentInterceptor =new Interceptor() {
+        private final String userAgent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36";
 
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request originalRequest = chain.request();
+            Request requestWithUserAgent = originalRequest.newBuilder()
+                    .header("User-Agent", userAgent)
+                    .build();
+            return chain.proceed(requestWithUserAgent);        }
+    };
     private HttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .addInterceptor(mCacheControlInterceptor)
                 .addNetworkInterceptor(mCacheControlInterceptor)
                 .cache(mCache)
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
-                .addInterceptor(mLoggingInterceptor);
+                .addInterceptor(mLoggingInterceptor)
+                .addInterceptor(userAgentInterceptor);
         mOkHttpClient = builder.build();
     }
 
