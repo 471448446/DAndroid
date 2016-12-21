@@ -128,6 +128,7 @@
 ###
 -keep class better.hello.data.bean.**{*;}
 #butterknife 8.0 在官方没有找到 http://www.jianshu.com/p/88df3ba1fd4b--->
+# http://www.jianshu.com/p/ae6f87346d82
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
 -keep class **$$ViewBinder { *; }
@@ -137,6 +138,8 @@
 -keepclasseswithmembernames class * {
     @butterknife.* <methods>;
 }
+-keep public class * implements butterknife.Unbinder { public <init>(...); }
+
 # http://blankj.com/797.html
 # OkHttp3
 -dontwarn okhttp3.logging.**
@@ -152,7 +155,9 @@
 -keep class retrofit2.** { *; }
 -keepattributes Signature
 -keepattributes Exceptions
-#-keepattributes Signature-keepattributes Exceptions
+-dontnote retrofit2.Platform
+-dontnote retrofit2.Platform$IOS$MainThreadExecutor
+-dontwarn retrofit2.Platform$Java8
 # RxJava RxAndroid
 -dontwarn sun.misc.**
 -keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
