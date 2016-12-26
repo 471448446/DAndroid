@@ -22,7 +22,7 @@ import better.hello.util.PermissionGrantHelper;
 import better.hello.util.Utils;
 import butterknife.BindView;
 import butterknife.OnClick;
-import fm.jiecao.jcvideoplayer_lib.JCBuriedPointStandard;
+import fm.jiecao.jcvideoplayer_lib.JCUserActionStandard;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
@@ -72,7 +72,7 @@ public class NewsVideoActivity extends BaseActivity {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensorEventListener = new JCVideoPlayer.JCAutoFullscreenListener();
         video.setUp(mBean.getMp4_url(), JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, mBean.getAlt());
-        JCVideoPlayer.setJcBuriedPoint(new MyJCBuriedPointStandard());
+        JCVideoPlayer.setJcUserAction(new UserAction());
         if (!TextUtils.isEmpty(mBean.getCover()))
             ImageUtil.load(mContext, mBean.getCover(), video.thumbImageView);
         //全屏
@@ -111,15 +111,15 @@ public class NewsVideoActivity extends BaseActivity {
         mDownloadInfo = UIHelper.downLoad(mContext, new DownloadInfo(mBean.getAlt(), mBean.getMp4_url(), FileUtils.getVideoFileName(mContext, mBean.getAlt())));
     }
 
-    class MyJCBuriedPointStandard implements JCBuriedPointStandard {
+    class UserAction implements JCUserActionStandard {
 
         @Override
         public void onEvent(int type, String url, int screen, Object... objects) {
             switch (type) {
-                case JCBuriedPointStandard.ON_CLICK_START_THUMB:
+                case JCUserActionStandard.ON_CLICK_START_THUMB:
                     Utils.setGone(imgDownLoad);
                     break;
-                case JCBuriedPointStandard.ON_CLICK_BLANK:
+                case JCUserActionStandard.ON_CLICK_BLANK:
                     if (imgDownLoad.getVisibility() == View.VISIBLE) {
                         Utils.setGone(imgDownLoad);
                     } else {
