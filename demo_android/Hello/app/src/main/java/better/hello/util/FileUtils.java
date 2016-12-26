@@ -139,7 +139,7 @@ public class FileUtils {
                 Utils.d("Better", "下载了==" + readSize + ",total=" + length);
             }
             outputStream.flush();
-            Utils.close(outputStream,ins,body);
+            Utils.close(outputStream, ins, body);
         } catch (Exception e) {
             e.printStackTrace();
             subscriber.onError(e);
@@ -254,7 +254,7 @@ public class FileUtils {
      */
     public static boolean isNeedDownLoadTodaySplash(Context ctx) {
         File splashFile = new File(getTodaySplashImagePath(ctx));
-        if (!splashFile.exists()) return true;
+        if (!splashFile.exists() || splashFile.length() == 0) return true;
         DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         String today = f.format(new Date());
         return !today.equalsIgnoreCase(f.format(new Date(splashFile.lastModified())));
