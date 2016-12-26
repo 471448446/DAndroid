@@ -5,17 +5,24 @@ package better.hello.util;
  */
 
 public interface C {
-    String MAP4=".mp4";
-    String HTTP_TAG="http";
-    String EXTRA_TAG_Type ="extra_tag_nanme";
-    String EXTRA_TAG_ID="extra_tag_ID";
+    String MAP4 = ".mp4";
+    String HTTP_TAG = "http";
+    String EXTRA_TAG_Type = "extra_tag_nanme";
+    String EXTRA_TAG_ID = "extra_tag_ID";
     String EXTRA_BEAN = "bean";
     String EXTRA_SOURCE_TYPE = "extra_source_type";
     String EXTRA_FIRST = "extra_first";
     String EXTRA_SECOND = "extra_second";
     String EXTRA_THIRD = "extra_third";
 
-    int url_type_image =11;
-    int url_type_video= url_type_image +1;
+    int url_type_image = 11;
+    int url_type_video = url_type_image + 1;
+    /**
+     * Des boolean 判断
+     * 收藏 0--没有
+     * Create By better on 2016/12/26 15:09.
+     */
+    int NO = 0;
+    int YES = NO + 1;
 }
 

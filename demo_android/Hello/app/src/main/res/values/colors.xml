@@ -3,6 +3,18 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <!--灰色一般 次要文字-->
+    <color name="color_txt_gray">#999999</color>
+    <!--灰色最浅的 填选框提示文字-->
+    <color name="color_txt_gray_min">#c8c8c8</color>
+    <!--黑色文字 普通段落文字-->
+    <color name="color_txt_black">#3c3c3c</color>
+    <!--黑色文字 重要文字-->
+    <color name="color_txt_black_important">#f69603</color>
+    <!--黄文字  着重强调的文字,可点击的文字类容-->
+    <color name="color_txt_yellow">#f69603</color>
+    <!--输入框提示文字-->
+    <color name="color_hint">#c8c8c8</color>
 
     <!--所有黄色按钮-->
     <color name="color_btn_yellow">#ffb94a</color>

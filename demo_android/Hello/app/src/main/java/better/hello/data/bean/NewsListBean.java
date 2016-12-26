@@ -7,6 +7,7 @@ import java.util.List;
 
 import better.hello.common.UIHelper;
 import better.hello.http.api.NewsSourceType;
+import better.hello.util.C;
 import better.hello.util.JsonUtils;
 
 /**
@@ -29,6 +30,23 @@ public class NewsListBean implements Parcelable {
     private String json;
     /*数据种类*/
     private int sourceType;
+    private int isCollect;
+
+    public int getIsCollect() {
+        return isCollect;
+    }
+
+    public void setIsCollect(int isCollect) {
+        this.isCollect = isCollect;
+    }
+
+    public void setIsCollect(boolean isCollect) {
+        this.isCollect = isCollect ? C.YES : C.NO;
+    }
+
+    public boolean isCollect() {
+        return C.YES == isCollect;
+    }
 
     public int getSourceType() {
         return sourceType;
@@ -160,6 +178,7 @@ public class NewsListBean implements Parcelable {
         dest.writeTypedList(this.imgs);
         dest.writeString(this.json);
         dest.writeInt(this.sourceType);
+        dest.writeInt(this.isCollect);
     }
 
     protected NewsListBean(Parcel in) {
@@ -175,6 +194,7 @@ public class NewsListBean implements Parcelable {
         this.imgs = in.createTypedArrayList(ImagesDetailsBean.CREATOR);
         this.json = in.readString();
         this.sourceType = in.readInt();
+        this.isCollect = in.readInt();
     }
 
     public static final Creator<NewsListBean> CREATOR = new Creator<NewsListBean>() {

@@ -2,6 +2,7 @@ package better.hello.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,8 +11,10 @@ import android.support.v4.util.ArrayMap;
 import android.view.MenuItem;
 
 import better.hello.R;
+import better.hello.ui.aboutme.AboutMeFragment;
 import better.hello.ui.base.BaseActivity;
 import better.hello.ui.news.NewsTabFragment;
+import better.hello.util.Utils;
 import butterknife.BindView;
 
 /**
@@ -19,9 +22,12 @@ import butterknife.BindView;
  * 主页仿知乎，新闻是网页数据
  * Create By better on 2016/10/12 15:03.
  */
-public class MainActivity extends BaseActivity implements MainContract.view {
+public class MainActivity extends BaseActivity implements MainContract.view, BottomNavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.main_bottomNav)
     BottomNavigationView bottomNavigationView;
+    @BindView(R.id.main_appBar)
+    AppBarLayout mAppBarLayout;
+
     private MainPresenter mainPresenter;
     private BottomItems mBottomItem;
 
@@ -38,11 +44,22 @@ public class MainActivity extends BaseActivity implements MainContract.view {
     protected void initData() {
         super.initData();
         mainPresenter = new MainPresenter(this);
-        mBottomItem = new BottomItems(R.id.main_Content, bottomNavigationView, getSupportFragmentManager());
+        mBottomItem = new BottomItems(R.id.main_Content, bottomNavigationView, getSupportFragmentManager()).setListener(this);
         mBottomItem.put(R.id.tab_favorites, new NewsTabFragment());
+        mBottomItem.put(R.id.tab_friends, new AboutMeFragment());
         mBottomItem.showFragment(R.id.tab_favorites);
 
         mainPresenter.asyncPlashImage();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.tab_favorites) {
+            Utils.setVisible(mAppBarLayout);
+        } else {
+            Utils.setGone(mAppBarLayout);
+        }
+        return false;
     }
 
     static class BottomItems {
@@ -50,6 +67,7 @@ public class MainActivity extends BaseActivity implements MainContract.view {
         private BottomNavigationView bottomNavigationView;
         private FragmentManager manager;
         private ArrayMap<Integer, Fragment> items = new ArrayMap<>();
+        private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener;
 
         public BottomItems(int containerId, BottomNavigationView bottomNavigationView, FragmentManager manager) {
             this.containerId = containerId;
@@ -63,9 +81,16 @@ public class MainActivity extends BaseActivity implements MainContract.view {
                             showFragment(i);
                         }
                     }
+                    if (null != mOnNavigationItemSelectedListener)
+                        mOnNavigationItemSelectedListener.onNavigationItemSelected(item);
                     return false;
                 }
             });
+        }
+
+        public BottomItems setListener(BottomNavigationView.OnNavigationItemSelectedListener listener) {
+            this.mOnNavigationItemSelectedListener = listener;
+            return this;
         }
 
         public void showFragment(Integer i) {

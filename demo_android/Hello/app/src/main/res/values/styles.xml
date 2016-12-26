@@ -51,5 +51,15 @@
         <item name="android:layout_margin">@dimen/border_space_normal</item>
         <item name="android:scaleType">centerCrop</item>
     </style>
+    <!--个人中心-->
+    <style name="centerItemTxt" parent="wrapHeight">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">@dimen/text_size_ml</item>
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:paddingBottom">@dimen/border_space_sec</item>
+        <item name="android:paddingTop">@dimen/border_space_sec</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <!--个人中心-->
 
 </resources>

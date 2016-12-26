@@ -26,6 +26,7 @@ public class BaseActivity extends AppCompatActivity {
     protected Subscription mSubscription;
 
     public Activity mContext;
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -54,6 +55,7 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void onShouldShowRequestPermissionRationale(int requestCode, String permissions, int grantResults) {
     }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +66,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         WaitDialog.destroyDialog(mContext);
-        if (null!=mSubscription)mSubscription.unsubscribe();
+        if (null != mSubscription) mSubscription.unsubscribe();
     }
 
     @Override
@@ -74,12 +76,15 @@ public class BaseActivity extends AppCompatActivity {
         getArgs();
         initData();
     }
-    protected void l(String msg){
-        Utils.d(this.getClass().getSimpleName(),msg);
+
+    protected void l(String msg) {
+        Utils.d(this.getClass().getSimpleName(), msg);
     }
-    protected void toast(String msg){
-        Utils.toastShort(mContext,msg);
+
+    protected void toast(String msg) {
+        Utils.toastShort(mContext, msg);
     }
+
     /**
      * 参数传递
      */
@@ -121,8 +126,20 @@ public class BaseActivity extends AppCompatActivity {
         return setBackToolBar(toolBar, "");
     }
 
+    protected Toolbar setBackToolBar(int toolBar) {
+        return setBackToolBar(toolBar, "");
+    }
+
     protected Toolbar setBackToolBar(Toolbar toolBar, int msg) {
         return setBackToolBar(toolBar, getString(msg));
+    }
+
+    protected Toolbar setBackToolBar(int toolBar, int msg) {
+        return setBackToolBar((Toolbar) findViewById(toolBar), getString(msg));
+    }
+
+    protected Toolbar setBackToolBar(int toolBar, String msg) {
+        return setBackToolBar((Toolbar) findViewById(toolBar), msg);
     }
 
     protected Toolbar setBackToolBar(Toolbar toolBar, String msg) {

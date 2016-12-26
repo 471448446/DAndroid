@@ -3,9 +3,11 @@ package better.hello.ui.news.detail;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import java.util.List;
@@ -15,11 +17,14 @@ import better.hello.data.bean.ImagesDetailsBean;
 import better.hello.data.bean.NewsDetailsBean;
 import better.hello.data.bean.NewsListBean;
 import better.hello.data.bean.VideoBean;
-import better.hello.ui.base.BaseActivity;
+import better.hello.ui.aboutme.collect.CollectDataSourceImp;
+import better.hello.ui.base.BaseDetailActivity;
+import better.hello.ui.news.newslist.NewsListFragment;
 import better.hello.util.C;
+import better.lib.utils.ForWord;
 import butterknife.BindView;
 
-public class NewsDetailsActivity extends BaseActivity {
+public class NewsDetailsActivity extends BaseDetailActivity {
     @BindView(R.id.newsDetail_web)
     WebView mWebView;
     @BindView(R.id.news_detail_toolbar)
@@ -27,28 +32,42 @@ public class NewsDetailsActivity extends BaseActivity {
 
     private NewsListBean mNewsListBean;
     private NewsContentHelper mNewsContentHelper;
+    private CollectDataSourceImp mCollectDataSourceImp;
 
     public static void start(Activity activity, NewsListBean newsListBean) {
-        Intent intent = new Intent(activity, NewsDetailsActivity.class);
-        intent.putExtra(C.EXTRA_BEAN, newsListBean);
-        activity.startActivity(intent);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(C.EXTRA_BEAN, newsListBean);
+        ForWord.to(activity, NewsDetailsActivity.class, bundle);
+    }
+
+    public static void start(Fragment activity, NewsListBean newsListBean) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(C.EXTRA_BEAN, newsListBean);
+        ForWord.to(activity, NewsDetailsActivity.class, bundle, NewsListFragment.req);
     }
 
     @Override
     protected void getArgs() {
         super.getArgs();
-        mNewsListBean = getIntent().getParcelableExtra(C.EXTRA_BEAN);
+        mNewsListBean = getIntent().getExtras().getParcelable(C.EXTRA_BEAN);
+        isCollected = mNewsListBean.isCollect();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_details);
-        setBackToolBar(toolbar, mNewsListBean.getTitle());
+        mContainer = findViewById(R.id.activity_news_details);
+        setBackToolBar(toolbar, ""/*mNewsListBean.getTitle()*/);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setBuiltInZoomControls(true);
         mWebView.getSettings().setDisplayZoomControls(false);
         mWebView.addJavascriptInterface(new ClickJs(), "app");
+        //扩大比例的缩放
+        mWebView.getSettings().setUseWideViewPort(true);
+        //自适应屏幕
+        mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        mWebView.getSettings().setLoadWithOverviewMode(true);
 //        mWebView.setWebViewClient(new WebViewClient() {
 //            @Override
 //            public void onPageFinished(WebView view, String url) {
@@ -80,6 +99,36 @@ public class NewsDetailsActivity extends BaseActivity {
                 "          }  " +
                 "    }" +
                 "})()");
+    }
+
+    @Override
+    protected String getShareTitle() {
+        return null == mNewsListBean ? "" : mNewsListBean.getTitle();
+    }
+
+    @Override
+    protected void addToCollection() {
+        if (null == mCollectDataSourceImp) {
+            mCollectDataSourceImp = new CollectDataSourceImp(mContext);
+        }
+        mNewsListBean.setIsCollect(true);
+        mCollectDataSourceImp.save(mNewsListBean, null);
+        Intent intent = new Intent();
+        intent.putExtra(C.EXTRA_FIRST, mNewsListBean.getTitle());
+        intent.putExtra(C.EXTRA_SECOND, true);
+        setResult(Activity.RESULT_OK, intent);
+    }
+
+    @Override
+    protected void removeFromCollection() {
+        if (null == mCollectDataSourceImp) {
+            mCollectDataSourceImp = new CollectDataSourceImp(mContext);
+        }
+        mCollectDataSourceImp.delete(mNewsListBean.getTitle());
+        Intent intent = new Intent();
+        intent.putExtra(C.EXTRA_FIRST, mNewsListBean.getTitle());
+        intent.putExtra(C.EXTRA_SECOND, false);
+        setResult(Activity.RESULT_OK, intent);
     }
 
     class ClickJs {

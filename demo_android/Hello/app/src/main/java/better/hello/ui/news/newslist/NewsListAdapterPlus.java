@@ -45,6 +45,15 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
         }
     }
 
+    public void collect(String key, boolean isCollect) {
+        for (NewsListBean be : mList) {
+            if (be.getTitle().equalsIgnoreCase(key)) {
+                be.setIsCollect(isCollect);
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;

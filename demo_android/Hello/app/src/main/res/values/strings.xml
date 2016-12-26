@@ -5,6 +5,8 @@
     <string name="str_test_txt">-.-</string>
     <string name="str_cancel">取消</string>
     <string name="str_confirm">确定</string>
+    <string name="collection">收藏</string>
+    <string name="share">分享</string>
 
     <string name="str_permission_refuse_title">权限申请</string>
     <string name="str_permission_app_title">开启APP</string>
@@ -25,5 +27,12 @@
     <string name="down_tip_3gp">要用流量下载？？</string>
     <string name="down_fail">下载失败</string>
     <string name="splash_ok">已更新欢迎页图片</string>
+
+    <string name="str_no_colllect">暂无收藏</string>
+    <string name="notify_add_to_collection">已收藏</string>
+    <string name="notify_remove_from_collection">取消收藏</string>
+    <string name="share_no">手机中没有可以分享的软件</string>
+    <string name="share_msg">我正在阅读：%1$s</string>
+    <string name="please_choose">请选择</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package better.hello.ui.news.newslist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
@@ -20,6 +21,7 @@ import better.lib.http.RequestType;
  */
 
 public class NewsListFragment extends BaseListFragment<NewsListBean> implements NewsListContract.view {
+    public static final int req = 100;
     private NewsListPresenter mPresenter;
     private NewsChannelBean mNewsChannelBean;
 
@@ -29,6 +31,15 @@ public class NewsListFragment extends BaseListFragment<NewsListBean> implements 
         NewsListFragment fragment = new NewsListFragment();
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (null == data) return;
+        if (req == requestCode) {
+            ((NewsListAdapterPlus) mAdapter).collect(data.getStringExtra(C.EXTRA_FIRST), data.getBooleanExtra(C.EXTRA_SECOND, false));
+        }
     }
 
     @Override
@@ -44,7 +55,7 @@ public class NewsListFragment extends BaseListFragment<NewsListBean> implements 
         super.getArgs();
         Bundle b = getArguments();
         if (null != b) {
-            mNewsChannelBean=b.getParcelable(C.EXTRA_BEAN);
+            mNewsChannelBean = b.getParcelable(C.EXTRA_BEAN);
         }
     }
 
@@ -71,11 +82,11 @@ public class NewsListFragment extends BaseListFragment<NewsListBean> implements 
     private NewsItemClickListener newsItemClickListener = new NewsItemClickListener() {
         @Override
         public void onClickNews(boolean isPhoto, NewsListBean bean) {
-            if (isPhoto){
+            if (isPhoto) {
                 NewsPhotoDetailActivity.start(mContext.getActivity(), bean.getImgs());
-            }else {
-//                NetEasyNewsDetailsActivity.start(mContext.getActivity(),bean.getNewsId());
-                NewsDetailsActivity.start(getActivity(),bean);
+            } else {
+//                NetEasyNewsDetailsActivity.start(mContext.getActivity(),bean.etNewsId());
+                NewsDetailsActivity.start(mContext, bean);
             }
         }
     };

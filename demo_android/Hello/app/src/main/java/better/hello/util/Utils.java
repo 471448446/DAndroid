@@ -1,7 +1,9 @@
 package better.hello.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -22,6 +24,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import better.hello.R;
 import better.lib.utils.BaseUtils;
 
 /**
@@ -121,6 +124,19 @@ public class Utils extends BaseUtils {
             for (Closeable closeable : closeables) {
                 if (null != closeable) closeable.close();
             }
+        }
+    }
+
+    public static void shareTxt(Activity activity, String msg) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, activity.getString(R.string.share_msg, msg));
+        intent.setType("text/plain");
+        PackageManager packageManager = activity.getPackageManager();
+        if (null != packageManager && intent.resolveActivity(packageManager) != null) {
+            activity.startActivityForResult(Intent.createChooser(intent, activity.getString(R.string.please_choose)), 1);
+        } else {
+            Utils.toastShort(activity, activity.getString(R.string.share_no));
         }
     }
 
