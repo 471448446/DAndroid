@@ -10,6 +10,11 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="AppTheme.Splash">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
     <!-- 宽高样式 -->
     <style name="wrapHeight">
         <item name="android:layout_width">match_parent</item>
