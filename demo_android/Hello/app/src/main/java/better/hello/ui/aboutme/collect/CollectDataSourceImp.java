@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import better.hello.App;
+import better.hello.R;
 import better.hello.common.BaseSchedulerTransformer;
 import better.hello.common.BaseSubscriber;
 import better.hello.data.DataSourceDbImpl;
@@ -60,9 +62,9 @@ public class CollectDataSourceImp extends DataSourceDbImpl<List<NewsListBean>> {
                 if (null == list || list.isEmpty()) {
                     isLocalEmpty = true;
                     if (info.getRequestTye() != RequestType.DATA_REQUEST_UP_REFRESH) {
-                        throw new IllegalArgumentException("暂无收藏");
+                        throw new IllegalArgumentException(App.getApplication().getString(R.string.str_no_collect));
                     } else {
-                        throw new IllegalArgumentException("已全部加载");
+                        throw new IllegalArgumentException(App.getApplication().getString(R.string.str_loading_header_all));
                     }
                 } else {
                     Iterator iterable = list.iterator();

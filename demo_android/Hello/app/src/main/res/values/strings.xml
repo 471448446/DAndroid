@@ -28,7 +28,7 @@
     <string name="down_fail">下载失败</string>
     <string name="splash_ok">已更新欢迎页图片</string>
 
-    <string name="str_no_colllect">暂无收藏</string>
+    <string name="str_no_collect">暂无收藏</string>
     <string name="notify_add_to_collection">已收藏</string>
     <string name="notify_remove_from_collection">取消收藏</string>
     <string name="share_no">手机中没有可以分享的软件</string>

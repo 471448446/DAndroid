@@ -34,9 +34,8 @@ public class CollectFragment extends BaseListFragment<NewsListBean> implements C
         super.initWhenNullRootView();
         mCollectPresenter = new CollectPresenter(this);
         initRefresh(R.id.simpleRefresh_SwipeRefresh, R.id.simpleRefresh_recyclerView);
-        mCollectPresenter.asyncList(RequestType.DATA_REQUEST_INIT);
         ((FooterEmptyView) mRecyclerView.getFooterViewProxy()).getRetryView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorLayBg));
-//        mRecyclerView.getFooterViewProxy().displayMessage("已全部加载");
+        mCollectPresenter.asyncList(RequestType.DATA_REQUEST_INIT);
     }
 
     @Override
@@ -59,7 +58,7 @@ public class CollectFragment extends BaseListFragment<NewsListBean> implements C
         super.postRequestSuccess(requestType, list, requestMeg);
         if (null != list && AppConfig.PAGES_SIZE > list.size())
             if (RequestType.DATA_REQUEST_INIT == requestType) {
-                mRecyclerView.getFooterViewProxy().displayMessage("已全部加载");
+                mRecyclerView.getFooterViewProxy().displayMessage(getString(R.string.str_loading_header_all));
             }
     }
 }
