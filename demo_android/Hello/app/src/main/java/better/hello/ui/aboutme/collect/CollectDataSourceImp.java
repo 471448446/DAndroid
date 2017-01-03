@@ -4,10 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 
 import com.squareup.sqlbrite.BriteDatabase;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import better.hello.common.BaseSchedulerTransformer;
@@ -16,8 +18,8 @@ import better.hello.data.DataSourceDbImpl;
 import better.hello.data.bean.NewsListBean;
 import better.hello.data.db.TableInfo;
 import better.hello.http.call.RequestInfo;
+import better.hello.util.C;
 import better.hello.util.JsonUtils;
-import better.hello.util.Utils;
 import better.lib.http.RequestType;
 import rx.Subscription;
 import rx.functions.Action1;
@@ -39,7 +41,6 @@ public class CollectDataSourceImp extends DataSourceDbImpl<List<NewsListBean>> {
      * Des
      * Create By better on 2016/10/27 09:45.
      *
-     * @param context
      */
     public CollectDataSourceImp(Context context) {
         super(context);
@@ -53,16 +54,23 @@ public class CollectDataSourceImp extends DataSourceDbImpl<List<NewsListBean>> {
 
     @Override
     public Subscription getLocalInfo(final RequestInfo<List<NewsListBean>> info) {
-        return db.createQuery(TableInfo.NewsCollectTable.TABLE_NAME, TableInfo.getCollects()).mapToList(mapper).doOnNext(new Action1<List<NewsListBean>>() {
+        return db.createQuery(TableInfo.NewsCollectTable.TABLE_NAME, TableInfo.getCollects((Integer) info.getPrams().get(C.EXTRA_FIRST))).mapToList(mapper).doOnNext(new Action1<List<NewsListBean>>() {
             @Override
             public void call(List<NewsListBean> list) {
-                Utils.d("better","----->");
                 if (null == list || list.isEmpty()) {
                     isLocalEmpty = true;
                     if (info.getRequestTye() != RequestType.DATA_REQUEST_UP_REFRESH) {
                         throw new IllegalArgumentException("暂无收藏");
                     } else {
                         throw new IllegalArgumentException("已全部加载");
+                    }
+                } else {
+                    Iterator iterable = list.iterator();
+                    while (iterable.hasNext()) {
+                        NewsListBean bean = (NewsListBean) iterable.next();
+                        if (null == bean || TextUtils.isEmpty(bean.getTitle())) {
+                            iterable.remove();
+                        }
                     }
                 }
             }

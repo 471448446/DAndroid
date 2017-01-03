@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/empty_bg"
-    android:clickable="true">
+    android:clickable="true"
+    android:minHeight="40dp">
 
     <LinearLayout
         android:id="@+id/footer_proxy_loading"
@@ -17,7 +19,7 @@
             android:layout_width="30dip"
             android:layout_height="30dip"
             android:indeterminate="false"
-            android:indeterminateDrawable="@drawable/empty_loading_progress" />
+            android:indeterminateDrawable="@drawable/empty_loading_progress"/>
 
         <TextView
             android:id="@+id/footer_proxy_loading_msg"
@@ -26,7 +28,7 @@
             android:paddingLeft="10dip"
             android:text="@string/str_loading_wait"
             android:textColor="#ffc0c0c0"
-            android:textSize="16sp"></TextView>
+            android:textSize="16sp"/>
     </LinearLayout>
 
     <RelativeLayout
@@ -35,30 +37,29 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true">
 
-        <Button
-            android:id="@+id/footer_proxy_button_retry"
-            android:layout_width="wrap_content"
-            android:layout_height="40dip"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="15dp"
-            android:background="@null"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="@string/str_loading_retry"
-            android:textColor="@color/color_retry_button_txt"
-            android:textSize="15sp" />
+        <!--<Button-->
+        <!--android:id="@+id/footer_proxy_button_retry"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="40dip"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:background="@null"-->
+        <!--android:paddingLeft="20dp"-->
+        <!--android:paddingRight="20dp"-->
+        <!--android:text="@string/str_loading_retry"-->
+        <!--android:textColor="@color/color_retry_button_txt"-->
+        <!--android:textSize="15sp"/>-->
 
         <TextView
             android:id="@+id/footer_proxy_retry_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/footer_proxy_button_retry"
             android:gravity="center"
             android:maxLines="2"
             android:text="@string/str_loading_retry_hint"
-            android:textColor="#ffc0c0c0" />
+            android:textColor="@color/color_retry_button_txt"/>
     </RelativeLayout>
 
 </RelativeLayout>

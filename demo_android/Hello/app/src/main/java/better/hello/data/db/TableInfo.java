@@ -2,6 +2,8 @@ package better.hello.data.db;
 
 import android.provider.BaseColumns;
 
+import better.hello.AppConfig;
+
 /**
  * Created by better on 2016/10/26.
  */
@@ -53,5 +55,13 @@ public class TableInfo {
 
     public static String getCollects() {
         return "select * from " + NewsCollectTable.TABLE_NAME;
+    }
+
+    /**
+     * Des select * from NewsCollects limit 8,8
+     * Create By better on 2017/1/3 15:58.
+     */
+    public static String getCollects(int start) {
+        return "select * from " + NewsCollectTable.TABLE_NAME + " limit " + start + "," + AppConfig.PAGES_SIZE;
     }
 }

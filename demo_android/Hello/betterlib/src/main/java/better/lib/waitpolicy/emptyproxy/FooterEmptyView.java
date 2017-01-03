@@ -2,7 +2,6 @@ package better.lib.waitpolicy.emptyproxy;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,7 +18,6 @@ public class FooterEmptyView extends EmptyViewProxy implements View.OnClickListe
     private View loadingView, retryView;
     private TextView loadingViewMsg;
     private TextView retryViewMsg;
-    private Button retryButton;
     private Context context;
 
     public FooterEmptyView(Context context) {
@@ -31,14 +29,17 @@ public class FooterEmptyView extends EmptyViewProxy implements View.OnClickListe
         // 重试
         retryView = loadingRetryView.findViewById(R.id.footer_proxy_retry);
         retryViewMsg = (TextView) retryView.findViewById(R.id.footer_proxy_retry_message);
-        retryButton = (Button) retryView.findViewById(R.id.footer_proxy_button_retry);
-        retryButton.setOnClickListener(this);
+        retryViewMsg.setOnClickListener(this);
         displayLoading();
     }
 
     @Override
     public View getProxyView() {
         return loadingRetryView;
+    }
+
+    public View getRetryView() {
+        return retryView;
     }
 
     /**
@@ -90,12 +91,6 @@ public class FooterEmptyView extends EmptyViewProxy implements View.OnClickListe
 
     public void displayMessage(String msg, boolean retry) {
         BaseUtils.setVisibleGone(retryView, loadingView);
-        if (!retry) {
-            BaseUtils.setGone(retryButton);
-        } else {
-            BaseUtils.setVisible(retryButton);
-            retryButton.setText(R.string.str_loading_refresh);
-        }
         retryViewMsg.setText(msg);
     }
 
@@ -126,13 +121,9 @@ public class FooterEmptyView extends EmptyViewProxy implements View.OnClickListe
         BaseUtils.setGone(retryView, loadingView);
     }
 
-//	public interface onLrRetryClickListener {
-//		public abstract void onRetryClick();
-//	}
-
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.lr_proxy_button_retry) {
+        if (v.getId() == R.id.footer_proxy_retry_message) {
             if (null != mListener) {
                 mListener.onRetryClick();
             }
