@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.webkit.JavascriptInterface;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import java.util.List;
@@ -63,11 +62,13 @@ public class NewsDetailsActivity extends BaseDetailActivity {
         mWebView.getSettings().setBuiltInZoomControls(true);
         mWebView.getSettings().setDisplayZoomControls(false);
         mWebView.addJavascriptInterface(new ClickJs(), "app");
+        /*
         //扩大比例的缩放
         mWebView.getSettings().setUseWideViewPort(true);
         //自适应屏幕
         mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         mWebView.getSettings().setLoadWithOverviewMode(true);
+        */
 //        mWebView.setWebViewClient(new WebViewClient() {
 //            @Override
 //            public void onPageFinished(WebView view, String url) {
