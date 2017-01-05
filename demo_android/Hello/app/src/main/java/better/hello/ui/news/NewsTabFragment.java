@@ -22,7 +22,6 @@ import better.hello.util.Utils;
  */
 
 public class NewsTabFragment extends BaseTabSlideFragment implements NewsTabContract.view {
-    private TabPagerAdapter tabPagerAdapter;
     private String[] name;
 
     @Override
@@ -39,13 +38,13 @@ public class NewsTabFragment extends BaseTabSlideFragment implements NewsTabCont
             name[i] = lis.get(i).getName();
         }
         if (null == getChildFragmentManager()) Utils.toastShort(getContext(), "tab配置不合法");
-        tabPagerAdapter = new TabPagerAdapter(getChildFragmentManager(), name) {
+
+        return new TabPagerAdapter(getChildFragmentManager(), name) {
             @Override
             public Fragment getItem(int position) {
                 return NewsListFragment.newInstance(lis.get(position));
             }
         };
-        return tabPagerAdapter;
     }
 
     @Override
