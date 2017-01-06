@@ -25,8 +25,8 @@ public class HeaderViewProxyRecyclerAdapter extends RecyclerView.Adapter<Recycle
     private RecyclerView.Adapter mWrappedAdapter;
     private Map<Class, Integer> mItemTypesOffset;
 
-    private EmptyViewProxy mHeadViewProxy,mFooterViewProxy;
-    private boolean isShowFooterView=true,isShowHeaderView=true;//是否显示footerView,默认支持
+    private EmptyViewProxy mHeadViewProxy, mFooterViewProxy;
+    private boolean isShowFooterView = true, isShowHeaderView = true;//是否显示footerView,默认支持
 
     public HeaderViewProxyRecyclerAdapter(RecyclerView.Adapter adapter) {
         mItemTypesOffset = new HashMap<>();
@@ -39,6 +39,18 @@ public class HeaderViewProxyRecyclerAdapter extends RecyclerView.Adapter<Recycle
         }
         setWrappedAdapter(adapter);
         notifyItemRangeInserted(getHeaderCount(), mWrappedAdapter.getItemCount());
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        if (null != mWrappedAdapter) mWrappedAdapter.onAttachedToRecyclerView(recyclerView);
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        if (null != mWrappedAdapter) mWrappedAdapter.onAttachedToRecyclerView(recyclerView);
     }
 
     @Override
@@ -83,19 +95,22 @@ public class HeaderViewProxyRecyclerAdapter extends RecyclerView.Adapter<Recycle
     }
 
     public int getHeaderCount() {
-        if(null!=mHeadViewProxy&&isShowHeaderView) return 1;
+        if (null != mHeadViewProxy && isShowHeaderView) return 1;
         return 0;
     }
+
     public int getFooterCount() {
-        if(null!=mFooterViewProxy&&isShowFooterView)return  1;
+        if (null != mFooterViewProxy && isShowFooterView) return 1;
         return 0;
     }
-    public void addHeadViewProxy(EmptyViewProxy headViewProxy){
-        this.mHeadViewProxy=headViewProxy;
+
+    public void addHeadViewProxy(EmptyViewProxy headViewProxy) {
+        this.mHeadViewProxy = headViewProxy;
         notifyDataSetChanged();
     }
-    public void addFooterViewProxy(EmptyViewProxy footerViewProxy){
-        this.mFooterViewProxy=footerViewProxy;
+
+    public void addFooterViewProxy(EmptyViewProxy footerViewProxy) {
+        this.mFooterViewProxy = footerViewProxy;
         notifyDataSetChanged();
     }
 
@@ -117,20 +132,23 @@ public class HeaderViewProxyRecyclerAdapter extends RecyclerView.Adapter<Recycle
         return this;
     }
 
-    public void showHeaderView(){
-        isShowFooterView=true;
+    public void showHeaderView() {
+        isShowFooterView = true;
         notifyDataSetChanged();
     }
-    public void closeHeaderView(){
-        isShowFooterView=false;
+
+    public void closeHeaderView() {
+        isShowFooterView = false;
         notifyDataSetChanged();
     }
-    public void showFooterView(){
-        isShowFooterView=true;
+
+    public void showFooterView() {
+        isShowFooterView = true;
         notifyDataSetChanged();
     }
-    public void closeFooterView(){
-        isShowFooterView=false;
+
+    public void closeFooterView() {
+        isShowFooterView = false;
         notifyDataSetChanged();
     }
 

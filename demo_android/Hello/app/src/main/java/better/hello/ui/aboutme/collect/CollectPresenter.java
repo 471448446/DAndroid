@@ -19,7 +19,7 @@ import better.lib.waitpolicy.NoneWaitPolicy;
  */
 
 public class CollectPresenter extends BasePresenterProxy<CollectFragment> implements CollectContract.presenter, RequestCallback<List<NewsListBean>> {
-    CollectDataSourceImp mCollectDataSourceImp;
+    private CollectDataSourceImp mCollectDataSourceImp;
     private int mStart = 0;
 
     public CollectPresenter(CollectFragment mView) {
@@ -55,5 +55,8 @@ public class CollectPresenter extends BasePresenterProxy<CollectFragment> implem
     @Override
     public void onComplete(RequestInfo<List<NewsListBean>> requestInfo) {
 
+    }
+    public void delete(String key){
+        mCollectDataSourceImp.delete(key);
     }
 }

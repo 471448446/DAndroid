@@ -7,6 +7,7 @@
     <string name="str_confirm">确定</string>
     <string name="collection">收藏</string>
     <string name="share">分享</string>
+    <string name="str_delete">删除</string>
 
     <string name="str_permission_refuse_title">权限申请</string>
     <string name="str_permission_app_title">开启APP</string>

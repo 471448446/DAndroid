@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:gravity="center"
-          android:id="@+id/item_collect_title"
-          android:paddingBottom="@dimen/border_space_sec"
-          android:paddingTop="@dimen/border_space_sec"
-          android:textColor="@color/color_txt_black"
-          android:textSize="@dimen/text_size_small"
-          tools:text="@string/app_name">
-</TextView>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/item_collect_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="@dimen/border_space_sec_max"
+        android:paddingTop="@dimen/border_space_sec_max"
+        android:textColor="@color/color_txt_black"
+        android:textSize="@dimen/text_size_small"
+        tools:text="@string/app_name">
+    </TextView>
+
+    <TextView
+        android:id="@+id/item_collect_delete"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_red_light"
+        android:gravity="center"
+        android:paddingBottom="@dimen/border_space_sec_max"
+        android:paddingTop="@dimen/border_space_sec_max"
+        android:text="@string/str_delete"
+        android:textColor="@android:color/white"/>
+</LinearLayout>

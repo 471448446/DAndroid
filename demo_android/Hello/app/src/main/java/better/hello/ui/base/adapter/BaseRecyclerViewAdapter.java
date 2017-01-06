@@ -26,6 +26,7 @@ public abstract class BaseRecyclerViewAdapter<E, T extends RecyclerView.ViewHold
     public BaseRecyclerViewAdapter(Activity ctx) {
         this(ctx, null);
     }
+
     public BaseRecyclerViewAdapter(Fragment fr) {
         this(fr.getActivity(), fr);
     }
@@ -46,6 +47,7 @@ public abstract class BaseRecyclerViewAdapter<E, T extends RecyclerView.ViewHold
         super.onViewDetachedFromWindow(holder);
         holder.itemView.clearAnimation();
     }
+
     protected View getView(ViewGroup parent, int layoutId) {
         return LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
     }
@@ -71,6 +73,13 @@ public abstract class BaseRecyclerViewAdapter<E, T extends RecyclerView.ViewHold
 
     public void reSetList(List<E> list) {
         this.mList = list;
+        notifyDataSetChanged();
+    }
+
+    public void reMove(int p) {
+        if (mList.size() >= p) {
+            mList.remove(p);
+        }
         notifyDataSetChanged();
     }
 

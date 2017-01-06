@@ -1,6 +1,6 @@
 package better.hello.ui.aboutme.collect;
 
-import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import better.hello.R;
 import better.hello.data.bean.NewsListBean;
-import better.hello.ui.base.adapter.BaseRecyclerViewAdapter;
+import better.hello.ui.base.adapter.BaseSlideAdapter;
 import better.hello.ui.news.detail.NewsDetailsActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,9 +18,9 @@ import butterknife.ButterKnife;
  * Des 收藏adapter
  * Create By better on 2016/12/26 13:45.
  */
-public class CollectAdapter extends BaseRecyclerViewAdapter<NewsListBean, CollectAdapter.Holder> {
+public class CollectAdapter extends BaseSlideAdapter<NewsListBean, CollectAdapter.Holder> {
 
-    public CollectAdapter(Activity ctx) {
+    public CollectAdapter(Fragment ctx) {
         super(ctx);
     }
 
@@ -30,7 +30,7 @@ public class CollectAdapter extends BaseRecyclerViewAdapter<NewsListBean, Collec
     }
 
     @Override
-    public void onBindViewHolder(Holder holder, int position) {
+    public void onBindViewHolder(Holder holder, final int position) {
         final NewsListBean bean = getItem(position);
         if (null == bean) return;
         holder.title.setText(bean.getTitle());
@@ -40,11 +40,19 @@ public class CollectAdapter extends BaseRecyclerViewAdapter<NewsListBean, Collec
                 NewsDetailsActivity.start(mContext, bean);
             }
         });
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((CollectFragment)mFragment).delete(bean.getTitle(),position);
+            }
+        });
     }
 
     class Holder extends RecyclerView.ViewHolder {
         @BindView(R.id.item_collect_title)
         TextView title;
+        @BindView(R.id.item_collect_delete)
+        TextView delete;
 
         public Holder(View itemView) {
             super(itemView);

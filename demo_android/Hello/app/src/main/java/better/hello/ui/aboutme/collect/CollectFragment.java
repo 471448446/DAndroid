@@ -8,6 +8,7 @@ import java.util.List;
 
 import better.hello.AppConfig;
 import better.hello.R;
+import better.hello.common.LinearItemDecoration;
 import better.hello.common.RefreshListener;
 import better.hello.common.RefreshListenerPresentImpl;
 import better.hello.data.bean.NewsListBean;
@@ -15,6 +16,9 @@ import better.hello.ui.base.BaseListFragment;
 import better.hello.ui.base.adapter.BaseRecyclerViewAdapter;
 import better.lib.http.RequestType;
 import better.lib.waitpolicy.emptyproxy.FooterEmptyView;
+import rx.Observable;
+import rx.Subscription;
+import rx.functions.Action1;
 
 /**
  * Des
@@ -23,6 +27,7 @@ import better.lib.waitpolicy.emptyproxy.FooterEmptyView;
 public class CollectFragment extends BaseListFragment<NewsListBean> implements CollectContract.view {
 
     private CollectPresenter mCollectPresenter;
+    private Subscription mSubscription;
 
     @Override
     protected int getRootViewId() {
@@ -34,8 +39,15 @@ public class CollectFragment extends BaseListFragment<NewsListBean> implements C
         super.initWhenNullRootView();
         mCollectPresenter = new CollectPresenter(this);
         initRefresh(R.id.simpleRefresh_SwipeRefresh, R.id.simpleRefresh_recyclerView);
+        mRecyclerView.addItemDecoration(new LinearItemDecoration(ContextCompat.getColor(getActivity(), R.color.colorHorizontalDivision)));
         ((FooterEmptyView) mRecyclerView.getFooterViewProxy()).getRetryView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorLayBg));
         mCollectPresenter.asyncList(RequestType.DATA_REQUEST_INIT);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (null != mSubscription) mSubscription.unsubscribe();
     }
 
     @Override
@@ -50,7 +62,7 @@ public class CollectFragment extends BaseListFragment<NewsListBean> implements C
 
     @Override
     protected BaseRecyclerViewAdapter getAdapter() {
-        return new CollectAdapter(getActivity());
+        return new CollectAdapter(CollectFragment.this);
     }
 
     @Override
@@ -60,5 +72,19 @@ public class CollectFragment extends BaseListFragment<NewsListBean> implements C
             if (RequestType.DATA_REQUEST_INIT == requestType) {
                 mRecyclerView.getFooterViewProxy().displayMessage(getString(R.string.str_loading_header_all));
             }
+    }
+
+    public void delete(String key, final int position) {
+        mSubscription = Observable.just(key).doOnNext(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                mCollectPresenter.delete(s);
+            }
+        }).subscribe(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                mAdapter.reMove(position);
+            }
+        });
     }
 }
