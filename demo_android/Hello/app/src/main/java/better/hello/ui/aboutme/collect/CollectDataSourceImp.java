@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import com.squareup.sqlbrite.BriteDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -75,6 +76,7 @@ public class CollectDataSourceImp extends DataSourceDbImpl<List<NewsListBean>> {
                         }
                     }
                 }
+                Collections.reverse(list);
             }
         }).compose(new BaseSchedulerTransformer<List<NewsListBean>>()).subscribe(new BaseSubscriber<>(info));
     }
