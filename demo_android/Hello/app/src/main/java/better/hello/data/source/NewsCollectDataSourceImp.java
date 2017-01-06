@@ -1,4 +1,4 @@
-package better.hello.ui.aboutme.collect;
+package better.hello.data.source;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -29,10 +29,10 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 
 /**
- * Created by better on 2016/12/26.
+ * Des 收藏列表
+ * Create By better on 2016/12/26 17:11.
  */
-
-public class CollectDataSourceImp extends DataSourceDbImpl<List<NewsListBean>> {
+public class NewsCollectDataSourceImp extends DataSourceDbImpl<List<NewsListBean>> implements NewsCollect {
     private Func1<Cursor, NewsListBean> mapper = new Func1<Cursor, NewsListBean>() {
         @Override
         public NewsListBean call(Cursor cursor) {
@@ -43,9 +43,8 @@ public class CollectDataSourceImp extends DataSourceDbImpl<List<NewsListBean>> {
     /**
      * Des
      * Create By better on 2016/10/27 09:45.
-     *
      */
-    public CollectDataSourceImp(Context context) {
+    public NewsCollectDataSourceImp(Context context) {
         super(context);
     }
 
@@ -99,13 +98,15 @@ public class CollectDataSourceImp extends DataSourceDbImpl<List<NewsListBean>> {
         }
     }
 
-    public void save(NewsListBean bean, RequestInfo<List<NewsListBean>> info) {
-        ArrayList<NewsListBean> listBeen = new ArrayList<>();
-        listBeen.add(bean);
-        save(listBeen, info);
-    }
-
+    @Override
     public void delete(String key) {
         db.delete(TableInfo.NewsCollectTable.TABLE_NAME, TableInfo.NewsCollectTable.TITLE + " = '" + key + "'");
+    }
+
+    @Override
+    public void collect(NewsListBean bean) {
+        ArrayList<NewsListBean> listBeen = new ArrayList<>();
+        listBeen.add(bean);
+        save(listBeen, null);
     }
 }

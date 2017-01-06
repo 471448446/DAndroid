@@ -16,14 +16,14 @@ import better.hello.data.bean.ImagesDetailsBean;
 import better.hello.data.bean.NewsDetailsBean;
 import better.hello.data.bean.NewsListBean;
 import better.hello.data.bean.VideoBean;
-import better.hello.ui.aboutme.collect.CollectDataSourceImp;
+import better.hello.data.source.NewsCollectDataSourceImp;
 import better.hello.ui.base.BaseDetailActivity;
 import better.hello.ui.news.newslist.NewsListFragment;
 import better.hello.util.C;
 import better.lib.utils.ForWord;
 import butterknife.BindView;
 
-public class NewsDetailsActivity extends BaseDetailActivity {
+public class NewsDetailsActivity extends BaseDetailActivity implements NewsDetailsContract.view {
     @BindView(R.id.newsDetail_web)
     WebView mWebView;
     @BindView(R.id.news_detail_toolbar)
@@ -31,7 +31,8 @@ public class NewsDetailsActivity extends BaseDetailActivity {
 
     private NewsListBean mNewsListBean;
     private NewsContentHelper mNewsContentHelper;
-    private CollectDataSourceImp mCollectDataSourceImp;
+    private NewsCollectDataSourceImp mCollectDataSourceImp;
+    private NewsDetailsPresenter mPresenter;
 
     public static void start(Activity activity, NewsListBean newsListBean) {
         Bundle bundle = new Bundle();
@@ -57,6 +58,7 @@ public class NewsDetailsActivity extends BaseDetailActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_details);
         mContainer = findViewById(R.id.activity_news_details);
+        mPresenter=new NewsDetailsPresenter(this);
         setBackToolBar(toolbar, ""/*mNewsListBean.getTitle()*/);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setBuiltInZoomControls(true);
@@ -108,28 +110,31 @@ public class NewsDetailsActivity extends BaseDetailActivity {
     }
 
     @Override
+    public void deliverBackData(Object... o) {
+        super.deliverBackData(o);
+        Intent intent = new Intent();
+        intent.putExtra(C.EXTRA_FIRST, (String) o[0]);
+        intent.putExtra(C.EXTRA_SECOND, (Boolean) o[1]);
+        setResult(Activity.RESULT_OK, intent);
+    }
+
+    @Override
     protected void addToCollection() {
         if (null == mCollectDataSourceImp) {
-            mCollectDataSourceImp = new CollectDataSourceImp(mContext);
+            mCollectDataSourceImp = new NewsCollectDataSourceImp(mContext);
         }
         mNewsListBean.setIsCollect(true);
-        mCollectDataSourceImp.save(mNewsListBean, null);
-        Intent intent = new Intent();
-        intent.putExtra(C.EXTRA_FIRST, mNewsListBean.getTitle());
-        intent.putExtra(C.EXTRA_SECOND, true);
-        setResult(Activity.RESULT_OK, intent);
+        mPresenter.collect(mNewsListBean);
+        deliverBackData(mNewsListBean.getTitle(), true);
     }
 
     @Override
     protected void removeFromCollection() {
         if (null == mCollectDataSourceImp) {
-            mCollectDataSourceImp = new CollectDataSourceImp(mContext);
+            mCollectDataSourceImp = new NewsCollectDataSourceImp(mContext);
         }
-        mCollectDataSourceImp.delete(mNewsListBean.getTitle());
-        Intent intent = new Intent();
-        intent.putExtra(C.EXTRA_FIRST, mNewsListBean.getTitle());
-        intent.putExtra(C.EXTRA_SECOND, false);
-        setResult(Activity.RESULT_OK, intent);
+        mPresenter.delete(mNewsListBean.getTitle());
+        deliverBackData(mNewsListBean.getTitle(), false);
     }
 
     class ClickJs {

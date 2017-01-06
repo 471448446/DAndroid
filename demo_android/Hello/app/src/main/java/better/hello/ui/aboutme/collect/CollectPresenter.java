@@ -8,6 +8,7 @@ import java.util.List;
 import better.hello.AppConfig;
 import better.hello.common.BasePresenterProxy;
 import better.hello.data.bean.NewsListBean;
+import better.hello.data.source.NewsCollectDataSourceImp;
 import better.hello.http.call.RequestCallback;
 import better.hello.http.call.RequestInfo;
 import better.hello.util.C;
@@ -19,12 +20,12 @@ import better.lib.waitpolicy.NoneWaitPolicy;
  */
 
 public class CollectPresenter extends BasePresenterProxy<CollectFragment> implements CollectContract.presenter, RequestCallback<List<NewsListBean>> {
-    private CollectDataSourceImp mCollectDataSourceImp;
+    private NewsCollectDataSourceImp mCollectDataSourceImp;
     private int mStart = 0;
 
     public CollectPresenter(CollectFragment mView) {
         super(mView);
-        mCollectDataSourceImp = new CollectDataSourceImp(mView.getContext());
+        mCollectDataSourceImp = new NewsCollectDataSourceImp(mView.getContext());
     }
 
     @Override

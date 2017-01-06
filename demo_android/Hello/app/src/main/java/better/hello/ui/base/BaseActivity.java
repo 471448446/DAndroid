@@ -104,6 +104,11 @@ public class BaseActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+    public void deliverBackData() {
+    }
+
+    public void deliverBackData(Object... o) {
+    }
 
     protected void forward(Class<?> d) {
         forward(d, null);
