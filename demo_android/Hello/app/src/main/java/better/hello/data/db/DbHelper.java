@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import better.hello.util.FileUtils;
+
 /**
  * Created by better on 2016/10/19.
  */
@@ -14,7 +16,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Hello.db";
 
     public DbHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, FileUtils.getDBFileName(), null, DATABASE_VERSION);
     }
 
     @Override

@@ -3,6 +3,7 @@ package better.hello.util;
 import android.content.Context;
 import android.os.Environment;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.util.Date;
 
 import better.hello.App;
 import better.hello.data.bean.DownloadingInfo;
+import better.hello.data.db.DbHelper;
 import okhttp3.ResponseBody;
 import rx.Emitter;
 
@@ -27,6 +29,7 @@ public class FileUtils {
     public static final String FILE_SPLASH = "splash";
     public static final String FILE_VIDEO = "video";
     public static final String FILE_CACHE = "cache";
+    public static final String FILE_DB = "db";
 
     public static final String MAP_4 = ".mp4";
     public static final String JPG = ".jpg";
@@ -87,14 +90,17 @@ public class FileUtils {
             readSize += read;
             Utils.d("Better", "下载了==" + readSize + ",total=" + length);
         }
-        if (null != outputStream) {
-            outputStream.flush();
-            outputStream.close();
-        }
-        if (null != ins) {
-            ins.close();
-        }
+        outputStream.flush();
+        close(outputStream, ins);
         return true;
+    }
+
+    public static void close(Closeable... closeables) throws IOException {
+        if (null == closeables) return;
+        for (Closeable c : closeables
+                ) {
+            if (null != c) c.close();
+        }
     }
 
     //    public static void writeFile(Subscriber<? super DownloadingInfo> subscriber, ResponseBody body, String fileName) {
@@ -206,6 +212,10 @@ public class FileUtils {
         return makeDir(getStorageRootPath(context) + File.separator + FILE_CACHE);
     }
 
+    public static String getDbFileDir(Context context) {
+        return makeDir(getStorageRootPath(context) + File.separator + FILE_DB);
+    }
+
     public static String getDiskCacheDir(Context context, String uniqueName) {
         String cachePath;
         if (externalExist()) {
@@ -233,15 +243,17 @@ public class FileUtils {
      */
     public static File getFile(String path) throws IOException {
         File file = new File(path);
-        if (file.exists()) {
-            file.delete();
-        }
+        file.delete();
         file.createNewFile();
         return file;
     }
 
     public static String getVideoFileName(Context context, String fileName) {
         return getVideoFileDir(context) + File.separator + fileName + MAP_4;
+    }
+
+    public static String getDBFileName() {
+        return getDbFileDir(App.getApplication()) + File.separator + DbHelper.DATABASE_NAME;
     }
 
     public static String getTodaySplashImagePath(Context ctx) {
