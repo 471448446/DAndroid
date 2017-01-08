@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, RecyclerView.ViewHolder> {
     private final int TYPE_NEWS = 1;
     private final int TYPE_PHOTO = TYPE_NEWS + 1;
+    private final int TYPE_HEAD = TYPE_PHOTO + 1;
     private NewsListFragment.NewsItemClickListener newsItemClickListener;
 
     public NewsListAdapterPlus(Fragment context, NewsListFragment.NewsItemClickListener listener) {
@@ -37,6 +38,7 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
 
     @Override
     public int getItemViewType(int position) {
+        if (0 == position) return TYPE_HEAD;
         if (null == mList) return super.getItemViewType(position);
         if (null == mList.get(position) || mList.get(position).getImgs().isEmpty()) {
             return TYPE_NEWS;
@@ -59,16 +61,14 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
         View view;
         switch (viewType) {
             case TYPE_NEWS:
-                view = getView(parent, R.layout.item_news);
-                final ItemViewHolder itemViewHolder = new ItemViewHolder(view);
-                return itemViewHolder;
+                return new ItemViewHolder(getView(parent, R.layout.item_news));
             case TYPE_PHOTO:
-                view = getView(parent, R.layout.item_news_photo);
-                final PhotoViewHolder photoItemViewHolder = new PhotoViewHolder(view);
-                return photoItemViewHolder;
+                return new PhotoViewHolder(getView(parent, R.layout.item_news_photo));
+            case TYPE_HEAD:
+                return new HeaderView(getView(parent, R.layout.index_list_headview));
             default:
-                throw new RuntimeException("there is no type that matches the type " +
-                        viewType + " + make sure your using types correctly");
+                throw new RuntimeException("there is no type that matches the type " + viewType +
+                        " + make sure your using types correctly");
         }
     }
 
@@ -230,6 +230,13 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
         public PhotoViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+    }
+
+    static class HeaderView extends RecyclerView.ViewHolder {
+
+        public HeaderView(View itemView) {
+            super(itemView);
         }
     }
 }

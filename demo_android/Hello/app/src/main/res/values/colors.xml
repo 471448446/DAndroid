@@ -34,6 +34,8 @@
     <color name="colorBackgroundSimple">#FAFAFA</color>
     <color name="colorBackgroundSimplePress">#D3E5F5</color>
     <color name="colorPreferenceFragmentBg">#FAFAFA</color>
+    <color name="layBgGray">#EDEFF2</color>
+
     <!--比如list-->
     <!--<color name="colorDividerSimple">#EAEEF4</color>-->
     <!--一般字体颜色 黑色-->
