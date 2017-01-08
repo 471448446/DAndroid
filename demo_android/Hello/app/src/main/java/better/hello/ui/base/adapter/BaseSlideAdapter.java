@@ -47,7 +47,8 @@ public abstract class BaseSlideAdapter<E, T extends RecyclerView.ViewHolder> ext
                 return viewGroup.getChildAt(1).getLayoutParams().width;
             }
         } else {
-            throw new IllegalArgumentException("LinearLayout 为父布局");
+//            throw new IllegalArgumentException("LinearLayout需为父布局，当前是:"+holder.itemView.getClass().getSimpleName());
+            Utils.e("BaseSlideAdapter","LinearLayout需为父布局，当前是:"+holder.itemView.getClass().getSimpleName());
         }
         return 0;
     }
