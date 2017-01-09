@@ -50,15 +50,21 @@ public class NewsDetailsActivity extends BaseDetailActivity implements NewsDetai
     protected void getArgs() {
         super.getArgs();
         mNewsListBean = getIntent().getExtras().getParcelable(C.EXTRA_BEAN);
-        isCollected = mNewsListBean.isCollect();
+        isCollected = null == mNewsListBean ? false : mNewsListBean.isCollect();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_details);
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        if (null == mNewsListBean) return;
         mContainer = findViewById(R.id.activity_news_details);
-        mPresenter=new NewsDetailsPresenter(this);
+        mPresenter = new NewsDetailsPresenter(this);
         setBackToolBar(toolbar, ""/*mNewsListBean.getTitle()*/);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setBuiltInZoomControls(true);
@@ -80,6 +86,12 @@ public class NewsDetailsActivity extends BaseDetailActivity implements NewsDetai
 //        });
         mNewsContentHelper = new NewsContentHelper(this, mNewsListBean.getSourceType(), mNewsListBean.getNewsId(), mWebView);
         mNewsContentHelper.showContent();
+    }
+
+    @Override
+    protected void onMenuCreated() {
+        super.onMenuCreated();
+        mPresenter.isCollectThis(mNewsListBean.getTitle());
     }
 
     /**
@@ -135,6 +147,12 @@ public class NewsDetailsActivity extends BaseDetailActivity implements NewsDetai
         }
         mPresenter.delete(mNewsListBean.getTitle());
         deliverBackData(mNewsListBean.getTitle(), false);
+    }
+
+    @Override
+    public void isCollect(boolean collected) {
+        isCollected = collected;
+        updateCollectionMenu();
     }
 
     class ClickJs {

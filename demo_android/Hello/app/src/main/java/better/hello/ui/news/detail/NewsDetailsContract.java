@@ -13,7 +13,7 @@ public interface NewsDetailsContract {
     }
 
     interface view extends BaseView {
-
+        void isCollect(boolean collected);
     }
 
 }

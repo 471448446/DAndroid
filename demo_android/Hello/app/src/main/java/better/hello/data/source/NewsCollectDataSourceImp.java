@@ -24,6 +24,7 @@ import better.hello.http.call.RequestInfo;
 import better.hello.util.C;
 import better.hello.util.JsonUtils;
 import better.lib.http.RequestType;
+import rx.Observable;
 import rx.Subscription;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -47,7 +48,6 @@ public class NewsCollectDataSourceImp extends DataSourceDbImpl<List<NewsListBean
     public NewsCollectDataSourceImp(Context context) {
         super(context);
     }
-
 
     @Override
     public Subscription asyncUrlInfo(RequestInfo<List<NewsListBean>> info) {
@@ -108,5 +108,10 @@ public class NewsCollectDataSourceImp extends DataSourceDbImpl<List<NewsListBean
         ArrayList<NewsListBean> listBeen = new ArrayList<>();
         listBeen.add(bean);
         save(listBeen, null);
+    }
+
+    public Observable<List<NewsListBean>> getOne(String key) {
+        /* mapToOne 容易造成异常 --better 2017/1/9 16:34. */
+        return db.createQuery(TableInfo.NewsCollectTable.TABLE_NAME, TableInfo.getCollect(key)).mapToList(mapper).compose(new BaseSchedulerTransformer<List<NewsListBean>>());
     }
 }

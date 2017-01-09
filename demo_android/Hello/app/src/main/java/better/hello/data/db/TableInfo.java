@@ -5,6 +5,7 @@ import android.provider.BaseColumns;
 import better.hello.AppConfig;
 
 /**
+ * 注意where 语句的写法''两个字符开头结尾最好不要写空格。
  * Created by better on 2016/10/26.
  */
 
@@ -64,4 +65,9 @@ public class TableInfo {
     public static String getCollects(int start) {
         return "select * from " + NewsCollectTable.TABLE_NAME + " limit " + start + "," + AppConfig.PAGES_SIZE;
     }
+
+    public static String getCollect(String key) {
+        return "select * from " + NewsCollectTable.TABLE_NAME + " where " + NewsCollectTable.TITLE + " = '" + key + "'";
+    }
+
 }
