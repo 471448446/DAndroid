@@ -207,13 +207,13 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NetEaseNewsListBean
 
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.news_summary_photo_iv)
+        @BindView(R.id.news_photo_iv)
         ImageView mNewsSummaryPhotoIv;
-        @BindView(R.id.news_summary_title_tv)
+        @BindView(R.id.news_title_tv)
         TextView mNewsSummaryTitleTv;
         //        @BindView(R.id.news_summary_digest_tv)
 //        TextView mNewsSummaryDigestTv;
-        @BindView(R.id.news_summary_ptime_tv)
+        @BindView(R.id.news_ptime_tv)
         TextView mNewsSummaryPtimeTv;
 
         public ItemViewHolder(View view) {
@@ -223,17 +223,17 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NetEaseNewsListBean
     }
 
     static class PhotoViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.news_summary_title_tv)
+        @BindView(R.id.news_title_tv)
         TextView mNewsSummaryTitleTv;
-        @BindView(R.id.news_summary_photo_iv_group)
+        @BindView(R.id.news_photo_iv_group)
         LinearLayout mNewsSummaryPhotoIvGroup;
-        @BindView(R.id.news_summary_photo_iv_left)
+        @BindView(R.id.news_photo_iv_left)
         ImageView mNewsSummaryPhotoIvLeft;
-        @BindView(R.id.news_summary_photo_iv_middle)
+        @BindView(R.id.news_photo_iv_middle)
         ImageView mNewsSummaryPhotoIvMiddle;
-        @BindView(R.id.news_summary_photo_iv_right)
+        @BindView(R.id.news_photo_iv_right)
         ImageView mNewsSummaryPhotoIvRight;
-        @BindView(R.id.news_summary_ptime_tv)
+        @BindView(R.id.news_ptime_tv)
         TextView mNewsSummaryPtimeTv;
 
         public PhotoViewHolder(View view) {

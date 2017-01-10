@@ -8,5 +8,5 @@
     android:paddingTop="@dimen/border_space_sec_max"
     android:gravity="center_horizontal"
     android:text="@string/str_test_txt"
-    android:textColor="@color/colorBlack"
+    android:textColor="@color/colorTxtBlack"
     android:textSize="@dimen/text_size_medium" />

@@ -1,19 +1,28 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!--ERROR:This Activity already has an action bar supplied by the window decor. Do not request Window.FEATURE_SUPPORT_ACTION_BAR and set windowActionBar to false in your theme to use a Toolbar instead.-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme" parent="BaseTheme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="AppTheme.Splash">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="BlackTheme" parent="BaseTheme">
+        <item name="colorPrimary">@color/colorBlack</item>
+        <item name="colorPrimaryDark">@color/colorBlack</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
     <!-- 宽高样式 -->
     <style name="wrapHeight">
@@ -49,7 +58,7 @@
         <item name="android:layout_height">1dp</item>
     </style>
 
-    <style name="news_summary_photo_iv">
+    <style name="news_photo_iv">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
@@ -58,7 +67,7 @@
     </style>
     <!--个人中心-->
     <style name="centerItemTxt" parent="wrapHeight">
-        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColor">@color/colorTxtBlack</item>
         <item name="android:textSize">@dimen/text_size_ml</item>
         <item name="android:background">@color/colorWhite</item>
         <item name="android:paddingBottom">@dimen/border_space_sec_max</item>

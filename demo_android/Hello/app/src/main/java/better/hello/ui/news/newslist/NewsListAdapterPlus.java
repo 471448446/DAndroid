@@ -58,7 +58,6 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view;
         switch (viewType) {
             case TYPE_NEWS:
                 return new ItemViewHolder(getView(parent, R.layout.item_news));
@@ -84,10 +83,10 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
     private void setPhotoItem(PhotoViewHolder holder, int position) {
         NewsListBean newsSummary = mList.get(position);
         String title = newsSummary.getTitle();
-        String ptime = newsSummary.getPub_date();
+        String time = newsSummary.getPub_date();
 
-        holder.mNewsSummaryTitleTv.setText(title);
-        holder.mNewsSummaryPtimeTv.setText(ptime);
+        holder.titleTv.setText(title);
+        holder.timeTV.setText(time);
         holder.itemView.setOnClickListener(new ItemClickListener(true, newsSummary));
 
         setImageViewList(holder, newsSummary);
@@ -100,13 +99,10 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
             title = newsSummary.getTitle();
         }
         String pTime = newsSummary.getPub_date();
-//        String digest = newsSummary.getDigest();
         holder.itemView.setOnClickListener(new ItemClickListener(false, newsSummary));
-
-        holder.mNewsSummaryTitleTv.setText(title);
-        holder.mNewsSummaryPtimeTv.setText(pTime);
-//        holder.mNewsSummaryDigestTv.setText(digest);
-        ImageUtil.load(App.getApplication(), newsSummary.getImgSrc(), holder.mNewsSummaryPhotoIv);
+        holder.titleTv.setText(title);
+        holder.timeTv.setText(pTime);
+        ImageUtil.load(App.getApplication(), newsSummary.getImgSrc(), holder.img);
     }
 
     private void setImageViewList(PhotoViewHolder holder, NewsListBean bean) {
@@ -118,7 +114,7 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
         String imgSrcMiddle = null;
         String imgSrcRight = null;
 
-        ViewGroup.LayoutParams layoutParams = holder.mNewsSummaryPhotoIvGroup.getLayoutParams();
+        ViewGroup.LayoutParams layoutParams = holder.imgLay.getLayoutParams();
 
         if (bean.getImgs() != null) {
             List<ImagesDetailsBean> adsBeanList = bean.getImgs();
@@ -130,7 +126,7 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
 
                 layoutParams.height = PhotoThreeHeight;
 
-                holder.mNewsSummaryTitleTv.setText(App.getApplication()
+                holder.titleTv.setText(App.getApplication()
                         .getString(R.string.photo_collections, adsBeanList.get(0).getTitle()));
             } else if (size >= 2) {
                 imgSrcLeft = adsBeanList.get(0).getSrc();
@@ -149,7 +145,7 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
         }
 
         setPhotoImageView(holder, imgSrcLeft, imgSrcMiddle, imgSrcRight);
-        holder.mNewsSummaryPhotoIvGroup.setLayoutParams(layoutParams);
+        holder.imgLay.setLayoutParams(layoutParams);
     }
 
     private void setPhotoImageView(PhotoViewHolder holder, String imgSrcLeft, String imgSrcMiddle, String imgSrcRight) {
@@ -160,15 +156,15 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
         }
 
         if (imgSrcMiddle != null) {
-            showAndSetPhoto(holder.mNewsSummaryPhotoIvMiddle, imgSrcMiddle);
+            showAndSetPhoto(holder.imgMid, imgSrcMiddle);
         } else {
-            hidePhoto(holder.mNewsSummaryPhotoIvMiddle);
+            hidePhoto(holder.imgMid);
         }
 
         if (imgSrcRight != null) {
-            showAndSetPhoto(holder.mNewsSummaryPhotoIvRight, imgSrcRight);
+            showAndSetPhoto(holder.imgRight, imgSrcRight);
         } else {
-            hidePhoto(holder.mNewsSummaryPhotoIvRight);
+            hidePhoto(holder.imgRight);
         }
     }
 
@@ -198,14 +194,12 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
 
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.news_summary_photo_iv)
-        ImageView mNewsSummaryPhotoIv;
-        @BindView(R.id.news_summary_title_tv)
-        TextView mNewsSummaryTitleTv;
-        //        @BindView(R.id.news_summary_digest_tv)
-//        TextView mNewsSummaryDigestTv;
-        @BindView(R.id.news_summary_ptime_tv)
-        TextView mNewsSummaryPtimeTv;
+        @BindView(R.id.news_photo_iv)
+        ImageView img;
+        @BindView(R.id.news_title_tv)
+        TextView titleTv;
+        @BindView(R.id.news_ptime_tv)
+        TextView timeTv;
 
         public ItemViewHolder(View view) {
             super(view);
@@ -214,18 +208,18 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
     }
 
     static class PhotoViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.news_summary_title_tv)
-        TextView mNewsSummaryTitleTv;
-        @BindView(R.id.news_summary_photo_iv_group)
-        LinearLayout mNewsSummaryPhotoIvGroup;
-        @BindView(R.id.news_summary_photo_iv_left)
+        @BindView(R.id.news_title_tv)
+        TextView titleTv;
+        @BindView(R.id.news_photo_iv_group)
+        LinearLayout imgLay;
+        @BindView(R.id.news_photo_iv_left)
         ImageView mNewsSummaryPhotoIvLeft;
-        @BindView(R.id.news_summary_photo_iv_middle)
-        ImageView mNewsSummaryPhotoIvMiddle;
-        @BindView(R.id.news_summary_photo_iv_right)
-        ImageView mNewsSummaryPhotoIvRight;
-        @BindView(R.id.news_summary_ptime_tv)
-        TextView mNewsSummaryPtimeTv;
+        @BindView(R.id.news_photo_iv_middle)
+        ImageView imgMid;
+        @BindView(R.id.news_photo_iv_right)
+        ImageView imgRight;
+        @BindView(R.id.news_ptime_tv)
+        TextView timeTV;
 
         public PhotoViewHolder(View view) {
             super(view);

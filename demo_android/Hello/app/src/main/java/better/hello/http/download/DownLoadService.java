@@ -1,6 +1,7 @@
 package better.hello.http.download;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -24,6 +25,12 @@ public class DownLoadService extends Service implements RequestCallback<Download
     private final String TAG = "DownLoadService";
     private Subscription mSubscription;
     private DownloadInfo mDownloadInfo;
+
+    public static void start(Context c, DownloadInfo downloadInfo) {
+        Intent intent = new Intent(c, DownLoadService.class);
+        intent.putExtra(C.EXTRA_BEAN, downloadInfo);
+        c.startService(intent);
+    }
 
     @Override
     public void onDestroy() {

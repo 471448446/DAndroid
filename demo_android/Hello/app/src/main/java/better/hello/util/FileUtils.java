@@ -2,6 +2,7 @@ package better.hello.util;
 
 import android.content.Context;
 import android.os.Environment;
+import android.text.TextUtils;
 
 import java.io.Closeable;
 import java.io.File;
@@ -30,6 +31,7 @@ public class FileUtils {
     public static final String FILE_VIDEO = "video";
     public static final String FILE_CACHE = "cache";
     public static final String FILE_DB = "db";
+    public static final String FILE_IMG = "img";
 
     public static final String MAP_4 = ".mp4";
     public static final String JPG = ".jpg";
@@ -260,6 +262,11 @@ public class FileUtils {
         return getSplashFileDir(ctx) + File.separator + SPLASH_FILE_NAME;
     }
 
+    public static String getImagePath(String fileName) {
+        if (TextUtils.isEmpty(fileName)) throw new IllegalArgumentException("文件名称 null");
+        return makeDir(getStorageRootPath(App.getApplication()) + File.separator + FILE_IMG) + File.separator + fileName;
+    }
+
     /**
      * Des 不存在且今天没下载
      * Create By better on 2016/11/11 14:43.
@@ -286,6 +293,16 @@ public class FileUtils {
         return writeFile(ins, todayFile);
     }
 
+    public static String getImageFileNameByUrl(String src) {
+        try {
+            String tail = src.substring(src.length() - 8);
+            String[] arr = tail.split("\\.");
+            return System.currentTimeMillis() + "." + arr[1];
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "error";
+    }
 //    public static String getFilePathName(String... args) {
 //        String[] param = args;
 //        String Str = args[0];

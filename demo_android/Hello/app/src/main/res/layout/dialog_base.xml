@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/border_space_sec"
             android:text="@string/str_test_txt"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorTxtBlack"
             android:textSize="@dimen/text_size_ml" />
 
         <ScrollView style="@style/wrapHeight" >

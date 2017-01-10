@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ import better.hello.R;
 import better.hello.data.bean.ImagesDetailsBean;
 import better.hello.ui.base.BaseActivity;
 import better.hello.util.C;
+import better.hello.util.Utils;
 import butterknife.BindView;
 
 public class NewsPhotoDetailActivity extends BaseActivity {
@@ -25,6 +26,7 @@ public class NewsPhotoDetailActivity extends BaseActivity {
     Toolbar toolbar;
     @BindView(R.id.news_detail_pager)
     ViewPager pager;
+    private Toolbar mToolbar;
 
     private Adapter mAdapter;
     private List<ImagesDetailsBean> fragmentList;
@@ -43,9 +45,9 @@ public class NewsPhotoDetailActivity extends BaseActivity {
     }
 
     public static void start(Activity activity, String src) {
-        Intent i = new Intent(activity, NewsPhotoDetailActivity.class);
-        i.putExtra(C.EXTRA_BEAN, src);
-        activity.startActivity(i);
+        List<ImagesDetailsBean> fragmentList = new ArrayList<>();
+        fragmentList.add(new ImagesDetailsBean("", src));
+        start(activity, fragmentList, 0);
     }
 
     @Override
@@ -58,21 +60,24 @@ public class NewsPhotoDetailActivity extends BaseActivity {
     protected void getArgs() {
         super.getArgs();
         fragmentList = getIntent().getParcelableArrayListExtra(C.EXTRA_BEAN);
-        if (null == fragmentList||fragmentList.isEmpty()) {
-            source = getIntent().getStringExtra(C.EXTRA_BEAN);
-            if (!TextUtils.isEmpty(source)) {
-                fragmentList = new ArrayList<>();
-                fragmentList.add(new ImagesDetailsBean("", source));
-            }
-        }
         if (null == fragmentList) fragmentList = new ArrayList<>();
         mDefaultP = getIntent().getIntExtra(C.EXTRA_TAG_ID, 0);
+    }
+
+    public void showToolBar(boolean isSHow) {
+        if (isSHow) {
+            Utils.setVisible(toolbar);
+        } else {
+            Utils.setInvisible(toolbar);
+        }
     }
 
     @Override
     protected void initData() {
         super.initData();
-        setBackToolBar(toolbar, R.string.image);
+        mToolbar = setBackToolBar(toolbar, R.string.image);
+        mToolbar.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorBlack));
+        mToolbar.setTitleTextColor(ContextCompat.getColor(mContext, R.color.colorWhite));
         mAdapter = new Adapter(getSupportFragmentManager(), fragmentList);
         pager.setAdapter(mAdapter);
         pager.setCurrentItem(mDefaultP);
@@ -103,7 +108,7 @@ public class NewsPhotoDetailActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return PagerImageDetails.getInstance(mFragmentList.get(position).getSrc());
+            return ImageDetailsFragment.getInstance(mFragmentList.get(position));
         }
 
         @Override

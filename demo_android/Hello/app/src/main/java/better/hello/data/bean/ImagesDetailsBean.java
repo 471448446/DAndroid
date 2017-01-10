@@ -10,10 +10,19 @@ import android.os.Parcelable;
 public class ImagesDetailsBean implements Parcelable {
     private String title;
     private String src;
+    private String des;
 
     public ImagesDetailsBean(String title, String src) {
         this.title = title;
         this.src = src;
+    }
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
     }
 
     public String getTitle() {
@@ -32,6 +41,9 @@ public class ImagesDetailsBean implements Parcelable {
         this.src = src;
     }
 
+    public ImagesDetailsBean() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -41,17 +53,16 @@ public class ImagesDetailsBean implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.title);
         dest.writeString(this.src);
-    }
-
-    public ImagesDetailsBean() {
+        dest.writeString(this.des);
     }
 
     protected ImagesDetailsBean(Parcel in) {
         this.title = in.readString();
         this.src = in.readString();
+        this.des = in.readString();
     }
 
-    public static final Parcelable.Creator<ImagesDetailsBean> CREATOR = new Parcelable.Creator<ImagesDetailsBean>() {
+    public static final Creator<ImagesDetailsBean> CREATOR = new Creator<ImagesDetailsBean>() {
         @Override
         public ImagesDetailsBean createFromParcel(Parcel source) {
             return new ImagesDetailsBean(source);

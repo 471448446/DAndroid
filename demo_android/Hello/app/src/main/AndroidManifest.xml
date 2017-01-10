@@ -48,7 +48,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.news.detail.NewsPhotoDetailActivity"/>
+        <activity
+            android:name=".ui.news.detail.NewsPhotoDetailActivity"
+            android:theme="@style/BlackTheme"/>
         <activity android:name=".ui.news.detail.NetEasyNewsDetailsActivity"/>
         <activity android:name=".ui.news.detail.NewsVideoActivity"/>
         <activity android:name=".ui.news.detail.NewsDetailsActivity"/>

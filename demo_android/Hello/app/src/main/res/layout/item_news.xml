@@ -5,7 +5,7 @@
                 android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/news_summary_photo_iv"
+        android:id="@+id/news_photo_iv"
         android:layout_width="72dp"
         android:layout_height="55dp"
         android:layout_centerVertical="true"
@@ -14,20 +14,20 @@
         tools:src="@mipmap/ic_launcher"/>
 
     <TextView
-        android:id="@+id/news_summary_title_tv"
+        android:id="@+id/news_title_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/news_summary_photo_iv"
+        android:layout_alignTop="@id/news_photo_iv"
         android:layout_marginRight="@dimen/border_space_normal"
         android:layout_marginTop="@dimen/border_space_normal"
-        android:layout_toRightOf="@+id/news_summary_photo_iv"
+        android:layout_toRightOf="@+id/news_photo_iv"
         android:lines="2"
         android:textColor="@color/textColorPrimary"
         android:textSize="@dimen/text_size_ms"
         tools:text="习近平:吹响建设科技强国号角国号角国号角"/>
 
     <!--<TextView-->
-    <!--android:id="@+id/news_summary_digest_tv"-->
+    <!--android:id="@+id/news_digest_tv"-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="wrap_content"-->
     <!--android:layout_below="@+id/news_summary_title_tv"-->
@@ -43,15 +43,15 @@
 
 
     <View
-        android:id="@+id/news_summary_line"
+        android:id="@+id/news_line"
         style="@style/horizontalDivision"
-        android:layout_below="@id/news_summary_photo_iv"/>
+        android:layout_below="@id/news_photo_iv"/>
 
     <TextView
-        android:id="@+id/news_summary_ptime_tv"
+        android:id="@+id/news_ptime_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/news_summary_line"
+        android:layout_above="@+id/news_line"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="@dimen/border_space_normal"
         android:layout_marginRight="@dimen/border_space_normal"
