@@ -2,6 +2,7 @@ package better.hello.data.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 /**
  * Created by better on 2016/10/19.
@@ -11,14 +12,30 @@ public class ImagesDetailsBean implements Parcelable {
     private String title;
     private String src;
     private String des;
+    /* 跳转url  --better 2017/1/12 10:59. */
+    private String url;
+
 
     public ImagesDetailsBean(String title, String src) {
         this.title = title;
         this.src = src;
     }
 
+    public ImagesDetailsBean(String title, String src, String des) {
+        this.title = title;
+        this.src = src;
+        this.des = des;
+    }
+
+    public ImagesDetailsBean(String title, String src, String des, String url) {
+        this.title = title;
+        this.src = src;
+        this.des = des;
+        this.url = url;
+    }
+
     public String getDes() {
-        return des;
+        return TextUtils.isEmpty(des) ? "" : des;
     }
 
     public void setDes(String des) {
@@ -44,6 +61,14 @@ public class ImagesDetailsBean implements Parcelable {
     public ImagesDetailsBean() {
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -54,12 +79,14 @@ public class ImagesDetailsBean implements Parcelable {
         dest.writeString(this.title);
         dest.writeString(this.src);
         dest.writeString(this.des);
+        dest.writeString(this.url);
     }
 
     protected ImagesDetailsBean(Parcel in) {
         this.title = in.readString();
         this.src = in.readString();
         this.des = in.readString();
+        this.url = in.readString();
     }
 
     public static final Creator<ImagesDetailsBean> CREATOR = new Creator<ImagesDetailsBean>() {

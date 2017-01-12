@@ -26,6 +26,7 @@ public class NewsListBean implements Parcelable {
     private int type;
     private String url_3w;
     private List<ImagesDetailsBean> imgs;
+    private List<ImagesDetailsBean> ads;
     /*保存第一手信息*/
     private String json;
     /*数据种类*/
@@ -144,18 +145,28 @@ public class NewsListBean implements Parcelable {
         this.url_3w = url_3w;
     }
 
+    public List<ImagesDetailsBean> getAds() {
+        return ads;
+    }
+
+    public void setAds(List<ImagesDetailsBean> ads) {
+        this.ads = ads;
+    }
+
     public NewsListBean() {
     }
 
-    public static NewsListBean convert(NetEaseNewsListBean bean, boolean isNeedJsonStr) {
+    public static NewsListBean convert(NetEaseNewsListBean bean, boolean needJsonStr, boolean isNeedJsonStr) {
         NewsListBean n = new NewsListBean();
         n.setTitle(bean.getTitle());
         n.setPub_date(bean.getPtime());
         n.setImgSrc(bean.getImgsrc());
         n.setNewsId(bean.getPostid());
         n.setSourceType(NewsSourceType.NETEASE);
-        n.setImgs(UIHelper.getImage(bean.getImgextra(), bean.getAds()));
-        if (isNeedJsonStr) n.setJson(JsonUtils.toJson(bean));
+        n.setImgs(UIHelper.getImage(bean.getImgextra(), null));
+        if (needJsonStr) n.setJson(JsonUtils.toJson(bean));
+        if (isNeedJsonStr)
+            n.setAds(UIHelper.getImage(null, bean.getAds()));
         return n;
     }
 
@@ -176,6 +187,7 @@ public class NewsListBean implements Parcelable {
         dest.writeInt(this.type);
         dest.writeString(this.url_3w);
         dest.writeTypedList(this.imgs);
+        dest.writeTypedList(this.ads);
         dest.writeString(this.json);
         dest.writeInt(this.sourceType);
         dest.writeInt(this.isCollect);
@@ -192,6 +204,7 @@ public class NewsListBean implements Parcelable {
         this.type = in.readInt();
         this.url_3w = in.readString();
         this.imgs = in.createTypedArrayList(ImagesDetailsBean.CREATOR);
+        this.ads = in.createTypedArrayList(ImagesDetailsBean.CREATOR);
         this.json = in.readString();
         this.sourceType = in.readInt();
         this.isCollect = in.readInt();

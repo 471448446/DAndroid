@@ -1,5 +1,7 @@
 package better.hello.util;
 
+import android.text.TextUtils;
+
 import java.util.regex.Pattern;
 
 /**
@@ -19,5 +21,12 @@ public class RegularUtils {
             wh[1] = Integer.valueOf(split[1]);
         }
         return wh;
+    }
+
+    public static String getImageId(String url) {
+        if (TextUtils.isEmpty(url)) return "";
+        String[] res = url.split("\\|");
+        if (null == res || res.length <= 1) return "";
+        return res[1];
     }
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<better.banner.BBanner
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/news_banner"
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    app:banner_pointAutoPlayInterval="4000"
+    app:banner_pointGravity="right"
+    app:banner_pointLeftRightMargin="3dp"/>

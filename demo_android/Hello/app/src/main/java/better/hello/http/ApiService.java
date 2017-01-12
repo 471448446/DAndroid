@@ -3,6 +3,7 @@ package better.hello.http;
 import java.util.List;
 import java.util.Map;
 
+import better.hello.data.bean.NetEasyImgBean;
 import better.hello.data.bean.NewsDetailsBean;
 import better.hello.data.bean.NetEaseNewsListBean;
 import better.hello.data.bean.SplashZhiHuBean;
@@ -35,6 +36,14 @@ public interface ApiService {
     @Headers("Cache-Control: public, max-age=3600")
     @GET("nc/article/{postId}/full.html")
     Observable<Map<String, NewsDetailsBean>> getNewsDetail(@Path("postId") String postId);
+
+    /**
+     * Des Banner图片详情
+     * http://c.m.163.com/photo/api/set/0001/2227344.json
+     * Create By better on 2017/1/12 10:03.
+     */
+    @GET("photo/api/set/0001/{id}.json")
+    Observable<NetEasyImgBean> getNewsImageDetail(@Path("id") String postId);
 
     @GET
     Observable<SplashZhiHuBean> getSplashBean(@Url String url);

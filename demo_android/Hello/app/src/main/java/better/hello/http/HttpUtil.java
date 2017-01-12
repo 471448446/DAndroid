@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import better.hello.common.BaseSchedulerTransformer;
+import better.hello.data.bean.NetEasyImgBean;
 import better.hello.data.bean.NewsDetailsBean;
 import better.hello.data.bean.NetEaseNewsListBean;
 import better.hello.data.bean.SplashZhiHuBean;
@@ -32,6 +33,15 @@ public class HttpUtil {
     public static Observable<Map<String, NewsDetailsBean>> getNewDetail(String postId) {
         return RetrofitHelper.getInstance(HostType.NETEASE_NEWS_VIDEO).getApiService().getNewsDetail(postId)
                 .compose(new BaseSchedulerTransformer<Map<String, NewsDetailsBean>>());
+    }
+
+    /**
+     * Des 图片详情
+     * Create By better on 2017/1/12 10:03.
+     */
+    public static Observable<NetEasyImgBean> getNewImgDetails(String id) {
+        return RetrofitHelper.getInstance(HostType.NETEASE_NEWS_VIDEO).getApiService().getNewsImageDetail(id)
+                .compose(new BaseSchedulerTransformer<NetEasyImgBean>());
     }
 
     /**

@@ -28,6 +28,7 @@
     <color name="colorGray">#A0A0A0</color>
     <color name="colorGrayPress">#EDE9E9</color>
     <color name="colorGreen">#15F910</color>
+    <color name="colorRed">#cc2255</color>
     <!-- 需要分白天黑夜的 ===========s===========-->
     <!-- 分割线颜色-->
     <color name="colorHorizontalDivision">#EBEBEB</color>

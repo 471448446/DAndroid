@@ -29,12 +29,17 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 public class ImageDetailsFragment extends BaseFragment {
     @BindView(R.id.image_details)
     ImageView imageView;
-    @BindView(R.id.image_details_txt)
+    @BindView(R.id.image_details_des)
     TextView desTv;
+    @BindView(R.id.image_details_title)
+    TextView desTitle;
+    @BindView(R.id.image_details_index)
+    TextView indexTv;
     private ImagesDetailsBean mBean;
     private PhotoViewAttacher mAttacher;
     private NewsPhotoDetailActivity mActivity;
     private boolean showDetail = true;
+    private int p, all;
     private PhotoViewAttacher.OnPhotoTapListener mListener = new PhotoViewAttacher.OnPhotoTapListener() {
         @Override
         public void onPhotoTap(View view, float v, float v1) {
@@ -55,6 +60,16 @@ public class ImageDetailsFragment extends BaseFragment {
         return imageDetailsFragment;
     }
 
+    public static ImageDetailsFragment getInstance(ImagesDetailsBean bean, int p, int a) {
+        ImageDetailsFragment imageDetailsFragment = new ImageDetailsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(C.EXTRA_BEAN, bean);
+        bundle.putInt(C.EXTRA_FIRST, p);
+        bundle.putInt(C.EXTRA_SECOND, a);
+        imageDetailsFragment.setArguments(bundle);
+        return imageDetailsFragment;
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -69,8 +84,11 @@ public class ImageDetailsFragment extends BaseFragment {
     @Override
     protected void getArgs() {
         super.getArgs();
-        if (null != getArguments())
+        if (null != getArguments()) {
             mBean = getArguments().getParcelable(C.EXTRA_BEAN);
+            p = getArguments().getInt(C.EXTRA_FIRST);
+            all = getArguments().getInt(C.EXTRA_SECOND);
+        }
     }
 
     @Override
@@ -92,6 +110,9 @@ public class ImageDetailsFragment extends BaseFragment {
         } else {
             imageView.setImageResource(R.drawable.icon_downloading_err);
         }
+        desTv.setText(mBean.getDes());
+        desTitle.setText(mBean.getTitle());
+        indexTv.setText(getString(R.string.index, p, all));
         setDesInfo();
     }
 
@@ -119,7 +140,7 @@ public class ImageDetailsFragment extends BaseFragment {
         outState.putParcelable(C.EXTRA_BEAN, mBean);
     }
 
-    @OnClick({R.id.image_details_down})
+    @OnClick({R.id.image_details_index})
     public void onClick(View v) {
         DownLoadService.start(getContext(), new DownloadInfo(mBean.getTitle(), mBean.getSrc(), FileUtils.getImagePath(FileUtils.getImageFileNameByUrl(mBean.getSrc()))));
     }

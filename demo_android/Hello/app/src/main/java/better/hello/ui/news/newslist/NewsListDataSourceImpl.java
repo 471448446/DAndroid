@@ -61,7 +61,7 @@ public class NewsListDataSourceImpl extends DataSourceDbImpl<List<NewsListBean>>
                     }).map(new Func1<List<NetEaseNewsListBean>, List<NewsListBean>>() {
                         @Override
                         public List<NewsListBean> call(List<NetEaseNewsListBean> netEaseNewsListBeen) {
-                            return getNewsListFromNet(netEaseNewsListBeen, isNeedSave(info.getRequestTye()));
+                            return getNewsListFromNet(netEaseNewsListBeen, isNeedSave(info.getRequestTye()), isNeedSave(info.getRequestTye()));
                         }
                     }).doOnNext(new Action1<List<NewsListBean>>() {
                         @Override
@@ -92,7 +92,7 @@ public class NewsListDataSourceImpl extends DataSourceDbImpl<List<NewsListBean>>
                 }).map(new Func1<List<NetEaseNewsListBean>, List<NewsListBean>>() {
                     @Override
                     public List<NewsListBean> call(List<NetEaseNewsListBean> netEaseNewsListBeen) {
-                        return getNewsListFromNet(netEaseNewsListBeen, false);
+                        return getNewsListFromNet(netEaseNewsListBeen, false, true);
                     }
                 })
                 .compose(new BaseSchedulerTransformer<List<NewsListBean>>())
@@ -129,11 +129,11 @@ public class NewsListDataSourceImpl extends DataSourceDbImpl<List<NewsListBean>>
         return RequestType.DATA_REQUEST_UP_REFRESH != type;
     }
 
-    private List<NewsListBean> getNewsListFromNet(List<NetEaseNewsListBean> netEaseNewsListBeen, boolean isNeedJsonStr) {
+    private List<NewsListBean> getNewsListFromNet(List<NetEaseNewsListBean> netEaseNewsListBeen, boolean isNeedJsonStr, boolean isBanner) {
         List<NewsListBean> list = new ArrayList<>();
         if (null != netEaseNewsListBeen)
             for (NetEaseNewsListBean b : netEaseNewsListBeen) {
-                list.add(NewsListBean.convert(b, isNeedJsonStr));
+                list.add(NewsListBean.convert(b, isNeedJsonStr, isBanner));
             }
         return list;
     }

@@ -10,12 +10,18 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import better.banner.BBanner;
+import better.banner.ItemAdapter;
+import better.banner.OnClickItemListener;
 import better.hello.App;
 import better.hello.R;
 import better.hello.data.bean.ImagesDetailsBean;
 import better.hello.data.bean.NewsListBean;
 import better.hello.ui.base.adapter.BaseRecyclerViewAdapter;
+import better.hello.ui.news.detail.NewsPhotoDetailActivity;
+import better.hello.ui.news.detail.PagerImageDetails;
 import better.hello.util.ImageUtil;
+import better.hello.util.RegularUtils;
 import better.hello.util.Utils;
 import better.lib.utils.ViewUtil;
 import butterknife.BindView;
@@ -29,6 +35,7 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
     private final int TYPE_NEWS = 1;
     private final int TYPE_PHOTO = TYPE_NEWS + 1;
     private final int TYPE_HEAD = TYPE_PHOTO + 1;
+    private final int TYPE_BANNER = TYPE_HEAD + 1;
     private NewsListFragment.NewsItemClickListener newsItemClickListener;
 
     public NewsListAdapterPlus(Fragment context, NewsListFragment.NewsItemClickListener listener) {
@@ -37,13 +44,21 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
     }
 
     @Override
+    public int getItemCount() {
+        return null == mList ? 1 : 1 + mList.size();
+    }
+
+    @Override
     public int getItemViewType(int position) {
         if (0 == position) return TYPE_HEAD;
         if (null == mList) return super.getItemViewType(position);
-        if (null == mList.get(position) || mList.get(position).getImgs().isEmpty()) {
-            return TYPE_NEWS;
-        } else {
+        position--;
+        if (null != mList.get(position).getAds() && !mList.get(position).getAds().isEmpty()) {
+            return TYPE_BANNER;
+        } else if (null != mList.get(position).getImgs() && !mList.get(position).getImgs().isEmpty()) {
             return TYPE_PHOTO;
+        } else {
+            return TYPE_NEWS;
         }
     }
 
@@ -64,7 +79,9 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
             case TYPE_PHOTO:
                 return new PhotoViewHolder(getView(parent, R.layout.item_news_photo));
             case TYPE_HEAD:
-                return new HeaderView(getView(parent, R.layout.index_list_headview));
+                return new HeaderView(getView(parent, R.layout.item_news_headview));
+            case TYPE_BANNER:
+                return new BannerView(getView(parent, R.layout.item_news_banner));
             default:
                 throw new RuntimeException("there is no type that matches the type " + viewType +
                         " + make sure your using types correctly");
@@ -73,11 +90,29 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        position--;
         if (holder instanceof ItemViewHolder) {
             setNewsItem((ItemViewHolder) holder, position);
         } else if (holder instanceof PhotoViewHolder) {
             setPhotoItem((PhotoViewHolder) holder, position);
+        } else if (holder instanceof BannerView) {
+            setBanner((BannerView) holder, position);
         }
+    }
+
+    private void setBanner(BannerView holder, final int position) {
+        holder.mBBanner.setOnItemClickListener(new ClickItemListener(mList.get(position).getAds()));
+        holder.mBBanner.setData(mFragment.getChildFragmentManager(), new ItemAdapter() {
+            @Override
+            public Fragment getItem(int i) {
+                return PagerImageDetails.getInstance(mList.get(position).getAds().get(i).getTitle(), mList.get(position).getAds().get(i).getSrc());
+            }
+
+            @Override
+            public int getCount() {
+                return mList.get(position).getAds().size();
+            }
+        });
     }
 
     private void setPhotoItem(PhotoViewHolder holder, int position) {
@@ -192,6 +227,19 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
         }
     }
 
+    protected class ClickItemListener implements OnClickItemListener {
+        private List<ImagesDetailsBean> ads;
+
+        public ClickItemListener(List<ImagesDetailsBean> ads) {
+            this.ads = ads;
+        }
+
+        @Override
+        public void onClick(int i) {
+            NewsPhotoDetailActivity.startB(mContext, RegularUtils.getImageId(ads.get(i).getUrl()));
+        }
+    }
+
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.news_photo_iv)
@@ -231,6 +279,16 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
 
         public HeaderView(View itemView) {
             super(itemView);
+        }
+    }
+
+    static class BannerView extends RecyclerView.ViewHolder {
+        @BindView(R.id.news_banner)
+        BBanner mBBanner;
+
+        public BannerView(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

@@ -15,6 +15,7 @@ import better.hello.data.bean.DownloadInfo;
 import better.hello.data.bean.DownloadingInfo;
 import better.hello.data.bean.ImagesDetailsBean;
 import better.hello.data.bean.NetEaseNewsListBean;
+import better.hello.data.bean.NetEasyImgBean;
 import better.hello.data.bean.NewsDetailsBean;
 import better.hello.http.HttpUtil;
 import better.hello.http.call.RequestInfo;
@@ -51,7 +52,7 @@ public class UIHelper {
                     downLoadWithNotify(activity, bean);
                 }
             }).showDialog(((AppCompatActivity) activity).getSupportFragmentManager());
-        }else {
+        } else {
             downLoadWithNotify(activity, bean);
         }
         return bean;
@@ -101,7 +102,7 @@ public class UIHelper {
         ArrayList<ImagesDetailsBean> list = new ArrayList<>();
         if (null != listAds) {
             for (NetEaseNewsListBean.AdsBean im : listAds) {
-                list.add(new ImagesDetailsBean(im.getTitle(), im.getImgsrc()));
+                list.add(new ImagesDetailsBean(im.getTitle(), im.getImgsrc(), "", im.getUrl()));
             }
         } else if (null != listImg) {
             for (NetEaseNewsListBean.ImgextraBean im : listImg) {
@@ -117,6 +118,15 @@ public class UIHelper {
             for (NewsDetailsBean.ImgBean im : listImg) {
                 list.add(new ImagesDetailsBean("", im.getSrc()));
             }
+        }
+        return list;
+    }
+
+    public static List<ImagesDetailsBean> prase(NetEasyImgBean bean) {
+        List<ImagesDetailsBean> list = new ArrayList<>();
+        for (NetEasyImgBean.PhotosBean b : bean.getPhotos()) {
+            /* 文章的标题  --better 2017/1/12 14:59. */
+            list.add(new ImagesDetailsBean(bean.getSetname(), b.getImgurl(), b.getNote()));
         }
         return list;
     }
