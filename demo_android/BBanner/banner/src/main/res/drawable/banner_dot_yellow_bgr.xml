@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 主页banner indictor -->
+    <item android:drawable="@drawable/icon_dot_yellow" android:state_enabled="true"/>
+    <item android:drawable="@drawable/icon_dot_gray" android:state_enabled="false"/>
+
+</selector>
+<!-- http://www.jianshu.com/p/2e577242fe87 -->
