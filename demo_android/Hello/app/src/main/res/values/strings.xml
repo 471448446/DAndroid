@@ -33,7 +33,7 @@
     <string name="notify_add_to_collection">已收藏</string>
     <string name="notify_remove_from_collection">取消收藏</string>
     <string name="share_no">手机中没有可以分享的软件</string>
-    <string name="share_msg">我正在阅读：%1$s</string>
+    <string name="share_msg">我正在阅读：%1$s&#160;&#160;%2$s</string>
     <string name="please_choose">请选择</string>
     <string name="index">%1$d/%2$d</string>
 

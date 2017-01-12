@@ -15,6 +15,7 @@ import better.hello.R;
 import better.hello.data.bean.ImagesDetailsBean;
 import better.hello.data.bean.NewsDetailsBean;
 import better.hello.data.bean.NewsListBean;
+import better.hello.data.bean.ShareBean;
 import better.hello.data.bean.VideoBean;
 import better.hello.data.source.NewsCollectDataSourceImp;
 import better.hello.ui.base.BaseDetailActivity;
@@ -117,8 +118,8 @@ public class NewsDetailsActivity extends BaseDetailActivity implements NewsDetai
     }
 
     @Override
-    protected String getShareTitle() {
-        return null == mNewsListBean ? "" : mNewsListBean.getTitle();
+    protected ShareBean getShareTitle() {
+        return (null == mNewsContentHelper || null == mNewsContentHelper.getNewsDetailsBean()) ? null : new ShareBean(mNewsContentHelper.getNewsDetailsBean().getTitle(), mNewsContentHelper.getNewsDetailsBean().getShareLink());
     }
 
     @Override

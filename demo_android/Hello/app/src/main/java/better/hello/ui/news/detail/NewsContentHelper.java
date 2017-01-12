@@ -83,8 +83,9 @@ public class NewsContentHelper {
         if (null != img && !img.isEmpty()) {
             shareLink = body;
             for (NewsDetailsBean.ImgBean img2 : img) {
-                listImgs.add(new ImagesDetailsBean(img2.getAlt(), img2.getSrc()));
-                shareLink = shareLink.replace(img2.getRef(), "<img src=\"" + img2.getSrc() + "\"" + getImageClickListener(null) + "width=\"100%\" height=\"auto\">");
+                listImgs.add(new ImagesDetailsBean(newsContent.getTitle(), img2.getSrc(), img2.getAlt()));
+                shareLink = shareLink.replace(img2.getRef(), "<img src=\"" + img2.getSrc() + "\"" + getImageClickListener(null) + "width=\"100%\" height=\"auto\">" +
+                        "<p class=\"desImg\">" + img2.getAlt() + "</p>");
 //                shareLink = shareLink.replace(img2.getRef(), "<img src=\"" + img2.getSrc() + "\" width=\"100%\" height=\"auto\">");
             }
             body = shareLink;

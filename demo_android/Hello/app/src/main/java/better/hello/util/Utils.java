@@ -25,6 +25,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import better.hello.R;
+import better.hello.data.bean.ShareBean;
 import better.lib.utils.BaseUtils;
 
 /**
@@ -127,10 +128,10 @@ public class Utils extends BaseUtils {
         }
     }
 
-    public static void shareTxt(Activity activity, String msg) {
+    public static void shareTxt(Activity activity, ShareBean bean) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_TEXT, activity.getString(R.string.share_msg, msg));
+        intent.putExtra(Intent.EXTRA_TEXT, activity.getString(R.string.share_msg, bean.getTitle(), bean.getShareUrl()));
         intent.setType("text/plain");
         PackageManager packageManager = activity.getPackageManager();
         if (null != packageManager && intent.resolveActivity(packageManager) != null) {
@@ -139,6 +140,4 @@ public class Utils extends BaseUtils {
             Utils.toastShort(activity, activity.getString(R.string.share_no));
         }
     }
-
-
 }

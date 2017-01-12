@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import better.hello.R;
+import better.hello.data.bean.ShareBean;
 import better.hello.util.Utils;
 
 
@@ -66,7 +67,7 @@ public abstract class BaseDetailActivity extends BaseActivity {
         return true;
     }
 
-    protected abstract String getShareTitle();
+    protected abstract ShareBean getShareTitle();
 
     /**
      * 子类 新增的Item

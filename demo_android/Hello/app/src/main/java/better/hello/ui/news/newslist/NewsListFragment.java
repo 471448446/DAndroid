@@ -12,7 +12,6 @@ import better.hello.data.bean.NewsListBean;
 import better.hello.ui.base.BaseListFragment;
 import better.hello.ui.base.adapter.BaseRecyclerViewAdapter;
 import better.hello.ui.news.detail.NewsDetailsActivity;
-import better.hello.ui.news.detail.NewsPhotoDetailActivity;
 import better.hello.util.C;
 import better.lib.http.RequestType;
 
@@ -83,12 +82,14 @@ public class NewsListFragment extends BaseListFragment<NewsListBean> implements 
     private NewsItemClickListener newsItemClickListener = new NewsItemClickListener() {
         @Override
         public void onClickNews(boolean isPhoto, NewsListBean bean) {
-            if (isPhoto) {
-                NewsPhotoDetailActivity.start(mContext.getActivity(), bean.getImgs());
-            } else {
-//                NetEasyNewsDetailsActivity.start(mContext.getActivity(),bean.etNewsId());
-                NewsDetailsActivity.start(mContext, bean);
-            }
+//            if (isPhoto) {
+//                NewsPhotoDetailActivity.start(mContext.getActivity(), bean.getImgs());
+//            } else {
+////                NetEasyNewsDetailsActivity.start(mContext.getActivity(),bean.etNewsId());
+//                NewsDetailsActivity.start(mContext, bean);
+//            }
+            NewsDetailsActivity.start(mContext, bean);
+
         }
     };
 
