@@ -2,6 +2,7 @@ package better.hello.ui.news.newslist;
 
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,7 +18,9 @@ import better.hello.App;
 import better.hello.R;
 import better.hello.data.bean.ImagesDetailsBean;
 import better.hello.data.bean.NewsListBean;
+import better.hello.http.api.NewsSourceType;
 import better.hello.ui.base.adapter.BaseRecyclerViewAdapter;
+import better.hello.ui.news.detail.NewsDetailsActivity;
 import better.hello.ui.news.detail.NewsPhotoDetailActivity;
 import better.hello.ui.news.detail.PagerImageDetails;
 import better.hello.util.ImageUtil;
@@ -54,6 +57,7 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
         if (null == mList) return super.getItemViewType(position);
         position--;
         if (null != mList.get(position).getAds() && !mList.get(position).getAds().isEmpty()) {
+            Utils.d("Better","banner"+position+mList.get(position).getTitle());
             return TYPE_BANNER;
         } else if (null != mList.get(position).getImgs() && !mList.get(position).getImgs().isEmpty()) {
             return TYPE_PHOTO;
@@ -228,6 +232,7 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
     }
 
     protected class ClickItemListener implements OnClickItemListener {
+
         private List<ImagesDetailsBean> ads;
 
         public ClickItemListener(List<ImagesDetailsBean> ads) {
@@ -236,10 +241,17 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
 
         @Override
         public void onClick(int i) {
-            NewsPhotoDetailActivity.startB(mContext, RegularUtils.getImageId(ads.get(i).getUrl()));
+            if (!TextUtils.isEmpty(ads.get(i).getUrl()) && ads.get(i).getUrl().contains("|")) {
+                NewsPhotoDetailActivity.startB(mContext, RegularUtils.getImageId(ads.get(i).getUrl()));
+            } else {
+                /* ads url: "CAD9I8FL00097U7T"  --better 2017/1/12 15:48. */
+                NewsListBean b = new NewsListBean();
+                b.setSourceType(NewsSourceType.NETEASE);
+                b.setNewsId(ads.get(i).getUrl());
+                NewsDetailsActivity.start(mContext, b);
+            }
         }
     }
-
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.news_photo_iv)

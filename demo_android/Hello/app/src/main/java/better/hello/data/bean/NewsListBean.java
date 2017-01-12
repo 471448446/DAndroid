@@ -2,6 +2,7 @@ package better.hello.data.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import java.util.List;
 
@@ -156,7 +157,7 @@ public class NewsListBean implements Parcelable {
     public NewsListBean() {
     }
 
-    public static NewsListBean convert(NetEaseNewsListBean bean, boolean needJsonStr, boolean isNeedJsonStr) {
+    public static NewsListBean convert(NetEaseNewsListBean bean, boolean needJsonStr, boolean ads) {
         NewsListBean n = new NewsListBean();
         n.setTitle(bean.getTitle());
         n.setPub_date(bean.getPtime());
@@ -165,8 +166,18 @@ public class NewsListBean implements Parcelable {
         n.setSourceType(NewsSourceType.NETEASE);
         n.setImgs(UIHelper.getImage(bean.getImgextra(), null));
         if (needJsonStr) n.setJson(JsonUtils.toJson(bean));
-        if (isNeedJsonStr)
-            n.setAds(UIHelper.getImage(null, bean.getAds()));
+        if (ads) {
+            List<ImagesDetailsBean> adsList = UIHelper.getImage(null, bean.getAds());
+            if (null != bean.getAds() && !bean.getAds().isEmpty()) {
+                ImagesDetailsBean adsItem = new ImagesDetailsBean();
+                /*skipId 图集 postId 文章   --better 2017/1/12 16:29. */
+                adsItem.setUrl(!TextUtils.isEmpty(bean.getSkipID()) ? bean.getSkipID() : bean.getPostid());
+                adsItem.setTitle(bean.getTitle());
+                adsItem.setSrc(bean.getImgsrc());
+                adsList.add(adsItem);
+            }
+            n.setAds(adsList);
+        }
         return n;
     }
 

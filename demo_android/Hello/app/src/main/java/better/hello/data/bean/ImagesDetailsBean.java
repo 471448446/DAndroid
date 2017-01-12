@@ -15,7 +15,6 @@ public class ImagesDetailsBean implements Parcelable {
     /* 跳转url  --better 2017/1/12 10:59. */
     private String url;
 
-
     public ImagesDetailsBean(String title, String src) {
         this.title = title;
         this.src = src;
