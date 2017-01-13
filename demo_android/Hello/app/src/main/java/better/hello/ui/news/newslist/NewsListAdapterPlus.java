@@ -9,11 +9,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.better.banner.BBanner;
+import com.better.banner.ItemAdapter;
+import com.better.banner.OnClickItemListener;
+
 import java.util.List;
 
-import better.banner.BBanner;
-import better.banner.ItemAdapter;
-import better.banner.OnClickItemListener;
 import better.hello.App;
 import better.hello.R;
 import better.hello.data.bean.ImagesDetailsBean;
