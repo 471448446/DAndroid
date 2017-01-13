@@ -1,0 +1,112 @@
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+//需要在local.properties文件中取值
+Properties properties = new Properties()
+File localPropertiesFile = project.file("../local.properties");
+if (localPropertiesFile.exists()) {
+    properties.load(localPropertiesFile.newDataInputStream())
+}
+File projectPropertiesFile = project.file("project.properties");
+if (projectPropertiesFile.exists()) {
+    properties.load(projectPropertiesFile.newDataInputStream())
+}
+//properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+// read properties
+def projectName = properties.getProperty("project.name")
+def projectVersion = properties.getProperty("project.version")
+def projectBintrayRepo = properties.getProperty("project.bintrayRepo")
+def projectGroupId = properties.getProperty("project.groupId")
+def projectArtifactId = properties.getProperty("project.artifactId")
+def projectPackaging = properties.getProperty("project.packaging")
+def projectSiteUrl = properties.getProperty("project.siteUrl")
+def projectGitUrl = properties.getProperty("project.gitUrl")
+def projectDes = properties.getProperty("project.des")
+
+def developerId = properties.getProperty("developer.id")
+def developerName = properties.getProperty("developer.name")
+def developerEmail = properties.getProperty("developer.email")
+
+def bintrayUser = properties.getProperty("bintray.user")
+def bintrayApikey = properties.getProperty("bintray.apikey")
+
+def javadocName = properties.getProperty("javadoc.name")
+
+//maven配置
+version = projectVersion // 指定版本
+group = projectGroupId // 这里需要和真实包名对应，不能随便填写
+
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs //通过from函数指定代码源，这里是默认代码源
+    classifier 'sources'
+}
+
+task generateJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs //source指定了代码源
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+//这里dependsOn意为仅当generateJavadocs完成后才开始本task
+task generateJavadocsJar(type: Jar, dependsOn: generateJavadocs) {
+    from generateJavadocs.destinationDir
+    classifier 'javadoc'
+}
+//将你生成的源代码和Javadoc Jar文件添加到Maven中
+artifacts {
+    archives generateJavadocsJar
+    archives generateSourcesJar
+}
+// bintray configuration
+bintray {
+    user = bintrayUser
+    key = bintrayApikey
+
+    pkg {
+        repo = projectBintrayRepo
+        //发布到JCenter上的项目名字
+        name = projectName
+        vcsUrl = projectGitUrl
+        websiteUrl = projectSiteUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+    configurations = ['archives']
+}
+
+//版权申明
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging projectPackaging
+                // Add your description here
+                name projectDes
+                groupId projectGroupId
+                artifactId projectArtifactId
+                url projectSiteUrl
+                version projectVersion
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id developerId
+                        name developerName
+                        email developerEmail
+                    }
+                }
+                scm {
+                    connection projectGitUrl
+                    developerConnection projectGitUrl
+                    url projectSiteUrl
+                }
+            }
+        }
+    }
+}
