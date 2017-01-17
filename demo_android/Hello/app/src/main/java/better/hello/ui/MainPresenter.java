@@ -2,6 +2,7 @@ package better.hello.ui;
 
 import java.io.IOException;
 
+import better.hello.App;
 import better.hello.R;
 import better.hello.common.BasePresenterProxy;
 import better.hello.data.bean.SplashZhiHuBean;
@@ -9,6 +10,7 @@ import better.hello.http.HttpUtil;
 import better.hello.http.api.Api;
 import better.hello.util.FileUtils;
 import better.hello.util.Utils;
+import better.lib.utils.NetUtils;
 import okhttp3.ResponseBody;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -30,6 +32,9 @@ public class MainPresenter extends BasePresenterProxy<MainActivity> implements M
         if (!FileUtils.isNeedDownLoadTodaySplash(mView)) {
             return;
         }
+        /* 没找到原因  --better 2017/1/17 14:43. */
+
+        if (!NetUtils.isNetworkAvailable(App.getApplication())) return;
         HttpUtil.getSplashBean(Api.SPLASH_IMG).subscribe(new Action1<SplashZhiHuBean>() {
             @Override
             public void call(SplashZhiHuBean splashZhihuBean) {
@@ -65,7 +70,7 @@ public class MainPresenter extends BasePresenterProxy<MainActivity> implements M
             @Override
             public void onNext(Boolean aBoolean) {
                 Utils.toastShort(mView, mView.getString(R.string.splash_ok));
-                Utils.d("Better", mView.getString(R.string.splash_ok)+String.valueOf(aBoolean));
+                Utils.d("Better", mView.getString(R.string.splash_ok) + String.valueOf(aBoolean));
             }
         });
     }
