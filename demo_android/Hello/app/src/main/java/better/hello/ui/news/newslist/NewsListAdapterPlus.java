@@ -58,7 +58,6 @@ public class NewsListAdapterPlus extends BaseRecyclerViewAdapter<NewsListBean, R
         if (null == mList) return super.getItemViewType(position);
         position--;
         if (null != mList.get(position).getAds() && !mList.get(position).getAds().isEmpty()) {
-            Utils.d("Better","banner"+position+mList.get(position).getTitle());
             return TYPE_BANNER;
         } else if (null != mList.get(position).getImgs() && !mList.get(position).getImgs().isEmpty()) {
             return TYPE_PHOTO;
