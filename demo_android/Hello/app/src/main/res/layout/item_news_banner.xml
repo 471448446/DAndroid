@@ -7,4 +7,5 @@
     android:layout_height="140dp"
     app:banner_pointAutoPlayInterval="4000"
     app:banner_pointGravity="right"
+    app:banner_pageChangeDuration="1500"
     app:banner_pointLeftRightMargin="3dp"/>
