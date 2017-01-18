@@ -6,21 +6,83 @@ package better.hello.http.api;
  */
 public class Api {
 
-    public static final String NETEAST_HOST = "https://c.m.163.com/";
-    public static final String END_URL = "-20.html";
-    public static final String ENDDETAIL_URL = "/full.html";
-
-    // 新闻详情
-    public static final String NEWS_DETAIL = NETEAST_HOST + "nc/article/";
+    public static final String HOST_NETEASY = "https://c.m.163.com/";
+    public static final String HOST_WEATHER = "http://wthrcdn.etouch.cn/";
+    public static final String HOST_SINA_PHOTO = "http://api.sina.cn/sinago/";
+    /*======网页新闻类型*/
     // 头条
     public static final String HEADLINE_TYPE = "headline";
     public static final String HEADLINE_ID = "T1348647909107";
     // 房产
     public static final String HOUSE_TYPE = "house";
-    public static final String HOUSE_ID = "5YyX5Lqs";
+    public static final String HOUSE_ID = "5YWo5Zu9";/*全国的*/
     //列表
     public static final String OTHER_TYPE = "list";
+    /*======网页新闻类型*/
 
+    /**
+     * 视频 http://c.3g.163.com/nc/video/list/V9LG4B3A0/n/10-10.html
+     */
+    public static final String Video = "nc/video/list/";
+    public static final String VIDEO_CENTER = "/n/";
+    public static final String VIDEO_END_URL = "-10.html";
+    // 热点视频
+    public static final String VIDEO_HOT_ID = "V9LG4B3A0";
+    // 娱乐视频
+    public static final String VIDEO_ENTERTAINMENT_ID = "V9LG4CHOR";
+    // 搞笑视频
+    public static final String VIDEO_FUN_ID = "V9LG4E6VR";
+    // 精品视频
+    public static final String VIDEO_CHOICE_ID = "00850FRB";
+
+    // 精选列表
+    public static final String SINA_PHOTO_CHOICE_ID = "hdpic_toutiao";
+    // 趣图列表
+    public static final String SINAD_PHOTO_FUN_ID = "hdpic_funny";
+    // 美图列表
+    public static final String SINAD_PHOTO_PRETTY_ID = "hdpic_pretty";
+    // 故事列表
+    public static final String SINA_PHOTO_STORY_ID = "hdpic_story";
+    // 图片详情
+    public static final String SINA_PHOTO_DETAIL_ID = "hdpic_hdpic_toutiao_4";
+    ///========
+    public static final String SPLASH_IMG = "http://news-at.zhihu.com/api/4/start-image/1080*1776";
+
+    /**
+     * 新闻类别获取类型
+     */
+    public static String getType(String id) {
+        switch (id) {
+            case HEADLINE_ID:
+                return HEADLINE_TYPE;
+            case HOUSE_ID:
+                return HOUSE_TYPE;
+            default:
+                return OTHER_TYPE;
+        }
+    }
+
+    /**
+     * 获取对应的host
+     *
+     * @param hostType host类型
+     * @return host
+     */
+    public static String getHost(int hostType) {
+        switch (hostType) {
+            case HostType.NETEASE_NEWS_VIDEO:
+                return Api.HOST_NETEASY;
+            case HostType.SINA_NEWS_PHOTO:
+                return Api.HOST_SINA_PHOTO;
+            case HostType.WEATHER_INFO:
+                return Api.HOST_WEATHER;
+        }
+        return "";
+    }
+    // 新闻详情
+//    public static final String NEWS_DETAIL = HOST_NETEASY + "nc/article/";
+//    public static final String END_URL = "-20.html";
+//    public static final String ENDDETAIL_URL = "/full.html";
 //    // 足球
 //    public static final String FOOTBALL_ID = "T1399700447917";
 //    // 娱乐
@@ -79,78 +141,5 @@ public class Api {
 //    public static final String MSG_ID = "T1371543208049";
 //    // 军事
 //    public static final String MILITARY_ID = "T1348648141035";
-
-    /**
-     * 视频 http://c.3g.163.com/nc/video/list/V9LG4B3A0/n/10-10.html
-     */
-    public static final String Video = "nc/video/list/";
-    public static final String VIDEO_CENTER = "/n/";
-    public static final String VIDEO_END_URL = "-10.html";
-    // 热点视频
-    public static final String VIDEO_HOT_ID = "V9LG4B3A0";
-    // 娱乐视频
-    public static final String VIDEO_ENTERTAINMENT_ID = "V9LG4CHOR";
-    // 搞笑视频
-    public static final String VIDEO_FUN_ID = "V9LG4E6VR";
-    // 精品视频
-    public static final String VIDEO_CHOICE_ID = "00850FRB";
-
-    /**
-     * 天气预报url
-     */
-    public static final String WEATHER_HOST = "http://wthrcdn.etouch.cn/";
-
-    /**
-     * 新浪图片新闻
-     */
-    public static final String SINA_PHOTO_HOST = "http://api.sina.cn/sinago/";
-
-    // 精选列表
-    public static final String SINA_PHOTO_CHOICE_ID = "hdpic_toutiao";
-    // 趣图列表
-    public static final String SINAD_PHOTO_FUN_ID = "hdpic_funny";
-    // 美图列表
-    public static final String SINAD_PHOTO_PRETTY_ID = "hdpic_pretty";
-    // 故事列表
-    public static final String SINA_PHOTO_STORY_ID = "hdpic_story";
-
-    // 图片详情
-    public static final String SINA_PHOTO_DETAIL_ID = "hdpic_hdpic_toutiao_4";
-    ///========
-    public static final String SPLASH_IMG="http://news-at.zhihu.com/api/4/start-image/1080*1776";
-
-    /**
-     * 新闻类别获取类型
-     *
-     */
-    public static String getType(String id) {
-        switch (id) {
-            case HEADLINE_ID:
-                return HEADLINE_TYPE;
-            case HOUSE_ID:
-                return HOUSE_TYPE;
-            default:
-                break;
-        }
-        return OTHER_TYPE;
-    }
-
-    /**
-     * 获取对应的host
-     *
-     * @param hostType host类型
-     * @return host
-     */
-    public static String getHost(int hostType) {
-        switch (hostType) {
-            case HostType.NETEASE_NEWS_VIDEO:
-                return Api.NETEAST_HOST;
-            case HostType.SINA_NEWS_PHOTO:
-                return Api.SINA_PHOTO_HOST;
-            case HostType.WEATHER_INFO:
-                return Api.WEATHER_HOST;
-        }
-        return "";
-    }
 
 }

@@ -4,12 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 
 import com.squareup.sqlbrite.BriteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import better.hello.common.BaseSchedulerTransformer;
 import better.hello.common.BaseSubscriber;
@@ -54,7 +56,17 @@ public class NewsListDataSourceImpl extends DataSourceDbImpl<List<NewsListBean>>
                     .map(new Func1<Map<String, List<NetEaseNewsListBean>>, List<NetEaseNewsListBean>>() {
                         @Override
                         public List<NetEaseNewsListBean> call(Map<String, List<NetEaseNewsListBean>> stringListMap) {
-                            List<NetEaseNewsListBean> list = stringListMap.get(info.getPrams().get(C.EXTRA_SECOND));
+                            String key = null;
+                            /* 房地产返回的key是汉字  --better 2017/1/18 10:39. */
+                            Set<String> k = stringListMap.keySet();
+                            if (null != k && !k.isEmpty()) {
+                                for (String fadeKey : k) {
+                                    key = fadeKey;
+                                }
+                            }
+                            if (TextUtils.isEmpty(key))
+                                key = (String) info.getPrams().get(C.EXTRA_SECOND);
+                            List<NetEaseNewsListBean> list = stringListMap.get(key);
 //                        isLoadFromNetSuccess=null!=list&&!list.isEmpty();
                             return list;
                         }

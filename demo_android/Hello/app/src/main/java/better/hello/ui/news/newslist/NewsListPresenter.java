@@ -28,13 +28,6 @@ public class NewsListPresenter extends BasePresenterProxy<NewsListFragment> impl
     private RequestInfo requestInfo;
     private NewsListDataSourceImpl newsDataSource;
 
-//    public NewsListPresenter(NewsListFragment mView, String mNewsType, String mNewsId) {
-//        super(mView);
-//        this.mNewsType = mNewsType;
-//        this.mNewsId = mNewsId;
-//        newsDataSource = new NewsListDataSourceImpl(mView.getContext());
-//    }
-
     public NewsListPresenter(NewsListFragment mView, NewsChannelBean channelBean) {
         super(mView);
         mChannelBean = channelBean;
@@ -80,11 +73,11 @@ public class NewsListPresenter extends BasePresenterProxy<NewsListFragment> impl
 
     @Override
     public void onSuccess(RequestInfo<List<NewsListBean>> requestInfo, List<NewsListBean> data, Object o) {
-        Utils.d("Better", "最终数据" + String.valueOf(null == data));
+        String msg = null == data ? "null" : "" + data.size();
+        Utils.d("Better", requestInfo.getPrams().get(C.EXTRA_FIRST)+","+requestInfo.getPrams().get(C.EXTRA_SECOND) + ",最终数据 == " + msg);
         //保存数据前先关闭绑定，不然save 里面Transaction会一直回调这个方法，没找到原因的。
         mSubscription.unsubscribe();
         startPage += 20;
-//        newsDataSource.save(data, requestInfo);
         mView.postRequestSuccess(requestInfo.getRequestTye(), data, (String) o);
     }
 
