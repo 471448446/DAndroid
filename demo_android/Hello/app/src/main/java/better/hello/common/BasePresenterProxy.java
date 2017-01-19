@@ -1,6 +1,6 @@
 package better.hello.common;
 
-import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by better on 2016/10/18.
@@ -8,16 +8,17 @@ import rx.Subscription;
  */
 public class BasePresenterProxy<T extends BaseView> implements BasePresenter {
 
-    protected Subscription mSubscription;
+    protected CompositeSubscription mSubscriptions;
     protected T mView;
 
     public BasePresenterProxy(T mView) {
         this.mView = mView;
+        mSubscriptions =new CompositeSubscription();
     }
 
     @Override
     public void onDestroyAction() {
-        if (null!= mSubscription) mSubscription.unsubscribe();
+        mSubscriptions.clear();
         mView=null;
     }
 }

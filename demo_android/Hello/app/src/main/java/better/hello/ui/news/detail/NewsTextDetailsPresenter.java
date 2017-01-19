@@ -10,6 +10,7 @@ import better.hello.http.call.RequestCallback;
 import better.hello.http.call.RequestInfo;
 import better.hello.util.HtmlUtil;
 import better.lib.waitpolicy.DialogPolicy;
+import rx.Subscription;
 import rx.functions.Func1;
 
 /**
@@ -24,7 +25,7 @@ public class NewsTextDetailsPresenter extends BasePresenterProxy<NetEasyNewsDeta
 
     @Override
     public void asyncNews(final String posId) {
-        HttpUtil.getNewDetail(posId).map(new Func1<Map<String, NewsDetailsBean>, NewsDetailsBean>() {
+        Subscription subscription = HttpUtil.getNewDetail(posId).map(new Func1<Map<String, NewsDetailsBean>, NewsDetailsBean>() {
             @Override
             public NewsDetailsBean call(Map<String, NewsDetailsBean> stringNewsDetailsBeanMap) {
                 NewsDetailsBean bean = stringNewsDetailsBeanMap.get(posId);
@@ -51,5 +52,6 @@ public class NewsTextDetailsPresenter extends BasePresenterProxy<NetEasyNewsDeta
             public void onComplete(RequestInfo<NewsDetailsBean> requestInfo) {
             }
         }, new DialogPolicy(mView.mContext))));
+        mSubscriptions.add(subscription);
     }
 }

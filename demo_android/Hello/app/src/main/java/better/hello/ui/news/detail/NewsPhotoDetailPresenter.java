@@ -6,6 +6,7 @@ import better.hello.data.bean.NetEasyImgBean;
 import better.hello.http.HttpUtil;
 import better.hello.http.call.RequestCallback;
 import better.hello.http.call.RequestInfo;
+import rx.Subscription;
 
 /**
  * Des 图片
@@ -19,7 +20,7 @@ public class NewsPhotoDetailPresenter extends BasePresenterProxy<NewsPhotoDetail
 
     @Override
     public void asyncPhoto(String id) {
-        mSubscription = HttpUtil.getNewImgDetails(id).subscribe(new BaseSubscriber<>(new RequestInfo<>(new RequestCallback<NetEasyImgBean>() {
+        Subscription subscription = HttpUtil.getNewImgDetails(id).subscribe(new BaseSubscriber<>(new RequestInfo<>(new RequestCallback<NetEasyImgBean>() {
             @Override
             public void onError(RequestInfo<NetEasyImgBean> requestInfo, String msg) {
                 mView.showPhotoError(msg);
@@ -42,5 +43,6 @@ public class NewsPhotoDetailPresenter extends BasePresenterProxy<NewsPhotoDetail
 
             }
         }, mView.getWait())));
+        mSubscriptions.add(subscription);
     }
 }

@@ -37,6 +37,7 @@ public class BaseSubscriber<T> extends Subscriber<T> {
     @CallSuper
     @Override
     public void onCompleted() {
+        unsubscribe();
         Utils.d(TAG,"BaseSubscriber onCompleted ----》");
         if (null != mRequestInfo && null != mRequestInfo.getWaitPolicy()) {
             mRequestInfo.getWaitPolicy().disappear();
@@ -59,6 +60,7 @@ public class BaseSubscriber<T> extends Subscriber<T> {
     @CallSuper
     @Override
     public void onError(Throwable e) {
+        unsubscribe();
         Utils.d(TAG,"BaseSubscriber onError ----》"+e.getMessage());
         String errorMsg;
         if (e instanceof HttpException) {

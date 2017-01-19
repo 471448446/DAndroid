@@ -6,6 +6,7 @@ import better.hello.common.BasePresenterProxy;
 import better.hello.data.bean.NewsListBean;
 import better.hello.data.source.NewsCollectDataSourceImp;
 import rx.Subscriber;
+import rx.Subscription;
 
 /**
  * Created by better on 2017/1/6.
@@ -30,7 +31,7 @@ public class NewsDetailsPresenter extends BasePresenterProxy<NewsDetailsActivity
     }
 
     public void isCollectThis(String key) {
-        mSubscription = mSourceImp.getOne(key).subscribe(new Subscriber<List<NewsListBean>>() {
+        Subscription subscribe = mSourceImp.getOne(key).subscribe(new Subscriber<List<NewsListBean>>() {
 
             @Override
             public void onCompleted() {
@@ -46,5 +47,6 @@ public class NewsDetailsPresenter extends BasePresenterProxy<NewsDetailsActivity
                 mView.isCollect(null != newsListBean && !newsListBean.isEmpty());
             }
         });
+        mSubscriptions.add(subscribe);
     }
 }

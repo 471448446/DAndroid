@@ -50,7 +50,7 @@ public class NewsListPresenter extends BasePresenterProxy<NewsListFragment> impl
             map.put(C.EXTRA_THIRD, startPage);
         }
         requestInfo.setPrams(map);
-        mSubscription = newsDataSource.get(requestInfo);
+        mSubscriptions.add(newsDataSource.get(requestInfo));
 
 //        mSubscription= HttpUtil.getNewsList(mNewsType, mNewsId, startPage).map(new Func1<Map<String, List<NetEaseNewsListBean>>, List<NetEaseNewsListBean>>() {
 //            @Override
@@ -63,7 +63,7 @@ public class NewsListPresenter extends BasePresenterProxy<NewsListFragment> impl
     @Override
     public void onError(RequestInfo<List<NewsListBean>> requestInfo, String msg) {
 //        Utils.d("Better", "error type=" + requestInfo.getRequestTye() + ",msg=" + msg);
-        mSubscription.unsubscribe();
+        mSubscriptions.clear();
         if (newsDataSource.isNeedLoadFromNet()) {
             newsDataSource.asyncUrlInfo(requestInfo);
         } else {
@@ -74,9 +74,9 @@ public class NewsListPresenter extends BasePresenterProxy<NewsListFragment> impl
     @Override
     public void onSuccess(RequestInfo<List<NewsListBean>> requestInfo, List<NewsListBean> data, Object o) {
         String msg = null == data ? "null" : "" + data.size();
-        Utils.d("Better", requestInfo.getPrams().get(C.EXTRA_FIRST)+","+requestInfo.getPrams().get(C.EXTRA_SECOND) + ",最终数据 == " + msg);
+        Utils.d("Better", requestInfo.getPrams().get(C.EXTRA_FIRST) + "," + requestInfo.getPrams().get(C.EXTRA_SECOND) + ",最终数据 == " + msg);
         //保存数据前先关闭绑定，不然save 里面Transaction会一直回调这个方法，没找到原因的。
-        mSubscription.unsubscribe();
+        mSubscriptions.clear();
         startPage += 20;
         mView.postRequestSuccess(requestInfo.getRequestTye(), data, (String) o);
     }

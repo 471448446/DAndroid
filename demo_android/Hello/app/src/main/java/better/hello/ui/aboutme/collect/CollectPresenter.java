@@ -34,7 +34,7 @@ public class CollectPresenter extends BasePresenterProxy<CollectFragment> implem
         ArrayMap<String, Object> p = new ArrayMap<>();
         p.put(C.EXTRA_FIRST, mStart);
         RequestInfo<List<NewsListBean>> requestInfo = new RequestInfo<>(this, new NoneWaitPolicy(), type, p);
-        mSubscription = mCollectDataSourceImp.getLocalInfo(requestInfo);
+        mSubscriptions.add(mCollectDataSourceImp.getLocalInfo(requestInfo));
     }
 
     @Override
@@ -57,7 +57,8 @@ public class CollectPresenter extends BasePresenterProxy<CollectFragment> implem
     public void onComplete(RequestInfo<List<NewsListBean>> requestInfo) {
 
     }
-    public void delete(String key){
+
+    public void delete(String key) {
         mCollectDataSourceImp.delete(key);
     }
 }
