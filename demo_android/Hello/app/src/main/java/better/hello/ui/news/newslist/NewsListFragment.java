@@ -3,6 +3,7 @@ package better.hello.ui.news.newslist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 
 import better.hello.R;
 import better.hello.common.RefreshListener;
@@ -12,7 +13,9 @@ import better.hello.data.bean.NewsListBean;
 import better.hello.ui.base.BaseListFragment;
 import better.hello.ui.base.adapter.BaseRecyclerViewAdapter;
 import better.hello.ui.news.detail.NewsDetailsActivity;
+import better.hello.ui.news.detail.NewsPhotoDetailActivity;
 import better.hello.util.C;
+import better.hello.util.RegularUtils;
 import better.lib.http.RequestType;
 
 /**
@@ -89,8 +92,11 @@ public class NewsListFragment extends BaseListFragment<NewsListBean> implements 
 ////                NetEasyNewsDetailsActivity.start(mContext.getActivity(),bean.etNewsId());
 //                NewsDetailsActivity.start(mContext, bean);
 //            }
-            NewsDetailsActivity.start(mContext, bean);
-
+            if (!TextUtils.isEmpty(bean.getNewsId())&&bean.getNewsId().contains("|")) {
+                NewsPhotoDetailActivity.startB(getActivity(), RegularUtils.getImageId(bean.getNewsId()));
+            } else {
+                NewsDetailsActivity.start(mContext, bean);
+            }
         }
     };
 

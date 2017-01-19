@@ -162,7 +162,7 @@ public class NewsListBean implements Parcelable {
         n.setTitle(bean.getTitle());
         n.setPub_date(bean.getPtime());
         n.setImgSrc(bean.getImgsrc());
-        n.setNewsId(bean.getPostid());
+        n.setNewsId(TextUtils.isEmpty(bean.getPhotosetID()) ? bean.getPostid() : bean.getPhotosetID());
         n.setSourceType(NewsSourceType.NETEASE);
         n.setImgs(UIHelper.getImage(bean.getImgextra(), null));
         if (needJsonStr) n.setJson(JsonUtils.toJson(bean));
