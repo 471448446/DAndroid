@@ -45,6 +45,7 @@ public class NewsListFragment extends BaseListFragment<NewsListBean> implements 
     protected void initWhenNullRootView() {
         super.initWhenNullRootView();
         mPresenter = new NewsListPresenter(NewsListFragment.this, mNewsChannelBean);
+        setPresenterProxy(mPresenter);
         initRefresh(R.id.simpleRefresh_SwipeRefresh, R.id.simpleRefresh_recyclerView);
         mRefreshLayout.setProgressViewOffset(false, 0, (int) (mContext.getResources().getDisplayMetrics().density * 64));
         mPresenter.asyncList(RequestType.DATA_REQUEST_INIT);

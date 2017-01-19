@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import better.hello.R;
+import better.hello.common.BasePresenterProxy;
 import better.hello.util.PermissionGrantHelper;
 import better.hello.util.Utils;
 import better.lib.waitpolicy.dialog.WaitDialog;
@@ -24,6 +25,8 @@ import rx.Subscription;
 public class BaseActivity extends AppCompatActivity {
     public static final int REQ_NONE = -100;
     protected Subscription mSubscription;
+    protected BasePresenterProxy mPresenterProxy;
+
 
     public Activity mContext;
 
@@ -67,6 +70,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         WaitDialog.destroyDialog(mContext);
         if (null != mSubscription) mSubscription.unsubscribe();
+        if (null != mPresenterProxy) mPresenterProxy.onDestroyAction();
     }
 
     @Override
@@ -104,6 +108,7 @@ public class BaseActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
     public void deliverBackData() {
     }
 
@@ -187,4 +192,7 @@ public class BaseActivity extends AppCompatActivity {
         finish();
     }
 
+    public void setPresenterProxy(BasePresenterProxy presenterProxy) {
+        mPresenterProxy = presenterProxy;
+    }
 }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.squareup.leakcanary.RefWatcher;
 
 import better.hello.App;
+import better.hello.common.BasePresenterProxy;
 import better.hello.util.Utils;
 import butterknife.ButterKnife;
 
@@ -19,12 +20,14 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment extends Fragment {
     protected View mRootView;
     protected Fragment mContext;
+    protected BasePresenterProxy mPresenterProxy;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mContext=this;
+        mContext = this;
         getArgs();
         if (null == mRootView) {
-            mRootView = inflater.inflate(getRootViewId(),container,false);
+            mRootView = inflater.inflate(getRootViewId(), container, false);
             ButterKnife.bind(this, mRootView);
             initWhenNullRootView();
         }
@@ -34,14 +37,16 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (null != mPresenterProxy) mPresenterProxy.onDestroyAction();
         RefWatcher refWatcher = App.getRefWatcher(getActivity());
-        if (null!=refWatcher)refWatcher.watch(this);
+        if (null != refWatcher) refWatcher.watch(this);
     }
 
     protected abstract int getRootViewId();
 
     protected void initWhenNullRootView() {
     }
+
     /**
      * 参数传递
      */
@@ -52,5 +57,7 @@ public abstract class BaseFragment extends Fragment {
         Utils.v(this.getClass().getSimpleName(), msg);
     }
 
-
+    public void setPresenterProxy(BasePresenterProxy presenterProxy) {
+        mPresenterProxy = presenterProxy;
+    }
 }

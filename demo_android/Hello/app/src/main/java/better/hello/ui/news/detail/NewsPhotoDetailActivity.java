@@ -88,6 +88,7 @@ public class NewsPhotoDetailActivity extends BaseActivity implements NewsPhotoDe
         mToolbar.setTitleTextColor(ContextCompat.getColor(mContext, R.color.colorWhite));
         if (null == fragmentList || fragmentList.isEmpty()) {
             mPresenter = new NewsPhotoDetailPresenter(this);
+            setPresenterProxy(mPresenter);
             mPresenter.asyncPhoto(postId);
         } else {
             setAdapter(fragmentList);

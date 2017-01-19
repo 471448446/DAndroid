@@ -66,6 +66,7 @@ public class NewsDetailsActivity extends BaseDetailActivity implements NewsDetai
         if (null == mNewsListBean) return;
         mContainer = findViewById(R.id.activity_news_details);
         mPresenter = new NewsDetailsPresenter(this);
+        setPresenterProxy(mPresenter);
         setBackToolBar(toolbar, ""/*mNewsListBean.getTitle()*/);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setBuiltInZoomControls(true);
