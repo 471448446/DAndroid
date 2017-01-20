@@ -36,7 +36,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.Holder> implements RVD
     }
 
     @Override
-    public List<?> getData() {
+    public List<?> getActionData() {
         return ls;
     }
 

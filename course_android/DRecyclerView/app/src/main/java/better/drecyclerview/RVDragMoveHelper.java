@@ -62,17 +62,17 @@ public class RVDragMoveHelper extends ItemTouchHelper {
         public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
             if (null == recyclerView.getAdapter()) return false;
             DragDataListener dragDataListener = (DragDataListener) recyclerView.getAdapter();
-            if (null == dragDataListener) return false;
+            if (null == dragDataListener || null == dragDataListener.getActionData()) return false;
             int fromPosition = viewHolder.getAdapterPosition();//得到拖动ViewHolder的position
             int toPosition = target.getAdapterPosition();//得到目标ViewHolder的position
             if (fromPosition < toPosition) {
                 //分别把中间所有的item的位置重新交换
                 for (int i = fromPosition; i < toPosition; i++) {
-                    Collections.swap(dragDataListener.getData(), i, i + 1);
+                    Collections.swap(dragDataListener.getActionData(), i, i + 1);
                 }
             } else {
                 for (int i = fromPosition; i > toPosition; i--) {
-                    Collections.swap(dragDataListener.getData(), i, i - 1);
+                    Collections.swap(dragDataListener.getActionData(), i, i - 1);
                 }
             }
             recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
@@ -85,8 +85,8 @@ public class RVDragMoveHelper extends ItemTouchHelper {
             if (null == mRecyclerView) return;
             int position = viewHolder.getAdapterPosition();
             DragDataListener dragDataListener = (DragDataListener) mRecyclerView.getAdapter();
-            if (null == dragDataListener) return;
-            dragDataListener.getData().remove(position);
+            if (null == dragDataListener || null == dragDataListener.getActionData()) return;
+            dragDataListener.getActionData().remove(position);
             mRecyclerView.getAdapter().notifyItemRemoved(position);
         }
 
@@ -107,6 +107,6 @@ public class RVDragMoveHelper extends ItemTouchHelper {
     }
 
     public interface DragDataListener {
-        List<?> getData();
+        List<?> getActionData();
     }
 }
