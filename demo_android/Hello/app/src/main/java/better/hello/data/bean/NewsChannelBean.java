@@ -3,28 +3,26 @@ package better.hello.data.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import better.hello.http.api.Api;
+
 /**
  * Des sourceType->考虑在这个页面集成其他的资讯，比如讲网易，知乎新闻几种在一起
  * Create By better on 2016/10/19 14:00.
  */
 public class NewsChannelBean implements Parcelable {
+    public static final int UN_SELECT = 0;
+    public static final int SELECTED = UN_SELECT + 1;
     private String name;
     private int sourceType;
-    private boolean isSelect;
+    private int select;
     private NetEaseChannel mNetEaseChannel;
 
-    //    public NewsChannelBean(String name, String channelId, String type) {
-    //        this.name = name;
-    //        this.channelId = channelId;
-    //        this.type = type;
-    //    }
-    //
-    //    public NewsChannelBean(String name, String channelId, String type, int sourceType) {
-    //        this.name = name;
-    //        this.channelId = channelId;
-    //        this.type = type;
-    //        this.sourceType = sourceType;
-    //    }
+    public NewsChannelBean(String name, int sourceType, int select) {
+        this.name = name;
+        this.sourceType = sourceType;
+        this.select = select;
+    }
+
     public NewsChannelBean(String name, int sourceType, NetEaseChannel netEaseChannel) {
         this.name = name;
         this.sourceType = sourceType;
@@ -47,12 +45,20 @@ public class NewsChannelBean implements Parcelable {
         this.sourceType = sourceType;
     }
 
-    public boolean isSelect() {
-        return isSelect;
+    public int getSelect() {
+        return select;
     }
 
-    public void setSelect(boolean select) {
-        isSelect = select;
+    public void setSelect(int select) {
+        this.select = select;
+    }
+
+    public boolean isSelect() {
+        return isSelect(this.select);
+    }
+
+    public static boolean isSelect(int p) {
+        return p == SELECTED;
     }
 
     public NetEaseChannel getNetEaseChannel() {
@@ -63,48 +69,14 @@ public class NewsChannelBean implements Parcelable {
         this.mNetEaseChannel = netEaseChannel;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.name);
-        dest.writeInt(this.sourceType);
-        dest.writeByte(this.isSelect ? (byte) 1 : (byte) 0);
-        dest.writeParcelable(this.mNetEaseChannel, flags);
-    }
-
     public NewsChannelBean() {
     }
 
-    protected NewsChannelBean(Parcel in) {
-        this.name = in.readString();
-        this.sourceType = in.readInt();
-        this.isSelect = in.readByte() != 0;
-        this.mNetEaseChannel = in.readParcelable(NetEaseChannel.class.getClassLoader());
-    }
-
-    public static final Creator<NewsChannelBean> CREATOR = new Creator<NewsChannelBean>() {
-        @Override
-        public NewsChannelBean createFromParcel(Parcel source) {
-            return new NewsChannelBean(source);
-        }
-
-        @Override
-        public NewsChannelBean[] newArray(int size) {
-            return new NewsChannelBean[size];
-        }
-    };
-
     public static class NetEaseChannel implements Parcelable {
         private String channelId;
-        private String type;
 
-        public NetEaseChannel(String channelId, String type) {
+        public NetEaseChannel(String channelId) {
             this.channelId = channelId;
-            this.type = type;
         }
 
         public String getChannelId() {
@@ -116,11 +88,7 @@ public class NewsChannelBean implements Parcelable {
         }
 
         public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
+            return Api.getType(channelId);
         }
 
         @Override
@@ -131,12 +99,10 @@ public class NewsChannelBean implements Parcelable {
         @Override
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeString(this.channelId);
-            dest.writeString(this.type);
         }
 
         protected NetEaseChannel(Parcel in) {
             this.channelId = in.readString();
-            this.type = in.readString();
         }
 
         public static final Creator<NetEaseChannel> CREATOR = new Creator<NetEaseChannel>() {
@@ -152,4 +118,35 @@ public class NewsChannelBean implements Parcelable {
         };
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeInt(this.sourceType);
+        dest.writeInt(this.select);
+        dest.writeParcelable(this.mNetEaseChannel, flags);
+    }
+
+    protected NewsChannelBean(Parcel in) {
+        this.name = in.readString();
+        this.sourceType = in.readInt();
+        this.select = in.readInt();
+        this.mNetEaseChannel = in.readParcelable(NetEaseChannel.class.getClassLoader());
+    }
+
+    public static final Creator<NewsChannelBean> CREATOR = new Creator<NewsChannelBean>() {
+        @Override
+        public NewsChannelBean createFromParcel(Parcel source) {
+            return new NewsChannelBean(source);
+        }
+
+        @Override
+        public NewsChannelBean[] newArray(int size) {
+            return new NewsChannelBean[size];
+        }
+    };
 }

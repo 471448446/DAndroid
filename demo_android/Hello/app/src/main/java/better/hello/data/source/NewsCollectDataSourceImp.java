@@ -17,7 +17,7 @@ import better.hello.App;
 import better.hello.R;
 import better.hello.common.BaseSchedulerTransformer;
 import better.hello.common.BaseSubscriber;
-import better.hello.data.DataSourceDbImpl;
+import better.hello.data.DataSourceAsyncRemoteLocal;
 import better.hello.data.bean.NewsListBean;
 import better.hello.data.db.TableInfo;
 import better.hello.http.call.RequestInfo;
@@ -33,7 +33,7 @@ import rx.functions.Func1;
  * Des 收藏列表
  * Create By better on 2016/12/26 17:11.
  */
-public class NewsCollectDataSourceImp extends DataSourceDbImpl<List<NewsListBean>> implements NewsCollect {
+public class NewsCollectDataSourceImp extends DataSourceAsyncRemoteLocal<List<NewsListBean>> implements NewsCollect {
     private Func1<Cursor, NewsListBean> mapper = new Func1<Cursor, NewsListBean>() {
         @Override
         public NewsListBean call(Cursor cursor) {

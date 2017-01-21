@@ -12,7 +12,7 @@ import android.view.View;
 
 import better.hello.R;
 import better.hello.common.BasePresenterProxy;
-import better.hello.util.PermissionGrantHelper;
+import better.hello.common.PermissionGrantHelper;
 import better.hello.util.Utils;
 import better.lib.waitpolicy.dialog.WaitDialog;
 import butterknife.ButterKnife;

@@ -3,59 +3,87 @@
     <site>
         <name>头条</name>
         <id>T1348647909107</id>
+        <select>1</select>
+        <source>5</source>
     </site>
     <site>
         <name>科技</name>
         <id>T1348649580692</id>
+        <select>1</select>
+        <source>5</source>
     </site>
     <site>
         <name>财经</name>
         <id>T1348648756099</id>
+        <select>1</select>
+        <source>5</source>
     </site>
     <site>
         <name>军事</name>
         <id>T1348648141035</id>
+        <select>1</select>
+        <source>5</source>
     </site>
     <site>
         <name>体育</name>
         <id>T1348649079062</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>房产</name>
         <!--<id>5YyX5Lqs</id>-->
         <id>5YWo5Zu9</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>足球</name>
         <id>T1399700447917</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>娱乐</name>
         <id>T1348648517839</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>电影</name>
         <id>T1348648650048</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>汽车</name>
         <id>T1348654060988</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>笑话</name>
         <id>T1350383429665</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>游戏</name>
         <id>T1348654151579</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>时尚</name>
         <id>T1348650593803</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>情感</name>
         <id>T1348650839000</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>精选</name>
@@ -64,6 +92,8 @@
     <site>
         <name>电台</name>
         <id>T1379038288239</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <!--<site>-->
     <!--<name>NBA</name>-->
@@ -72,50 +102,77 @@
     <site>
         <name>数码</name>
         <id>T1348649776727</id>
+        <select>0</select>
+        <source>5</source>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>移动</name>
         <id>T1351233117091</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>彩票</name>
         <id>T1356600029035</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>教育</name>
         <id>T1348654225495</id>
+        <select>0</select>
+        <source>5</source>
+
     </site>
     <site>
         <name>论坛</name>
         <id>T1349837670307</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>旅游</name>
         <id>T1348654204705</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>手机</name>
         <id>T1348649654285</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>博客</name>
         <id>T1349837698345</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>社会</name>
         <id>T1348648037603</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>家居</name>
         <id>T1348654105308</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>暴雪</name>
         <id>T1397016069906</id>
+        <select>0</select>
+        <source>5</source>
     </site>
     <site>
         <name>亲子</name>
         <id>T1397116135282</id>
+        <select>0</select>
+        <source>5</source>
     </site>
 
 </list>

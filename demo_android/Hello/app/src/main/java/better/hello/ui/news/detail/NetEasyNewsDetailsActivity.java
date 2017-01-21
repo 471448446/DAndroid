@@ -18,7 +18,7 @@ import better.hello.ui.base.BaseActivity;
 import better.hello.util.C;
 import better.hello.util.HtmlUtil;
 import better.hello.util.ImageGetter;
-import better.hello.util.LinkMovementMethodExt;
+import better.hello.common.LinkMovementMethodExt;
 import butterknife.BindView;
 
 /**

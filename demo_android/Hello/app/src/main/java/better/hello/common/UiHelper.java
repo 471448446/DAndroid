@@ -22,7 +22,6 @@ import better.hello.http.call.RequestInfo;
 import better.hello.http.download.DownLoadService;
 import better.hello.util.C;
 import better.hello.util.FileUtils;
-import better.hello.util.PermissionGrantHelper;
 import better.lib.utils.NetUtils;
 import okhttp3.ResponseBody;
 import rx.Emitter;

@@ -1,4 +1,4 @@
-package better.hello.util;
+package better.hello.common;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

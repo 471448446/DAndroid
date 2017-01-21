@@ -1,5 +1,6 @@
 package better.hello.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -9,13 +10,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.ArrayMap;
 import android.view.MenuItem;
+import android.view.View;
 
 import better.hello.R;
 import better.hello.ui.aboutme.AboutMeFragment;
 import better.hello.ui.base.BaseActivity;
 import better.hello.ui.news.NewsTabFragment;
+import better.hello.ui.news.channle.ChannelActivity;
 import better.hello.util.Utils;
+import better.lib.utils.ForWord;
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Des http://stackoverflow.com/questions/36060883/how-to-implement-bottom-navigation-tab-as-per-the-google-new-guideline
@@ -27,6 +32,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Bot
     BottomNavigationView bottomNavigationView;
     @BindView(R.id.main_appBar)
     AppBarLayout mAppBarLayout;
+    private final int CODE_CHANNEL = 10;
 
     private MainPresenter mainPresenter;
     private BottomItems mBottomItem;
@@ -48,7 +54,6 @@ public class MainActivity extends BaseActivity implements MainContract.view, Bot
         mBottomItem.put(R.id.tab_favorites, new NewsTabFragment());
         mBottomItem.put(R.id.tab_friends, new AboutMeFragment());
         mBottomItem.showFragment(R.id.tab_favorites);
-
         mainPresenter.asyncPlashImage();
     }
 
@@ -60,6 +65,25 @@ public class MainActivity extends BaseActivity implements MainContract.view, Bot
             Utils.setGone(mAppBarLayout);
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CODE_CHANNEL) {
+            if (null != mBottomItem.get(R.id.tab_favorites)) {
+                ((NewsTabFragment) mBottomItem.get(R.id.tab_favorites)).upDataChannel();
+            }
+        }
+    }
+
+    @OnClick({R.id.main_news_channel})
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.main_news_channel:
+                ForWord.to(mContext, ChannelActivity.class, CODE_CHANNEL);
+                break;
+        }
     }
 
     static class BottomItems {
@@ -108,5 +132,10 @@ public class MainActivity extends BaseActivity implements MainContract.view, Bot
         public void put(int id, Fragment fragment) {
             items.put(id, fragment);
         }
+
+        public Fragment get(int id) {
+            return items.get(id);
+        }
+
     }
 }

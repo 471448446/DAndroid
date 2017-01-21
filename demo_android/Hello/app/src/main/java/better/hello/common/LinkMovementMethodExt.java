@@ -1,4 +1,4 @@
-package better.hello.util;
+package better.hello.common;
 
 
 import android.os.Handler;
@@ -11,6 +11,8 @@ import android.text.style.ImageSpan;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.TextView;
+
+import better.hello.util.MessageSpan;
 
 /**
  * Des https://www.ibm.com/developerworks/cn/web/1407_zhangqian_androidhtml/

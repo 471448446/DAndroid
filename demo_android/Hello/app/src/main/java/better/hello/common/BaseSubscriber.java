@@ -4,6 +4,8 @@ import android.support.annotation.CallSuper;
 
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 import better.hello.App;
 import better.hello.http.call.RequestInfo;
@@ -16,17 +18,18 @@ import rx.Subscriber;
  * Create By better on 2016/10/17 16:02.
  */
 public class BaseSubscriber<T> extends Subscriber<T> {
-    private final String TAG="BaseSubscriber";
+    private final String TAG = "BaseSubscriber";
     private RequestInfo<T> mRequestInfo;
-    public BaseSubscriber(RequestInfo<T> info){
-        this.mRequestInfo=info;
+
+    public BaseSubscriber(RequestInfo<T> info) {
+        this.mRequestInfo = info;
     }
 
     @CallSuper
     @Override
     public void onStart() {
         super.onStart();
-        Utils.d(TAG,"BaseSubscriber onStart ----》");
+        Utils.d(TAG, "BaseSubscriber onStart ----》");
         if (null != mRequestInfo && null != mRequestInfo.getWaitPolicy())
             mRequestInfo.getWaitPolicy().displayLoading();
         if (null != mRequestInfo && mRequestInfo.getRequestCallback() != null) {
@@ -38,7 +41,7 @@ public class BaseSubscriber<T> extends Subscriber<T> {
     @Override
     public void onCompleted() {
         unsubscribe();
-        Utils.d(TAG,"BaseSubscriber onCompleted ----》");
+        Utils.d(TAG, "BaseSubscriber onCompleted ----》");
         if (null != mRequestInfo && null != mRequestInfo.getWaitPolicy()) {
             mRequestInfo.getWaitPolicy().disappear();
         }
@@ -50,18 +53,23 @@ public class BaseSubscriber<T> extends Subscriber<T> {
     @CallSuper
     @Override
     public void onNext(T t) {
-        Utils.d(TAG,"BaseSubscriber onNext ----》");
+        Utils.d(TAG, "BaseSubscriber onNext ----》");
         if (null != mRequestInfo && mRequestInfo.getRequestCallback() != null) {
-            mRequestInfo.getRequestCallback().onSuccess(mRequestInfo, t,"");
+            mRequestInfo.getRequestCallback().onSuccess(mRequestInfo, t, "");
         }
-        if (null!=mRequestInfo&&null!=mRequestInfo.getWaitPolicy())mRequestInfo.getWaitPolicy().onNext(t);
+        if (null != mRequestInfo && null != mRequestInfo.getWaitPolicy())
+            mRequestInfo.getWaitPolicy().onNext(t);
+        /* http://stackoverflow.com/questions/40222803/why-oncompleted-is-not-called-in-this-code  --better 2017/1/21 21:57. */
+        if (t instanceof List || t instanceof ArrayList) {
+            onCompleted();
+        }
     }
 
     @CallSuper
     @Override
     public void onError(Throwable e) {
         unsubscribe();
-        Utils.d(TAG,"BaseSubscriber onError ----》"+e.getMessage());
+        Utils.d(TAG, "BaseSubscriber onError ----》" + e.getMessage());
         String errorMsg;
         if (e instanceof HttpException) {
             switch (((HttpException) e).code()) {
@@ -83,8 +91,8 @@ public class BaseSubscriber<T> extends Subscriber<T> {
             errorMsg = "不知名主机";
         } else if (e instanceof SocketTimeoutException) {
             errorMsg = "网络连接超时！";
-        }else {
-            errorMsg=e.getMessage();
+        } else {
+            errorMsg = e.getMessage();
         }
         if (null != mRequestInfo && null != mRequestInfo.getWaitPolicy())
             mRequestInfo.getWaitPolicy().displayRetry(errorMsg);

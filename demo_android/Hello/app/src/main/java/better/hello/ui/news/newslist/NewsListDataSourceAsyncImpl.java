@@ -15,7 +15,7 @@ import java.util.Set;
 
 import better.hello.common.BaseSchedulerTransformer;
 import better.hello.common.BaseSubscriber;
-import better.hello.data.DataSourceDbImpl;
+import better.hello.data.DataSourceAsyncRemoteLocal;
 import better.hello.data.bean.NetEaseNewsListBean;
 import better.hello.data.bean.NewsListBean;
 import better.hello.data.db.TableInfo;
@@ -33,7 +33,7 @@ import rx.functions.Func1;
  * Des 新闻Model
  * Create By better on 2016/10/26 14:24.
  */
-public class NewsListDataSourceImpl extends DataSourceDbImpl<List<NewsListBean>> {
+public class NewsListDataSourceAsyncImpl extends DataSourceAsyncRemoteLocal<List<NewsListBean>> {
     private Func1<Cursor, NetEaseNewsListBean> mapper = new Func1<Cursor, NetEaseNewsListBean>() {
         @Override
         public NetEaseNewsListBean call(Cursor cursor) {
@@ -45,7 +45,7 @@ public class NewsListDataSourceImpl extends DataSourceDbImpl<List<NewsListBean>>
      * Des
      * Create By better on 2016/10/27 09:45.
      */
-    public NewsListDataSourceImpl(Context context) {
+    public NewsListDataSourceAsyncImpl(Context context) {
         super(context);
     }
 

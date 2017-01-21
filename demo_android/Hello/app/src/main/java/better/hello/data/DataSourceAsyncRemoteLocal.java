@@ -2,22 +2,16 @@ package better.hello.data;
 
 import android.content.Context;
 
-import com.squareup.sqlbrite.BriteDatabase;
-import com.squareup.sqlbrite.SqlBrite;
-
-import better.hello.data.db.DbHelper;
 import better.hello.http.call.RequestInfo;
 import better.lib.http.RequestType;
 import rx.Subscription;
-import rx.schedulers.Schedulers;
 
 /**
  * Des 列表数据，需要缓冲在本地db中
  * http://blog.chengyunfeng.com/?p=991
  * Create By better on 2016/10/27 09:37.
  */
-public abstract class DataSourceDbImpl<T> implements DataSource<T> {
-    protected BriteDatabase db;
+public abstract class DataSourceAsyncRemoteLocal<T> extends DataSource implements DataSourceAsync<T> {
     //avoid CallBack Hell 因为本地加载和网络加载用的一个回调
     protected boolean isLocalEmpty = false;
 //    protected boolean isLoadFromNetSuccess = false;
@@ -26,9 +20,8 @@ public abstract class DataSourceDbImpl<T> implements DataSource<T> {
      * Des
      * Create By better on 2016/10/27 09:45.
      */
-    public DataSourceDbImpl(Context context) {
-        SqlBrite sqlBrite = SqlBrite.create();
-        db = sqlBrite.wrapDatabaseHelper(new DbHelper(context), Schedulers.io());
+    public DataSourceAsyncRemoteLocal(Context context) {
+        super(context);
     }
 
     @Override

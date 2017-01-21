@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_channel_lay"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingRight="@dimen/border_space_half">
+
+    <TextView
+        android:id="@+id/item_channel_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/border_space_sec_max_m"
+        android:background="@drawable/shape_channel_normal"
+        android:padding="@dimen/border_space_sec"
+        android:textColor="@color/colorBlack"
+        tools:text="@string/app_name"/>
+
+    <ImageView
+        android:id="@+id/item_channel_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/item_channel_txt"
+        android:layout_marginTop="-1dp"
+        android:src="@drawable/icon_delete"
+        tools:ignore="contentDescription"/>
+
+</RelativeLayout>

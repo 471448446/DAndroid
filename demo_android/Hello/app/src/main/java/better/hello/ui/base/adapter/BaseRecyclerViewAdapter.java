@@ -36,6 +36,10 @@ public abstract class BaseRecyclerViewAdapter<E, T extends RecyclerView.ViewHold
         this.mFragment = fragment;
     }
 
+    public BaseRecyclerViewAdapter(List<E> list, Activity context) {
+        mList = list;
+        mContext = context;
+    }
 
     @Override
     public int getItemCount() {
@@ -68,6 +72,32 @@ public abstract class BaseRecyclerViewAdapter<E, T extends RecyclerView.ViewHold
     public void addPullData(List<E> list) {
         if (null == list || list.isEmpty()) return;
         this.mList.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public void addDataTail(E list) {
+        if (null == this.mList) this.mList = new ArrayList<>();
+        this.mList.add(list);
+        notifyDataSetChanged();
+    }
+
+    public void addDataHead(E list) {
+        if (null == this.mList) this.mList = new ArrayList<>();
+        this.mList.add(0, list);
+        notifyDataSetChanged();
+    }
+
+    public void remove(E list) {
+        if (null == this.mList)
+            return;
+        mList.remove(list);
+        notifyDataSetChanged();
+    }
+
+    public void remove(int list) {
+        if (null == this.mList)
+            return;
+        mList.remove(list);
         notifyDataSetChanged();
     }
 

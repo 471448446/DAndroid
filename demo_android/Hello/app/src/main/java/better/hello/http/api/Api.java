@@ -49,10 +49,10 @@ public class Api {
     public static final String SPLASH_IMG = "http://news-at.zhihu.com/api/4/start-image/1080*1776";
 
     /**
-     * 新闻类别获取类型
+     * 网易新闻类别获取类型
      */
-    public static String getType(String id) {
-        switch (id) {
+    public static String getType(String channelId) {
+        switch (channelId) {
             case HEADLINE_ID:
                 return HEADLINE_TYPE;
             case HOUSE_ID:

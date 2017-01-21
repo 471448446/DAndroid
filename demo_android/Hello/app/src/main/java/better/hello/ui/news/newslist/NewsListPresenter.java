@@ -26,12 +26,12 @@ public class NewsListPresenter extends BasePresenterProxy<NewsListFragment> impl
     private NewsChannelBean mChannelBean;
 
     private RequestInfo requestInfo;
-    private NewsListDataSourceImpl newsDataSource;
+    private NewsListDataSourceAsyncImpl newsDataSource;
 
     public NewsListPresenter(NewsListFragment mView, NewsChannelBean channelBean) {
         super(mView);
         mChannelBean = channelBean;
-        newsDataSource = new NewsListDataSourceImpl(mView.getContext());
+        newsDataSource = new NewsListDataSourceAsyncImpl(mView.getContext());
     }
 
     @Override

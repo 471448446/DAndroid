@@ -56,6 +56,9 @@
         <activity android:name=".ui.news.detail.NewsDetailsActivity"/>
         <activity android:name=".ui.aboutme.collect.CollectActivity">
         </activity>
+        <activity android:name=".ui.news.channle.ChannelActivity">
+
+        </activity>
     </application>
 
 </manifest>

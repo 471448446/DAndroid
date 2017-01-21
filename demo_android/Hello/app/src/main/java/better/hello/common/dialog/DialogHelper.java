@@ -7,7 +7,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.view.Gravity;
 
 import better.hello.R;
-import better.hello.util.PermissionGrantHelper;
+import better.hello.common.PermissionGrantHelper;
 
 
 public class DialogHelper {

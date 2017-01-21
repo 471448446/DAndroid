@@ -9,7 +9,6 @@ import java.util.List;
 
 import better.hello.R;
 import better.hello.data.bean.NewsChannelBean;
-import better.hello.http.api.Api;
 import better.hello.http.api.NewsSourceType;
 import better.hello.util.FileUtils;
 import better.hello.util.Utils;
@@ -27,9 +26,17 @@ public class SourceHelper {
         if (null == document) return list;
         NodeList listName = document.getElementsByTagName("name");
         NodeList listId = document.getElementsByTagName("id");
+        NodeList listSelect = document.getElementsByTagName("select");
+        NodeList listType = document.getElementsByTagName("source");
         for (int i = 0, l = listName.getLength(); i < l; i++) {
-            list.add(new NewsChannelBean(listName.item(i).getTextContent(), NewsSourceType.NETEASE,
-                    new NewsChannelBean.NetEaseChannel(listId.item(i).getTextContent(), Api.getType(listId.item(i).getTextContent()))));
+            NewsChannelBean bean = new NewsChannelBean(listName.item(i).getTextContent(), Integer.valueOf(listType.item(i).getTextContent()), Integer.valueOf(listSelect.item(i).getTextContent()));
+            int type = Integer.valueOf(listType.item(i).getTextContent());
+            switch (type) {
+                case NewsSourceType.NETEASE:
+                    bean.setNetEaseChannel(new NewsChannelBean.NetEaseChannel(listId.item(i).getTextContent()));
+                    break;
+            }
+            list.add(bean);
         }
         return list;
     }

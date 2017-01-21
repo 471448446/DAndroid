@@ -11,17 +11,42 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/main_appBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="?attr/actionBarSize">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/main_news_toolBar"
+        <RelativeLayout
+            android:id="@+id/main_news_toolBarLay"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:tabIndicatorColor="@color/colorWhite"
-            app:tabSelectedTextColor="@color/colorTabTextSelect"
-            app:tabTextColor="@color/colorTabTextDefault"/>
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/main_news_channel"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="@dimen/border_space_normal"
+                android:paddingRight="@dimen/border_space_sec">
+
+                <ImageView
+                    android:id="@+id/main_news_img_channel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_restaurants"/>
+            </FrameLayout>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/main_news_toolBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/main_news_channel"
+                android:background="@color/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:tabIndicatorColor="@color/colorWhite"
+                app:tabSelectedTextColor="@color/colorTabTextSelect"
+                app:tabTextColor="@color/colorTabTextDefault"/>
+        </RelativeLayout>
+
 
     </android.support.design.widget.AppBarLayout>
 

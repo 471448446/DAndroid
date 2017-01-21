@@ -18,7 +18,7 @@ import better.hello.ui.base.BaseActivity;
 import better.hello.util.C;
 import better.hello.util.FileUtils;
 import better.hello.util.ImageUtil;
-import better.hello.util.PermissionGrantHelper;
+import better.hello.common.PermissionGrantHelper;
 import better.hello.util.Utils;
 import butterknife.BindView;
 import butterknife.OnClick;

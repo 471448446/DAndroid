@@ -16,6 +16,9 @@ public class RequestInfo<T> {
     private RequestType mRequestTye;
     private ArrayMap<String, Object> mPrams;
 
+    public RequestInfo() {
+    }
+
     public RequestInfo(WaitPolicy mWaitPolicy) {
         this.mWaitPolicy = mWaitPolicy;
     }

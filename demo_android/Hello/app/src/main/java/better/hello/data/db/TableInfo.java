@@ -11,11 +11,12 @@ import better.hello.AppConfig;
 
 public class TableInfo {
     private static final String TEXT_TYPE = " TEXT";
-    private static final String TEXT_INTGER = " INTEGER";
+    private static final String TEXT_INTEGER = " INT";
     private static final String INTEGER_PRIMARY_AUTO = " INTEGER PRIMARY KEY AUTOINCREMENT";
     private static final String COMMA_SEP = ",";
-    private static final String CREATE_TABLE = "CREATE TABLE ";
+    //    private static final String CREATE_TABLE = "CREATE TABLE ";
     private static final String CREATE_TABLE_IF_NOT_EXISTS = "CREATE TABLE IF NOT EXISTS ";
+    private static final String DROP_TABLE_IF_EXISTS = "DROP TABLE IF EXISTS ";
 
     public static final String SQL_CREATE_NEWS_TABLE =
             CREATE_TABLE_IF_NOT_EXISTS + NewsListTable.TABLE_NAME + " (" +
@@ -31,6 +32,15 @@ public class TableInfo {
                     NewsCollectTable.TYPE_ID + TEXT_TYPE + COMMA_SEP +
                     NewsCollectTable.JSON + TEXT_TYPE +
                     " )";
+    public static final String SQL_CREATE_NEWS_CHANNEL_TABLE =
+            CREATE_TABLE_IF_NOT_EXISTS + NewsChannelTable.TABLE_NAME + " (" +
+                    NewsChannelTable._ID + INTEGER_PRIMARY_AUTO + COMMA_SEP +
+                    NewsChannelTable.SELECT + TEXT_INTEGER + COMMA_SEP +
+                    NewsChannelTable.TYPE + TEXT_INTEGER + COMMA_SEP +
+                    NewsChannelTable.NAME + TEXT_TYPE + COMMA_SEP +
+                    NewsChannelTable.POST_ID + TEXT_TYPE + COMMA_SEP +
+                    NewsChannelTable.JSON + TEXT_TYPE +
+                    " )";
 
     public interface NewsListTable extends BaseColumns {
         String TABLE_NAME = "newsList";
@@ -44,6 +54,19 @@ public class TableInfo {
         String TITLE = "title";
         String TYPE_ID = "type_id";
         String JSON = "json";
+    }
+
+    public interface NewsChannelTable extends BaseColumns {
+        String TABLE_NAME = "newsChannel";
+        String SELECT = "selected";
+        String NAME = "name";
+        String POST_ID = "post_id";
+        String TYPE = "type";
+        String JSON = "json";
+    }
+
+    public static String deleteTable(String tableName) {
+        return DROP_TABLE_IF_EXISTS + tableName;
     }
 
     public static String getNewsByType(String type) {
@@ -70,4 +93,11 @@ public class TableInfo {
         return "select * from " + NewsCollectTable.TABLE_NAME + " where " + NewsCollectTable.TITLE + " = '" + key + "'";
     }
 
+    public static String getChannel() {
+        return "select * from " + NewsChannelTable.TABLE_NAME;
+    }
+
+    public static String deleteChannelAll() {
+        return "delete from " + NewsChannelTable.TABLE_NAME ;
+    }
 }

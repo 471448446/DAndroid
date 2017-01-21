@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 /**
-* Des 统一跳转方式
-* Create By better on 2016/12/26 13:17.
-*/
+ * Des 统一跳转方式
+ * Create By better on 2016/12/26 13:17.
+ */
 public class ForWord {
     public static final int NO_REQUEST_CODE = -1;
 
@@ -18,6 +18,10 @@ public class ForWord {
 
     public static void to(Activity context, Class<?> des, Bundle ex) {
         to(context, des, ex, NO_REQUEST_CODE);
+    }
+
+    public static void to(Activity context, Class<?> des, int reqCode) {
+        to(context, des, null, reqCode);
     }
 
     public static void to(Activity context, Class<?> des, Bundle extra, int reqCode) {
