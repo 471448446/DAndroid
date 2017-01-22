@@ -11,6 +11,7 @@ import java.io.Serializable;
  */
 
 public class ImagesDetailsBean implements Parcelable, Serializable {
+    private static final long serialVersionUID = -1365453290538231699L;
     private String title;
     private String src;
     private String des;
