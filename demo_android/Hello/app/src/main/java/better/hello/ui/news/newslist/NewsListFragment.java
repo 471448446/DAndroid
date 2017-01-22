@@ -80,7 +80,7 @@ public class NewsListFragment extends BaseListFragment<NewsListBean> implements 
 
     @Override
     protected int getRootViewId() {
-        return R.layout.layout_simplerefresh;
+        return R.layout.fragment_newlist;
     }
 
     private NewsItemClickListener newsItemClickListener = new NewsItemClickListener() {
@@ -92,7 +92,7 @@ public class NewsListFragment extends BaseListFragment<NewsListBean> implements 
 ////                NetEasyNewsDetailsActivity.start(mContext.getActivity(),bean.etNewsId());
 //                NewsDetailsActivity.start(mContext, bean);
 //            }
-            if (!TextUtils.isEmpty(bean.getNewsId())&&bean.getNewsId().contains("|")) {
+            if (!TextUtils.isEmpty(bean.getNewsId()) && bean.getNewsId().contains("|")) {
                 NewsPhotoDetailActivity.startB(getActivity(), RegularUtils.getImageId(bean.getNewsId()));
             } else {
                 NewsDetailsActivity.start(mContext, bean);

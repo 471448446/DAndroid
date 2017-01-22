@@ -27,7 +27,7 @@ import better.lib.waitpolicy.emptyproxy.EmptyViewProxy;
  */
 public class BRecyclerView extends RecyclerView {
     private EmptyViewProxy mEmptyViewProxy;
-    private int mDefaultItemCount = 1;//默认RecyclerViewAdapter count 展示emptyView，默认展示FooterView，所以当adapter，count等于1表述没有数据，展示emptyview
+    private int mDefaultItemCount = 1;//默认RecyclerViewAdapter count 展示emptyView，默认展示FooterView，所以当adapter，count等于1表述没有数据，展示emptyView,也可以直接设置
     private boolean hasPreparedEmpty,//确保emptyView只添加一次
             isNeedEmptyView = true,//默认是有的
             isNeedFooter = true, isNeedHeader;
@@ -77,6 +77,8 @@ public class BRecyclerView extends RecyclerView {
             if (isNeedHeader) mDefaultItemCount++;
         } else if (attr == R.styleable.BRecyclerView_isNeedEmptyView) {
             isNeedEmptyView = typedArray.getBoolean(attr, isNeedEmptyView);
+        } else if (attr == R.styleable.BRecyclerView_countShowEmpty) {
+            mDefaultItemCount = typedArray.getInt(attr, mDefaultItemCount);
         }
     }
 
@@ -86,10 +88,10 @@ public class BRecyclerView extends RecyclerView {
     }
 
     private HeaderViewProxyRecyclerAdapter prepareProxyAdapter(Adapter adapter) {
-        if (null == proxyRecyclerAdapter){
+        if (null == proxyRecyclerAdapter) {
             proxyRecyclerAdapter = new HeaderViewProxyRecyclerAdapter(adapter).setIsShowFooterView(isNeedFooter).setIsShowHeaderView(isNeedHeader);
             proxyRecyclerAdapter.registerAdapterDataObserver(emptyObserver);
-        }else {
+        } else {
             proxyRecyclerAdapter.setAdapter(adapter);
         }
         emptyObserver.onChanged();//不一定有用，没有完成布局 获取不到parent
