@@ -17,6 +17,7 @@ import better.hello.ui.aboutme.AboutMeFragment;
 import better.hello.ui.base.BaseActivity;
 import better.hello.ui.news.NewsTabFragment;
 import better.hello.ui.news.channle.ChannelActivity;
+import better.hello.util.C;
 import better.hello.util.Utils;
 import better.lib.utils.ForWord;
 import butterknife.BindView;
@@ -72,7 +73,9 @@ public class MainActivity extends BaseActivity implements MainContract.view, Bot
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CODE_CHANNEL) {
             if (null != mBottomItem.get(R.id.tab_favorites)) {
-                ((NewsTabFragment) mBottomItem.get(R.id.tab_favorites)).upDataChannel();
+                int p = 0;
+                if (null != data) p = data.getIntExtra(C.EXTRA_FIRST, 0);
+                ((NewsTabFragment) mBottomItem.get(R.id.tab_favorites)).upDataChannel(p);
             }
         }
     }

@@ -31,6 +31,8 @@ public interface ChannelContract {
 
         void onDeleteTopItem(NewsChannelBean bean, int p);
 
+        void onClickTopItem(int p);
+
         WaitPolicy getWait();
     }
 }

@@ -59,7 +59,7 @@ public class ChannelAdapter extends BaseRecyclerViewAdapter<NewsChannelBean, Cha
     }
 
     private void handleTop(Holder holder, final int position) {
-        if (isShowDelete) Utils.setInvisible(holder.delete);
+        if (isShowDelete) Utils.setVisible(holder.delete);
         else Utils.setInvisible(holder.delete);
         holder.txt.setText(mList.get(position).getName());
         holder.item.setOnLongClickListener(new View.OnLongClickListener() {
@@ -73,12 +73,16 @@ public class ChannelAdapter extends BaseRecyclerViewAdapter<NewsChannelBean, Cha
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ChannelActivity) mContext).preBackExitPage();
+                ((ChannelActivity) mContext).onClickTopItem(position);
             }
         });
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (1 == getItemCount()) {
+                    Utils.toastShort(mContext, mContext.getString(R.string.str_empty_selected_channel));
+                    return;
+                }
                 ((ChannelActivity) mContext).onDeleteTopItem(mList.get(position), position);
             }
         });

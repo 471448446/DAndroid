@@ -31,6 +31,7 @@ public class NewsTabFragment extends BaseTabSlideFragment implements NewsTabCont
     private List<NewsChannelBean> channels;
     private ProgressWait mProgressWait;
     private NewsTabPresenter mPresenter;
+    private int defaultP = 0;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -64,16 +65,19 @@ public class NewsTabFragment extends BaseTabSlideFragment implements NewsTabCont
     @Override
     public void setChannel(List<NewsChannelBean> data, boolean updata) {
         this.channels = data;
+        log("更新" + updata + defaultP);
         if (!updata) {
             initTabSlide((TabLayout) getActivity().findViewById(R.id.main_news_toolBar), (ViewPager) mRootView.findViewById(R.id.simpleTabSlide_Pager));
         } else {
             viewPager.removeAllViews();
             viewPager.setAdapter(getPagerAdapter());
+            viewPager.setCurrentItem(defaultP);
         }
     }
 
     @Override
-    public void upDataChannel() {
+    public void upDataChannel(int position) {
+        defaultP = position;
         mPresenter.getChannel(true);
     }
 

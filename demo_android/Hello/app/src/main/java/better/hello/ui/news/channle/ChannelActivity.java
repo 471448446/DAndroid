@@ -11,10 +11,12 @@ import android.widget.LinearLayout;
 import java.util.List;
 
 import better.hello.R;
+import better.hello.common.BaseSchedulerTransformer;
 import better.hello.common.RVDragMoveHelper;
 import better.hello.data.bean.NewsChannelBean;
 import better.hello.http.wait.ProgressWait;
 import better.hello.ui.base.BaseActivity;
+import better.hello.util.C;
 import better.lib.waitpolicy.WaitPolicy;
 import butterknife.BindView;
 import rx.Observable;
@@ -59,7 +61,7 @@ public class ChannelActivity extends BaseActivity implements ChannelContract.vie
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                preBackExitPage();
+                onClickTopItem(0);
             }
         });
         mToolbar.setNavigationIcon(R.drawable.icon_navgation_back_white);
@@ -67,51 +69,14 @@ public class ChannelActivity extends BaseActivity implements ChannelContract.vie
     }
 
     @Override
-    protected boolean preBackExitPage() {
-        getWait().displayLoading();
-        if (((ChannelAdapter) rvTop.getAdapter()).isChanged || ((ChannelAdapter) rvTop.getAdapter()).isChanged) {
-            deliverBackData();
-            finish();
-            return super.preBackExitPage();
-        }
-        Observable.just("").doOnNext(new Action1<String>() {
-            @Override
-            public void call(String s) {
-                mPresenter.preSave();
-            }
-        }).doOnNext(new Action1<String>() {
-            @Override
-            public void call(String s) {
-                mPresenter.save(((ChannelAdapter) rvTop.getAdapter()).getList());
-            }
-        }).doOnNext(new Action1<String>() {
-            @Override
-            public void call(String s) {
-                mPresenter.save(((ChannelAdapter) rvBottom.getAdapter()).getList());
-            }
-        }).subscribe(new Subscriber<String>() {
-            @Override
-            public void onCompleted() {
-                finish();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                toast(e.getMessage());
-                finish();
-            }
-
-            @Override
-            public void onNext(String s) {
-            }
-        });
-        return super.preBackExitPage();
-    }
-
-    @Override
-    public void deliverBackData() {
+    public void deliverBackData(Object... objects) {
         super.deliverBackData();
-        setResult(RESULT_OK, new Intent());
+        Intent intent = new Intent();
+        if (null != objects) {
+            intent.putExtra(C.EXTRA_FIRST, (int) objects[0]);
+        }
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     @Override
@@ -136,6 +101,38 @@ public class ChannelActivity extends BaseActivity implements ChannelContract.vie
         bean.setSelect(NewsChannelBean.UN_SELECT);
         ((ChannelAdapter) rvBottom.getAdapter()).addDataTail(bean);
         ((ChannelAdapter) rvTop.getAdapter()).remove(p);
+    }
+
+    @Override
+    public void onClickTopItem(final int p) {
+        if (!((ChannelAdapter) rvTop.getAdapter()).isChanged && !((ChannelAdapter) rvTop.getAdapter()).isChanged) {
+            deliverBackData(p);
+            return;
+        }
+        getWait().displayLoading();
+        Observable.just("").doOnNext(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                mPresenter.preSave();
+                mPresenter.save(((ChannelAdapter) rvTop.getAdapter()).getList());
+                mPresenter.save(((ChannelAdapter) rvBottom.getAdapter()).getList());
+            }
+        }).compose(new BaseSchedulerTransformer<String>()).subscribe(new Subscriber<String>() {
+            @Override
+            public void onCompleted() {
+                deliverBackData(p);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                toast(e.getMessage());
+                deliverBackData(p);
+            }
+
+            @Override
+            public void onNext(String s) {
+            }
+        });
     }
 
     @Override

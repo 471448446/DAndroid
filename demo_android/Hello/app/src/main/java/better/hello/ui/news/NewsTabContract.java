@@ -19,7 +19,7 @@ public class NewsTabContract {
 
         void setChannel(List<NewsChannelBean> data,boolean updata);
 
-        void upDataChannel();
+        void upDataChannel(int position);
 
         WaitPolicy getWait();
     }
