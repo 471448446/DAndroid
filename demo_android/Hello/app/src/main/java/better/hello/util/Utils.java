@@ -19,12 +19,15 @@ import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import better.hello.R;
+import better.hello.data.bean.ImagesDetailsBean;
 import better.hello.data.bean.ShareBean;
 import better.lib.utils.BaseUtils;
 
@@ -139,5 +142,14 @@ public class Utils extends BaseUtils {
         } else {
             Utils.toastShort(activity, activity.getString(R.string.share_no));
         }
+    }
+
+    public static ArrayList<ImagesDetailsBean> pranse(List<ImagesDetailsBean> list) {
+        ArrayList<ImagesDetailsBean> arrayList = new ArrayList<>();
+        if (null == list) return arrayList;
+        for (int i = 0, l = list.size(); i < l; i++) {
+            arrayList.add(list.get(i));
+        }
+        return arrayList;
     }
 }

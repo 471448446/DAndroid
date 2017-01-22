@@ -23,8 +23,8 @@ public class NewsPhotoDetailPresenter extends BasePresenterProxy<NewsPhotoDetail
         Subscription subscription = HttpUtil.getNewImgDetails(id).subscribe(new BaseSubscriber<>(new RequestInfo<>(new RequestCallback<NetEasyImgBean>() {
             @Override
             public void onError(RequestInfo<NetEasyImgBean> requestInfo, String msg) {
+                if (null != requestInfo.getWaitPolicy()) requestInfo.getWaitPolicy().disappear();
                 mView.showPhotoError(msg);
-
             }
 
             @Override

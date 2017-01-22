@@ -4,11 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import java.io.Serializable;
+
 /**
  * Created by better on 2016/10/19.
  */
 
-public class ImagesDetailsBean implements Parcelable {
+public class ImagesDetailsBean implements Parcelable, Serializable {
     private String title;
     private String src;
     private String des;

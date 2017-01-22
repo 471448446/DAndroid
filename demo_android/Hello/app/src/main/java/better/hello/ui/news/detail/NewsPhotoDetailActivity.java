@@ -1,7 +1,6 @@
 package better.hello.ui.news.detail;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.widget.LinearLayout;
 
 import java.io.Serializable;
@@ -23,6 +23,7 @@ import better.hello.http.wait.ProgressWait;
 import better.hello.ui.base.BaseActivity;
 import better.hello.util.C;
 import better.hello.util.Utils;
+import better.lib.utils.ForWord;
 import better.lib.waitpolicy.WaitPolicy;
 import butterknife.BindView;
 
@@ -47,10 +48,10 @@ public class NewsPhotoDetailActivity extends BaseActivity implements NewsPhotoDe
     }
 
     public static void start(Activity activity, List<ImagesDetailsBean> fragmentList, int selectP) {
-        Intent i = new Intent(activity, NewsPhotoDetailActivity.class);
-        i.putExtra(C.EXTRA_BEAN, (Serializable) fragmentList);
-        i.putExtra(C.EXTRA_TAG_ID, selectP);
-        activity.startActivity(i);
+        Bundle b = new Bundle();
+        b.putSerializable(C.EXTRA_BEAN, (Serializable) fragmentList);
+        b.putInt(C.EXTRA_TAG_ID, selectP);
+        ForWord.to(activity, NewsPhotoDetailActivity.class, b);
     }
 
     public static void start(Activity activity, String src) {
@@ -60,9 +61,16 @@ public class NewsPhotoDetailActivity extends BaseActivity implements NewsPhotoDe
     }
 
     public static void startB(Activity activity, String src) {
-        Intent i = new Intent(activity, NewsPhotoDetailActivity.class);
-        i.putExtra(C.EXTRA_SOURCE_TYPE, src);
-        activity.startActivity(i);
+        startB(activity, src, null);
+    }
+
+    public static void startB(Activity activity, String src, ArrayList<ImagesDetailsBean> fragmentList) {
+        Bundle b = new Bundle();
+        b.putString(C.EXTRA_SOURCE_TYPE, src);
+        if (null != fragmentList) {
+            b.putSerializable(C.EXTRA_BEAN, fragmentList);
+        }
+        ForWord.to(activity, NewsPhotoDetailActivity.class, b);
     }
 
     @Override
@@ -74,7 +82,7 @@ public class NewsPhotoDetailActivity extends BaseActivity implements NewsPhotoDe
     @Override
     protected void getArgs() {
         super.getArgs();
-        fragmentList = getIntent().getParcelableArrayListExtra(C.EXTRA_BEAN);
+        fragmentList = (List<ImagesDetailsBean>) getIntent().getSerializableExtra(C.EXTRA_BEAN);
         if (null == fragmentList) fragmentList = new ArrayList<>();
         mDefaultP = getIntent().getIntExtra(C.EXTRA_TAG_ID, 0);
         postId = getIntent().getStringExtra(C.EXTRA_SOURCE_TYPE);
@@ -86,7 +94,7 @@ public class NewsPhotoDetailActivity extends BaseActivity implements NewsPhotoDe
         mToolbar = setBackToolBar(toolbar, R.string.image);
         mToolbar.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorBlack));
         mToolbar.setTitleTextColor(ContextCompat.getColor(mContext, R.color.colorWhite));
-        if (null == fragmentList || fragmentList.isEmpty()) {
+        if (!TextUtils.isEmpty(postId)) {
             mPresenter = new NewsPhotoDetailPresenter(this);
             setPresenterProxy(mPresenter);
             mPresenter.asyncPhoto(postId);
@@ -116,7 +124,11 @@ public class NewsPhotoDetailActivity extends BaseActivity implements NewsPhotoDe
 
     @Override
     public void showPhotoError(String error) {
-        toast(error);
+        if (null != fragmentList && !fragmentList.isEmpty()) {
+            setAdapter(fragmentList);
+        } else {
+            toast(error);
+        }
     }
 
     @Override

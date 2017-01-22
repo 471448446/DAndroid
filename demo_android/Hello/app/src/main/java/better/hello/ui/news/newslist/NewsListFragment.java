@@ -16,6 +16,7 @@ import better.hello.ui.news.detail.NewsDetailsActivity;
 import better.hello.ui.news.detail.NewsPhotoDetailActivity;
 import better.hello.util.C;
 import better.hello.util.RegularUtils;
+import better.hello.util.Utils;
 import better.lib.http.RequestType;
 
 /**
@@ -93,7 +94,7 @@ public class NewsListFragment extends BaseListFragment<NewsListBean> implements 
 //                NewsDetailsActivity.start(mContext, bean);
 //            }
             if (!TextUtils.isEmpty(bean.getNewsId()) && bean.getNewsId().contains("|")) {
-                NewsPhotoDetailActivity.startB(getActivity(), RegularUtils.getImageId(bean.getNewsId()));
+                NewsPhotoDetailActivity.startB(getActivity(), RegularUtils.getImageId(bean.getNewsId()), Utils.pranse(bean.getImgs()));
             } else {
                 NewsDetailsActivity.start(mContext, bean);
             }
