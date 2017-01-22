@@ -105,7 +105,7 @@ public class ChannelActivity extends BaseActivity implements ChannelContract.vie
 
     @Override
     public void onClickTopItem(final int p) {
-        if (!((ChannelAdapter) rvTop.getAdapter()).isChanged && !((ChannelAdapter) rvTop.getAdapter()).isChanged) {
+        if (!((ChannelAdapter) rvTop.getAdapter()).isChanged && !((ChannelAdapter) rvBottom.getAdapter()).isChanged) {
             deliverBackData(p);
             return;
         }
