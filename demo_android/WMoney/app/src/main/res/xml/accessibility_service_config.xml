@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+                       android:accessibilityEventTypes="typeWindowStateChanged|typeWindowContentChanged|typeNotificationStateChanged"
+                       android:accessibilityFeedbackType="feedbackAllMask"
+                       android:accessibilityFlags="flagDefault"
+                       android:canRetrieveWindowContent="true"
+                       android:description="@string/app_name"
+                       android:notificationTimeout="100"
+                       android:packageNames="com.tencent.mm"/>
+<!--com.tencent.mobileqq-->
+<!--为了获取窗口内容，我们还需要指定 android:canRetrieveWindowContent="true"
+-->
+    <!--<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:accessibilityEventTypes="typeAllMask"-->
+    <!--android:accessibilityFeedbackType="feedbackSpoken"-->
+    <!--android:accessibilityFlags="flagDefault"-->
+    <!--android:canRetrieveWindowContent="true"-->
+    <!--android:description="@string/app_name"-->
+    <!--android:notificationTimeout="100"-->
+    <!--android:packageNames="com.wmoney"-->
+    <!--android:settingsActivity="com.wmoney.MainActivity"/>-->

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WMoney</string>
+    <string name="service_off">关闭插件</string>
+    <string name="service_on">开启插件</string>
+</resources>
