@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Bot
         mBottomItem.put(R.id.tab_favorites, new NewsTabFragment());
         mBottomItem.put(R.id.tab_friends, new AboutMeFragment());
         mBottomItem.showFragment(R.id.tab_favorites);
-        mainPresenter.asyncPlashImage();
+//        mainPresenter.asyncPlashImage();
     }
 
     @Override
