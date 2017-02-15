@@ -44,13 +44,13 @@ import com.better.banner.transformer.TransitionEffect;
  * banner_pointLeftRightMargin dimension
  * 指示点的位置
  * banner_pointGravity
- * <attr>
+ * :
  * top
  * bottom
  * left
  * right
  * center_horizontal
- * </attr>
+ * :
  * 是否开启自动轮播
  * banner_pointAutoPlayAble boolean
  * 一张图片能否滚动
@@ -61,7 +61,7 @@ import com.better.banner.transformer.TransitionEffect;
  * banner_pageChangeDuration integer
  * 页面切换的动画效果
  * banner_transitionEffect
- * <attr>
+ * :
  * defaultEffect
  * alpha
  * rotate
@@ -75,7 +75,7 @@ import com.better.banner.transformer.TransitionEffect;
  * stack
  * depth
  * zoom
- * </attr>
+ * :
  * 提示文案的文字颜色
  * banner_tipTextColor reference|color
  * 提示文案的文字大小
