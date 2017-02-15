@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:shortcutDisabledMessage="@string/short_setting_label_disabled"
+        android:shortcutId="com.main"
+        android:shortcutLongLabel="@string/short_setting_label_long"
+        android:shortcutShortLabel="@string/short_setting_label">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="better.shortcut.SettingActivity"
+            android:targetPackage="better.shortcut">
+        </intent>
+        <categories
+            android:name="android.shortcut.conversation">
+        </categories>
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:shortcutDisabledMessage="@string/short_call_label_disabled"
+        android:shortcutId="com.main.call"
+        android:shortcutLongLabel="@string/short_call_label_long"
+        android:shortcutShortLabel="@string/short_call_label">
+        <intent
+            android:action="android.intent.action.CALL"
+            android:data="tell:18200141846">
+        </intent>
+        <categories
+            android:name="android.shortcut.conversation">
+        </categories>
+    </shortcut>
+    <!--在label直接输入文字是编译不过的-->
+
+</shortcuts>

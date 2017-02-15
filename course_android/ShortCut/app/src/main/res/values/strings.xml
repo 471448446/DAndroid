@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ShortCut</string>
+    <string name="short_setting_label">设置</string>
+    <string name="short_setting_label_disabled">设置不可用</string>
+    <string name="short_setting_label_long">点击去设置</string>
+    <string name="short_call_label">call</string>
+    <string name="short_call_label_disabled">call not enabled</string>
+    <string name="short_call_label_long">call phone</string>
+</resources>
