@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item name="banner_viewpagerId" type="id"/>
+    <!--<item name="banner_pointContainerId" type="id" />-->
+
     <declare-styleable name="BGABanner">
 
         <!-- 指示点容器背景 -->
@@ -54,5 +57,7 @@
         <attr name="banner_tipTextColor" format="reference|color"/>
         <!-- 提示文案的文字大小 -->
         <attr name="banner_tipTextSize" format="dimension"/>
+        <!-- 是否进行无线滑动-->
+        <attr name="banner_ScrollEndless" format="boolean"/>
     </declare-styleable>
 </resources>

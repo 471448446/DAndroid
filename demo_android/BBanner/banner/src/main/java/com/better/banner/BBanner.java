@@ -26,10 +26,66 @@ import com.better.banner.transformer.TransitionEffect;
 
 /**
  * Des 适用于至少一个的无限滚动,在重复替换fragment时需要注意。
+ * 指示点容器背景
+ * banner_pointContainerBackground
+ * 指示点背景
+ * banner_pointDrawable
+ * 特殊情况
+ * banner_pointDrawable_normal
+ * banner_pointDrawable_select
+ * 指示点容器左右内间距
+ * banner_pointContainerLeftRightPadding dimension
+ * 指示点容器上下间距
+ * banner_pointContainerLRMargin dimension
+ * banner_pointContainerTBMargin dimension
+ * 指示点上下外间距
+ * banner_pointTopBottomMargin dimension
+ * 指示点左右外间距
+ * banner_pointLeftRightMargin dimension
+ * 指示点的位置
+ * banner_pointGravity
+ * <attr>
+ * top
+ * bottom
+ * left
+ * right
+ * center_horizontal
+ * </attr>
+ * 是否开启自动轮播
+ * banner_pointAutoPlayAble boolean
+ * 一张图片能否滚动
+ * banner_oneitemCanPlayAble boolean
+ * 自动轮播的时间间隔
+ * banner_pointAutoPlayInterval integer
+ * 页码切换过程的时间长度
+ * banner_pageChangeDuration integer
+ * 页面切换的动画效果
+ * banner_transitionEffect
+ * <attr>
+ * defaultEffect
+ * alpha
+ * rotate
+ * cube
+ * flip
+ * accordion
+ * zoomFade
+ * fade
+ * zoomCenter
+ * zoomStack
+ * stack
+ * depth
+ * zoom
+ * </attr>
+ * 提示文案的文字颜色
+ * banner_tipTextColor reference|color
+ * 提示文案的文字大小
+ * banner_tipTextSize dimension
+ * 是否进行无线滑动
+ * banner_ScrollEndless boolean
  * Create By com.better on 2017/1/13 11:42.
  */
 public class BBanner extends RelativeLayout implements OnPageChangeListener {
-    public String TAG = "BBanner";
+    public static final String TAG = "BBanner";
     public static boolean log = false;
     public int MaxNum = 100;
     private static final int RMP = RelativeLayout.LayoutParams.MATCH_PARENT;
@@ -49,11 +105,14 @@ public class BBanner extends RelativeLayout implements OnPageChangeListener {
     private boolean mAutoPlayAble = true;
     private boolean mIsOneItemScroll = false;//一张图片是否滚动
     private boolean mIsAutoPlaying;
+    private boolean mScrollEndlessLess = true;
     private Drawable mPointContainerBackgroundDrawable;//圆点的背景
     private ScrollPagerAdapter mPagerAdapter;
     private BGAViewPager mvPager;
     private LinearLayout mIndicator;
     private ViewConfiguration mViewConfiguration;
+
+    private OnPageChangeListener mOnPageChangeListener;
 
     private static final int WHAT_AUTO_PLAY = 1000;//msg
     private Handler mAutoPlayHandler = new Handler(new Handler.Callback() {
@@ -132,12 +191,20 @@ public class BBanner extends RelativeLayout implements OnPageChangeListener {
             mPointContainerTBMargin = typedArray.getDimensionPixelSize(attr, mPointContainerTBMargin);
         } else if (attr == R.styleable.BGABanner_banner_pointContainerLRMargin) {
             mPointContainerLRMargin = typedArray.getDimensionPixelSize(attr, mPointContainerLRMargin);
+        } else if (attr == R.styleable.BGABanner_banner_ScrollEndless) {
+            mScrollEndlessLess = typedArray.getBoolean(attr, mScrollEndlessLess);
         }
     }
 
     @SuppressWarnings("deprecation")
     private void initView(Context context) {
-        mvPager.setId(R.id.banner_viewpagerId);
+        /* 设置不同的id，多个banner在同一个页面时  --better 2017/2/15 16:36. */
+        String id = String.valueOf(System.currentTimeMillis());
+        if (9 <= id.length()) {
+            mvPager.setId(Integer.valueOf(id.substring(id.length() - 9)));
+        } else {
+            mvPager.setId(R.id.banner_viewpagerId);
+        }
         //将indicator放在relive里面方便设置indictor的相对位置
         RelativeLayout.LayoutParams viewpagerParams = new RelativeLayout.LayoutParams(RMP, RMP);
         viewpagerParams.addRule(RelativeLayout.CENTER_IN_PARENT);
@@ -154,7 +221,6 @@ public class BBanner extends RelativeLayout implements OnPageChangeListener {
         addView(pointContainerRl, pointContainerLp);
 
         mIndicator = new LinearLayout(context);
-        mIndicator.setId(R.id.banner_pointContainerId);
         mIndicator.setOrientation(LinearLayout.HORIZONTAL);
         //始终让圆点居中显示
         mIndicator.setGravity(Gravity.CENTER);
@@ -235,7 +301,7 @@ public class BBanner extends RelativeLayout implements OnPageChangeListener {
 
     private void startAutoPlay() {
 //        log("startAutoPlay 当前item：" + mvPager.getCurrentItem());
-        if (null != mvPager.getAdapter() && mAutoPlayAble && !mIsAutoPlaying && (mvPager.getAdapter().getCount() > 1 || mvPager.getAdapter().getCount() == 1 && mIsOneItemScroll)) {
+        if (mScrollEndlessLess && null != mvPager.getAdapter() && mAutoPlayAble && !mIsAutoPlaying && (mvPager.getAdapter().getCount() > 1 || mvPager.getAdapter().getCount() == 1 && mIsOneItemScroll)) {
             mIsAutoPlaying = true;
             mAutoPlayHandler.removeMessages(WHAT_AUTO_PLAY);
             mAutoPlayHandler.sendEmptyMessageDelayed(WHAT_AUTO_PLAY, mAutoPlayInterval);
@@ -244,7 +310,7 @@ public class BBanner extends RelativeLayout implements OnPageChangeListener {
 
     private void stopAutoPlay() {
 //        log("stopAutoPlay 当前item：" + mvPager.getCurrentItem());
-        if (null != mvPager.getAdapter() && mAutoPlayAble && mIsAutoPlaying && (mvPager.getAdapter().getCount() > 1 || mvPager.getAdapter().getCount() == 1 && mIsOneItemScroll)) {
+        if (mScrollEndlessLess && null != mvPager.getAdapter() && mAutoPlayAble && mIsAutoPlaying && (mvPager.getAdapter().getCount() > 1 || mvPager.getAdapter().getCount() == 1 && mIsOneItemScroll)) {
             mIsAutoPlaying = false;
             mAutoPlayHandler.removeMessages(WHAT_AUTO_PLAY);
         }
@@ -262,6 +328,17 @@ public class BBanner extends RelativeLayout implements OnPageChangeListener {
         }
     }
 
+    public void setCurrentItem(int position) {
+        if (null == mPagerAdapter || position > mPagerAdapter.getLength() - 1) {
+            return;
+        }
+        mvPager.setCurrentItem(position);
+    }
+
+    public void setOnPagerListener(OnPageChangeListener listener) {
+        this.mOnPageChangeListener = listener;
+    }
+
     /**
      * 设置页面也换动画
      */
@@ -272,20 +349,13 @@ public class BBanner extends RelativeLayout implements OnPageChangeListener {
     public void setData(FragmentManager manager, ItemAdapter itemAdapter) {
         if (null == mPagerAdapter) {
             mPagerAdapter = new ScrollPagerAdapter(manager, itemAdapter);
-            mPagerAdapter.setMaxNum(MaxNum);
-            mPagerAdapter.setOneItemScroll(mIsOneItemScroll);
+            mPagerAdapter.setMaxNum(MaxNum).setOneItemScroll(mIsOneItemScroll).setScrollEndlessLess(mScrollEndlessLess);
             mvPager.setAdapter(mPagerAdapter);
         } else {
             mPagerAdapter.setItemAdapter(itemAdapter);
         }
         mvPager.removeOnPageChangeListener(this);
         mvPager.addOnPageChangeListener(this);
-        mvPager.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                log("click----");
-            }
-        });
         updateIndicator(null == itemAdapter ? 0 : itemAdapter.getCount());
     }
 
@@ -296,10 +366,14 @@ public class BBanner extends RelativeLayout implements OnPageChangeListener {
         } else {
             mvPager.removeAllViews();
             initPoints(length);
-            //假装可以左右无限滑动,避免获取最新数据后，反方向滑动出现默认页面
-            int zeroItem = MaxNum / 2 - (MaxNum / 2) % length;
-            mvPager.setCurrentItem(zeroItem);
-            startAutoPlay();
+            if (mScrollEndlessLess) {
+                //假装可以左右无限滑动,避免获取最新数据后，反方向滑动出现默认页面
+                int zeroItem = MaxNum / 2 - (MaxNum / 2) % length;
+                mvPager.setCurrentItem(zeroItem);
+                startAutoPlay();
+            } else {
+                mvPager.setCurrentItem(0);
+            }
         }
     }
 
@@ -328,17 +402,20 @@ public class BBanner extends RelativeLayout implements OnPageChangeListener {
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+        if (null != mOnPageChangeListener)
+            mOnPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
     }
 
     @Override
     public void onPageSelected(int position) {
         if (null == mPagerAdapter) return;
-        int length = mPagerAdapter.getLength();
-        if (1 < length) {
-            int relP = position % length;
+        if (null != mOnPageChangeListener) {
+            mOnPageChangeListener.onPageSelected(mPagerAdapter.getRelP(position));
+        }
+        if (1 < mPagerAdapter.getLength()) {
+            int relP = mPagerAdapter.getRelP(position);
             log("real==>" + relP + "currentItem:" + position);
-            for (int i = 0; i < length; i++) {
+            for (int i = 0; i < mPagerAdapter.getLength(); i++) {
                 ImageView dot = (ImageView) mIndicator.getChildAt(i);
                 selectDotBg(relP, i, dot);
             }
@@ -348,19 +425,24 @@ public class BBanner extends RelativeLayout implements OnPageChangeListener {
 
     @Override
     public void onPageScrollStateChanged(int state) {
+        if (null != mOnPageChangeListener) {
+            mOnPageChangeListener.onPageScrollStateChanged(state);
+        }
         // 当到第一张时切换到倒数第二张，当到最后一张时切换到第二张
-        if (state == ViewPager.SCROLL_STATE_IDLE) {
-            int curr = mvPager.getCurrentItem();
-            int lastReal = mvPager.getAdapter().getCount() - 2;
-            if (curr == 0) {
-                mvPager.setCurrentItem(lastReal, false);
-            } else if (curr > lastReal) {
-                mvPager.setCurrentItem(1, false);
+        if (mScrollEndlessLess) {
+            if (state == ViewPager.SCROLL_STATE_IDLE) {
+                int curr = mvPager.getCurrentItem();
+                int lastReal = mvPager.getAdapter().getCount() - 2;
+                if (curr == 0) {
+                    mvPager.setCurrentItem(lastReal, false);
+                } else if (curr > lastReal) {
+                    mvPager.setCurrentItem(1, false);
+                }
             }
         }
     }
 
     public static void log(String msg) {
-        if (log) Log.d("BBanner", msg);
+        if (log) Log.d(TAG, msg);
     }
 }

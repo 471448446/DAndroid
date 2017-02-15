@@ -12,23 +12,33 @@ import static com.better.banner.BBanner.log;
 
 public class ScrollPagerAdapter extends FragmentPagerAdapter {
 
+    private boolean mScrollEndlessLess;
     private boolean mIsOneItemScroll;
     private int MaxNum;
     private ItemAdapter mItemAdapter;
 
-    public void setMaxNum(int maxNum) {
+    public ScrollPagerAdapter setMaxNum(int maxNum) {
         MaxNum = maxNum;
         notifyDataSetChanged();
+        return this;
     }
 
-    public void setOneItemScroll(boolean oneItemScroll) {
+    public ScrollPagerAdapter setScrollEndlessLess(boolean scrollEndlessLess) {
+        mScrollEndlessLess = scrollEndlessLess;
+        notifyDataSetChanged();
+        return this;
+    }
+
+    public ScrollPagerAdapter setOneItemScroll(boolean oneItemScroll) {
         mIsOneItemScroll = oneItemScroll;
         notifyDataSetChanged();
+        return this;
     }
 
-    public void setItemAdapter(ItemAdapter itemAdapter) {
+    public ScrollPagerAdapter setItemAdapter(ItemAdapter itemAdapter) {
         mItemAdapter = itemAdapter;
         notifyDataSetChanged();
+        return this;
     }
 
     public ScrollPagerAdapter(FragmentManager fm, ItemAdapter itemAdapter) {
@@ -39,10 +49,19 @@ public class ScrollPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int arg0) {
         if (null == mItemAdapter) return null;
-        int size = mItemAdapter.getCount();
-        int relP = arg0 % size;
+        int relP;
+        relP = getRelP(arg0);
         log("banner 取的位置：argo:" + arg0 + ",真实位置:" + relP);
         return null == mItemAdapter ? null : mItemAdapter.getItem(relP);
+    }
+
+    public int getRelP(int arg0) {
+        if (mScrollEndlessLess) {
+            int size = mItemAdapter.getCount();
+            return arg0 % size;
+        } else {
+            return arg0;
+        }
     }
 
     public int getLength() {
@@ -52,16 +71,32 @@ public class ScrollPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         int allCount;
+//        if (null == mItemAdapter || 0 == mItemAdapter.getCount()) {
+//            allCount = 0;
+//        } else if (1 == mItemAdapter.getCount()) {
+//            if (mIsOneItemScroll) {
+//                allCount = MaxNum;
+//            } else {
+//                allCount = 1;
+//            }
+//        } else {
+//            allCount = MaxNum;
+//        }
+
         if (null == mItemAdapter || 0 == mItemAdapter.getCount()) {
             allCount = 0;
-        } else if (1 == mItemAdapter.getCount()) {
-            if (mIsOneItemScroll) {
-                allCount = MaxNum;
+        } else if (mScrollEndlessLess) {
+            if (1 == mItemAdapter.getCount()) {
+                if (mIsOneItemScroll) {
+                    allCount = MaxNum;
+                } else {
+                    allCount = 1;
+                }
             } else {
-                allCount = 1;
+                allCount = MaxNum;
             }
         } else {
-            allCount = MaxNum;
+            allCount = mItemAdapter.getCount();
         }
         log("adapter allcount:" + allCount);
         return allCount;
