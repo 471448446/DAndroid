@@ -24,6 +24,9 @@ import android.widget.RelativeLayout;
 import com.better.banner.transformer.BGAPageTransformer;
 import com.better.banner.transformer.TransitionEffect;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Des 适用于至少一个的无限滚动,在重复替换fragment时需要注意。
  * 指示点容器背景
@@ -112,7 +115,7 @@ public class BBanner extends RelativeLayout implements OnPageChangeListener {
     private LinearLayout mIndicator;
     private ViewConfiguration mViewConfiguration;
 
-    private OnPageChangeListener mOnPageChangeListener;
+    private List<OnPageChangeListener> mOnPageChangeListeners = new ArrayList<>();
 
     private static final int WHAT_AUTO_PLAY = 1000;//msg
     private Handler mAutoPlayHandler = new Handler(new Handler.Callback() {
@@ -127,6 +130,11 @@ public class BBanner extends RelativeLayout implements OnPageChangeListener {
 
     public void cleanUp() {
         mAutoPlayHandler.removeCallbacksAndMessages(null);
+        mOnPageChangeListeners.clear();
+    }
+
+    public LinearLayout getIndicator() {
+        return mIndicator;
     }
 
     public BBanner(Context context, AttributeSet attrs) {
@@ -335,8 +343,13 @@ public class BBanner extends RelativeLayout implements OnPageChangeListener {
         mvPager.setCurrentItem(position);
     }
 
+    @Deprecated
     public void setOnPagerListener(OnPageChangeListener listener) {
-        this.mOnPageChangeListener = listener;
+        addOnPagerListener(listener);
+    }
+
+    public void addOnPagerListener(OnPageChangeListener listener) {
+        mOnPageChangeListeners.add(listener);
     }
 
     /**
@@ -402,15 +415,18 @@ public class BBanner extends RelativeLayout implements OnPageChangeListener {
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (null != mOnPageChangeListener)
-            mOnPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
+        for (OnPageChangeListener onPageChangeListener : mOnPageChangeListeners) {
+            if (null != onPageChangeListener)
+                onPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
+        }
     }
 
     @Override
     public void onPageSelected(int position) {
         if (null == mPagerAdapter) return;
-        if (null != mOnPageChangeListener) {
-            mOnPageChangeListener.onPageSelected(mPagerAdapter.getRelP(position));
+        for (OnPageChangeListener onPageChangeListener : mOnPageChangeListeners) {
+            if (null != onPageChangeListener)
+                onPageChangeListener.onPageSelected(mPagerAdapter.getRelP(position));
         }
         if (1 < mPagerAdapter.getLength()) {
             int relP = mPagerAdapter.getRelP(position);
@@ -425,8 +441,10 @@ public class BBanner extends RelativeLayout implements OnPageChangeListener {
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        if (null != mOnPageChangeListener) {
-            mOnPageChangeListener.onPageScrollStateChanged(state);
+        for (OnPageChangeListener onPageChangeListener : mOnPageChangeListeners) {
+            if (null != onPageChangeListener) {
+                onPageChangeListener.onPageScrollStateChanged(state);
+            }
         }
         // 当到第一张时切换到倒数第二张，当到最后一张时切换到第二张
         if (mScrollEndlessLess) {
