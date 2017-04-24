@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="better.matrixdemo.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/recover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="复原"/>
+
+        <Button
+            android:id="@+id/trans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="平移"/>
+
+        <Button
+            android:id="@+id/roate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="旋转"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/scale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="缩放"/>
+
+        <Button
+            android:id="@+id/skew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="扭曲"/>
+
+    </LinearLayout>
+
+    <better.matrixdemo.MatrixImageView
+        android:id="@+id/matrix"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
