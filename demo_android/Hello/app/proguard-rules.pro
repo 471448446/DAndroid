@@ -131,6 +131,7 @@
 # http://www.jianshu.com/p/ae6f87346d82
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
+-dontwarn butterknife.compiler.**
 -keep class **$$ViewBinder { *; }
 -keepclasseswithmembernames class * {
     @butterknife.* <fields>;
@@ -190,3 +191,5 @@
 #bugly
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
+#google的开源库，项目中没有用到，估计是butterknife使用了，先注释掉
+-dontwarn com.google.auto.**

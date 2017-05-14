@@ -56,6 +56,7 @@ public class MainActivity extends BaseActivity implements MainContract.view, Bot
         mBottomItem.put(R.id.tab_friends, new AboutMeFragment());
         mBottomItem.showFragment(R.id.tab_favorites);
 //        mainPresenter.asyncPlashImage();
+        Utils.toastShort(mContext,"测试Ticker 成功，这才是真真的成功了");
     }
 
     @Override

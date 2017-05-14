@@ -13,8 +13,10 @@ public class AppConfig {
 
     public static void init() {
         if (3 == BuildConfig.appProductType) {
+            isLog = false;
             Utils.LOG_LEVEL = Utils.NOTHING;
         } else {
+            isLog = true;
             Utils.LOG_LEVEL = Utils.VERBOSE;
         }
     }

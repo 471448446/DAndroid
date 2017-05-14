@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:orientation="vertical"
+        tools:context="better.circleimageview.MainActivity">
+
+
+        <better.lib.circleimage.CircleImageView
+            android:id="@+id/circleImage"
+            app:borderColor="#e5f633"
+            app:borderWith="10dp"
+            android:layout_width="200dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:src="@drawable/bg"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:src="@drawable/user1"/>
+
+            <better.lib.circleimage.CircleImageView
+                android:id="@+id/circleImage2"
+                android:layout_width="200dp"
+                android:layout_height="300dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"/>
+        </RelativeLayout>
+
+        <better.lib.circleimage.CircleImageView
+            android:id="@+id/circleImage3"
+            android:layout_width="200dp"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+</ScrollView>
