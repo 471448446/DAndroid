@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="better.circleimageview">
+          package="better.bindservices">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,6 +17,21 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <service android:name=".DemoBinderServices"/>
+
+        <service android:name=".DemoMessengerService"/>
+        <!--创建一个只属于该app的新的进程:betterRemote-->
+        <service
+            android:name=".DemoAidlServices"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":betterRemote">
+            <intent-filter>
+                <action android:name="better.bindservices.DemoAidlServices"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="better.bindservices.MainActivity">
+
+    <TextView
+        android:id="@+id/binder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="OnClick"
+        android:padding="15dp"
+        android:text="use Binder"/>
+
+    <TextView
+        android:id="@+id/messenger"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="OnClick"
+        android:padding="15dp"
+        android:text="use Meaaenger"/>
+
+    <TextView
+        android:id="@+id/aidl_get"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="OnClick"
+        android:padding="15dp"
+        android:text="use Aidl get msg"/>
+
+    <TextView
+        android:id="@+id/aidl_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="OnClick"
+        android:padding="15dp"
+        android:text="use Aidl send msg"/>
+
+</LinearLayout>

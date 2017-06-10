@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">BindServices</string>
+    <string name="remote_service_connected">remote_service_connected</string>
+    <string name="remote_service_disconnected">remote_service_disconnected</string>
+    <string name="messenger_service_binding">messenger_service_binding</string>
+    <string name="bind_service">bind_service</string>
+    <string name="unbind_service">unbind_service</string>
+    <string name="remote_service_started">remote_service_started</string>
+</resources>
