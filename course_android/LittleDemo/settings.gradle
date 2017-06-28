@@ -1,1 +1,2 @@
-include ':transitionDemp', ':glsurfaceview', ':view', ':utils'
+include ':modles:utils'
+include ':ATransitionDemp', ':AGlsurfaceview', ':Aview', ':AImagespans'
