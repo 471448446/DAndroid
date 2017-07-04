@@ -2,6 +2,7 @@ package better.bindservices.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 /**
  * Created by better on 2017/6/6 21:54.
@@ -56,6 +57,13 @@ public class MyMessage implements Parcelable {
     }
 
     protected MyMessage(Parcel in) {
+        Log.d("Better", "MyMessage Parcel in");
+        this.name = in.readString();
+        this.content = in.readString();
+    }
+
+    public void readFromParcel(Parcel in) {
+        Log.d("Better", "MyMessage Parcel out");
         this.name = in.readString();
         this.content = in.readString();
     }

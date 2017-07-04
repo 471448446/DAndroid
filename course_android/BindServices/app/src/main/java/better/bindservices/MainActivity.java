@@ -13,7 +13,14 @@ import android.view.View;
 import android.widget.Toast;
 
 import better.bindservices.data.MyMessage;
-
+/**
+ * in:接受端能收到值，修传递值不影响原来的值
+ * out:接收端收不到值，但收到了值得副本（new），原来的值的所有字段被设置为副本值对应的字段值。修改副本值，原来的值对应字段被修改。
+ * inout：接收端能收到值，修改接受值会影响原来的值（对应的字段值会被修改）
+ *
+ * 发现只要用了out标记，传递的值所有的字段都会被初始化为默认值。
+ * Create By better on 2017/6/30 10:03.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private DemoBinderServices mDemoServices;
@@ -70,6 +77,28 @@ public class MainActivity extends AppCompatActivity {
         public void locFail() throws RemoteException {
             toastInMain("服务端确认定位失败");
         }
+
+        @Override
+        public MyMessage callMessageOut(MyMessage msg) throws RemoteException {
+            log("得到服务端数据=》" + msg.toString());
+            msg.setName("客户端修改名字");
+            return msg;
+        }
+
+        @Override
+        public MyMessage callMessageIn(MyMessage msg) throws RemoteException {
+            log("得到服务端数据=》" + msg.toString());
+            msg.setName("客户端修改名字");
+            return msg;
+        }
+
+        @Override
+        public MyMessage callMessageInOut(MyMessage msg) throws RemoteException {
+            log("得到服务端数据=》" + msg.toString());
+            msg.setName("客户端修改名字");
+            return msg;
+        }
+
     };
 
     @Override
@@ -144,6 +173,33 @@ public class MainActivity extends AppCompatActivity {
                     toast("还没准备好");
                 }
                 break;
+            case R.id.aidl_in_Out_InOut:
+                if (!mAidlConnect.isBind()) {
+                    return;
+                }
+                try {
+                    MyMessage myMessageIn = new MyMessage("A", "a");
+                    MyMessage myMessageOut = new MyMessage("A", "a");
+                    MyMessage myMessageInOut = new MyMessage("A", "a");
+                    log("客户端准备的数据》s");
+                    log("In", myMessageIn);
+                    log("Out", myMessageOut);
+                    log("InOut", myMessageInOut);
+                    log("客户端准备的数据》e");
+                    log("客户端传递返回数据---》s");
+                    log("in", mIInterCommunication.messageIn(myMessageIn));
+                    log("out", mIInterCommunication.messageOut(myMessageOut));
+                    log("inOut", mIInterCommunication.messageInOut(myMessageInOut));
+                    log("客户端传递返回数据---》e");
+                    log("原来的数据====》s");
+                    log("In", myMessageIn);
+                    log("Out", myMessageOut);
+                    log("InOut", myMessageInOut);
+                    log("原来的数据====》e");
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
     }
 
@@ -162,5 +218,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void log(String msg) {
         Log.d(this.getClass().getSimpleName(), msg);
+    }
+
+    private void log(String tag, MyMessage msg) {
+        Log.d("Better", tag + "==>" + msg == null ? "null" : msg.toString());
     }
 }

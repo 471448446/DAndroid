@@ -43,4 +43,13 @@
         android:padding="15dp"
         android:text="use Aidl send msg"/>
 
+    <TextView
+        android:id="@+id/aidl_in_Out_InOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="OnClick"
+        android:padding="15dp"
+        android:text="aidl_in_Out_InOut"/>
+
 </LinearLayout>

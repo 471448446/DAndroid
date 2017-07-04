@@ -19,6 +19,12 @@ interface IInterCommunication {
 
       void sendMyMessage(in MyMessage msg);
       /**
+      * 测试 in out inout
+      * */
+      MyMessage messageIn(in MyMessage msg);
+      MyMessage messageOut(out MyMessage msg);
+      MyMessage messageInOut(inout MyMessage msg);
+      /**
       * 服务端主动与客户端通讯
       */
       void registerCallBack(in ILocCallBack callBack);
