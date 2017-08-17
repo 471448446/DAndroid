@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         ba.setTransitionEffect(TransitionEffect.Depth);
         ba.setData(getSupportFragmentManager(), getItemAdapter());
         ba2.setData(getSupportFragmentManager(), getItemAdapter2());
+        setClicl(ba,ba2);
     }
 
     @NonNull
@@ -75,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
         list.add("http://file25.mafengwo.net/M00/0A/AC/wKgB4lMC26CAWsKoAALb5778DWg60.rbook_comment.w1024.jpeg");
         list.add("http://s3.lvjs.com.cn/trip/original/20140818131519_1500748202.jpg");
         list.add("http://s3.lvjs.com.cn/trip/original/20140818131550_1792868513.jpg");
+        list.add("http://file25.mafengwo.net/M00/0A/AC/wKgB4lMC26CAWsKoAALb5778DWg60.rbook_comment.w1024.jpeg");
+
         return list;
     }
     private List<String> getList2() {

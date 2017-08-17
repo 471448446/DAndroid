@@ -2,9 +2,11 @@ package better.jsjava;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
         // ´从assets目录下面的加载html
         contentWebView.loadUrl("file:///android_asset/wst.html");
 //        contentWebView.loadUrl("file:///android_asset/hello.html");
+        contentWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                Log.d("Better", "==>" + url);
+                view.loadUrl(url);
+                return super.shouldOverrideUrlLoading(view, url);
+            }
+        });
 
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(btnClickListener);

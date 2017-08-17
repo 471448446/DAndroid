@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">HelloKotlin</string>
+    <string name="kotlin_Fascinating">使用了 kotlin-android-extensions 插件可以不用findViewById。其实是对Activity做了属性扩展，不过还是很神器</string>
+</resources>
