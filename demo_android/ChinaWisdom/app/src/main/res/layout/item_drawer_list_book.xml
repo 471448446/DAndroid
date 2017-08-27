@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_drawerList_txt"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/border_space_sec"
+    android:paddingLeft="@dimen/txt_size_30"
+    android:paddingTop="@dimen/border_space_sec"
+    android:textColor="@color/colorBlack"
+    android:textSize="@dimen/border_space_normal"
+    tools:background="@drawable/selector_white_gray"
+    tools:text="@string/app_name"/>

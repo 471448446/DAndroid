@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="drawer_left_head">168dp</dimen>
+    <dimen name="drawer_left_head_paddingTop">15dp</dimen>
+    <!-- Per the design guidelines, navigation drawers should be between   240dp and 320dp:
+ https://developer.android.com/design/patterns/navigation-drawer.html -->`enter code here
+    <dimen name="navigation_drawer_width">250dp</dimen>
+    <!-- 文本大小-->
+    <!-- 普通文本-->
+    <dimen name="txt_size_minor">11sp</dimen>
+    <dimen name="txt_size_14">14sp</dimen>
+    <dimen name="txt_size_small">15sp</dimen>
+    <dimen name="txt_size_normal">16sp</dimen>
+    <dimen name="txt_size_17">17sp</dimen>
+    <dimen name="txt_size_max">18sp</dimen>
+    <dimen name="txt_size_bl">20sp</dimen>
+    <dimen name="txt_size_30">30sp</dimen>
+    <!--边距大小-->
+    <dimen name="border_space_minor">2dp</dimen>
+    <dimen name="border_space_small">5dp</dimen>
+    <dimen name="border_space_sec">10dp</dimen>
+    <dimen name="border_space_normal">15dp</dimen>
+    <dimen name="border_space_max">20dp</dimen>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#3C3C3C</color>
+    <color name="colorGray">#A0A0A0</color>
+    <color name="colorGrayPress">#EDE9E9</color>
+    <color name="colorGreen">#15F910</color>
+
+    <!--drawable-->
+    <color name="colorGray_select">#E0E0E0</color>
+    <!--bg-->
+    <color name="colorLay">#FAFAFA</color>
+    <color name="read_bg_default">#CEC29C</color>
+    <!--line-->
+    <color name="color_horizontalDivision">#e6e6e6</color>
+
+
+</resources>

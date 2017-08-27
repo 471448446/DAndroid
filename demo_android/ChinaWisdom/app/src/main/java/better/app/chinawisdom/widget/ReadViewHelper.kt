@@ -1,0 +1,159 @@
+package better.app.chinawisdom.widget
+
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Rect
+import android.support.v4.content.ContextCompat
+import better.app.chinawisdom.App
+import better.app.chinawisdom.R
+import better.app.chinawisdom.util.ViewUtils
+import better.app.chinawisdom.util.log
+import better.app.chinawisdom.widget.book.BookPage
+import better.app.chinawisdom.widget.book.BookUtils
+import org.jetbrains.anko.async
+import org.jetbrains.anko.uiThread
+import kotlin.properties.Delegates
+
+/**
+ * Created by better on 2017/8/21 11:35.
+ */
+class ReadViewHelper(private val readView: ReadView) {
+    var isInit = false
+    // 绘制内容的宽
+    private var mVisibleHeight: Float = 0f
+    // 绘制内容的宽
+    var mVisibleWidth: Float = 0f
+    // 左右与边缘的距离 文字开始绘制的地方
+    private var paddingX: Float = 0f
+    // 上下与边缘的距离
+    private var paddingY: Float = 0f
+    private var xTxtStart: Float = 0f
+    private var yTxtStart: Float = 0f
+    // 单个文字高
+    private var txtHeight = 0
+    // 行间距
+    private var lineSpace = 0f
+    // 文字大小
+    private var frontSize = 20f
+    var paintTxt = Paint()
+    private var bgBitmap: Bitmap? = null
+
+    var linesInPage = 0
+    private var currentPage: BookPage by Delegates.notNull()
+
+    init {
+        paintTxt.isAntiAlias = true
+        paintTxt.color = ContextCompat.getColor(App.instance, R.color.colorBlack)
+        paintTxt.textSize = ViewUtils.dip2px(frontSize)
+        paddingY = ViewUtils.dip2px(15f)
+        paddingX = ViewUtils.dip2px(10f)
+        lineSpace = ViewUtils.dip2px(8f)
+    }
+
+    fun initHelper() {
+        measureTxt()
+        setBookBg()
+        isInit = true
+    }
+
+    private fun measureTxt() {
+        mVisibleWidth = readView.width - 2 * paddingX
+        mVisibleHeight = readView.height - 2 * paddingY
+
+        val rectChinese = Rect()
+        paintTxt.getTextBounds("中", 0, 1, rectChinese)
+        txtHeight = rectChinese.height()
+        linesInPage = (mVisibleHeight / (txtHeight + lineSpace)).toInt()
+        log("lines:" + linesInPage)
+
+        val wordW = paintTxt.measureText("\u3000")
+        val w = mVisibleWidth % wordW
+
+        xTxtStart = paddingX + w / 2
+        yTxtStart = paddingY + txtHeight
+    }
+
+    private fun setBookBg() {
+        if (null != bgBitmap) {
+            bgBitmap?.recycle()
+        }
+        var bitmap = Bitmap.createBitmap(readView.width, readView.height, Bitmap.Config.RGB_565)
+        val canvas = Canvas(bitmap)
+        canvas.drawColor(ContextCompat.getColor(App.instance, R.color.read_bg_default))
+
+        bgBitmap = bitmap
+    }
+
+    fun showBook(bookName: String) {
+        async {
+            BookUtils.openAssetsBook(bookName)
+            currentPage = BookUtils.showOpenPage(this@ReadViewHelper)
+            uiThread {
+                draw(currentPage)
+            }
+        }
+    }
+
+    fun onNextPage() {
+        if (BookUtils.isLastPage()) {
+            return
+        }
+        async {
+            currentPage = BookUtils.nextPage(this@ReadViewHelper, currentPage)
+            uiThread {
+                draw(currentPage)
+            }
+        }
+    }
+
+    fun onPrePage() {
+        if (BookUtils.isFirstPage(currentPage)) {
+            return
+        }
+        async {
+            currentPage = BookUtils.prePage(this@ReadViewHelper, currentPage)
+            uiThread {
+                draw(currentPage)
+            }
+        }
+    }
+
+    private fun draw(page: BookPage?) {
+        if (null == page) return
+        val canvas = Canvas(readView.currentPageBitmap)
+        canvas.drawBitmap(bgBitmap, 0f, 0f, null)
+
+        var y = yTxtStart
+        page.lines.forEach {
+            canvas.drawText(it, xTxtStart, y, paintTxt)
+            y += txtHeight + lineSpace
+        }
+        readView.postInvalidate()
+    }
+
+    fun onDraw(canvas: Canvas) {
+        canvas.drawBitmap(readView.currentPageBitmap, 0f, 0f, null)
+    }
+
+//    private fun separateParagraphToLines(paragraphStr: String): List<String> {
+//        paintTxt.isSubpixelText = true
+//        val list = ArrayList<String>()
+//        var str = paragraphStr
+//        val with = mVisibleWidth - 2 * paddingX
+//        do {
+//            val length = paintTxt.breakText(str, true, with, null)
+//            if (length <= str.length) {
+//                val linnStr = str.substring(0, length)
+//                list.add(linnStr)
+//                str = str.substring(length, str.length)
+//            } else {
+//                list.add(str)
+//                str = ""
+//            }
+//        } while (str.isNotEmpty())
+//        return list
+//    }
+
+
+}
