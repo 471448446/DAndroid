@@ -12,7 +12,7 @@ class ReadActivity : Activity() {
         fun start(activity: Activity, path: String) {
             val b = Bundle()
             b.putString(Intent.EXTRA_KEY_EVENT, path)
-            ForWordUtils.to(activity, ReadActivity.javaClass, b)
+            ForWordUtils.to(activity, ReadActivity::class.java, b)
         }
     }
 
