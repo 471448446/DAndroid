@@ -3,6 +3,7 @@ package better.app.chinawisdom.widget.book
 import android.graphics.Paint
 import android.text.TextUtils
 import better.app.chinawisdom.App
+import better.app.chinawisdom.config.SettingConfig
 import better.app.chinawisdom.extensions.notEmpty
 import better.app.chinawisdom.util.log
 import better.app.chinawisdom.widget.ReadViewHelper
@@ -15,11 +16,13 @@ import java.lang.ref.WeakReference
  */
 object BookUtils {
     private val cachedSize = 30000
-    private var bookLength = 0
     private var bookPath = ""
+    var bookLength = 0
+    var bookName = ""
     private var booksInfo = arrayListOf<CacheBook>()
     private var positon = 0
-    fun openAssetsBook(path: String) {
+    fun openAssetsBook(name: String, path: String) {
+        bookName = name
         bookPath = path
         bookLength = 0
         booksInfo.clear()
@@ -32,6 +35,7 @@ object BookUtils {
                 }
                 var string = String(buffer)
                 string = string.replace("\r\n+\\s*".toRegex(), "\r\n\u3000\u3000")
+                string = string.replace("\n\n+\\s*".toRegex(), "\r\n\u3000\u3000")
                 string = string.replace("\u0000".toRegex(), "")
                 buffer = string.toCharArray()
                 bookLength += buffer.size
@@ -42,7 +46,7 @@ object BookUtils {
         log("book length :$bookLength")
     }
 
-    fun showOpenPage(helper: ReadViewHelper): BookPage = page(helper, begin = 0)
+    fun showOpenPage(helper: ReadViewHelper): BookPage = page(helper, begin = SettingConfig.getRememberBookChapterRead(bookName))
 
     fun prePage(helper: ReadViewHelper, current: BookPage): BookPage = page(helper, end = current.begin - 1)
 
@@ -182,7 +186,7 @@ object BookUtils {
         if (null == booksInfo[index] || null == booksInfo[index].data.get()) {
             //恢复
             log("恢复:$index")
-            openAssetsBook(bookPath)
+            openAssetsBook(bookName, bookPath)
         }
         return booksInfo[index].data.get()!![p]
     }

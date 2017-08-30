@@ -1,5 +1,6 @@
 package better.app.chinawisdom.config
 
+import android.text.TextUtils
 import better.app.chinawisdom.data.bean.Bookbean
 import better.app.chinawisdom.util.SharePref
 
@@ -8,8 +9,7 @@ import better.app.chinawisdom.util.SharePref
  */
 object SettingConfig {
     var isLog = true
-    var bookSelected = 0
-    var chapterSelected = 0
+
     val books: ArrayList<Bookbean> = arrayListOf(
             //            Bookbean("反经", "fanjing"),
 //            Bookbean("管子", "guanzi")
@@ -58,7 +58,9 @@ object SettingConfig {
             Bookbean("中国寓言", "zhongguoyuyan"),
             Bookbean("资治通鉴文白对照", "baihuazizhitongjian")
     )
-
+    var bookSelected = 0
+    var chapterSelected = 0
+    var chapterReadBegin = 0
     fun init() {
         isLog = true
         bookSelected = SharePref.getInt(SharePref.KEY_BOOK_SELECT)
@@ -70,9 +72,21 @@ object SettingConfig {
         SharePref.put(SharePref.KEY_BOOK_SELECT, p)
     }
 
-    fun rememberBookChapterSelect(p: Int) {
+    fun rememberBookChapterSelect( p: Int) {
         chapterSelected = p
         SharePref.put(SharePref.KEY_BOOK_CHAPTER_SELECT, p)
     }
+
+    fun rememberBookChapterRead(chapter: String, p: Int) {
+        SharePref.put(SharePref.KEY_BOOK_CHAPTER_SELECT_NAME, chapter)
+        SharePref.put(SharePref.KEY_BOOK_CHAPTER_SELECT_READ, p)
+    }
+
+    fun getRememberBookChapterRead(chapter: String): Int =
+            if (TextUtils.equals(chapter, (SharePref.getString(SharePref.KEY_BOOK_CHAPTER_SELECT_NAME)))) {
+                SharePref.getInt(SharePref.KEY_BOOK_CHAPTER_SELECT_READ)
+            } else {
+                0
+            }
 
 }

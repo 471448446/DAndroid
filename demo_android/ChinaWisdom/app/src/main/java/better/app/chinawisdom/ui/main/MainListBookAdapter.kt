@@ -33,10 +33,11 @@ class MainListBookAdapter(data: List<Bookbean> = arrayListOf(), private val list
                 SettingConfig.rememberBookSelect(position)
                 notifyDataSetChanged()
                 listener.onSelectBook(bean)
+            }else{
+                listener.closeDrawer()
             }
         }
     }
 
     class Holder(view: View) : RecyclerView.ViewHolder(view)
-
 }

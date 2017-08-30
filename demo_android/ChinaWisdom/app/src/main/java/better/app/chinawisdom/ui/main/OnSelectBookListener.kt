@@ -8,4 +8,5 @@ import better.app.chinawisdom.data.bean.Bookbean
  */
 interface OnSelectBookListener {
     fun onSelectBook(book: Bookbean)
+    fun closeDrawer()
 }

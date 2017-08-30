@@ -30,7 +30,7 @@ class MainActivity : BaseActivity(), OnSelectBookListener, MainListBookInfoAdapt
     }
 
     override fun onSelectBook(book: Bookbean) {
-        main_drawerLay.closeDrawers()
+        closeDrawer()
         toolBar.title = book.name
         mBookInfoAdapter.clear()
         DbManager().getBookInfo(book.name) {
@@ -38,10 +38,12 @@ class MainActivity : BaseActivity(), OnSelectBookListener, MainListBookInfoAdapt
             main_contentLay_list.scrollToPosition(SettingConfig.chapterSelected)
         }
     }
+    override fun closeDrawer() {
+        main_drawerLay.closeDrawers()
+    }
 
     override fun onOpenBookChapter(book: BookInfoBean) {
-//        toast(book.chapterPath)
-        ReadActivity.start(this, book.chapterPath)
+        ReadActivity.start(this,book.chapter, book.chapterPath)
     }
 
     private fun initContent() {

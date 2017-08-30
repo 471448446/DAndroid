@@ -7,12 +7,14 @@ import android.graphics.Rect
 import android.support.v4.content.ContextCompat
 import better.app.chinawisdom.App
 import better.app.chinawisdom.R
+import better.app.chinawisdom.config.SettingConfig
 import better.app.chinawisdom.util.ViewUtils
 import better.app.chinawisdom.util.log
 import better.app.chinawisdom.widget.book.BookPage
 import better.app.chinawisdom.widget.book.BookUtils
 import org.jetbrains.anko.async
 import org.jetbrains.anko.uiThread
+import java.math.BigDecimal
 import kotlin.properties.Delegates
 
 /**
@@ -37,6 +39,7 @@ class ReadViewHelper(private val readView: ReadView) {
     // 文字大小
     private var frontSize = 20f
     var paintTxt = Paint()
+    val paintProgress = Paint()
     private var bgBitmap: Bitmap? = null
 
     var linesInPage = 0
@@ -49,6 +52,9 @@ class ReadViewHelper(private val readView: ReadView) {
         paddingY = ViewUtils.dip2px(15f)
         paddingX = ViewUtils.dip2px(10f)
         lineSpace = ViewUtils.dip2px(8f)
+        paintProgress.color = ContextCompat.getColor(App.instance, R.color.colorBlack)
+        paintProgress.textSize = ViewUtils.dip2px(13f)
+
     }
 
     fun initHelper() {
@@ -85,9 +91,36 @@ class ReadViewHelper(private val readView: ReadView) {
         bgBitmap = bitmap
     }
 
-    fun showBook(bookName: String) {
+    private fun draw(page: BookPage?) {
+        if (null == page) return
+        val canvas = Canvas(readView.currentPageBitmap)
+        canvas.drawBitmap(bgBitmap, 0f, 0f, null)
+
+        var y = yTxtStart
+        page.lines.forEach {
+            canvas.drawText(it, xTxtStart, y, paintTxt)
+            y += txtHeight + lineSpace
+        }
+
+        val del = BigDecimal(currentPage.end.toDouble() / BookUtils.bookLength * 100).setScale(2, BigDecimal.ROUND_HALF_UP)
+        val rect = Rect()
+        val progress = "${del.toFloat()}%"
+        paintProgress.getTextBounds(progress, 0, progress.length, rect)
+        canvas.drawText(progress, mVisibleWidth - rect.width(), readView.height - rect.height().toFloat(), paintProgress)
+        readView.postInvalidate()
+    }
+
+    fun onDraw(canvas: Canvas) {
+        canvas.drawBitmap(readView.currentPageBitmap, 0f, 0f, null)
+    }
+
+    fun saveBookInfo() {
+        SettingConfig.rememberBookChapterRead(BookUtils.bookName, currentPage.begin)
+    }
+
+    fun showBook(bookName: String, path: String) {
         async {
-            BookUtils.openAssetsBook(bookName)
+            BookUtils.openAssetsBook(bookName, path)
             currentPage = BookUtils.showOpenPage(this@ReadViewHelper)
             uiThread {
                 draw(currentPage)
@@ -117,23 +150,6 @@ class ReadViewHelper(private val readView: ReadView) {
                 draw(currentPage)
             }
         }
-    }
-
-    private fun draw(page: BookPage?) {
-        if (null == page) return
-        val canvas = Canvas(readView.currentPageBitmap)
-        canvas.drawBitmap(bgBitmap, 0f, 0f, null)
-
-        var y = yTxtStart
-        page.lines.forEach {
-            canvas.drawText(it, xTxtStart, y, paintTxt)
-            y += txtHeight + lineSpace
-        }
-        readView.postInvalidate()
-    }
-
-    fun onDraw(canvas: Canvas) {
-        canvas.drawBitmap(readView.currentPageBitmap, 0f, 0f, null)
     }
 
 //    private fun separateParagraphToLines(paragraphStr: String): List<String> {

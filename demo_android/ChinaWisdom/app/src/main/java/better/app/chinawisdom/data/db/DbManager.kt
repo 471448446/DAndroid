@@ -1,6 +1,5 @@
 package better.app.chinawisdom.data.db
 
-import android.text.TextUtils
 import better.app.chinawisdom.App
 import better.app.chinawisdom.config.SettingConfig
 import better.app.chinawisdom.data.bean.BookInfoBean
@@ -118,37 +117,44 @@ class DbManager(private val db: DbHelper = DbHelper.instance) {
 
 
     private fun readLineNumStr(path: String, list: ArrayList<Int>) {
-        try {
-            val buff = BufferedReader(InputStreamReader(App.instance.resources.assets.open(path)))
-            buff.use {
-                //waring loop can be replaced with stdlib operation
+        val buff = BufferedReader(InputStreamReader(App.instance.resources.assets.open(path)))
+        buff.use {
+            //waring loop can be replaced with stdlib operation
 //                for (numStr in buff.readLine().split(",")) {
 //                    list.add(numStr.toInt())
 //                }
-                buff.readLine().split(",").forEach {
+            //会抛出异常
+//                buff.readLine().split(",").forEach {
+//                    list.add(it.toInt())
+//                }
+            buff.forEachLine {
+                it.split(",").forEach {
                     list.add(it.toInt())
                 }
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
     }
 
     private fun readLineStr(path: String, list: ArrayList<String>) {
-        try {
-            val buff = BufferedReader(InputStreamReader(App.instance.resources.assets.open(path)))
-            buff.use {
-                var line: String
-                while (true) {
-                    line = buff.readLine()
-                    if (TextUtils.isEmpty(line)) {
-                        break
-                    }
-                    list.add(line)
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
+//        try {
+//            val buff = BufferedReader(InputStreamReader(App.instance.resources.assets.open(path)))
+//            buff.use {
+//                var line: String
+//                while (true) {
+//                    line = buff.readLine()
+//                    if (TextUtils.isEmpty(line)) {
+//                        break
+//                    }
+//                    list.add(line)
+//                }
+//                list.addAll(buff.readLines())
+//            }
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
+        val buff = BufferedReader(InputStreamReader(App.instance.resources.assets.open(path)))
+        buff.use {
+            list.addAll(buff.readLines())
         }
     }
 

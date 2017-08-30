@@ -23,8 +23,11 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
     override fun handleMessage(msg: Message?): Boolean {
         if (null == msg) return false
         when (msg.what) {
-            MSG_SHOW_PAGE ->
-                showBook(msg.obj as String)
+            MSG_SHOW_PAGE -> {
+                val info: List<String> = msg.obj as List<String>
+                showBook(info[0], info[1])
+
+            }
         }
         return false
     }
@@ -64,14 +67,18 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
         helper.onDraw(canvas)
     }
 
-    fun showBook(bookName: String) {
+    fun showBook(bookName: String, path: String) {
         if (helper.isInit) {
-            helper.showBook(bookName)
+            helper.showBook(bookName, path)
         } else {
             mHandler.removeMessages(MSG_SHOW_PAGE)
             val msg = mHandler.obtainMessage(MSG_SHOW_PAGE)
-            msg.obj = bookName
+            msg.obj = arrayListOf(bookName, path)
             mHandler.sendMessageDelayed(msg, 100)
         }
+    }
+
+    fun saveBookInfo() {
+        helper.saveBookInfo()
     }
 }
