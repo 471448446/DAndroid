@@ -1,4 +1,4 @@
-package better.app.chinawisdom.extensions
+package better.app.chinawisdom.util.extenions
 
 /**
  * Created by better on 2017/8/27 19:31.

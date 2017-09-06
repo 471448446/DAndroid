@@ -1,8 +1,12 @@
 package better.app.chinawisdom.config
 
+import android.preference.PreferenceManager
 import android.text.TextUtils
+import better.app.chinawisdom.App
+import better.app.chinawisdom.R
 import better.app.chinawisdom.data.bean.Bookbean
 import better.app.chinawisdom.util.SharePref
+import better.app.chinawisdom.widget.book.BookAnimEnum
 
 /**
  * Created by better on 2017/8/17 11:43.
@@ -11,8 +15,6 @@ object SettingConfig {
     var isLog = true
 
     val books: ArrayList<Bookbean> = arrayListOf(
-            //            Bookbean("反经", "fanjing"),
-//            Bookbean("管子", "guanzi")
             Bookbean("论语", "lunyu"),
             Bookbean("易经", "yijing"),
             Bookbean("大学", "daxue"),
@@ -61,10 +63,16 @@ object SettingConfig {
     var bookSelected = 0
     var chapterSelected = 0
     var chapterReadBegin = 0
+    var bookAnimation = BookAnimEnum.COVER
     fun init() {
         isLog = true
         bookSelected = SharePref.getInt(SharePref.KEY_BOOK_SELECT)
         chapterSelected = SharePref.getInt(SharePref.KEY_BOOK_CHAPTER_SELECT)
+        recoverFromSetting()
+    }
+
+    fun recoverFromSetting() {
+        bookAnimation = BookAnimEnum.parseAnimation(PreferenceManager.getDefaultSharedPreferences(App.instance).getString(App.instance.getString(R.string.key_setting_slide), bookAnimation.id.toString()).toInt())
     }
 
     fun rememberBookSelect(p: Int) {
@@ -72,7 +80,7 @@ object SettingConfig {
         SharePref.put(SharePref.KEY_BOOK_SELECT, p)
     }
 
-    fun rememberBookChapterSelect( p: Int) {
+    fun rememberBookChapterSelect(p: Int) {
         chapterSelected = p
         SharePref.put(SharePref.KEY_BOOK_CHAPTER_SELECT, p)
     }

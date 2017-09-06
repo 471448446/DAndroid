@@ -7,20 +7,19 @@ import android.graphics.Rect
 import android.support.v4.content.ContextCompat
 import better.app.chinawisdom.App
 import better.app.chinawisdom.R
-import better.app.chinawisdom.config.SettingConfig
 import better.app.chinawisdom.util.ViewUtils
 import better.app.chinawisdom.util.log
 import better.app.chinawisdom.widget.book.BookPage
 import better.app.chinawisdom.widget.book.BookUtils
-import org.jetbrains.anko.async
-import org.jetbrains.anko.uiThread
+import better.app.chinawisdom.widget.book.IBookViewInit
 import java.math.BigDecimal
 import kotlin.properties.Delegates
 
 /**
+ * ui相关
  * Created by better on 2017/8/21 11:35.
  */
-class ReadViewHelper(private val readView: ReadView) {
+class ReadViewHelper(private val readView: ReadView) : IBookViewInit {
     var isInit = false
     // 绘制内容的宽
     private var mVisibleHeight: Float = 0f
@@ -43,7 +42,9 @@ class ReadViewHelper(private val readView: ReadView) {
     private var bgBitmap: Bitmap? = null
 
     var linesInPage = 0
+
     private var currentPage: BookPage by Delegates.notNull()
+    private var nextPage: BookPage by Delegates.notNull()
 
     init {
         paintTxt.isAntiAlias = true
@@ -57,7 +58,7 @@ class ReadViewHelper(private val readView: ReadView) {
 
     }
 
-    fun initHelper() {
+    override fun viewInitOk() {
         measureTxt()
         setBookBg()
         isInit = true
@@ -91,9 +92,28 @@ class ReadViewHelper(private val readView: ReadView) {
         bgBitmap = bitmap
     }
 
-    private fun draw(page: BookPage?) {
-        if (null == page) return
-        val canvas = Canvas(readView.currentPageBitmap)
+//    private fun draw(page: BookPage?) {
+//        if (null == page) return
+//        val canvas = Canvas(readView.currentPageBitmap)
+//        canvas.drawBitmap(bgBitmap, 0f, 0f, null)
+//
+//        var y = yTxtStart
+//        page.lines.forEach {
+//            canvas.drawText(it, xTxtStart, y, paintTxt)
+//            y += txtHeight + lineSpace
+//        }
+//
+//        val del = BigDecimal(currentPage.end.toDouble() / BookUtils.bookLength * 100).setScale(2, BigDecimal.ROUND_HALF_UP)
+//        val rect = Rect()
+//        val progress = "${del.toFloat()}%"
+//        paintProgress.getTextBounds(progress, 0, progress.length, rect)
+//        canvas.drawText(progress, mVisibleWidth - rect.width(), readView.height - rect.height().toFloat(), paintProgress)
+//        readView.postInvalidate()
+//    }
+
+    fun drawPage(page: BookPage?, bitmap: Bitmap?) {
+        if (null == page || null == bitmap) return
+        val canvas = Canvas(bitmap)
         canvas.drawBitmap(bgBitmap, 0f, 0f, null)
 
         var y = yTxtStart
@@ -102,55 +122,57 @@ class ReadViewHelper(private val readView: ReadView) {
             y += txtHeight + lineSpace
         }
 
-        val del = BigDecimal(currentPage.end.toDouble() / BookUtils.bookLength * 100).setScale(2, BigDecimal.ROUND_HALF_UP)
+        log("${page.end.toDouble() / BookUtils.bookLength * 100}")
+
+
+        val del = BigDecimal(page.end.toDouble() / BookUtils.bookLength * 100).setScale(2, BigDecimal.ROUND_HALF_UP)
         val rect = Rect()
         val progress = "${del.toFloat()}%"
         paintProgress.getTextBounds(progress, 0, progress.length, rect)
         canvas.drawText(progress, mVisibleWidth - rect.width(), readView.height - rect.height().toFloat(), paintProgress)
-        readView.postInvalidate()
     }
 
-    fun onDraw(canvas: Canvas) {
-        canvas.drawBitmap(readView.currentPageBitmap, 0f, 0f, null)
-    }
+//    fun onDraw(canvas: Canvas) {
+//        canvas.drawBitmap(readView.currentPageBitmap, 0f, 0f, null)
+//    }
+//
+//    fun saveBookInfo() {
+//        SettingConfig.rememberBookChapterRead(BookUtils.bookName, currentPage.begin)
+//    }
 
-    fun saveBookInfo() {
-        SettingConfig.rememberBookChapterRead(BookUtils.bookName, currentPage.begin)
-    }
-
-    fun showBook(bookName: String, path: String) {
-        async {
-            BookUtils.openAssetsBook(bookName, path)
-            currentPage = BookUtils.showOpenPage(this@ReadViewHelper)
-            uiThread {
-                draw(currentPage)
-            }
-        }
-    }
-
-    fun onNextPage() {
-        if (BookUtils.isLastPage()) {
-            return
-        }
-        async {
-            currentPage = BookUtils.nextPage(this@ReadViewHelper, currentPage)
-            uiThread {
-                draw(currentPage)
-            }
-        }
-    }
-
-    fun onPrePage() {
-        if (BookUtils.isFirstPage(currentPage)) {
-            return
-        }
-        async {
-            currentPage = BookUtils.prePage(this@ReadViewHelper, currentPage)
-            uiThread {
-                draw(currentPage)
-            }
-        }
-    }
+//    fun showBook(bookName: String, path: String) {
+//        async {
+//            BookUtils.openAssetsBook(bookName, path)
+//            currentPage = BookUtils.showOpenPage(this@ReadViewHelper)
+//            uiThread {
+//                draw(currentPage)
+//            }
+//        }
+//    }
+//
+//    fun onNextPage() {
+//        if (BookUtils.isLastPage()) {
+//            return
+//        }
+//        async {
+//            currentPage = BookUtils.nextPage(this@ReadViewHelper, currentPage)
+//            uiThread {
+//                draw(currentPage)
+//            }
+//        }
+//    }
+//
+//    fun onPrePage() {
+//        if (BookUtils.isFirstPage(currentPage)) {
+//            return
+//        }
+//        async {
+//            currentPage = BookUtils.prePage(this@ReadViewHelper, currentPage)
+//            uiThread {
+//                draw(currentPage)
+//            }
+//        }
+//    }
 
 //    private fun separateParagraphToLines(paragraphStr: String): List<String> {
 //        paintTxt.isSubpixelText = true

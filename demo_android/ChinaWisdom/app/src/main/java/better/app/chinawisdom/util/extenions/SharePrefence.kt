@@ -1,4 +1,4 @@
-package better.app.chinawisdom.extensions
+package better.app.chinawisdom.util.extenions
 
 import android.content.SharedPreferences
 import better.app.chinawisdom.util.log

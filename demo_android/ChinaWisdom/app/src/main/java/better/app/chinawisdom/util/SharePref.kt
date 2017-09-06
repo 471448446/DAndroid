@@ -2,8 +2,8 @@ package better.app.chinawisdom.util
 
 import android.preference.PreferenceManager
 import better.app.chinawisdom.App
-import better.app.chinawisdom.extensions.get
-import better.app.chinawisdom.extensions.put
+import better.app.chinawisdom.util.extenions.get
+import better.app.chinawisdom.util.extenions.put
 
 /**
  * Created by better on 2017/8/18 16:58.

@@ -1,4 +1,4 @@
-package better.app.chinawisdom.extensions
+package better.app.chinawisdom.util.extenions
 
 import android.database.sqlite.SQLiteDatabase
 import org.jetbrains.anko.db.MapRowParser

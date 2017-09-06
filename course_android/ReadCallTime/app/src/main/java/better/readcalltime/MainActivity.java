@@ -9,26 +9,20 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-
-//    OutCallReceiver registerReceiver = new OutCallReceiver();
-//
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        unregisterReceiver(registerReceiver);
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        registerReceiver(registerReceiver, registerReceiver.get());
-
+        //可以直接观察状态变化
+//        new CallListenHelper().register(this);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -41,11 +35,19 @@ public class MainActivity extends AppCompatActivity {
             Log.d("better", "没有权限");
             return;
         }
+        Date currentDate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+        try {
+            currentDate = format.parse(format.format(currentDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         Cursor cursor = getContentResolver().query(CallLog.Calls.CONTENT_URI, new String[]{
-                CallLog.Calls.CACHED_NAME, CallLog.Calls.NUMBER,
-                CallLog.Calls.TYPE, CallLog.Calls.DATE,
-                CallLog.Calls.DURATION
-        }, CallLog.Calls.NUMBER + " = ?", new String[]{"10086"}, CallLog.Calls.DEFAULT_SORT_ORDER);
+                        CallLog.Calls.CACHED_NAME, CallLog.Calls.NUMBER,
+                        CallLog.Calls.TYPE, CallLog.Calls.DATE,
+                        CallLog.Calls.DURATION
+                }, CallLog.Calls.NUMBER + " = ?" + " and " + CallLog.Calls.TYPE + " =?" + " and " + CallLog.Calls.DATE + " >?",
+                new String[]{"10086", "2", String.valueOf(currentDate.getTime())}, CallLog.Calls.DEFAULT_SORT_ORDER);
         if (null != cursor && cursor.getCount() > 0 && cursor.moveToNext()) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date();
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             } while (cursor.moveToNext());
             cursor.close();
         }
+        Log.d("better", "init____ok");
 
     }
 }

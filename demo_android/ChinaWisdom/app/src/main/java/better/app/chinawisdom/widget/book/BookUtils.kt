@@ -4,10 +4,12 @@ import android.graphics.Paint
 import android.text.TextUtils
 import better.app.chinawisdom.App
 import better.app.chinawisdom.config.SettingConfig
-import better.app.chinawisdom.extensions.notEmpty
+import better.app.chinawisdom.util.extenions.notEmpty
 import better.app.chinawisdom.util.log
 import better.app.chinawisdom.widget.ReadViewHelper
+import org.jetbrains.anko.async
 import org.jetbrains.anko.collections.forEachReversed
+import org.jetbrains.anko.uiThread
 import java.io.InputStreamReader
 import java.lang.ref.WeakReference
 
@@ -46,6 +48,31 @@ object BookUtils {
         log("book length :$bookLength")
     }
 
+    fun prePage(helper: ReadViewHelper, current: BookPage, then: (page: BookPage) -> Unit) {
+        if (BookUtils.isFirstPage(current)) {
+            return
+        }
+        async {
+            val page = prePage(helper, current)
+//            log("pre begin:${page.begin}")
+            uiThread {
+                then(page)
+            }
+        }
+    }
+
+    fun nextPage(helper: ReadViewHelper, current: BookPage, then: (page: BookPage) -> Unit) {
+        if (BookUtils.isLastPage()) {
+            return
+        }
+        async {
+            val page = nextPage(helper, current)
+            uiThread {
+                then(page)
+            }
+        }
+    }
+
     fun showOpenPage(helper: ReadViewHelper): BookPage = page(helper, begin = SettingConfig.getRememberBookChapterRead(bookName))
 
     fun prePage(helper: ReadViewHelper, current: BookPage): BookPage = page(helper, end = current.begin - 1)
@@ -53,6 +80,8 @@ object BookUtils {
     fun nextPage(helper: ReadViewHelper, current: BookPage): BookPage = page(helper, begin = current.end + 1)
 
     fun isLastPage(): Boolean = positon == bookLength
+
+    fun isLastPage(page: BookPage?): Boolean = page?.end == bookLength
     fun isFirstPage(page: BookPage?): Boolean = page?.begin == 0
 
     private fun page(helper: ReadViewHelper, begin: Int = -1, end: Int = -1): BookPage {
@@ -185,10 +214,9 @@ object BookUtils {
         val index: Int = p / cachedSize
         if (null == booksInfo[index] || null == booksInfo[index].data.get()) {
             //恢复
-            log("恢复:$index")
+            log("恢复:$index：${null == booksInfo[index]},${null == booksInfo[index].data.get()}")
             openAssetsBook(bookName, bookPath)
         }
         return booksInfo[index].data.get()!![p]
     }
-
 }
