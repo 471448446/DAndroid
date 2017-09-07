@@ -1,14 +1,16 @@
 <resources>
     <string name="app_name">古文</string>
-    <string name="setting">设置</string>
-    <string name="setting_slide">翻页方式</string>
-    <string name="setting_slide_sum">选择一个您喜好的翻页方式</string>
-    <string name="setting_slide_default">2</string>
     <string name="str_loading_splash">正在初始化数据，不消耗流量</string>
     <string name="open_string">打开</string>
     <string name="close_string">关闭</string>
     <string name="str_readOver">已阅完</string>
     <string name="str_readFirst">已是第一页</string>
 
+    <string name="setting">设置</string>
+    <string name="setting_slide">翻页方式</string>
+    <string name="setting_slide_sum">图书翻页方式</string>
+    <string name="setting_textType">字体</string>
+    <string name="setting_textType_sum">应用字体</string>
     <string name="key_setting_slide">setting_slide</string>
+    <string name="key_setting_textType">setting_textType</string>
 </resources>

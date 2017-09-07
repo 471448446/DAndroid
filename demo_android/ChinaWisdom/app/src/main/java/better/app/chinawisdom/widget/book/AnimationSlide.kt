@@ -3,7 +3,7 @@ package better.app.chinawisdom.widget.book
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.widget.Scroller
-import better.app.chinawisdom.util.extenions.abs
+import better.app.chinawisdom.support.extenions.abs
 import better.app.chinawisdom.widget.ReadView
 
 /**

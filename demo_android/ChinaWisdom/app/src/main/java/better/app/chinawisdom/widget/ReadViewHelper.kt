@@ -1,19 +1,15 @@
 package better.app.chinawisdom.widget
 
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.Rect
+import android.graphics.*
 import android.support.v4.content.ContextCompat
 import better.app.chinawisdom.App
 import better.app.chinawisdom.R
-import better.app.chinawisdom.util.ViewUtils
-import better.app.chinawisdom.util.log
+import better.app.chinawisdom.support.utils.ViewUtils
+import better.app.chinawisdom.support.utils.log
 import better.app.chinawisdom.widget.book.BookPage
 import better.app.chinawisdom.widget.book.BookUtils
 import better.app.chinawisdom.widget.book.IBookViewInit
 import java.math.BigDecimal
-import kotlin.properties.Delegates
 
 /**
  * ui相关
@@ -40,21 +36,21 @@ class ReadViewHelper(private val readView: ReadView) : IBookViewInit {
     var paintTxt = Paint()
     val paintProgress = Paint()
     private var bgBitmap: Bitmap? = null
+    private var textType = Typeface.DEFAULT
 
     var linesInPage = 0
-
-    private var currentPage: BookPage by Delegates.notNull()
-    private var nextPage: BookPage by Delegates.notNull()
 
     init {
         paintTxt.isAntiAlias = true
         paintTxt.color = ContextCompat.getColor(App.instance, R.color.colorBlack)
         paintTxt.textSize = ViewUtils.dip2px(frontSize)
+        paintTxt.typeface = textType
         paddingY = ViewUtils.dip2px(15f)
         paddingX = ViewUtils.dip2px(10f)
         lineSpace = ViewUtils.dip2px(8f)
         paintProgress.color = ContextCompat.getColor(App.instance, R.color.colorBlack)
         paintProgress.textSize = ViewUtils.dip2px(13f)
+        paintProgress.typeface = textType
 
     }
 
@@ -130,6 +126,15 @@ class ReadViewHelper(private val readView: ReadView) : IBookViewInit {
         val progress = "${del.toFloat()}%"
         paintProgress.getTextBounds(progress, 0, progress.length, rect)
         canvas.drawText(progress, mVisibleWidth - rect.width(), readView.height - rect.height().toFloat(), paintProgress)
+    }
+
+    fun setTextType(configTextType: Typeface) {
+        textType = configTextType
+
+        paintTxt.typeface = textType
+        paintProgress.typeface = textType
+        measureTxt()
+
     }
 
 //    fun onDraw(canvas: Canvas) {

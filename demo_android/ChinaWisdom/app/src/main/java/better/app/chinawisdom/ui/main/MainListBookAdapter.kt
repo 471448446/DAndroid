@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import better.app.chinawisdom.R
-import better.app.chinawisdom.config.SettingConfig
+import better.app.chinawisdom.SettingConfig
 import better.app.chinawisdom.data.bean.Bookbean
 import better.app.chinawisdom.ui.base.BaseRecyclerAdapter
 import kotlinx.android.synthetic.main.item_drawer_list_book.view.*
@@ -23,6 +23,7 @@ class MainListBookAdapter(data: List<Bookbean> = arrayListOf(), private val list
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val bean = getItem(position)
         holder.itemView.item_drawerList_txt.text = bean.name
+        holder.itemView.item_drawerList_txt.typeface = SettingConfig.configTextFace
         if (SettingConfig.bookSelected == position) {
             holder.itemView.item_drawerList_txt.setBackgroundResource(R.color.colorGray_select)
         } else {
@@ -33,7 +34,7 @@ class MainListBookAdapter(data: List<Bookbean> = arrayListOf(), private val list
                 SettingConfig.rememberBookSelect(position)
                 notifyDataSetChanged()
                 listener.onSelectBook(bean)
-            }else{
+            } else {
                 listener.closeDrawer()
             }
         }

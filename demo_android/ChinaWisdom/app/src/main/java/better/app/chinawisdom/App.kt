@@ -1,7 +1,6 @@
 package better.app.chinawisdom
 
 import android.app.Application
-import better.app.chinawisdom.config.SettingConfig
 import kotlin.properties.Delegates
 
 /**

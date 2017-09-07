@@ -3,6 +3,7 @@ package better.app.chinawisdom.widget
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Typeface
 import android.os.Handler
 import android.os.Message
 import android.util.AttributeSet
@@ -10,12 +11,11 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.Scroller
 import better.app.chinawisdom.R
-import better.app.chinawisdom.config.SettingConfig
-import better.app.chinawisdom.util.toastShort
+import better.app.chinawisdom.SettingConfig
+import better.app.chinawisdom.support.utils.toastShort
 import better.app.chinawisdom.widget.book.*
 import org.jetbrains.anko.async
 import org.jetbrains.anko.uiThread
-import kotlin.properties.Delegates
 
 /**
  * Created by better on 2017/8/21 11:28.
@@ -33,7 +33,7 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
 
     var currentPageBitmap: Bitmap? = null
     var nextPageBitmap: Bitmap? = null
-    private var currentPage: BookPage by Delegates.notNull()
+    private var currentPage: BookPage? = null
     private var nextPage: BookPage? = null
     // 获取时不重复调用分页
     private var getIng = false
@@ -92,8 +92,7 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
                 BookUtils.openAssetsBook(bookName, path)
                 currentPage = BookUtils.showOpenPage(helper)
                 uiThread {
-                    helper.drawPage(currentPage, currentPageBitmap)
-                    helper.drawPage(currentPage, nextPageBitmap)
+                    drawFirstSeeBitmap()
                     invalidate()
                 }
             }
@@ -110,7 +109,7 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
             toastShort(context.getString(R.string.str_readOver))
             return false
         }
-        if (null != nextPage && nextPage!!.begin == currentPage.end + 1) {
+        if (null != nextPage && nextPage!!.begin == currentPage!!.end + 1) {
             return true
         }
         if (getIng) {
@@ -119,7 +118,7 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
 
         getIng = true
         helper.drawPage(currentPage, currentPageBitmap)
-        BookUtils.nextPage(helper, currentPage) {
+        BookUtils.nextPage(helper, currentPage!!) {
             nextPage = it
             helper.drawPage(nextPage, nextPageBitmap)
             getIng = false
@@ -133,7 +132,7 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
             toastShort(context.getString(R.string.str_readFirst))
             return false
         }
-        if (null != nextPage && nextPage!!.end == currentPage.begin - 1) {
+        if (null != nextPage && nextPage!!.end == currentPage!!.begin - 1) {
             return true
         }
         if (getIng) {
@@ -142,7 +141,7 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
 
         getIng = true
         helper.drawPage(currentPage, currentPageBitmap)
-        BookUtils.prePage(helper, currentPage) {
+        BookUtils.prePage(helper, currentPage!!) {
             nextPage = it
             helper.drawPage(nextPage, nextPageBitmap)
             getIng = false
@@ -168,7 +167,7 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
     }
 
     fun saveBookInfo() {
-        SettingConfig.rememberBookChapterRead(BookUtils.bookName, currentPage.begin)
+        SettingConfig.rememberBookChapterRead(BookUtils.bookName, currentPage!!.begin)
     }
 
     fun setSlideAnimation(anim: BookAnimEnum) {
@@ -186,4 +185,19 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
         invalidate()
     }
 
+    fun setTextType(configTextType: Typeface) {
+        helper.setTextType(configTextType)
+        currentPage = if (null == currentPage) {
+            BookUtils.showOpenPage(helper)
+        } else {
+            BookUtils.currentPage(helper, currentPage!!.begin)
+        }
+        drawFirstSeeBitmap()
+        invalidate()
+    }
+
+    private fun drawFirstSeeBitmap() {
+        helper.drawPage(currentPage, currentPageBitmap)
+        helper.drawPage(currentPage, nextPageBitmap)
+    }
 }

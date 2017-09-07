@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import better.app.chinawisdom.R
-import better.app.chinawisdom.config.SettingConfig
+import better.app.chinawisdom.SettingConfig
 import better.app.chinawisdom.data.bean.BookInfoBean
-import better.app.chinawisdom.util.log
+import better.app.chinawisdom.support.utils.log
 import kotlinx.android.synthetic.main.item_chapter.view.*
 import kotlinx.android.synthetic.main.item_chapter_name.view.*
 
@@ -43,6 +43,7 @@ class MainListBookInfoAdapter(data: List<BookInfoBean> = arrayListOf(), private 
         val bean = list[position]
         if (holder is HolderChapter) {
             holder.itemView.item_chapter_txt.text = bean.chapter
+            holder.itemView.item_chapter_txt.typeface = SettingConfig.configTextFace
             if (SettingConfig.chapterSelected == position) {
                 holder.itemView.item_chapter_txt.setBackgroundResource(R.color.colorGray_select)
             } else {

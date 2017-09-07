@@ -5,7 +5,14 @@
         android:dialogTitle="@string/setting_slide"
         android:entries="@array/slide_name"
         android:entryValues="@array/slide_name_value"
-        android:key="setting_slide"
+        android:key="@string/key_setting_slide"
         android:summary="@string/setting_slide_sum"
         android:title="@string/setting_slide"/>
+    <ListPreference
+        android:dialogTitle="@string/setting_textType"
+        android:entries="@array/text_type_name"
+        android:entryValues="@array/text_type_name_value"
+        android:key="@string/key_setting_textType"
+        android:summary="@string/setting_textType_sum"
+        android:title="@string/setting_textType"/>
 </PreferenceScreen>

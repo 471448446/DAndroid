@@ -6,9 +6,9 @@ import better.app.chinawisdom.data.db.DbInitListener
 import better.app.chinawisdom.data.db.DbManager
 import better.app.chinawisdom.ui.base.BaseActivity
 import better.app.chinawisdom.ui.main.MainActivity
-import better.app.chinawisdom.util.ForWordUtils
-import better.app.chinawisdom.util.ViewUtils
-import better.app.chinawisdom.util.log
+import better.app.chinawisdom.support.utils.ForWordUtils
+import better.app.chinawisdom.support.utils.ViewUtils
+import better.app.chinawisdom.support.utils.log
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlin.properties.Delegates
 

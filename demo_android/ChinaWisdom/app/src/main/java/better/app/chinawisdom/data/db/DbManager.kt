@@ -1,13 +1,13 @@
 package better.app.chinawisdom.data.db
 
 import better.app.chinawisdom.App
-import better.app.chinawisdom.config.SettingConfig
+import better.app.chinawisdom.SettingConfig
 import better.app.chinawisdom.data.bean.BookInfoBean
-import better.app.chinawisdom.util.extenions.clear
-import better.app.chinawisdom.util.extenions.parseList
-import better.app.chinawisdom.util.extenions.toVarargArray
-import better.app.chinawisdom.util.SharePref
-import better.app.chinawisdom.util.log
+import better.app.chinawisdom.support.extenions.clear
+import better.app.chinawisdom.support.extenions.parseList
+import better.app.chinawisdom.support.extenions.toVarargArray
+import better.app.chinawisdom.support.utils.SharePref
+import better.app.chinawisdom.support.utils.log
 import org.jetbrains.anko.async
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select

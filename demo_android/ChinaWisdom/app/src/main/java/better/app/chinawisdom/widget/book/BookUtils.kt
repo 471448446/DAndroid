@@ -3,9 +3,9 @@ package better.app.chinawisdom.widget.book
 import android.graphics.Paint
 import android.text.TextUtils
 import better.app.chinawisdom.App
-import better.app.chinawisdom.config.SettingConfig
-import better.app.chinawisdom.util.extenions.notEmpty
-import better.app.chinawisdom.util.log
+import better.app.chinawisdom.SettingConfig
+import better.app.chinawisdom.support.extenions.notEmpty
+import better.app.chinawisdom.support.utils.log
 import better.app.chinawisdom.widget.ReadViewHelper
 import org.jetbrains.anko.async
 import org.jetbrains.anko.collections.forEachReversed
@@ -54,7 +54,6 @@ object BookUtils {
         }
         async {
             val page = prePage(helper, current)
-//            log("pre begin:${page.begin}")
             uiThread {
                 then(page)
             }
@@ -73,7 +72,9 @@ object BookUtils {
         }
     }
 
-    fun showOpenPage(helper: ReadViewHelper): BookPage = page(helper, begin = SettingConfig.getRememberBookChapterRead(bookName))
+    fun showOpenPage(helper: ReadViewHelper): BookPage = currentPage(helper, begin = SettingConfig.getRememberBookChapterRead(bookName))
+
+    fun currentPage(helper: ReadViewHelper,begin: Int): BookPage = page(helper, begin = begin)
 
     fun prePage(helper: ReadViewHelper, current: BookPage): BookPage = page(helper, end = current.begin - 1)
 

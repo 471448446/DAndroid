@@ -7,15 +7,16 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.View
 import better.app.chinawisdom.R
-import better.app.chinawisdom.config.SettingConfig
+import better.app.chinawisdom.SettingConfig
 import better.app.chinawisdom.data.bean.BookInfoBean
 import better.app.chinawisdom.data.bean.Bookbean
 import better.app.chinawisdom.data.db.DbManager
 import better.app.chinawisdom.support.common.RecycleViewGridDivider
+import better.app.chinawisdom.support.extenions.setTypeFace
+import better.app.chinawisdom.support.utils.ForWordUtils
 import better.app.chinawisdom.ui.ReadActivity
 import better.app.chinawisdom.ui.SettingActivity
 import better.app.chinawisdom.ui.base.BaseActivity
-import better.app.chinawisdom.util.ForWordUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.drawer.*
 import kotlinx.android.synthetic.main.tool_bar.*
@@ -30,6 +31,14 @@ class MainActivity : BaseActivity(), OnSelectBookListener, MainListBookInfoAdapt
         setContentView(R.layout.activity_main)
         initContent()
         initDrawer()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        appName.typeface = SettingConfig.configTextFace
+        drawer_list.adapter?.notifyDataSetChanged()
+        main_contentLay_list.adapter?.notifyDataSetChanged()
+        toolBar.setTypeFace(SettingConfig.configTextFace)
     }
 
     override fun onSelectBook(book: Bookbean) {

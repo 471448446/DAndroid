@@ -6,9 +6,27 @@
         <item>滑动</item>
         <item>覆盖</item>
     </string-array>
+
     <string-array name="slide_name_value">
         <item>0</item>
         <item>1</item>
         <item>2</item>
+    </string-array>
+
+    <string-array name="text_type_name">
+        <item>默认</item>
+        <item>楷体</item>
+        <item>宋体</item>
+        <item>兰亭</item>
+        <item>卡通</item>
+        <item>繁宋</item>
+    </string-array>
+    <string-array name="text_type_name_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 </resources>
