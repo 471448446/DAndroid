@@ -15,4 +15,11 @@
         android:key="@string/key_setting_textType"
         android:summary="@string/setting_textType_sum"
         android:title="@string/setting_textType"/>
+    <ListPreference
+        android:dialogTitle="@string/setting_textType"
+        android:entries="@array/text_bg_name"
+        android:entryValues="@array/text_bg_name_value"
+        android:key="@string/key_setting_bg"
+        android:summary="@string/setting_bg_sum"
+        android:title="@string/setting_bg"/>
 </PreferenceScreen>

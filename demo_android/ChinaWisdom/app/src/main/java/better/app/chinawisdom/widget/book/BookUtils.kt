@@ -61,7 +61,7 @@ object BookUtils {
     }
 
     fun nextPage(helper: ReadViewHelper, current: BookPage, then: (page: BookPage) -> Unit) {
-        if (BookUtils.isLastPage()) {
+        if (BookUtils.isLastPage(current)) {
             return
         }
         async {
@@ -74,26 +74,24 @@ object BookUtils {
 
     fun showOpenPage(helper: ReadViewHelper): BookPage = currentPage(helper, begin = SettingConfig.getRememberBookChapterRead(bookName))
 
-    fun currentPage(helper: ReadViewHelper,begin: Int): BookPage = page(helper, begin = begin)
+    fun currentPage(helper: ReadViewHelper, begin: Int): BookPage = page(helper, begin = begin)
 
-    fun prePage(helper: ReadViewHelper, current: BookPage): BookPage = page(helper, end = current.begin - 1)
+    private fun prePage(helper: ReadViewHelper, current: BookPage): BookPage = page(helper, end = current.begin - 1)
 
-    fun nextPage(helper: ReadViewHelper, current: BookPage): BookPage = page(helper, begin = current.end + 1)
-
-    fun isLastPage(): Boolean = positon == bookLength
+    private fun nextPage(helper: ReadViewHelper, current: BookPage): BookPage = page(helper, begin = current.end + 1)
 
     fun isLastPage(page: BookPage?): Boolean = page?.end == bookLength
     fun isFirstPage(page: BookPage?): Boolean = page?.begin == 0
 
     private fun page(helper: ReadViewHelper, begin: Int = -1, end: Int = -1): BookPage {
-        if (begin >= 0) {
+        return if (begin >= 0) {
             positon = begin
             val lines: List<String> = getNextPageLines(helper.paintTxt, helper.mVisibleWidth, helper.linesInPage)
-            return BookPage(begin, positon, lines)
+            BookPage(begin, positon, lines)
         } else {
             positon = end
             val lines: List<String> = getPrePageLines(helper.paintTxt, helper.mVisibleWidth, helper.linesInPage)
-            return BookPage(positon, end, lines)
+            BookPage(positon, end, lines)
         }
     }
 

@@ -9,6 +9,6 @@
     android:paddingLeft="@dimen/txt_size_30"
     android:paddingTop="@dimen/border_space_sec"
     android:textColor="@color/colorBlack"
-    android:textSize="@dimen/border_space_normal"
+    android:textSize="@dimen/txt_size_normal"
     tools:background="@drawable/selector_white_gray"
     tools:text="@string/app_name"/>

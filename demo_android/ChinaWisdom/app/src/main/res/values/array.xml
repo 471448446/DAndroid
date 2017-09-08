@@ -16,7 +16,7 @@
     <string-array name="text_type_name">
         <item>默认</item>
         <item>楷体</item>
-        <item>宋体</item>
+        <!--<item>宋体</item>-->
         <item>兰亭</item>
         <item>卡通</item>
         <item>繁宋</item>
@@ -27,6 +27,19 @@
         <item>2</item>
         <item>3</item>
         <item>4</item>
-        <item>5</item>
+    </string-array>
+    <string-array name="text_bg_name">
+        <item>背景一</item>
+        <item>背景二</item>
+        <item>背景三</item>
+        <item>背景四</item>
+        <item>背景五</item>
+    </string-array>
+    <string-array name="text_bg_name_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
     </string-array>
 </resources>

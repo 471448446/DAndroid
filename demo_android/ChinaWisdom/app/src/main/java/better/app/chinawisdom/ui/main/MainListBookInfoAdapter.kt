@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import better.app.chinawisdom.R
 import better.app.chinawisdom.SettingConfig
 import better.app.chinawisdom.data.bean.BookInfoBean
-import better.app.chinawisdom.support.utils.log
 import kotlinx.android.synthetic.main.item_chapter.view.*
-import kotlinx.android.synthetic.main.item_chapter_name.view.*
+import kotlinx.android.synthetic.main.item_chapter_title.view.*
 
 /**
  * Created by better on 2017/8/20 10:22.
@@ -27,7 +26,6 @@ class MainListBookInfoAdapter(data: List<BookInfoBean> = arrayListOf(), private 
     var list: List<BookInfoBean> = data
         set(value) {
             field = value
-            log("改变书本目录" + field)
             notifyDataSetChanged()
         }
 
@@ -42,26 +40,28 @@ class MainListBookInfoAdapter(data: List<BookInfoBean> = arrayListOf(), private 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val bean = list[position]
         if (holder is HolderChapter) {
-            holder.itemView.item_chapter_txt.text = bean.chapter
             holder.itemView.item_chapter_txt.typeface = SettingConfig.configTextFace
             if (SettingConfig.chapterSelected == position) {
                 holder.itemView.item_chapter_txt.setBackgroundResource(R.color.colorGray_select)
             } else {
-                holder.itemView.item_chapter_txt.setBackgroundResource(R.color.colorWhite)
+                holder.itemView.item_chapter_txt.setBackgroundResource(SettingConfig.configBgType.color)
             }
+            holder.itemView.item_chapter_txt.text = bean.chapter
+
             holder.itemView.setOnClickListener {
                 SettingConfig.rememberBookChapterSelect(position)
                 notifyDataSetChanged()
                 listener.onOpenBookChapter(bean)
             }
         } else {
+            holder.itemView.item_chapterName_txt.typeface = SettingConfig.configTextFace
             holder.itemView.item_chapterName_txt.text = bean.chapter
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
             if (CHAPTER == viewType) HolderChapter(LayoutInflater.from(parent.context).inflate(R.layout.item_chapter, parent, false))
-            else HolderChapterName(LayoutInflater.from(parent.context).inflate(R.layout.item_chapter_name, parent, false))
+            else HolderChapterName(LayoutInflater.from(parent.context).inflate(R.layout.item_chapter_title, parent, false))
 
     class HolderChapterName(view: View) : RecyclerView.ViewHolder(view)
 

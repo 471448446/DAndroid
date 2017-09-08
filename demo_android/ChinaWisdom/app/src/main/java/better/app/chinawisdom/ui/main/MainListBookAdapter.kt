@@ -27,7 +27,7 @@ class MainListBookAdapter(data: List<Bookbean> = arrayListOf(), private val list
         if (SettingConfig.bookSelected == position) {
             holder.itemView.item_drawerList_txt.setBackgroundResource(R.color.colorGray_select)
         } else {
-            holder.itemView.item_drawerList_txt.setBackgroundResource(R.color.colorWhite)
+            holder.itemView.item_drawerList_txt.setBackgroundResource(SettingConfig.configBgType.color)
         }
         holder.itemView.setOnClickListener {
             if (SettingConfig.bookSelected != position) {

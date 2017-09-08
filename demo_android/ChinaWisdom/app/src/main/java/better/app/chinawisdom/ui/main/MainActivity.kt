@@ -11,7 +11,6 @@ import better.app.chinawisdom.SettingConfig
 import better.app.chinawisdom.data.bean.BookInfoBean
 import better.app.chinawisdom.data.bean.Bookbean
 import better.app.chinawisdom.data.db.DbManager
-import better.app.chinawisdom.support.common.RecycleViewGridDivider
 import better.app.chinawisdom.support.extenions.setTypeFace
 import better.app.chinawisdom.support.utils.ForWordUtils
 import better.app.chinawisdom.ui.ReadActivity
@@ -38,6 +37,10 @@ class MainActivity : BaseActivity(), OnSelectBookListener, MainListBookInfoAdapt
         appName.typeface = SettingConfig.configTextFace
         drawer_list.adapter?.notifyDataSetChanged()
         main_contentLay_list.adapter?.notifyDataSetChanged()
+        drawer_list.setBackgroundColor(SettingConfig.configBgType.getColorRes())
+        main_contentLay_list.setBackgroundColor(SettingConfig.configBgType.getColorRes())
+//        main_contentLay_list.addItemDecoration(RecycleViewGridDivider(mActivity, R.drawable.divider_gray))
+
         toolBar.setTypeFace(SettingConfig.configTextFace)
     }
 
@@ -65,7 +68,6 @@ class MainActivity : BaseActivity(), OnSelectBookListener, MainListBookInfoAdapt
         mBookInfoAdapter = MainListBookInfoAdapter(listener = this)
         main_contentLay_list.layoutManager = LinearLayoutManager(this)
         main_contentLay_list.adapter = mBookInfoAdapter
-        main_contentLay_list.addItemDecoration(RecycleViewGridDivider(mActivity, R.drawable.divider_gray))
         onSelectBook(SettingConfig.books[SettingConfig.bookSelected])
     }
 

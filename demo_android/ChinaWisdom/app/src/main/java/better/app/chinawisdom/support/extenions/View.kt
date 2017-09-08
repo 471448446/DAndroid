@@ -1,5 +1,7 @@
 package better.app.chinawisdom.support.extenions
 
+import android.graphics.drawable.Drawable
+import android.os.Build
 import android.view.View
 
 /**
@@ -17,4 +19,12 @@ fun View.gone() {
 
 fun View.inVisable() {
     visibility = View.INVISIBLE
+}
+
+fun View.setItBackGroundDrawable(d: Drawable) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        background = d
+    } else {
+        setBackgroundDrawable(d)
+    }
 }

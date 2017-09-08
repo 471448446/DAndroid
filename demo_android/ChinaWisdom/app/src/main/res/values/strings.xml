@@ -11,6 +11,10 @@
     <string name="setting_slide_sum">图书翻页方式</string>
     <string name="setting_textType">字体</string>
     <string name="setting_textType_sum">应用字体</string>
+    <string name="setting_bg">背景颜色</string>
+    <string name="setting_bg_sum">修改文字背景颜色</string>
     <string name="key_setting_slide">setting_slide</string>
     <string name="key_setting_textType">setting_textType</string>
+    <string name="key_setting_bg">setting_bg</string>
+    <string name="str_opening">请稍后。。。</string>
 </resources>

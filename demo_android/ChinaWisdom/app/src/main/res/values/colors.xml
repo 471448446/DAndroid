@@ -15,8 +15,13 @@
     <!--bg-->
     <color name="colorLay">#FAFAFA</color>
     <color name="read_bg_default">#CEC29C</color>
+    <color name="read_bg_1">#CCEBCC</color>
+    <color name="read_bg_2">#D1CEC5</color>
+    <color name="read_bg_3">#F0F0F0</color>
+    <color name="read_bg_4">#e6e4cf</color>
     <!--line-->
     <color name="color_horizontalDivision">#e6e6e6</color>
+    <color name="color_horizontalDivision_gray">#c8c9b7</color>
 
 
 </resources>

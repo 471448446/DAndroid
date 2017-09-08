@@ -52,6 +52,14 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
         return false
     }
 
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        currentPageBitmap?.recycle()
+        nextPageBitmap?.recycle()
+        helper.destroy()
+        mScroller.abortAnimation()
+    }
+
     override fun onTouchEvent(event: MotionEvent): Boolean {
         bookAnimation.event(event)
         return true
@@ -91,8 +99,8 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
             async {
                 BookUtils.openAssetsBook(bookName, path)
                 currentPage = BookUtils.showOpenPage(helper)
+                drawFirstSeeBitmap()
                 uiThread {
-                    drawFirstSeeBitmap()
                     invalidate()
                 }
             }
@@ -182,22 +190,22 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
                 AnimationCover(this)
             }
         }
-        invalidate()
     }
 
     fun setTextType(configTextType: Typeface) {
         helper.setTextType(configTextType)
-        currentPage = if (null == currentPage) {
-            BookUtils.showOpenPage(helper)
-        } else {
-            BookUtils.currentPage(helper, currentPage!!.begin)
-        }
+        if (null == currentPage) return
+        currentPage = BookUtils.currentPage(helper, currentPage!!.begin)
         drawFirstSeeBitmap()
-        invalidate()
+    }
+
+    fun setBgColor(color: Int) {
+        helper.setCustomBgColor(color)
     }
 
     private fun drawFirstSeeBitmap() {
         helper.drawPage(currentPage, currentPageBitmap)
         helper.drawPage(currentPage, nextPageBitmap)
     }
+
 }

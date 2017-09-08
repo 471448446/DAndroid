@@ -60,6 +60,8 @@ class ReadActivity : BaseActivity() {
         super.onStart()
         read_readView.setSlideAnimation(SettingConfig.configBookAnimation)
         read_readView.setTextType(SettingConfig.configTextFace)
+        read_readView.setBgColor(SettingConfig.configBgType.getColorRes())
+        read_readView.postInvalidate()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
