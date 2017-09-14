@@ -1,2 +1,2 @@
 include ':modles:utils'
-include ':ATransitionDemp', ':AGlsurfaceview', ':Aview', ':AImagespans'
+include ':ATransitionDemp', ':AGlsurfaceview', ':View', ':AImagespans'

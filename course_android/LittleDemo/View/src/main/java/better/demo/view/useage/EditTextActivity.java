@@ -1,4 +1,4 @@
-package better.demo.view;
+package better.demo.view.useage;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,15 +8,16 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import better.demo.view.R;
 import better.utils.Utils;
 
-public class MainActivity extends AppCompatActivity {
+public class EditTextActivity extends AppCompatActivity {
     EditText mEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_edit_text_activity);
         mEditText = (EditText) findViewById(R.id.editText_search);
         mEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
