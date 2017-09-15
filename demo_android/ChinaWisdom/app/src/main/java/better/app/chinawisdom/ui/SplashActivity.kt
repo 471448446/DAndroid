@@ -4,18 +4,17 @@ import android.os.Bundle
 import better.app.chinawisdom.R
 import better.app.chinawisdom.data.db.DbInitListener
 import better.app.chinawisdom.data.db.DbManager
-import better.app.chinawisdom.ui.base.BaseActivity
-import better.app.chinawisdom.ui.main.MainActivity
 import better.app.chinawisdom.support.utils.ForWordUtils
 import better.app.chinawisdom.support.utils.ViewUtils
-import better.app.chinawisdom.support.utils.log
+import better.app.chinawisdom.ui.base.BaseActivity
+import better.app.chinawisdom.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlin.properties.Delegates
 
 class SplashActivity : BaseActivity() {
 
     val SPLASH_TIME = 1500
-    var startTime: Long by Delegates.notNull()
+    var startTime: Long = 0
     val mHandler = android.os.Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +29,6 @@ class SplashActivity : BaseActivity() {
 
             override fun initOk() {
                 val time = System.currentTimeMillis() - startTime
-                log("___$time")
                 if (time >= SPLASH_TIME) {
                     toMain()
                 } else {

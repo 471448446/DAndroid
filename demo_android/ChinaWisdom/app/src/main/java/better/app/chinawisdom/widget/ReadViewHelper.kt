@@ -120,7 +120,11 @@ class ReadViewHelper(private val readView: ReadView) : IBookViewInit {
         val rect = Rect()
         val progress = "${del.toFloat()}%"
         paintProgress.getTextBounds(progress, 0, progress.length, rect)
-        canvas.drawText(progress, mVisibleWidth - rect.width(), readView.height - rect.height().toFloat(), paintProgress)
+        canvas.drawText(progress, mVisibleWidth - rect.width(), readView.height - rect.height().toFloat() / 2, paintProgress)
+    }
+
+    fun destroy() {
+        bgBitmap?.recycle()
     }
 
     fun setTextType(configTextType: Typeface) {
@@ -129,11 +133,11 @@ class ReadViewHelper(private val readView: ReadView) : IBookViewInit {
         paintTxt.typeface = textType
         paintProgress.typeface = textType
         measureTxt()
-
     }
 
-    fun destroy() {
-        bgBitmap?.recycle()
+    fun setTextSize(size: Float) {
+        paintTxt.textSize = ViewUtils.dip2px(size)
+        measureTxt()
     }
 
 //    private fun separateParagraphToLines(paragraphStr: String): List<String> {

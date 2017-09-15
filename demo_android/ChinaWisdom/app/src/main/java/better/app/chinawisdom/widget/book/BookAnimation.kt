@@ -142,5 +142,4 @@ abstract class BookAnimation(val readView: ReadView) : IBookViewInit {
         }
     }
 
-
 }

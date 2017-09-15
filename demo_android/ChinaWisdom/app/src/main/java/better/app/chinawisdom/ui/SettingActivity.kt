@@ -32,28 +32,11 @@ class SettingActivity : BaseActivity() {
         private var pListSlide: ListPreference by Delegates.notNull()
         private var pListTextType: ListPreference by Delegates.notNull()
         private var pListBg: ListPreference by Delegates.notNull()
+        private var pListTextSize: ListPreference by Delegates.notNull()
 
-        override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
-            if (null == preference || newValue == null) return true
-            // true 之后才在保存
-            PreferenceManager.getDefaultSharedPreferences(App.instance).put(preference.key, newValue)
-            SettingConfig.recoverFromSetting()
-            when (preference.key) {
-                getString(R.string.key_setting_textType) -> setFaceInfo()
-                getString(R.string.key_setting_bg) -> setBgInfo()
-            }
-
-            return true
-        }
-
-        private fun setFaceInfo() {
-            bar.setTypeFace(SettingConfig.configTextFace)
-            CustomTypefaceSpan.convertPreferenceToUseCustomFont(pListSlide, SettingConfig.configTextFace)
-            CustomTypefaceSpan.convertPreferenceToUseCustomFont(pListTextType, SettingConfig.configTextFace)
-        }
-
-        private fun setBgInfo() {
-            view.setBackgroundResource(SettingConfig.configBgType.color)
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            addPreferencesFromResource(R.xml.xml_setting)
         }
 
         override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -61,6 +44,8 @@ class SettingActivity : BaseActivity() {
             pListSlide = findPreference(getString(R.string.key_setting_slide)) as ListPreference
             pListTextType = findPreference(getString(R.string.key_setting_textType)) as ListPreference
             pListBg = findPreference(getString(R.string.key_setting_bg)) as ListPreference
+            pListTextSize = findPreference(getString(R.string.key_setting_textSize)) as ListPreference
+
             if (null == pListSlide.value) {
                 pListSlide.setValueIndex(SettingConfig.configBookAnimation.id)
             }
@@ -70,19 +55,43 @@ class SettingActivity : BaseActivity() {
             if (null == pListBg.value) {
                 pListBg.setValueIndex(SettingConfig.configBgType.ordinal)
             }
+            if (null == pListTextSize.value) {
+                pListTextSize.setValueIndex(SettingConfig.configTextSize.ordinal)
+            }
 
-            setFaceInfo()
+            setTextFaceInfo()
             setBgInfo()
 
             pListSlide.onPreferenceChangeListener = this
             pListTextType.onPreferenceChangeListener = this
             pListBg.onPreferenceChangeListener = this
+            pListTextSize.onPreferenceChangeListener = this
         }
 
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            addPreferencesFromResource(R.xml.xml_setting)
+        override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
+            if (null == preference || newValue == null) return true
+            // true 之后才在保存
+            PreferenceManager.getDefaultSharedPreferences(App.instance).put(preference.key, newValue)
+            SettingConfig.recoverFromSetting()
+            when (preference.key) {
+                getString(R.string.key_setting_textType) -> setTextFaceInfo()
+                getString(R.string.key_setting_bg) -> setBgInfo()
+            }
+
+            return true
         }
+
+        private fun setTextFaceInfo() {
+            bar.setTypeFace(SettingConfig.configTextFace)
+            CustomTypefaceSpan.convertPreferenceToUseCustomFont(SettingConfig.configTextFace,
+                    findPreference(getString(R.string.key_setting_cateApp)), pListTextType, pListBg,
+                    findPreference(getString(R.string.key_setting_cateRead)), pListSlide, pListTextSize)
+        }
+
+        private fun setBgInfo() {
+            view.setBackgroundResource(SettingConfig.configBgType.color)
+        }
+
     }
 
 }

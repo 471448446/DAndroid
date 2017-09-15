@@ -44,7 +44,7 @@ class ReadActivity : BaseActivity() {
         if (null != intent && null != intent.extras) {
             val name = intent.extras.getString(Intent.EXTRA_ALARM_COUNT)
             supportActionBar?.title = name
-            read_readView.showBook(name, intent.extras.getString(Intent.EXTRA_KEY_EVENT))
+            read_readView.openBook(name, intent.extras.getString(Intent.EXTRA_KEY_EVENT))
         }
         toolBar.setOnMenuItemClickListener {
             if (it.itemId == R.id.menu_setting) {
@@ -53,7 +53,7 @@ class ReadActivity : BaseActivity() {
             true
         }
 
-//        read_readView.showBook("第九卷　　　　　【汉纪一】", "book/baihuazizhitongjian/9_zizhitongjianbaihuaban_资治通鉴第九卷.txt")
+//        read_readView.openBook("第九卷　　　　　【汉纪一】", "book/baihuazizhitongjian/9_zizhitongjianbaihuaban_资治通鉴第九卷.txt")
     }
 
     override fun onStart() {
@@ -61,7 +61,8 @@ class ReadActivity : BaseActivity() {
         read_readView.setSlideAnimation(SettingConfig.configBookAnimation)
         read_readView.setTextType(SettingConfig.configTextFace)
         read_readView.setBgColor(SettingConfig.configBgType.getColorRes())
-        read_readView.postInvalidate()
+        read_readView.setTextSize(SettingConfig.configTextSize.testSize)
+        read_readView.validateFeature()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

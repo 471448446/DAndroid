@@ -1,4 +1,4 @@
-package better.app.chinawisdom.support.config
+package better.app.chinawisdom.support.constant
 
 import android.graphics.Typeface
 import better.app.chinawisdom.App
@@ -16,7 +16,7 @@ enum class TextTypeEnum(val id: Int, private val path: String) {
     Chinese_Traditional(4, "font/Chinese_Traditional.ttf");
 
     companion object {
-        fun parseType(type: Int): TextTypeEnum = when (type) {
+        fun parse(type: Int): TextTypeEnum = when (type) {
             1 -> Italics
             2 -> Lanting
             3 -> Cartoon

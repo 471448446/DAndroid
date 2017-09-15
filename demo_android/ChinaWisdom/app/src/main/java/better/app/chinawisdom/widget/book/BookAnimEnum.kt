@@ -8,7 +8,7 @@ enum class BookAnimEnum(val id: Int) {
     NONE(0), SLIDE(1), COVER(2);
 
     companion object {
-        fun parseAnimation(i: Int) =
+        fun parse(i: Int) =
                 when (i) {
                     0 -> NONE
                     1 -> SLIDE

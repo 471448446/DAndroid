@@ -3,8 +3,9 @@ package better.app.chinawisdom
 import android.preference.PreferenceManager
 import android.text.TextUtils
 import better.app.chinawisdom.data.bean.Bookbean
-import better.app.chinawisdom.support.config.ColorBgEnum
-import better.app.chinawisdom.support.config.TextTypeEnum
+import better.app.chinawisdom.support.constant.ColorBgEnum
+import better.app.chinawisdom.support.constant.TextSizeEnum
+import better.app.chinawisdom.support.constant.TextTypeEnum
 import better.app.chinawisdom.support.utils.SharePref
 import better.app.chinawisdom.widget.book.BookAnimEnum
 
@@ -12,7 +13,6 @@ import better.app.chinawisdom.widget.book.BookAnimEnum
  * Created by better on 2017/8/17 11:43.
  */
 object SettingConfig {
-    var isLog = true
     val books: ArrayList<Bookbean> = arrayListOf(
             Bookbean("论语", "lunyu"),
             Bookbean("易经", "yijing"),
@@ -59,12 +59,14 @@ object SettingConfig {
             Bookbean("中国寓言", "zhongguoyuyan"),
             Bookbean("资治通鉴文白对照", "baihuazizhitongjian")
     )
+    var isLog = true
     var bookSelected = 0
     var chapterSelected = 0
     var configTextType = TextTypeEnum.Italics
-    var configBookAnimation = BookAnimEnum.COVER
     var configTextFace = configTextType.createTypeFace()
+    var configBookAnimation = BookAnimEnum.COVER
     var configBgType = ColorBgEnum.BG0
+    var configTextSize = TextSizeEnum.Normal
 
     fun init() {
         isLog = true
@@ -74,9 +76,10 @@ object SettingConfig {
     }
 
     fun recoverFromSetting() {
-        configBookAnimation = BookAnimEnum.parseAnimation(PreferenceManager.getDefaultSharedPreferences(App.instance).getString(App.instance.getString(R.string.key_setting_slide), configBookAnimation.id.toString()).toInt())
-        configBgType = ColorBgEnum.parseType(PreferenceManager.getDefaultSharedPreferences(App.instance).getString(App.instance.getString(R.string.key_setting_bg), configBgType.ordinal.toString()).toInt())
-        configTextType = TextTypeEnum.parseType(PreferenceManager.getDefaultSharedPreferences(App.instance).getString(App.instance.getString(R.string.key_setting_textType), configTextType.id.toString()).toInt())
+        configBookAnimation = BookAnimEnum.parse(PreferenceManager.getDefaultSharedPreferences(App.instance).getString(App.instance.getString(R.string.key_setting_slide), configBookAnimation.id.toString()).toInt())
+        configBgType = ColorBgEnum.parse(PreferenceManager.getDefaultSharedPreferences(App.instance).getString(App.instance.getString(R.string.key_setting_bg), configBgType.ordinal.toString()).toInt())
+        configTextType = TextTypeEnum.parse(PreferenceManager.getDefaultSharedPreferences(App.instance).getString(App.instance.getString(R.string.key_setting_textType), configTextType.id.toString()).toInt())
+        configTextSize = TextSizeEnum.parse(PreferenceManager.getDefaultSharedPreferences(App.instance).getString(App.instance.getString(R.string.key_setting_textSize), configTextSize.ordinal.toString()).toInt())
         configTextFace = configTextType.createTypeFace()
     }
 

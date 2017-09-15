@@ -45,7 +45,7 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
         when (msg.what) {
             MSG_SHOW_PAGE -> {
                 val info: List<String> = msg.obj as List<String>
-                showBook(info[0], info[1])
+                openBook(info[0], info[1])
 
             }
         }
@@ -94,7 +94,7 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
         }
     }
 
-    fun showBook(bookName: String, path: String) {
+    fun openBook(bookName: String, path: String) {
         if (helper.isInit) {
             async {
                 BookUtils.openAssetsBook(bookName, path)
@@ -194,13 +194,21 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
 
     fun setTextType(configTextType: Typeface) {
         helper.setTextType(configTextType)
-        if (null == currentPage) return
-        currentPage = BookUtils.currentPage(helper, currentPage!!.begin)
-        drawFirstSeeBitmap()
+    }
+
+    fun setTextSize(testSize: Float) {
+        helper.setTextSize(testSize)
     }
 
     fun setBgColor(color: Int) {
         helper.setCustomBgColor(color)
+    }
+
+    fun validateFeature() {
+        if (null == currentPage) return
+        currentPage = BookUtils.currentPage(helper, currentPage!!.begin)
+        drawFirstSeeBitmap()
+        invalidate()
     }
 
     private fun drawFirstSeeBitmap() {

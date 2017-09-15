@@ -1,4 +1,4 @@
-package better.app.chinawisdom.support.config
+package better.app.chinawisdom.support.constant
 
 import android.support.v4.content.ContextCompat
 import better.app.chinawisdom.App
@@ -13,7 +13,7 @@ enum class ColorBgEnum(val color: Int) {
     BG4(R.color.read_bg_4);
 
     companion object {
-        fun parseType(type: Int): ColorBgEnum = when (type) {
+        fun parse(type: Int): ColorBgEnum = when (type) {
             1 -> BG1
             2 -> BG2
             3 -> BG3

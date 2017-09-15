@@ -42,4 +42,18 @@
         <item>3</item>
         <item>4</item>
     </string-array>
+    <string-array name="text_size_name">
+        <item>小号</item>
+        <item>中号</item>
+        <item>大号</item>
+        <item>超大</item>
+        <item>巨大</item>
+    </string-array>
+    <string-array name="text_size_name_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
 </resources>

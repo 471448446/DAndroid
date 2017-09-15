@@ -1,25 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListPreference
-        android:dialogTitle="@string/setting_slide"
-        android:entries="@array/slide_name"
-        android:entryValues="@array/slide_name_value"
-        android:key="@string/key_setting_slide"
-        android:summary="@string/setting_slide_sum"
-        android:title="@string/setting_slide"/>
-    <ListPreference
-        android:dialogTitle="@string/setting_textType"
-        android:entries="@array/text_type_name"
-        android:entryValues="@array/text_type_name_value"
-        android:key="@string/key_setting_textType"
-        android:summary="@string/setting_textType_sum"
-        android:title="@string/setting_textType"/>
-    <ListPreference
-        android:dialogTitle="@string/setting_textType"
-        android:entries="@array/text_bg_name"
-        android:entryValues="@array/text_bg_name_value"
-        android:key="@string/key_setting_bg"
-        android:summary="@string/setting_bg_sum"
-        android:title="@string/setting_bg"/>
+    <PreferenceCategory
+        android:key="@string/key_setting_cateApp"
+        android:title="@string/setting_cate_app">
+        <ListPreference
+            android:dialogTitle="@string/setting_textType"
+            android:entries="@array/text_type_name"
+            android:entryValues="@array/text_type_name_value"
+            android:key="@string/key_setting_textType"
+            android:summary="@string/setting_textType_sum"
+            android:title="@string/setting_textType"/>
+        <ListPreference
+            android:dialogTitle="@string/setting_textType"
+            android:entries="@array/text_bg_name"
+            android:entryValues="@array/text_bg_name_value"
+            android:key="@string/key_setting_bg"
+            android:summary="@string/setting_bg_sum"
+            android:title="@string/setting_bg"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="@string/key_setting_cateRead"
+        android:title="@string/setting_cate_read">
+
+        <ListPreference
+            android:dialogTitle="@string/setting_slide"
+            android:entries="@array/slide_name"
+            android:entryValues="@array/slide_name_value"
+            android:key="@string/key_setting_slide"
+            android:summary="@string/setting_slide_sum"
+            android:title="@string/setting_slide"/>
+
+        <ListPreference
+            android:dialogTitle="@string/setting_textSize"
+            android:entries="@array/text_size_name"
+            android:entryValues="@array/text_size_name_value"
+            android:key="@string/key_setting_textSize"
+            android:summary="@string/setting_textSize_sum"
+            android:title="@string/setting_textSize"/>
+    </PreferenceCategory>
+
 </PreferenceScreen>

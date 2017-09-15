@@ -12,6 +12,12 @@ import android.text.style.TypefaceSpan
  */
 class CustomTypefaceSpan(/*private val customFamily: String,*/ private val face: Typeface) : TypefaceSpan("") {
     companion object {
+        fun convertPreferenceToUseCustomFont(tf: Typeface, vararg pres: Preference) {
+            pres.forEach {
+                convertPreferenceToUseCustomFont(it, tf)
+            }
+        }
+
         fun convertPreferenceToUseCustomFont(pre: Preference, tf: Typeface) {
             val custom = CustomTypefaceSpan(tf)
             var ss: SpannableStringBuilder
