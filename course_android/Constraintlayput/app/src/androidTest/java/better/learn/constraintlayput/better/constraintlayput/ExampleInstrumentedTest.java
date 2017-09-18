@@ -1,4 +1,4 @@
-package better.constraintlayput;
+package better.learn.constraintlayput.better.constraintlayput;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("better.constraintlayput", appContext.getPackageName());
+        assertEquals("better.learn.constraintlayput.better.constraintlayput", appContext.getPackageName());
     }
 }

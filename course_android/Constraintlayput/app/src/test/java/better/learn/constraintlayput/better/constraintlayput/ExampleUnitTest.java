@@ -1,4 +1,4 @@
-package better.constraintlayput;
+package better.learn.constraintlayput.better.constraintlayput;
 
 import org.junit.Test;
 

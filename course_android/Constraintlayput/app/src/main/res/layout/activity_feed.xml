@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#11ff0000"
+    tools:context="better.learn.constraintlayput.FeedActivity">
+
+    <TextView
+        android:id="@+id/item_feed_banner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#765"
+        android:gravity="center"
+        android:text="banner:app:layout_constraintDimensionRatio"
+        app:layout_constraintDimensionRatio="H,16:6"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/item_feed_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorAccent"
+        android:minHeight="100dp"
+        android:minWidth="100dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_feed_banner"/>
+
+    <TextView
+        android:id="@+id/item_feed_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/app_name"
+        app:layout_constraintLeft_toRightOf="@+id/item_feed_img"
+        app:layout_constraintTop_toBottomOf="@+id/item_feed_banner"/>
+
+    <TextView
+        android:id="@+id/item_feed_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxEms="5"
+        android:maxLines="3"
+        android:paddingRight="15dp"
+        android:text="举个小例子，有不少同学在Activity里做了很多事，甚至做了DAO、网络操作、数据解析，这不是很合理的，导致一个UI和逻辑之间的‘门面’挂载了过多的伤不起的‘难以承受之重’，阅读困难，逻辑庞大。（建议模块和代码遵循MVC模式，建议View视图、控制相关（内存管理、核心逻辑），数据相关（文件操作、数据库操作、网络操作、数据组装与解析、数据模型）各分一个相对独立大、小模块，模块内分层级架构（积极合理使用继承与实现等面向对象机制））"
+        app:layout_constraintBaseline_toBaselineOf="@+id/item_feed_img"
+        app:layout_constraintLeft_toRightOf="@+id/item_feed_img"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="15dp"
+        android:text="8分钟前"
+        app:layout_constraintBottom_toBottomOf="@+id/item_feed_img"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_feed_content"/>
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="我是浮动按钮"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_h"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8"/>
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_w"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我是悬浮按钮"
+        app:layout_constraintLeft_toLeftOf="@id/guideline_w"
+        app:layout_constraintTop_toBottomOf="@id/guideline_h"/>
+
+    <TextView
+        android:id="@+id/tab1"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="#f67"
+        android:gravity="center"
+        android:text="Tab1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tab2"/>
+
+
+    <TextView
+        android:id="@+id/tab2"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="#A67"
+        android:gravity="center"
+        android:text="Tab2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintLeft_toRightOf="@id/tab1"
+        app:layout_constraintRight_toLeftOf="@+id/tab3"/>
+
+
+    <TextView
+        android:id="@+id/tab3"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="#767"
+        android:gravity="center"
+        android:text="Tab3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tab2"
+        app:layout_constraintRight_toRightOf="parent"/>
+</android.support.constraint.ConstraintLayout>
