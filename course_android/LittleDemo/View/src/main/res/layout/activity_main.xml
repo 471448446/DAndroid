@@ -9,11 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="better.demo.view.MainActivity">
+        tools:context="better.learn.view.view.better.learn.view.MainActivity">
 
 
         <Button
-            android:id="@+id/editText_search"
+            android:id="@+id/main_btn_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClick"
@@ -25,7 +25,15 @@
             android:background="@color/colorPrimary"/>
 
         <Button
-            android:id="@+id/editText_bezier"
+            android:id="@+id/main_btn_canvas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="Canvas"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/custom_btn_bezier"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClick"

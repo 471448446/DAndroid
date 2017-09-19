@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="better.demo.view">
+          package="better.learn.view">
 
     <application
         android:allowBackup="true"
@@ -8,28 +8,47 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN"/>
-
-
-             <category android:name="android.intent.category.LAUNCHER"/>
-             </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".useage.EditTextActivity">
         </activity>
-        <activity android:name=".custom.CustomViewActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
+        <activity android:name=".custom.bezier.BezierActivity">
 
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN"/> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+            <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".custom.BezierTwoOrderActivity">
+        <activity android:name=".custom.bezier.BezierTwoOrderActivity">
         </activity>
-        <activity android:name=".custom.BezierThreeOrderActivity">
+        <activity android:name=".custom.bezier.BezierThreeOrderActivity">
         </activity>
-        <activity android:name=".custom.BezierHeartActivity">
+        <activity android:name=".custom.bezier.BezierHeartActivity">
+        </activity>
+        <activity android:name=".custom.canvas.CanvasActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN"/> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".custom.canvas.GraphicsBasicActivity">
+        </activity>
+        <activity android:name=".custom.canvas.TranslateActivity">
+        </activity>
+        <activity android:name=".custom.canvas.ScaleActivity">
+        </activity>
+        <activity android:name=".custom.canvas.RotateActivity">
+        </activity>
+        <activity android:name=".custom.canvas.SkewActivity">
         </activity>
     </application>
 

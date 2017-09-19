@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="better.demo.view.custom.BezierTwoOrderActivity">
+    tools:context="better.learn.view.custom.bezier.BezierTwoOrderActivity">
 
-    <better.demo.view.custom.bezier.BezierTwoView
+    <better.learn.view.custom.bezier.view.BezierTwoView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

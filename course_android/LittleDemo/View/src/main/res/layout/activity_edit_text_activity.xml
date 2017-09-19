@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="better.demo.view.useage.EditTextActivity">
+    tools:context="better.learn.view.useage.EditTextActivity">
 
     <EditText
         android:id="@+id/editText_search"
