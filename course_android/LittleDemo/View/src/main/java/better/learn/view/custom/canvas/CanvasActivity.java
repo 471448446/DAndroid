@@ -34,6 +34,9 @@ public class CanvasActivity extends BaseActivity {
             case R.id.canvas_btn_graphicsBasic:
                 ForWordUtil.to(this, GraphicsBasicActivity.class);
                 break;
+            case R.id.canvas_btn_Bitmap:
+                ForWordUtil.to(this, BitmapActivity.class);
+                break;
         }
     }
 }

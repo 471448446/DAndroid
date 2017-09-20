@@ -50,6 +50,8 @@
         </activity>
         <activity android:name=".custom.canvas.SkewActivity">
         </activity>
+        <activity android:name=".custom.canvas.BitmapActivity">
+        </activity>
     </application>
 
 </manifest>
