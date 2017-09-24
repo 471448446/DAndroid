@@ -32,12 +32,5 @@
             android:text="Canvas"
             android:textAllCaps="false"/>
 
-        <Button
-            android:id="@+id/custom_btn_bezier"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:text="Bezier"/>
-
     </LinearLayout>
 </ScrollView>

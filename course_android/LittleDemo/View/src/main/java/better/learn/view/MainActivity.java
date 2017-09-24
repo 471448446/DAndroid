@@ -3,7 +3,6 @@ package better.learn.view;
 import android.os.Bundle;
 import android.view.View;
 
-import better.learn.view.custom.bezier.BezierActivity;
 import better.learn.view.custom.canvas.CanvasActivity;
 import better.learn.view.useage.EditTextActivity;
 import better.library.base.ui.BaseActivity;
@@ -26,9 +25,7 @@ public class MainActivity extends BaseActivity {
             case R.id.main_btn_canvas:
                 ForWordUtil.to(this, CanvasActivity.class);
                 break;
-            case R.id.custom_btn_bezier:
-                ForWordUtil.to(this, BezierActivity.class);
-                break;
+
         }
     }
 }

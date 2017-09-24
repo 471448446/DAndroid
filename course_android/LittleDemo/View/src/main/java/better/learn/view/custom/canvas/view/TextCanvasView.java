@@ -28,24 +28,24 @@ import better.learn.view.custom.ICustomView;
  * Created by better on 2017/9/21 10:34.
  */
 
-public class TextView extends View implements ICustomView {
+public class TextCanvasView extends View implements ICustomView {
     public static final String TEXT = "简单绘制文字";
     Paint mPaint = new Paint();
 
     float[] pos;
     Path mPath = new Path();
 
-    public TextView(Context context) {
+    public TextCanvasView(Context context) {
         super(context);
         init();
     }
 
-    public TextView(Context context, @Nullable AttributeSet attrs) {
+    public TextCanvasView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public TextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public TextCanvasView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
 

@@ -54,6 +54,12 @@
         </activity>
         <activity android:name=".custom.canvas.TextActivity">
         </activity>
+        <activity android:name=".custom.canvas.PathActivity">
+        </activity>
+        <activity android:name=".custom.canvas.PathGraphicsActivity">
+        </activity>
+        <activity android:name=".custom.canvas.demo.SpiderActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -40,6 +40,9 @@ public class CanvasActivity extends BaseActivity {
             case R.id.canvas_btn_Text:
                 ForWordUtil.to(this, TextActivity.class);
                 break;
+            case R.id.canvas_btn_Path:
+                ForWordUtil.to(this, PathActivity.class);
+                break;
         }
     }
 }
