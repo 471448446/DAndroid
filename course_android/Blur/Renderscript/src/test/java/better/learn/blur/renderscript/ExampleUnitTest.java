@@ -1,4 +1,4 @@
-package better.learn.blur;
+package better.learn.blur.renderscript;
 
 import org.junit.Test;
 

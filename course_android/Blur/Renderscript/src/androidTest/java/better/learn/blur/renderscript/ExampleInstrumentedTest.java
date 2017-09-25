@@ -1,4 +1,4 @@
-package better.learn.blur;
+package better.learn.blur.renderscript;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
