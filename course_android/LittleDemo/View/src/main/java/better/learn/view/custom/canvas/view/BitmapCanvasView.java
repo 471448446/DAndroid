@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Toast;
 
 import better.learn.view.R;
 import better.learn.view.custom.ICustomView;
@@ -93,7 +94,11 @@ public class BitmapCanvasView extends View implements ICustomView {
         canvas.drawBitmap(resBitmap, mMatrix, mPaint);
 
         //1
-        mPicture1.draw(canvas);
+        try {
+            mPicture1.draw(canvas);
+        } catch (IllegalArgumentException e) {
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
         //2
         canvas.drawPicture(mPicture2);
         //3

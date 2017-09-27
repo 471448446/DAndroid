@@ -60,6 +60,8 @@
         </activity>
         <activity android:name=".custom.canvas.demo.SpiderActivity">
         </activity>
+        <activity android:name=".custom.canvas.ClipPathActivity">
+        </activity>
     </application>
 
 </manifest>

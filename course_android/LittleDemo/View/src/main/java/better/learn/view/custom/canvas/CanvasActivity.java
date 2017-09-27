@@ -7,6 +7,14 @@ import better.learn.view.R;
 import better.library.base.ui.BaseActivity;
 import better.library.utils.ForWordUtil;
 
+/**
+ * Canvas常用方法：
+ * 1、基础的操作transLate，scale，rotate。skew
+ * 2、drawXXX等绘制方法，画基本形状，画图片，画文字
+ * 3、clipXXX等裁剪方法，
+ * 4、还有就是saveXX和restoreXX
+ * Create By better on 2017/9/25 15:40.
+ */
 public class CanvasActivity extends BaseActivity {
 
     @Override
@@ -42,6 +50,9 @@ public class CanvasActivity extends BaseActivity {
                 break;
             case R.id.canvas_btn_Path:
                 ForWordUtil.to(this, PathActivity.class);
+                break;
+            case R.id.canvas_btn_PathClip:
+                ForWordUtil.to(this, ClipPathActivity.class);
                 break;
         }
     }
