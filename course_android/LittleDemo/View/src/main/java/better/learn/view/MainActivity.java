@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import better.learn.view.custom.canvas.CanvasActivity;
+import better.learn.view.custom.matrix.MatrixActivity;
 import better.learn.view.useage.EditTextActivity;
 import better.library.base.ui.BaseActivity;
 import better.library.utils.ForWordUtil;
@@ -24,6 +25,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.main_btn_canvas:
                 ForWordUtil.to(this, CanvasActivity.class);
+                break;
+            case R.id.main_btn_matrix:
+                ForWordUtil.to(this, MatrixActivity.class);
                 break;
 
         }
