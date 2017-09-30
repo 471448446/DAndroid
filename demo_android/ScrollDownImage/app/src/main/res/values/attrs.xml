@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ScrollDownInfluencesTopFirstView">
+        <attr name="miniProportion" format="float"/>
+        <attr name="maxProportion" format="float"/>
+        <attr name="bottomMarginTop" format="dimension"/>
+    </declare-styleable>
+</resources>
