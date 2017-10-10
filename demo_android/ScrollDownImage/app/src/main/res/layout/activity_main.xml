@@ -28,7 +28,6 @@
         android:id="@+id/main_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/main_top"
         android:background="@android:color/transparent">
 
         <RelativeLayout
@@ -68,10 +67,25 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:src="@drawable/exception"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/user"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="10dp"
+            android:text="@string/app_name"/>
+
+        <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:text="@string/app_name"/>-->
 
     </RelativeLayout>
 

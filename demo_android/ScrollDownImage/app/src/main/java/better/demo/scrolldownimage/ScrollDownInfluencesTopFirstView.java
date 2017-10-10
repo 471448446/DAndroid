@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.os.Build;
 import android.widget.Scroller;
 
 /**
@@ -17,7 +19,9 @@ import android.widget.Scroller;
  * Created by better on 2017/9/29 13:46.
  */
 
-public class ScrollDownInfluencesTopFirstView extends ViewGroup {
+public class ScrollDownInfluencesTopFirstView extends ViewGroup implements ViewTreeObserver.OnGlobalLayoutListener {
+
+
     public interface OnScrollTopListener {
         boolean isScrolledToTop();
     }
@@ -26,6 +30,7 @@ public class ScrollDownInfluencesTopFirstView extends ViewGroup {
     private float downY, actionY;
     private Scroller mScroller;
     private int currentTopH;
+    private boolean hasInit;
 
     private float mMiniProportion = 0.5f, mMaxProportion = 1f;
     private int mBottomMarginTop;
@@ -59,6 +64,19 @@ public class ScrollDownInfluencesTopFirstView extends ViewGroup {
             mBottomMarginTop = array.getDimensionPixelSize(R.styleable.ScrollDownInfluencesTopFirstView_bottomMarginTop, mBottomMarginTop);
             array.recycle();
         }
+        getViewTreeObserver().addOnGlobalLayoutListener(this);
+
+    }
+
+    @Override
+    public void onGlobalLayout() {
+        //作为Fragment的时候，需要再次布局？
+        if (hasInit) return;
+        hasInit = true;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        }
+        requestLayout();
     }
 
     @Override
