@@ -10,6 +10,10 @@ import better.app.chinawisdom.widget.ReadView
  * Created by better on 2017/9/4 14:51.
  */
 abstract class BookAnimation(val readView: ReadView) : IBookViewInit {
+
+    var widthView = 0f
+    var heightView = 0f
+
     var downX = 0f
     var downY = 0f
     var moveX = 0f
@@ -37,6 +41,15 @@ abstract class BookAnimation(val readView: ReadView) : IBookViewInit {
     abstract fun startScrollAnim(scroller: Scroller)
 
     override fun viewInitOk() {
+        widthView = readView.width.toFloat()
+        heightView = readView.height.toFloat()
+    }
+
+    open fun setDirect(isNext: Boolean) {
+        next = isNext
+    }
+
+    open fun onFingerDown() {
 
     }
 
@@ -60,9 +73,9 @@ abstract class BookAnimation(val readView: ReadView) : IBookViewInit {
     }
 
     private fun abortAnimation() {
-        if (!readView.mScroller.isFinished) {
-            readView.mScroller.abortAnimation()
-            setActionXY(readView.mScroller.finalX, readView.mScroller.finalY)
+        if (!readView.scroller.isFinished) {
+            readView.scroller.abortAnimation()
+            setActionXY(readView.scroller.finalX, readView.scroller.finalY)
             readView.postInvalidate()
         }
     }
@@ -83,6 +96,7 @@ abstract class BookAnimation(val readView: ReadView) : IBookViewInit {
                 running = false
                 cancel = false
                 next = false
+                onFingerDown()
                 abortAnimation()
             }
             MotionEvent.ACTION_MOVE -> {
@@ -93,7 +107,7 @@ abstract class BookAnimation(val readView: ReadView) : IBookViewInit {
                 if (move) {
                     var fake = false
                     if (0f == moveX && 0f == moveY) {
-                        next = 0 > x - downX
+                        setDirect(0 > x - downX)
                     } else {
                         if (next) {
                             if (0 < x - moveX) {
@@ -118,7 +132,7 @@ abstract class BookAnimation(val readView: ReadView) : IBookViewInit {
             MotionEvent.ACTION_UP -> {
                 if (!move) {
                     var click = x / readView.width.toFloat()
-                    next = when {
+                    setDirect(when {
                         2f / 3 < click -> {
                             readView.fakeNextSlide()
                             true
@@ -131,11 +145,11 @@ abstract class BookAnimation(val readView: ReadView) : IBookViewInit {
                             readView.onClickCenter()
                             return
                         }
-                    }
+                    })
                 }
                 if (readView.canAnimation()) {
                     running = true
-                    startScrollAnim(readView.mScroller)
+                    startScrollAnim(readView.scroller)
                     readView.postInvalidate()
                 }
             }

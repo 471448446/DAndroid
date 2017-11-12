@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- 直接访问所有数据  better 2016/12/29 16:13. -->
+    <external-path
+        name="HelloO"
+        path="."/>
+</paths>

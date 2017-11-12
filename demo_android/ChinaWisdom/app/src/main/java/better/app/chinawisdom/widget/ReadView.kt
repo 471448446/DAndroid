@@ -26,18 +26,16 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
     }
 
     private val MSG_SHOW_PAGE = 100
-    private val helper: ReadViewHelper = ReadViewHelper(this)
+    private val mHelper: ReadViewHelper = ReadViewHelper(this)
     private val mHandler = Handler(this)
-    private var bookAnimation: BookAnimation = AnimationSlide(this)
-    val mScroller = Scroller(getContext())
-
-    var currentPageBitmap: Bitmap? = null
-    var nextPageBitmap: Bitmap? = null
-    private var currentPage: BookPage? = null
-    private var nextPage: BookPage? = null
+    private var mBookAnimation: BookAnimation = AnimationSlide(this)
+    private var mCurrentPage: BookPage? = null
+    private var mNextPage: BookPage? = null
     // 获取时不重复调用分页
     private var getIng = false
-
+    val scroller = Scroller(getContext())
+    var currentPageBitmap: Bitmap? = null
+    var nextPageBitmap: Bitmap? = null
     var centerListener: OnCenterClickListener? = null
 
     override fun handleMessage(msg: Message?): Boolean {
@@ -54,14 +52,15 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
+        mHandler.removeCallbacksAndMessages(null)
         currentPageBitmap?.recycle()
         nextPageBitmap?.recycle()
-        helper.destroy()
-        mScroller.abortAnimation()
+        mHelper.destroy()
+        scroller.abortAnimation()
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        bookAnimation.event(event)
+        mBookAnimation.event(event)
         return true
     }
 
@@ -70,8 +69,8 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
         if (null == currentPageBitmap) {
             currentPageBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
             nextPageBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
-            bookAnimation.viewInitOk()
-            helper.viewInitOk()
+            mBookAnimation.viewInitOk()
+            mHelper.viewInitOk()
         }
     }
 
@@ -80,25 +79,25 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
         if (null == canvas) {
             return
         }
-        bookAnimation.draw(canvas)
+        mBookAnimation.draw(canvas)
     }
 
     override fun computeScroll() {
         super.computeScroll()
-        if (mScroller.computeScrollOffset()) {
-            bookAnimation.setActionXY(mScroller.currX, mScroller.currY)
-            if (mScroller.finalX == mScroller.currX && mScroller.currY == mScroller.finalY) {
-                bookAnimation.finishScroll()
+        if (scroller.computeScrollOffset()) {
+            mBookAnimation.setActionXY(scroller.currX, scroller.currY)
+            if (scroller.finalX == scroller.currX && scroller.currY == scroller.finalY) {
+                mBookAnimation.finishScroll()
             }
             invalidate()
         }
     }
 
     fun openBook(bookName: String, path: String) {
-        if (helper.isInit) {
+        if (mHelper.isInit) {
             async {
                 BookUtils.openAssetsBook(bookName, path)
-                currentPage = BookUtils.showOpenPage(helper)
+                mCurrentPage = BookUtils.showOpenPage(mHelper)
                 drawFirstSeeBitmap()
                 uiThread {
                     invalidate()
@@ -113,11 +112,11 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
     }
 
     fun fakeNextSlide(): Boolean {
-        if (BookUtils.isLastPage(currentPage)) {
+        if (BookUtils.isLastPage(mCurrentPage)) {
             toastShort(context.getString(R.string.str_readOver))
             return false
         }
-        if (null != nextPage && nextPage!!.begin == currentPage!!.end + 1) {
+        if (null != mNextPage && mNextPage!!.begin == mCurrentPage!!.end + 1) {
             return true
         }
         if (getIng) {
@@ -125,10 +124,10 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
         }
 
         getIng = true
-        helper.drawPage(currentPage, currentPageBitmap)
-        BookUtils.nextPage(helper, currentPage!!) {
-            nextPage = it
-            helper.drawPage(nextPage, nextPageBitmap)
+        mHelper.drawPage(mCurrentPage, currentPageBitmap)
+        BookUtils.nextPage(mHelper, mCurrentPage!!) {
+            mNextPage = it
+            mHelper.drawPage(mNextPage, nextPageBitmap)
             getIng = false
             invalidate()
         }
@@ -136,11 +135,11 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
     }
 
     fun fakePreSlide(): Boolean {
-        if (BookUtils.isFirstPage(currentPage)) {
+        if (BookUtils.isFirstPage(mCurrentPage)) {
             toastShort(context.getString(R.string.str_readFirst))
             return false
         }
-        if (null != nextPage && nextPage!!.end == currentPage!!.begin - 1) {
+        if (null != mNextPage && mNextPage!!.end == mCurrentPage!!.begin - 1) {
             return true
         }
         if (getIng) {
@@ -148,10 +147,10 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
         }
 
         getIng = true
-        helper.drawPage(currentPage, currentPageBitmap)
-        BookUtils.prePage(helper, currentPage!!) {
-            nextPage = it
-            helper.drawPage(nextPage, nextPageBitmap)
+        mHelper.drawPage(mCurrentPage, currentPageBitmap)
+        BookUtils.prePage(mHelper, mCurrentPage!!) {
+            mNextPage = it
+            mHelper.drawPage(mNextPage, nextPageBitmap)
             getIng = false
             invalidate()
         }
@@ -163,28 +162,31 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
     }
 
     fun canAnimation(): Boolean = when {
-        BookUtils.isFirstPage(currentPage) -> bookAnimation.next
-        BookUtils.isLastPage(currentPage) -> !bookAnimation.next
+        BookUtils.isFirstPage(mCurrentPage) -> mBookAnimation.next
+        BookUtils.isLastPage(mCurrentPage) -> !mBookAnimation.next
         else -> true
     }
 
     fun pageChangeFinish() {
-        if (null != nextPage) {
-            currentPage = nextPage!!
+        if (null != mNextPage) {
+            mCurrentPage = mNextPage!!
         }
     }
 
     fun saveBookInfo() {
-        SettingConfig.rememberBookChapterRead(BookUtils.bookName, currentPage!!.begin)
+        SettingConfig.rememberBookChapterRead(BookUtils.bookName, mCurrentPage!!.begin)
     }
 
     fun setSlideAnimation(anim: BookAnimEnum) {
-        bookAnimation = when (anim) {
+        mBookAnimation = when (anim) {
             BookAnimEnum.SLIDE -> {
                 AnimationSlide(this)
             }
             BookAnimEnum.NONE -> {
                 AnimationNone(this)
+            }
+            BookAnimEnum.REAL -> {
+                AnimationLikeReal(this)
             }
             else -> {
                 AnimationCover(this)
@@ -193,27 +195,30 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
     }
 
     fun setTextType(configTextType: Typeface) {
-        helper.setTextType(configTextType)
+        mHelper.setTextType(configTextType)
     }
 
     fun setTextSize(testSize: Float) {
-        helper.setTextSize(testSize)
+        mHelper.setTextSize(testSize)
     }
 
     fun setBgColor(color: Int) {
-        helper.setCustomBgColor(color)
+        mHelper.setCustomBgColor(color)
     }
 
+    fun getBgColor(): Int = mHelper.bgColor
+
     fun validateFeature() {
-        if (null == currentPage) return
-        currentPage = BookUtils.currentPage(helper, currentPage!!.begin)
+        if (null == mCurrentPage) return
+        mCurrentPage = BookUtils.currentPage(mHelper, mCurrentPage!!.begin)
         drawFirstSeeBitmap()
         invalidate()
     }
 
     private fun drawFirstSeeBitmap() {
-        helper.drawPage(currentPage, currentPageBitmap)
-        helper.drawPage(currentPage, nextPageBitmap)
+        mHelper.drawPage(mCurrentPage, currentPageBitmap)
+        mHelper.drawPage(mCurrentPage, nextPageBitmap)
     }
+
 
 }

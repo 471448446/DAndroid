@@ -29,7 +29,7 @@ class AnimationNone(readView: ReadView) : BookAnimation(readView) {
         finishScroll()
     }
 
-//    var click = x / readView.width.toFloat()
+//    var click = x / readView.widthView.toFloat()
 //    if (2f / 3 < click) {
 //        readView.onNextPage()
 //    } else if (1f / 3 > click) {

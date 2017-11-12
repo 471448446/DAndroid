@@ -37,7 +37,7 @@ class ReadViewHelper(private val readView: ReadView) : IBookViewInit {
     private val paintProgress = Paint()
     private var bgBitmap: Bitmap? = null
     private var textType = Typeface.DEFAULT
-    private var bgColor = ContextCompat.getColor(App.instance, R.color.read_bg_default)
+    var bgColor = ContextCompat.getColor(App.instance, R.color.read_bg_default)
 
     var linesInPage = 0
 
