@@ -14,7 +14,7 @@ import better.app.chinawisdom.R
 import better.app.chinawisdom.SettingConfig
 import better.app.chinawisdom.support.utils.toastShort
 import better.app.chinawisdom.widget.book.*
-import org.jetbrains.anko.async
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
 /**
@@ -95,7 +95,7 @@ class ReadView(context: Context?, attrs: AttributeSet?) : View(context, attrs), 
 
     fun openBook(bookName: String, path: String) {
         if (mHelper.isInit) {
-            async {
+            doAsync {
                 BookUtils.openAssetsBook(bookName, path)
                 mCurrentPage = BookUtils.showOpenPage(mHelper)
                 drawFirstSeeBitmap()

@@ -46,7 +46,6 @@ inline fun <reified T : Any> SharedPreferences.get(key: String): T {
         Float::class -> {
             return getFloat(key, -0f) as T
         }
-        throw Exception("SharedPreferences 类型") -> {
-        }
+        else -> throw Exception("SharedPreferences 类型")
     }
 }

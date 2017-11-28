@@ -36,7 +36,8 @@ ext {
     versionName ='1.0.0'
 
 //    kotlin_version = '1.0.0'
-    anko_version = '0.8.2'
+    anko_version = '0.10.3'
+//    anko_version = '0.8.2'
     support_version = '25.2.0'
 }
 

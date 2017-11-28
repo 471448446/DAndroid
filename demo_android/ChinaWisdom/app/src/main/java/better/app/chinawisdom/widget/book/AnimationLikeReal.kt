@@ -66,8 +66,8 @@ class AnimationLikeReal(readView: ReadView) : BookAnimation(readView) {
     }
 
     override fun startScrollAnim(scroller: Scroller) {
-        var dx = 0f
-        var dy = 0f
+        var dx: Float
+        var dy: Float
         if (next) {
             if (cancel) {
                 dx = (widthView - actionX).abs()

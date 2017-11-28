@@ -8,10 +8,10 @@ import better.app.chinawisdom.support.extenions.parseList
 import better.app.chinawisdom.support.extenions.toVarargArray
 import better.app.chinawisdom.support.utils.SharePref
 import better.app.chinawisdom.support.utils.log
-import org.jetbrains.anko.async
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.db.transaction
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.io.BufferedReader
 import java.io.File
@@ -23,7 +23,7 @@ import java.io.InputStreamReader
 class DbManager(private val db: DbHelper = DbHelper.instance) {
 
     fun initBook(listener: DbInitListener) {
-        async {
+        doAsync {
             db.use {
 
                 val noBook = !SharePref.getBoolean(SharePref.KEY_INIT_BOOK)
@@ -37,7 +37,7 @@ class DbManager(private val db: DbHelper = DbHelper.instance) {
                 //插入数据
                 if (noBook) {
                     clear(DbTableBook.NAME)
-                    val chapters = CopyBookToDb()
+                    val chapters = copyBookToDb()
                     transaction {
                         chapters.forEach {
                             with(it) {
@@ -56,7 +56,7 @@ class DbManager(private val db: DbHelper = DbHelper.instance) {
     }
 
     fun getBookInfo(key: String, listener: (List<BookInfoBean>) -> Unit) {
-        async {
+        doAsync {
             val books = getBookInfo(key)
             uiThread {
                 listener(books)
@@ -78,7 +78,7 @@ class DbManager(private val db: DbHelper = DbHelper.instance) {
         }
     }
 
-    private fun CopyBookToDb(): List<DbBookBean> {
+    private fun copyBookToDb(): List<DbBookBean> {
         val list = arrayListOf<DbBookBean>()
         val chapter: ArrayList<String> = arrayListOf()
         val chapterCount: ArrayList<Int> = arrayListOf()

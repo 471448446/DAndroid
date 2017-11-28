@@ -25,7 +25,7 @@ class AnimationNone(readView: ReadView) : BookAnimation(readView) {
         }
     }
 
-    override fun startScrollAnim(mScroller: Scroller) {
+    override fun startScrollAnim(scroller: Scroller) {
         finishScroll()
     }
 

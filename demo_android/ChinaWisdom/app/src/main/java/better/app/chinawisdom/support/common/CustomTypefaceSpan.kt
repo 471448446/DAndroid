@@ -51,11 +51,7 @@ class CustomTypefaceSpan(/*private val customFamily: String,*/ private val face:
         if (null == paint) return
         val oldStyle: Int
         val old = paint.typeface
-        oldStyle = if (old == null) {
-            0
-        } else {
-            old!!.style
-        }
+        oldStyle = old?.style ?: 0
 
         val fake = oldStyle and tf.style.inv()
         if (fake and Typeface.BOLD != 0) {

@@ -7,8 +7,8 @@ import better.app.chinawisdom.SettingConfig
 import better.app.chinawisdom.support.extenions.notEmpty
 import better.app.chinawisdom.support.utils.log
 import better.app.chinawisdom.widget.ReadViewHelper
-import org.jetbrains.anko.async
-import org.jetbrains.anko.collections.forEachReversed
+import org.jetbrains.anko.collections.forEachReversedByIndex
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.io.InputStreamReader
 import java.lang.ref.WeakReference
@@ -22,7 +22,7 @@ object BookUtils {
     var bookLength = 0
     var bookName = ""
     private var booksInfo = arrayListOf<CacheBook>()
-    private var positon = 0
+    private var position = 0
     fun openAssetsBook(name: String, path: String) {
         bookName = name
         bookPath = path
@@ -52,7 +52,7 @@ object BookUtils {
         if (BookUtils.isFirstPage(current)) {
             return
         }
-        async {
+        doAsync {
             val page = prePage(helper, current)
             uiThread {
                 then(page)
@@ -64,7 +64,7 @@ object BookUtils {
         if (BookUtils.isLastPage(current)) {
             return
         }
-        async {
+        doAsync {
             val page = nextPage(helper, current)
             uiThread {
                 then(page)
@@ -85,13 +85,13 @@ object BookUtils {
 
     private fun page(helper: ReadViewHelper, begin: Int = -1, end: Int = -1): BookPage {
         return if (begin >= 0) {
-            positon = begin
+            position = begin
             val lines: List<String> = getNextPageLines(helper.paintTxt, helper.mVisibleWidth, helper.linesInPage)
-            BookPage(begin, positon, lines)
+            BookPage(begin, position, lines)
         } else {
-            positon = end
+            position = end
             val lines: List<String> = getPrePageLines(helper.paintTxt, helper.mVisibleWidth, helper.linesInPage)
-            BookPage(positon, end, lines)
+            BookPage(position, end, lines)
         }
     }
 
@@ -104,8 +104,8 @@ object BookUtils {
         var size = 0
         var paragraph = 0
         while (true) {
-            thisParagraph = getParagraph(positon)
-            positon = positon - thisParagraph.size - 1
+            thisParagraph = getParagraph(position)
+            position = position - thisParagraph.size - 1
             paragraph++
             var thisParagraphLines = arrayListOf<String>()
             thisParagraph.forEach {
@@ -129,18 +129,25 @@ object BookUtils {
                 break
             }
         }
-        list.forEachReversed {
+//        list.forEachReversed {
+//            if (listPage.size < pageLines) {
+//                listPage.add(it)
+//            } else {
+//                size += it.length
+//            }
+//        }
+        list.forEachReversedByIndex {
             if (listPage.size < pageLines) {
                 listPage.add(it)
             } else {
                 size += it.length
             }
         }
-        if (0 < positon) {
+        if (0 < position) {
             //2 最后一个段落的时候position已经移动到上一个段落的段末了
-            positon += size + 2
+            position += size + 2
         } else {
-            positon = 0
+            position = 0
         }
         return listPage.reversed()
     }
@@ -177,14 +184,14 @@ object BookUtils {
                 }
                 break
             }
-            word = current(positon)
-            if (("" + word) == ("\r") && ("" + current(positon + 1)) == "\n") {
+            word = current(position)
+            if (("" + word) == ("\r") && ("" + current(position + 1)) == "\n") {
                 line.notEmpty {
                     list.add(it)
                     line = ""
                     width = 0f
                 }
-                positon++
+                position++
             } else {
                 val widthChar = paint.measureText(word + "")
                 width += widthChar
@@ -198,16 +205,16 @@ object BookUtils {
             }
             if (list.size == pageLines) {
                 if (!TextUtils.isEmpty(line)) {
-                    positon--
+                    position--
                 }
                 break
             }
-            positon++
+            position++
         }
         return list
     }
 
-    private fun checkRange(p: Int = positon): Boolean = p < 0 || p >= bookLength
+    private fun checkRange(p: Int = position): Boolean = p < 0 || p >= bookLength
 
     private fun current(p: Int): Char {
         val index: Int = p / cachedSize
