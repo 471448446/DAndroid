@@ -3,6 +3,10 @@
 *.apk
 *.ap_
 
+## apk文件
+release/
+debug/
+
 # files for the dex VM
 *.dex
 
