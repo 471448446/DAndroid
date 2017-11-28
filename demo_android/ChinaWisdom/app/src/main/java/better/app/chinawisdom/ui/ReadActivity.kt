@@ -3,13 +3,15 @@ package better.app.chinawisdom.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.view.Menu
 import better.app.chinawisdom.R
 import better.app.chinawisdom.SettingConfig
 import better.app.chinawisdom.support.extenions.gone
-import better.app.chinawisdom.support.extenions.isVisiable
-import better.app.chinawisdom.support.extenions.visiable
+import better.app.chinawisdom.support.extenions.isVisible
+import better.app.chinawisdom.support.extenions.visible
 import better.app.chinawisdom.support.utils.ForWordUtils
+import better.app.chinawisdom.support.utils.SystemBarHelper
 import better.app.chinawisdom.ui.base.BaseActivity
 import better.app.chinawisdom.widget.ReadView
 import kotlinx.android.synthetic.main.activity_read_activity.*
@@ -34,10 +36,10 @@ class ReadActivity : BaseActivity() {
         fadeActionLay()
         read_readView.centerListener = object : ReadView.OnCenterClickListener {
             override fun onCenterClick() {
-                if (toolBar.isVisiable()) {
-                    toolBar.gone()
+                if (toolBar.isVisible()) {
+                    goneToolBar()
                 } else {
-                    toolBar.visiable()
+                    visibleToolBar()
                 }
             }
         }
@@ -65,6 +67,12 @@ class ReadActivity : BaseActivity() {
         read_readView.validateFeature()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        read_readView.saveBookInfo()
+        mHandler.removeCallbacksAndMessages(null)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_setting, menu)
         return true
@@ -72,12 +80,18 @@ class ReadActivity : BaseActivity() {
 
     private fun fadeActionLay() {
         mHandler.postDelayed({
-            toolBar.gone()
+            goneToolBar()
         }, 1500)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        read_readView.saveBookInfo()
+    private fun goneToolBar() {
+        toolBar.gone()
+        SystemBarHelper.setBarColor(mActivity, SettingConfig.configBgType.getColorRes())
     }
+
+    private fun visibleToolBar() {
+        toolBar.visible()
+        SystemBarHelper.setBarColor(mActivity, ContextCompat.getColor(mActivity, R.color.colorPrimaryDark))
+    }
+
 }

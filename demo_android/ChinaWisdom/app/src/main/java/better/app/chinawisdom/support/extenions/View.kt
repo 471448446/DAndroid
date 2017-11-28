@@ -7,9 +7,9 @@ import android.view.View
 /**
  * Created by better on 2017/9/6 14:34.
  */
-fun View.isVisiable() = visibility == View.VISIBLE
+fun View.isVisible() = visibility == View.VISIBLE
 
-fun View.visiable() {
+fun View.visible() {
     visibility = View.VISIBLE
 }
 
@@ -17,7 +17,7 @@ fun View.gone() {
     visibility = View.GONE
 }
 
-fun View.inVisable() {
+fun View.inVisble() {
     visibility = View.INVISIBLE
 }
 
