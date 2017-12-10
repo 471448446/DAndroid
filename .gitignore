@@ -2,6 +2,7 @@
 #built application files
 *.apk
 *.ap_
+output.json
 
 ## apk文件
 release/
