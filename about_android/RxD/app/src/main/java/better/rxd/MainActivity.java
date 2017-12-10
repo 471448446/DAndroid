@@ -20,7 +20,7 @@ import rx.schedulers.Schedulers;
 
 /**
  * Des
- * 工作现场和UI线程的切换有点点绕:http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/1006/3543.html
+ * 工作线程和UI线程的切换有点点绕:http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/1006/3543.html
  * Create By better on 16/9/18 16:37.
  */
 public class MainActivity extends AppCompatActivity {
