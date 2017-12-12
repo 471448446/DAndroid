@@ -307,7 +307,7 @@ public class BBanner extends RelativeLayout implements OnPageChangeListener {
         return super.dispatchTouchEvent(ev);
     }
 
-    private void startAutoPlay() {
+    public void startAutoPlay() {
 //        log("startAutoPlay 当前item：" + mvPager.getCurrentItem());
         if (mScrollEndlessLess && null != mvPager.getAdapter() && mAutoPlayAble && !mIsAutoPlaying && (mvPager.getAdapter().getCount() > 1 || mvPager.getAdapter().getCount() == 1 && mIsOneItemScroll)) {
             mIsAutoPlaying = true;
@@ -316,7 +316,7 @@ public class BBanner extends RelativeLayout implements OnPageChangeListener {
         }
     }
 
-    private void stopAutoPlay() {
+    public void stopAutoPlay() {
 //        log("stopAutoPlay 当前item：" + mvPager.getCurrentItem());
         if (mScrollEndlessLess && null != mvPager.getAdapter() && mAutoPlayAble && mIsAutoPlaying && (mvPager.getAdapter().getCount() > 1 || mvPager.getAdapter().getCount() == 1 && mIsOneItemScroll)) {
             mIsAutoPlaying = false;
