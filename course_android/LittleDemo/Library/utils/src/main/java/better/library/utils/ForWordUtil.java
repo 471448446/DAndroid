@@ -13,51 +13,55 @@ import android.os.Bundle;
 public class ForWordUtil {
     public static final int NO_REQUEST_CODE = -1;
 
-    public static void to(Context context, Class<?> des) {
+    public static void to(Object context, Class<?> des) {
         to(context, des, null);
     }
 
-    public static void to(Context context, Class<?> des, Bundle ex) {
+    public static void to(Object context, Class<?> des, Bundle ex) {
         to(context, des, ex, NO_REQUEST_CODE);
     }
 
-    public static void to(Context context, Class<?> des, Bundle extra, int reqCode) {
-        Intent intent = new Intent(context, des);
+    public static void to(Object context, Class<?> des, int reqCode) {
+        to(context, des, null, reqCode);
+    }
+
+    public static void to(Object context, Class<?> des, Bundle extra, int reqCode) {
+        boolean a = context instanceof Context;
+        Intent intent;
+        if (a) {
+            intent = new Intent((Activity) context, des);
+        } else {
+            intent = new Intent(((Fragment) context).getActivity(), des);
+        }
         if (null != extra) {
             intent.putExtras(extra);
         }
-        if (!(context instanceof Activity)) {
+        // Fragment 启动的时候newTask收不到回调
+        if (!(context instanceof Activity) && !(context instanceof Fragment)) {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         if (NO_REQUEST_CODE != reqCode) {
-            if (context instanceof Activity) {
-                ((Activity) context).startActivityForResult(intent, reqCode);
+            if (a) {
+                if (context instanceof Activity) {
+                    ((Activity) context).startActivityForResult(intent, reqCode);
+                } else {
+                    Utils.log("", "startActivityForResult should pass Activity");
+                }
+            } else {
+                ((Fragment) context).startActivityForResult(intent, reqCode);
             }
         } else {
-            context.startActivity(intent);
+            if (a) {
+                if (context instanceof Activity) {
+                    ((Activity) context).startActivity(intent);
+                } else {
+                    Utils.log("", "startActivityForResult should pass Activity");
+                }
+            } else {
+                ((Fragment) context).startActivity(intent);
+            }
         }
     }
-
-    public static void to(Fragment context, Class<?> des) {
-        to(context, des, null, NO_REQUEST_CODE);
-    }
-
-    public static void to(Fragment context, Class<?> des, Bundle ex) {
-        to(context, des, ex, NO_REQUEST_CODE);
-    }
-
-    public static void to(Fragment context, Class<?> des, Bundle extra, int reqCode) {
-        Intent intent = new Intent(context.getContext(), des);
-        if (null != extra) {
-            intent.putExtras(extra);
-        }
-        if (NO_REQUEST_CODE != reqCode) {
-            context.startActivityForResult(intent, reqCode);
-        } else {
-            context.startActivity(intent);
-        }
-    }
-
     public static void service(Activity context, Class<?> des) {
         service(context, des, null);
     }

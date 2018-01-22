@@ -1,9 +1,11 @@
 package better.library.utils;
 
+import android.content.Context;
 import android.text.Editable;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by better on 2017/5/4 10:42.
@@ -16,6 +18,11 @@ public class Utils {
 
     public static void log(String tag, String msg) {
         Log.d(tag, msg);
+    }
+
+    public static void toast(Context context, String ms) {
+        if (null == context || null == ms) return;
+        Toast.makeText(context, ms, Toast.LENGTH_SHORT).show();
     }
 
     public static String getEditTextString(EditText et) {

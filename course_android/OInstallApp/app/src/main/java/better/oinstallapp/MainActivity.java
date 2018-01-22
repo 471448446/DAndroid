@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 //
-//    private void open() {
+//    private void open() {®
 //        startActivity(new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES));
 //    }
 //
