@@ -20,13 +20,15 @@
 
         <service android:name=".DemoBinderServices"/>
 
-        <service android:name=".DemoMessengerService"/>
+        <service
+            android:name=".DemoMessengerService"
+            android:process=":messageRemote"/>
         <!--创建一个只属于该app的新的进程:betterRemote-->
         <service
             android:name=".DemoAidlServices"
             android:enabled="true"
             android:exported="true"
-            android:process=":betterRemote">
+            android:process=":aidlRemote">
             <intent-filter>
                 <action android:name="better.bindservices.DemoAidlServices"/>
             </intent-filter>

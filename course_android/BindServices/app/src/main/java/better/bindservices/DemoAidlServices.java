@@ -41,24 +41,26 @@ public class DemoAidlServices extends BaseServices {
             @Override
             public void run() {
                 try {
-                    MyMessage messageIn = new MyMessage("Hello", "World!"), messageOut = new MyMessage("Hello", "World!"), messageInOut = new MyMessage("Hello", "World!");
+                    MyMessage messageIn = new MyMessage("Hello", "World!"),
+                            messageOut = new MyMessage("Hello", "World!"),
+                            messageInOut = new MyMessage("Hello", "World!");
                     log2("准备的数据》s");
-                    logMessage("in", messageIn);
-                    logMessage("out", messageOut);
-                    logMessage("inout", messageInOut);
+                    logMessage("准备_in", messageIn);
+                    logMessage("准备_out", messageOut);
+                    logMessage("准备_inout", messageInOut);
                     log2("准备的数据》e");
                     log2("服务端传递返回数据--》start");
                     for (int i = 0, l = mBinder.mCallbackList.beginBroadcast(); i < l; i++) {
-                        logMessage("in", mBinder.mCallbackList.getBroadcastItem(i).callMessageIn(messageIn));
-                        logMessage("out", mBinder.mCallbackList.getBroadcastItem(i).callMessageOut(messageOut));
-                        logMessage("inout", mBinder.mCallbackList.getBroadcastItem(i).callMessageInOut(messageInOut));
+                        logMessage("sending_in", mBinder.mCallbackList.getBroadcastItem(i).callMessageIn(messageIn));
+                        logMessage("sending_out", mBinder.mCallbackList.getBroadcastItem(i).callMessageOut(messageOut));
+                        logMessage("sending_inout", mBinder.mCallbackList.getBroadcastItem(i).callMessageInOut(messageInOut));
                     }
                     mBinder.mCallbackList.finishBroadcast();
                     log2("服务端传递返回数据--》end ");
                     log2("原来的数据=====》s");
-                    logMessage("in", messageIn);
-                    logMessage("out", messageOut);
-                    logMessage("inout", messageInOut);
+                    logMessage("查看_in", messageIn);
+                    logMessage("查看_out", messageOut);
+                    logMessage("查看_inout", messageInOut);
                     log2("原来的数据=====》e");
                 } catch (RemoteException e) {
                     e.printStackTrace();
@@ -137,6 +139,6 @@ public class DemoAidlServices extends BaseServices {
     }
 
     private void logMessage(String tag, MyMessage msg) {
-        Log.d("Better", tag + "==>" + msg == null ? "null" : msg.toString());
+        Log.d("Better", tag + "==>" + ((msg == null) ? "null" : msg.toString()));
     }
 }

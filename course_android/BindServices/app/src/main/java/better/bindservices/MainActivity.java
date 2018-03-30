@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
@@ -13,12 +14,16 @@ import android.view.View;
 import android.widget.Toast;
 
 import better.bindservices.data.MyMessage;
+
 /**
  * in:接受端能收到值，修传递值不影响原来的值
  * out:接收端收不到值，但收到了值得副本（new），原来的值的所有字段被设置为副本值对应的字段值。修改副本值，原来的值对应字段被修改。
  * inout：接收端能收到值，修改接受值会影响原来的值（对应的字段值会被修改）
- *
+ * <p>
  * 发现只要用了out标记，传递的值所有的字段都会被初始化为默认值。
+ * <p>
+ * Messager-》客户端和服务端相发信息，Messenger通信本质上也就是Handler发送处理消息，一次只处理一个请求，所以不需要考虑线程同步的问题。
+ * AIDL-》服务端发送数据，客户端修改得到的数据原样返回，服务端再查看数据
  * Create By better on 2017/6/30 10:03.
  */
 public class MainActivity extends AppCompatActivity {
@@ -33,12 +38,23 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private android.os.Messenger mMessenger;
+    private android.os.Handler mHandler = new android.os.Handler(new android.os.Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            switch (msg.what) {
+                case DemoMessengerService.INIT:
+                    toast(msg.getData().getString(DemoMessengerService.EXTRA_STR));
+                    break;
+            }
+            return false;
+        }
+    });
+    private android.os.Messenger mSeverMessenger, mCustomerMessager;
     private ServiceConnectPlus mMessengerConnect = new ServiceConnectPlus() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             super.onServiceConnected(name, service);
-            mMessenger = new Messenger(service);
+            mSeverMessenger = new Messenger(service);
         }
     };
 
@@ -80,21 +96,21 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public MyMessage callMessageOut(MyMessage msg) throws RemoteException {
-            log("得到服务端数据=》" + msg.toString());
+            log("得到服务端数据_out=》" + msg.toString());
             msg.setName("客户端修改名字");
             return msg;
         }
 
         @Override
         public MyMessage callMessageIn(MyMessage msg) throws RemoteException {
-            log("得到服务端数据=》" + msg.toString());
+            log("得到服务端数据_in=》" + msg.toString());
             msg.setName("客户端修改名字");
             return msg;
         }
 
         @Override
         public MyMessage callMessageInOut(MyMessage msg) throws RemoteException {
-            log("得到服务端数据=》" + msg.toString());
+            log("得到服务端数据_inOut=》" + msg.toString());
             msg.setName("客户端修改名字");
             return msg;
         }
@@ -113,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
         bindService(new Intent(MainActivity.this, DemoBinderServices.class), mBinderConnection, Service.BIND_AUTO_CREATE);
         bindService(new Intent(MainActivity.this, DemoMessengerService.class), mMessengerConnect, Service.BIND_AUTO_CREATE);
         bindService(new Intent(MainActivity.this, DemoAidlServices.class), mAidlConnect, Service.BIND_AUTO_CREATE);
+        mCustomerMessager = new Messenger(mHandler);
     }
 
     @Override
@@ -140,11 +157,25 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.messenger:
                 if (mMessengerConnect.isBind()) {
+                    //联系服务端
+                    android.os.Message message = android.os.Message.obtain(null, DemoMessengerService.INIT);
+                    android.os.Bundle bundle = new Bundle();
+                    bundle.putString(DemoMessengerService.EXTRA_STR, "Hello 服务端");
+                    message.setData(bundle);
+                    // 指定回复者
+                    message.replyTo = mCustomerMessager;
                     try {
-                        mMessenger.send(android.os.Message.obtain(null, DemoMessengerService.INIT));
+                        //send 开始进程间通信
+                        mSeverMessenger.send(message);
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
+
+//                    try {
+//                        mSeverMessenger.send(android.os.Message.obtain(null, DemoMessengerService.INIT));
+//                    } catch (RemoteException e) {
+//                        e.printStackTrace();
+//                    }
                 } else {
                     toast("还没准备好");
                 }
@@ -221,6 +252,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void log(String tag, MyMessage msg) {
-        Log.d("Better", tag + "==>" + msg == null ? "null" : msg.toString());
+        Log.d("Better", tag + "==>" + ((msg == null) ? "null" : msg.toString()));
     }
 }
