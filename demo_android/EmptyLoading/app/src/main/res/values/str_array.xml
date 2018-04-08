@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="stringList">
+        <item>爱读书</item>
+        <item>JAVA</item>
+        <item>ANDROID</item>
+        <item>C++</item>
+        <item>SWIFT</item>
+        <item>OC</item>
+        <item>C语言程序设计</item>
+        <item>KOTLON</item>
+        <item>爱读书</item>
+    </string-array>
+</resources>

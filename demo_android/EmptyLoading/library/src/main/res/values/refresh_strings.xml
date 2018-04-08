@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="refresh_top_pull_label">下拉刷新…</string>
+    <string name="refresh_top_release_label">松开刷新…</string>
+    <string name="refresh_top_refreshing_label">正在载入…</string>
+
+    <string name="refresh_from_bottom_pull_label">上拉加载更多…</string>
+    <string name="refresh_from_bottom_release_label">松开加载更多…</string>
+    <string name="refresh_from_bottom_refreshing_label">@string/refresh_top_refreshing_label</string>
+
+    <string name="str_empty_loading">请稍候…</string>
+    <string name="str_empty_retry">重新加载</string>
+    <string name="str_empty_retry_hint">网络连接失败，请稍候再试！</string>
+    <string name="str_empty_retry_btn_refresh">刷新</string>
+
+    <string name="str_footer_last_hint_info">已加载全部</string>
+</resources>
