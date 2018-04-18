@@ -1,2 +1,2 @@
-include ':ATransitionDemp', ':AGlsurfaceview', ':View', ':AImagespans'
+include ':ATransitionDemp', ':AGlsurfaceview', ':View', ':AImagespans', ':mobileinfo', ':tipdemo'
 include ':Library:utils'
