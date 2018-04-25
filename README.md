@@ -23,7 +23,7 @@ Android学习数据Demo。
 * 不支持RefreshLayout，刷新布局初始化的时候hold了布局，所以不能再次更改
 
 ### [LockNow](https://github.com/471448446/DAndroid/tree/master/demo_android/LockNow)
-一键锁屏
+一键锁屏。
 
 ### [Hello](https://github.com/471448446/DAndroid/tree/master/demo_android/Hello)
 一个资讯APP，使用MVP，OkHttp，Retrofit，Glide，ButterKnife。
