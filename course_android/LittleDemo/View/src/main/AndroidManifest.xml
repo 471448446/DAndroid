@@ -3,6 +3,7 @@
           package="better.learn.view">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
         android:allowBackup="true"
@@ -10,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -69,6 +71,11 @@
         <activity android:name=".custom.matrix.BasicMatrixActivity">
         </activity>
         <activity android:name=".useage.screencap.ScreenCapActivity">
+        </activity>
+
+        <!-- 系统级别View-->
+        <activity android:name=".systemview.SystemTypeViewActivity">
+
         </activity>
     </application>
 
