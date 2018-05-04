@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     @Override
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
         l("————————onPermissionsDenied" + requestCode + ";" + perms.toArray());
+        if (EasyPermissions.somePermissionDenied(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE})){
+            l("-------永久拒绝需要打开设置面板授权");
+        }
     }
 
     @Override
