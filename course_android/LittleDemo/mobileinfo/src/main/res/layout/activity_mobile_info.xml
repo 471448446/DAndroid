@@ -7,18 +7,28 @@
     tools:context=".MobileInfoActivity">
 
     <TextView
-        android:id="@+id/txt"
+        android:id="@+id/txtHandWare"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:lineSpacingExtra="5dp"
+        android:text="HandWareIp" />
+
+    <TextView
+        android:id="@+id/txtCPU"
+        android:lineSpacingExtra="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="CPU"
+        app:layout_constraintTop_toBottomOf="@+id/txtHandWare" />
 
     <TextView
         android:id="@+id/txtStatusBattery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Hello World!"
-        app:layout_constraintTop_toBottomOf="@+id/txt" />
+        android:text="电池温度"
+        app:layout_constraintTop_toBottomOf="@+id/txtCPU" />
 
     <TextView
         android:id="@+id/txtStatusBlue"
@@ -35,6 +45,7 @@
         android:layout_marginTop="10dp"
         android:text="GPS监听"
         app:layout_constraintTop_toBottomOf="@+id/txtStatusBlue" />
+
     <TextView
         android:id="@+id/txtStatusWifi"
         android:layout_width="match_parent"

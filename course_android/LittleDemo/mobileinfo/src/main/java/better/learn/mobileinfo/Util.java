@@ -17,11 +17,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
 
+import better.library.utils.Utils;
+
 /**
  * Created by better on 2016/12/28.
  */
 
-public class Util {
+public class Util extends Utils {
     /**
      * Des Obviously the SIM may not be present at any specific time
      * Create By better on 2016/12/28 13:18.

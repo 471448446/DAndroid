@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import better.library.CustomBroadReceiver;
 import better.library.utils.GPSUtls;
+import better.library.utils.Utils;
 
 /**
  * Des http://stackoverflow.com/questions/6064510/how-to-get-ip-address-of-the-device
@@ -26,7 +27,7 @@ import better.library.utils.GPSUtls;
  * Create By better on 2016/12/28 14:34.
  */
 public class MobileInfoActivity extends AppCompatActivity {
-    TextView txt, txtStatusBattery, txtStatusBlue, txtStatusGps, txtStatusWifi;
+    TextView txtHandWare, txtStatusBattery, txtStatusBlue, txtStatusGps, txtStatusWifi, txtCpu;
 
     CustomBroadReceiver receiverHDStatus = new CustomBroadReceiver() {
         @Override
@@ -118,12 +119,11 @@ public class MobileInfoActivity extends AppCompatActivity {
         txtStatusBattery.setText(String.format("电池温度：%1$.1f C", temperature));
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode == 10) {
-            showInfo();
+            showHandWareInfo();
         }
     }
 
@@ -131,19 +131,37 @@ public class MobileInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mobile_info);
-        txt = (TextView) findViewById(R.id.txt);
-        txtStatusBattery = (TextView) findViewById(R.id.txtStatusBattery);
-        txtStatusBlue = (TextView) findViewById(R.id.txtStatusBlue);
-        txtStatusGps = (TextView) findViewById(R.id.txtStatusGps);
-        txtStatusWifi = (TextView) findViewById(R.id.txtStatusWifi);
+        txtHandWare = findViewById(R.id.txtHandWare);
+        txtStatusBattery = findViewById(R.id.txtStatusBattery);
+        txtStatusBlue = findViewById(R.id.txtStatusBlue);
+        txtStatusGps = findViewById(R.id.txtStatusGps);
+        txtStatusWifi = findViewById(R.id.txtStatusWifi);
+        txtCpu = findViewById(R.id.txtCPU);
         if (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)) {
-            showInfo();
+            showHandWareInfo();
         } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 10);
             Toast.makeText(this, "授予权限", Toast.LENGTH_SHORT).show();
         }
         registerReceiver(receiverHDStatus, receiverHDStatus.getIntentFilter());
 
+        showCpu();
+        txtCpu.post(new Runnable() {
+            @Override
+            public void run() {
+                StringBuilder builder = new StringBuilder(Utils.getTextViewString(txtCpu));
+                builder.append(String.format("\nCpu 使用:%1$.2f%%", CpuUtil.getCpuLoad()));
+                txtCpu.setText(builder);
+            }
+        });
+    }
+
+    private void showCpu() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("\nCpu 1温度°C:" + CpuUtil.getCpuTemperature1());
+        builder.append("\nCpu 温度°C:" + CpuUtil.getCpuTemperature());
+
+        txtCpu.setText(builder);
     }
 
     @Override
@@ -153,13 +171,13 @@ public class MobileInfoActivity extends AppCompatActivity {
 
     }
 
-    private void showInfo() {
-        String info = "mei=" + Util.getIMEI() + "\nmsi=" + Util.getIMSI() + "\nwifi ip=" + Util.getWifi2Ip(this) + "\nmac=" + Util.getMacFromWifi(this)
-                + "\nip=" + Util.getLocalIpAddress();
-        StringBuilder builder = new StringBuilder(info);
-        builder.append("\nCpu 1温度°C:" + CpuUtil.getCpuTemperature1());
-        builder.append("\nCpu 温度°C:" + CpuUtil.getCpuTemperature());
+    private void showHandWareInfo() {
+        String infoIP = "mei=" + Util.getIMEI() +
+                "\nmsi=" + Util.getIMSI() +
+                "\nwifi ip=" + Util.getWifi2Ip(this) +
+                "\nmac=" + Util.getMacFromWifi(this) +
+                "\nip=" + Util.getLocalIpAddress();
 
-        txt.setText(builder);
+        txtHandWare.setText(infoIP);
     }
 }
