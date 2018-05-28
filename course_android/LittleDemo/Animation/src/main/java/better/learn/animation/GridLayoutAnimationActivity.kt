@@ -1,9 +1,12 @@
 package better.learn.animation
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import better.library.base.ui.BaseAdapter
 import kotlinx.android.synthetic.main.activity_grid_layout_animation.*
+import kotlinx.android.synthetic.main.item_rc_one.view.*
 
 
 /**
@@ -17,12 +20,28 @@ class GridLayoutAnimationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_grid_layout_animation)
 
-        gridLayoutAnimation.layoutManager = GridLayoutManager(this, 3)
-        val adapterTxt = AdapterTxt()
+        gridLayoutAnimationRc.layoutManager = GridLayoutManager(this, 3)
+        val adapterTxt = RvAdapterTxt()
         adapterTxt.addData(getAdapterTxtData())
-        gridLayoutAnimation.adapter = adapterTxt
+        gridLayoutAnimationRc.adapter = adapterTxt
 
-        gridLayoutAnimation.scheduleLayoutAnimation()
+        // no need
+//        gridLayoutAnimationRc.startLayoutAnimation()
+//        gridLayoutAnimationRc.scheduleLayoutAnimation()
+
+        val adapter = GridAdapter(this)
+        adapter.addData(getAdapterTxtData())
+        gridLayoutAnimationGrid.adapter = adapter
     }
+
+    class GridAdapter(ctx: Context) : BaseAdapter<String>(ctx) {
+        override fun initData(holder: ViewHolder?, position: Int) {
+            holder?.itemView?.item_rc_txt?.text = getItem(position)
+        }
+
+        override fun getViewId(): Int = R.layout.item_rc_one
+
+    }
+
 }
 

@@ -1,18 +1,49 @@
 package better.library.base.ui;
 
-import android.support.v7.widget.RecyclerView;
+import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import better.library.utils.Utils;
-
-public abstract class BaseAdapter<T> extends RecyclerView.Adapter<SimpleViewHolder> {
-
+public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
+    public Context context;
     private List<T> list = new ArrayList<>();
 
+    public BaseAdapter(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    public int getCount() {
+        return list.size();
+    }
+
+    @Override
+    public T getItem(int position) {
+        return list.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
+        if (null == convertView) {
+            convertView = LayoutInflater.from(context).inflate(getViewId(), parent, false);
+            holder = new ViewHolder(convertView);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+        initData(holder, position);
+        return convertView;
+    }
     public void addData(List<T> data) {
         if (null == data) return;
         this.list.addAll(data);
@@ -25,21 +56,15 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<SimpleViewHold
         addData(data);
     }
 
-    public T getItem(int p) {
-        return list.get(p);
+    protected abstract void initData(ViewHolder holder, int position);
+
+    protected abstract int getViewId();
+
+    public class ViewHolder {
+        public View itemView;
+
+        public ViewHolder(View itemView) {
+            this.itemView = itemView;
+        }
     }
-
-    protected abstract int getItemView();
-
-    @Override
-    public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new SimpleViewHolder(LayoutInflater.from(parent.getContext()).inflate(getItemView(), parent, false));
-    }
-
-    @Override
-    public int getItemCount() {
-        Utils.log(")))"+list.size());
-        return list.size();
-    }
-
 }

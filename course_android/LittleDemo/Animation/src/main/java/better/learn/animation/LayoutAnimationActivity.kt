@@ -10,7 +10,7 @@ import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import android.view.animation.LinearInterpolator
 import better.library.RecycleViewLinearDivider
-import better.library.base.ui.BaseAdapter
+import better.library.base.ui.BaseRvAdapter
 import better.library.base.ui.SimpleViewHolder
 import better.library.utils.Utils
 import kotlinx.android.synthetic.main.activity_layout_animation.*
@@ -27,23 +27,24 @@ class LayoutAnimationActivity : AppCompatActivity() {
         when (msg.what) {
             MSG_ONE -> {
 
-                (anim_layout_inXML.adapter as BaseAdapter<String>).addData(getAdapterTxtData())
+                (anim_layout_inXML.adapter as BaseRvAdapter<String>).addData(getAdapterTxtData())
                 anim_layout_inXML.startLayoutAnimation()
             }
             MSG_TWO -> {
 
-                (anim_layout_inCode.adapter as BaseAdapter<String>).addData(getAdapterTxtData())
+                (anim_layout_inCode.adapter as BaseRvAdapter<String>).addData(getAdapterTxtData())
 
                 val layoutAnnotation = LayoutAnimationController(AnimationUtils.loadAnimation(this, R.anim.slide_right))
                 layoutAnnotation.delay = 1f
                 layoutAnnotation.interpolator = LinearInterpolator()
                 layoutAnnotation.order = LayoutAnimationController.ORDER_NORMAL
                 anim_layout_inCode.layoutAnimation = layoutAnnotation
-                anim_layout_inCode.startLayoutAnimation()
+                // no meed
+//                anim_layout_inCode.startLayoutAnimation()
             }
             MSG_THREE -> {
 
-                (anim_layout_reverse.adapter as BaseAdapter<String>).addData(getAdapterTxtData())
+                (anim_layout_reverse.adapter as BaseRvAdapter<String>).addData(getAdapterTxtData())
 
                 val layoutAnnotation = LayoutAnimationController(AnimationUtils.loadAnimation(this, R.anim.slide_left))
                 layoutAnnotation.delay = 1f
@@ -54,7 +55,7 @@ class LayoutAnimationActivity : AppCompatActivity() {
             }
             MSG_FOUR -> {
 
-                (anim_layout_random.adapter as BaseAdapter<String>).addData(getAdapterTxtData())
+                (anim_layout_random.adapter as BaseRvAdapter<String>).addData(getAdapterTxtData())
 
                 val layoutAnnotation = LayoutAnimationController(AnimationUtils.loadAnimation(this, R.anim.slide_right))
                 layoutAnnotation.delay = 1f
@@ -73,10 +74,10 @@ class LayoutAnimationActivity : AppCompatActivity() {
 
 
 
-        initRV(anim_layout_inXML, AdapterTxt())
-        initRV(anim_layout_inCode, AdapterTxt())
-        initRV(anim_layout_reverse, AdapterTxt())
-        initRV(anim_layout_random, AdapterTxt())
+        initRV(anim_layout_inXML, RvAdapterTxt())
+        initRV(anim_layout_inCode, RvAdapterTxt())
+        initRV(anim_layout_reverse, RvAdapterTxt())
+        initRV(anim_layout_random, RvAdapterTxt())
 
         show()
     }
@@ -103,12 +104,12 @@ class LayoutAnimationActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initRV(recyclerView: RecyclerView, adapter: BaseAdapter<String>) {
+    private fun initRV(recyclerView: RecyclerView, rvAdapter: BaseRvAdapter<String>) {
 
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         recyclerView.layoutManager = linearLayoutManager
-        recyclerView.adapter = adapter
+        recyclerView.adapter = rvAdapter
         recyclerView.addItemDecoration(RecycleViewLinearDivider(this, LinearLayoutManager.VERTICAL, R.drawable.divider_gray))
     }
 
@@ -125,7 +126,7 @@ fun getAdapterTxtData(): MutableList<String>? {
     return list
 }
 
-class AdapterTxt : BaseAdapter<String>() {
+class RvAdapterTxt : BaseRvAdapter<String>() {
     override fun onBindViewHolder(holderSimple: SimpleViewHolder, position: Int) {
         holderSimple.itemView.item_rc_txt.text = getItem(position)
     }
