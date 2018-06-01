@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="better.learn.ndkbuild">
+
+    <!--去除警告：Android NDK: WARNING: APP_PLATFORM android-14 is higher than android:minSdkVersion 1 in D:/WP/DAndroid/course_android/NdkDemo/ndkbuild/src/main/AndroidManifest.xml. NDK binaries will *not* be compatible with devices older than android-14. See https://android.googlesource.com/platform/ndk/+/master/docs/user/common_problems.md for more information.    -->
+    <!--<uses-sdk android:minSdkVersion="14" />-->
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
