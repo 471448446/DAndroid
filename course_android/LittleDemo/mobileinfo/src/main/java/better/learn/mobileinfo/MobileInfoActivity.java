@@ -137,9 +137,8 @@ public class MobileInfoActivity extends AppCompatActivity {
         txtStatusGps = findViewById(R.id.txtStatusGps);
         txtStatusWifi = findViewById(R.id.txtStatusWifi);
         txtCpu = findViewById(R.id.txtCPU);
-        if (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)) {
-            showHandWareInfo();
-        } else {
+        showHandWareInfo();
+        if (PackageManager.PERMISSION_GRANTED != ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 10);
             Toast.makeText(this, "授予权限", Toast.LENGTH_SHORT).show();
         }
@@ -172,7 +171,8 @@ public class MobileInfoActivity extends AppCompatActivity {
     }
 
     private void showHandWareInfo() {
-        String infoIP = "mei=" + Util.getIMEI() +
+        String infoIP = "serial=" + Util.getSerial(this) +
+                "\nmei=" + Util.getIMEI() +
                 "\nmsi=" + Util.getIMSI() +
                 "\nwifi ip=" + Util.getWifi2Ip(this) +
                 "\nmac=" + Util.getMacFromWifi(this) +

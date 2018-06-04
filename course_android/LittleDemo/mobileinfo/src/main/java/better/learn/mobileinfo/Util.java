@@ -1,14 +1,20 @@
 package better.learn.mobileinfo;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.util.Log;
 
+import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -30,12 +36,52 @@ public class Util extends Utils {
      */
     public static String getIMSI() {
         TelephonyManager telManager = (TelephonyManager) MainApp.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
-        return telManager.getSubscriberId();
+        try {
+            return telManager.getSubscriberId();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static String getIMEI() {
         TelephonyManager telManager = (TelephonyManager) MainApp.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
-        return telManager.getDeviceId();
+        try {
+            return telManager.getDeviceId();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public static String getSerial(Context context) {
+        if (Build.VERSION.SDK_INT < 9) {
+            return null;
+        }
+        // apps targeting SDK higher than O_MR1 this field is set to UNKNOWN
+        if (Build.VERSION.SDK_INT < 26) {
+            return Build.SERIAL;
+        }
+        String var0 = null;
+        if (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+            var0 = Build.getSerial();
+        }
+        //com.umeng.commonsdk.statistics.common.DeviceConfig
+        if (TextUtils.isEmpty(var0)) {
+            try {
+                Class var1 = Class.forName("android.os.Build");
+                Method var2 = var1.getMethod("getSerial");
+                var0 = (String) var2.invoke(var1);
+            } catch (Exception e) {
+                // unknown,but AUM-AL20 get
+                var0 = Build.SERIAL;
+                e.printStackTrace();
+            }
+        }
+
+        return var0;
     }
 
     public static String getWifi2Ip(Context context) {
