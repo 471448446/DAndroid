@@ -1,6 +1,7 @@
 package better.learn.mobileinfo;
 
 import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -8,6 +9,8 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -55,6 +58,16 @@ public class Util extends Utils {
         return null;
     }
 
+    public static String getAndroidId(Context context) {
+        String androidId = null;
+        try {
+            androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return androidId;
+    }
 
     public static String getSerial(Context context) {
         if (Build.VERSION.SDK_INT < 9) {
@@ -68,6 +81,7 @@ public class Util extends Utils {
         if (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
             var0 = Build.getSerial();
         }
+
         //com.umeng.commonsdk.statistics.common.DeviceConfig
         if (TextUtils.isEmpty(var0)) {
             try {
@@ -75,13 +89,77 @@ public class Util extends Utils {
                 Method var2 = var1.getMethod("getSerial");
                 var0 = (String) var2.invoke(var1);
             } catch (Exception e) {
-                // unknown,but AUM-AL20 get
+                // unknown,but AUM-AL20、PIXEL2 get
                 var0 = Build.SERIAL;
                 e.printStackTrace();
             }
         }
 
         return var0;
+    }
+
+    // 没有权限就获取不到
+    public static String getDeviceId(Context context) {
+        String deviceId = null;
+        try {
+            TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (null != manager) {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                    deviceId = invokeDeviceID(manager);
+                    Util.log("deviceID:" + deviceId);
+                } else {
+                    deviceId = invokeImei(manager);
+                    Util.log("imei:" + deviceId);
+                    if (null == deviceId) {
+                        deviceId = invokeMeid(manager);
+                        Util.log("meid:" + deviceId);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return deviceId;
+    }
+
+    private static String invokeDeviceID(TelephonyManager manager) {
+
+        try {
+            Class clz = Class.forName("android.telephony.TelephonyManager");
+            Method function = clz.getDeclaredMethod("getDeviceId");
+            function.setAccessible(true);
+            return (String) function.invoke(manager);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private static String invokeMeid(TelephonyManager tm) {
+        try {
+            Method function = tm.getClass().getDeclaredMethod("getMeid");
+            function.setAccessible(true);
+            return (String) function.invoke(tm);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private static String invokeImei(TelephonyManager tm) {
+        try {
+            Method function = tm.getClass().getDeclaredMethod("getImei");
+            function.setAccessible(true);
+            return (String) function.invoke(tm);
+        } catch (Exception e) {
+            //java.lang.SecurityException: getSubscriberId: Neither user 10406 nor current process has android.permission.READ_PHONE_STATE.
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static String getWifi2Ip(Context context) {
@@ -192,6 +270,18 @@ public class Util extends Utils {
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         String mac = wifiInfo.getMacAddress();
         return mac;
+    }
+
+    public static String getMacFromBluetooth() {
+        try {
+            BluetoothAdapter ba = BluetoothAdapter.getDefaultAdapter();
+            if (ba != null) {
+                return ba.getAddress();
+            }
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        return "";
     }
 
     // 获取当前时间

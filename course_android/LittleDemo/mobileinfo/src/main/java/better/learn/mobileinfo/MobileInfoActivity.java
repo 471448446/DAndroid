@@ -171,13 +171,18 @@ public class MobileInfoActivity extends AppCompatActivity {
     }
 
     private void showHandWareInfo() {
-        String infoIP = "serial=" + Util.getSerial(this) +
+        String infoIP = "deviceID=" + Util.getDeviceId(this) +
+                "\nandroidID=" + Util.getAndroidId(this) +
+                "\nserial=" + Util.getSerial(this) +
                 "\nmei=" + Util.getIMEI() +
                 "\nmsi=" + Util.getIMSI() +
                 "\nwifi ip=" + Util.getWifi2Ip(this) +
-                "\nmac=" + Util.getMacFromWifi(this) +
+                "\nWiFi Mac=" + Util.getMacFromWifi(this) +
+                "\nBluetooth Mac=" + Util.getMacFromBluetooth() +
                 "\nip=" + Util.getLocalIpAddress();
 
         txtHandWare.setText(infoIP);
+
+        Util.log("getMacByJavaAPI=" + DeviceConfig.getMacByJavaAPI() + ";getMacShell=" + DeviceConfig.getMacShell());
     }
 }
