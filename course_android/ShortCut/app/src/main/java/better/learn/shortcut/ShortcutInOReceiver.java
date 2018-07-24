@@ -1,4 +1,4 @@
-package better.learn.shortcuto;
+package better.learn.shortcut;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

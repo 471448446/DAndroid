@@ -8,7 +8,7 @@
         android:shortcutShortLabel="@string/short_setting_label">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="better.shortcut.SettingActivity"
+            android:targetClass="better.learn.shortcut.SettingActivity"
             android:targetPackage="better.shortcut">
         </intent>
         <categories

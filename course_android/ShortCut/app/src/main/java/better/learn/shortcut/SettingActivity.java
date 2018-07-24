@@ -1,7 +1,9 @@
-package better.shortcut;
+package better.learn.shortcut;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import better.shortcut.R;
 
 public class SettingActivity extends AppCompatActivity {
 
