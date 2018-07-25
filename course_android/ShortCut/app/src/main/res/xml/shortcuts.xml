@@ -9,26 +9,20 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="better.learn.shortcut.SettingActivity"
-            android:targetPackage="better.shortcut">
-        </intent>
-        <categories
-            android:name="android.shortcut.conversation">
-        </categories>
+            android:targetPackage="better.learn.shortcut" />
+        <categories android:name="android.shortcut.conversation" />
     </shortcut>
-    <shortcut
-        android:enabled="true"
-        android:shortcutDisabledMessage="@string/short_call_label_disabled"
-        android:shortcutId="com.main.call"
-        android:shortcutLongLabel="@string/short_call_label_long"
-        android:shortcutShortLabel="@string/short_call_label">
-        <intent
-            android:action="android.intent.action.CALL"
-            android:data="tell:18200141846">
-        </intent>
-        <categories
-            android:name="android.shortcut.conversation">
-        </categories>
-    </shortcut>
+    <!--<shortcut-->
+    <!--android:enabled="true"-->
+    <!--android:shortcutDisabledMessage="@string/short_call_label_disabled"-->
+    <!--android:shortcutId="com.main.call"-->
+    <!--android:shortcutLongLabel="@string/short_call_label_long"-->
+    <!--android:shortcutShortLabel="@string/short_call_label">-->
+    <!--<intent-->
+    <!--android:action="android.intent.action.CALL"-->
+    <!--android:data="tell:17000000000"/>-->
+    <!--<categories android:name="android.shortcut.conversation"/>-->
+    <!--</shortcut>-->
     <!--在label直接输入文字是编译不过的-->
 
 </shortcuts>

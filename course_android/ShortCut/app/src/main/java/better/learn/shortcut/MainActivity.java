@@ -1,5 +1,6 @@
 package better.learn.shortcut;
 
+import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +30,11 @@ import better.shortcut.R;
 public class MainActivity extends AppCompatActivity {
     private final String EXTRA_01 = "extra_01";
 
+    private ShortcutManager manager;
+
+    private static final String id_other = "com.test.01";
+    private static final String id_self = "快捷键名称";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +45,14 @@ public class MainActivity extends AppCompatActivity {
         } else {
             log("没有extra");
         }
+
+        init();
+    }
+
+    @TargetApi(Build.VERSION_CODES.N_MR1)
+    private void init() {
+        manager = (ShortcutManager) getSystemService(Context.SHORTCUT_SERVICE);
+
         findViewById(R.id.button_addDynamicOther).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,11 +61,27 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        findViewById(R.id.button_removeDynamicOther).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                    removeDynamicShortCutsOther();
+                }
+            }
+        });
         findViewById(R.id.button_addDynamicSelf).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
                     addDynamicShortCutsSelf();
+                }
+            }
+        });
+        findViewById(R.id.button_removeDynamicSelf).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                    removeDynamicShortCutsSelf();
                 }
             }
         });
@@ -80,12 +110,11 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(Build.VERSION_CODES.N_MR1)
     private void addDynamicShortCutsOther() {
-        ShortcutManager manager = (ShortcutManager) getSystemService(Context.SHORTCUT_SERVICE);
         List<ShortcutInfo> list = new ArrayList<>();
 
         Intent intentCall = new Intent(Intent.ACTION_CALL);
         intentCall.setData(Uri.parse("tel:" + "17000000001"));
-        ShortcutInfo info = new ShortcutInfo.Builder(this, "com.test.01")
+        ShortcutInfo info = new ShortcutInfo.Builder(this, id_other)
                 .setShortLabel("打电话")
                 .setLongLabel("打电话Long")
                 .setDisabledMessage("打电话不能用")
@@ -97,6 +126,13 @@ public class MainActivity extends AppCompatActivity {
         log("count=" + manager.getMaxShortcutCountPerActivity() + ",当前=" + manager.getDynamicShortcuts().size());
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N_MR1)
+    private void removeDynamicShortCutsOther() {
+        List<String> ids = new ArrayList<>();
+        ids.add(id_other);
+        manager.removeDynamicShortcuts(ids);
+    }
+
     @RequiresApi(Build.VERSION_CODES.N_MR1)
     private void addDynamicShortCutsSelf() {
         ShortcutManager manager = (ShortcutManager) getSystemService(Context.SHORTCUT_SERVICE);
@@ -106,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_01, "test01的数据");
 
 
-        ShortcutInfo info = new ShortcutInfo.Builder(this, "com.test.01")
+        ShortcutInfo info = new ShortcutInfo.Builder(this, id_self)
                 .setShortLabel("打开主页")
                 .setLongLabel("打开主页Long")
                 .setDisabledMessage("打开主页不能用")
@@ -116,6 +152,13 @@ public class MainActivity extends AppCompatActivity {
 
         manager.addDynamicShortcuts(list);
         log("count=" + manager.getMaxShortcutCountPerActivity() + ",当前=" + manager.getDynamicShortcuts().size());
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N_MR1)
+    private void removeDynamicShortCutsSelf() {
+        List<String> ids = new ArrayList<>();
+        ids.add(id_self);
+        manager.removeDynamicShortcuts(ids);
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -141,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         //不是必须
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        ShortcutInfo info = new ShortcutInfo.Builder(context.getApplicationContext(), "快捷键名称")
+        ShortcutInfo info = new ShortcutInfo.Builder(context.getApplicationContext(), "id快捷键")
                 .setIcon(Icon.createWithResource(context, R.mipmap.ic_launcher))
                 .setShortLabel("快捷键名称")
                 .setIntent(i)
