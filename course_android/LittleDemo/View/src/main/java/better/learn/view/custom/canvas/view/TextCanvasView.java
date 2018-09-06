@@ -5,9 +5,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import better.learn.view.R;
@@ -25,15 +28,21 @@ import better.learn.view.custom.ICustomView;
  * 第三类是指定一个路径，根据路径绘制文字。
  * public void drawTextOnPath (String text, Path path, float hOffset, float vOffset, Paint paint)
  * public void drawTextOnPath (char[] text, int index, int count, Path path, float hOffset, float vOffset, Paint paint)
+ * baseLine:
+ * https://github.com/suragch/AndroidFontMetrics
  * Created by better on 2017/9/21 10:34.
  */
 
 public class TextCanvasView extends View implements ICustomView {
     public static final String TEXT = "简单绘制文字";
+    public static final String TXT_CENTER = "居中CENTER";
     Paint mPaint = new Paint();
 
     float[] pos;
     Path mPath = new Path();
+
+    private RectF rectF = new RectF();
+    private Rect bound = new Rect();
 
     public TextCanvasView(Context context) {
         super(context);
@@ -58,6 +67,10 @@ public class TextCanvasView extends View implements ICustomView {
             pos[i] = 600 - 30 * i;
             pos[i + 1] = 40 * (i + 1);
         }
+        rectF.left = 100;
+        rectF.top = 200;
+        rectF.right = 400;
+        rectF.bottom = 400;
     }
 
     @Override
@@ -69,6 +82,16 @@ public class TextCanvasView extends View implements ICustomView {
         canvas.drawText(TEXT, 100, 50, mPaint);
         canvas.drawText(TEXT, 1, 3, 100, 100, mPaint);
         canvas.drawText(TEXT.toCharArray(), 1, 2, 100, 150, mPaint);
+
+        mPaint.setColor(Color.BLACK);
+        canvas.drawLine(100, 50, 400, 50, mPaint);
+        canvas.drawLine(100, 100, 200, 100, mPaint);
+        canvas.drawLine(100, 150, 200, 150, mPaint);
+        canvas.drawRect(rectF, mPaint);
+        canvas.drawLine(rectF.left, (rectF.top + rectF.bottom) / 2f, rectF.right, (rectF.top + rectF.bottom) / 2f, mPaint);
+        // 居中
+        mPaint.getTextBounds(TXT_CENTER, 0, TXT_CENTER.length(), bound);
+        canvas.drawText(TXT_CENTER, rectF.left, (rectF.top + rectF.bottom) / 2f + bound.height() / 2f, mPaint);
 
         mPaint.setColor(ContextCompat.getColor(getContext(), R.color.colorGreen));
         canvas.drawPosText(TEXT, pos, mPaint);
