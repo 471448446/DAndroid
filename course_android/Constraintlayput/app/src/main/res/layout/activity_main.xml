@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="better.learn.constraintlayput.MainActivity">
+    tools:context="better.learn.constraintlayput.MainActivity"
+    tools:ignore="GradleDependency">
 
     <TextView
         android:id="@+id/mian_des"
@@ -17,10 +17,12 @@
         \n2、app:layout_constraintDimensionRatio=W,16:6 设置宽高
         \n3、自带weight均分效果,layout_constraintHorizontal_weight控制权重
         \n4、layout_constraintHorizontal_bias,layout_constraintVertical_bias 控制显示在父控件的地方
-        \n5、glideLine的使用"
+        \n5、glideLine的使用
+        \n6、circleConstrain使用"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btn_login_Act"
@@ -29,7 +31,9 @@
         android:onClick="onClick"
         android:text="Login"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@id/mian_des"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mian_des" />
 
     <Button
         android:id="@+id/btn_login_Feed"
@@ -39,6 +43,20 @@
         android:onClick="onClick"
         android:text="Feed流布局"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login_Act"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login_Act" />
+
+    <Button
+        android:id="@+id/btn_Circle"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:onClick="onClick"
+        android:text="Circle Constrain"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login_Feed" />
 
 </android.support.constraint.ConstraintLayout>

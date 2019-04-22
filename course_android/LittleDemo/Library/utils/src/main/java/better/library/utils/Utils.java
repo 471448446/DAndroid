@@ -2,6 +2,7 @@ package better.library.utils;
 
 import android.content.Context;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,6 +19,10 @@ public class Utils {
 
     public static void log(String tag, String msg) {
         Log.d(tag, msg);
+    }
+
+    public static void log(String tag, Object... msg) {
+        Log.d(tag, TextUtils.join(",", msg));
     }
 
     public static void toast(Context context, String ms) {

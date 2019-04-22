@@ -53,17 +53,18 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Better", "content getWindowVisibleDisplayFrame=" + rect.toString());
         getWindow().findViewById(Window.ID_ANDROID_CONTENT).getDrawingRect(rect);
         Log.d("Better", "content getDrawingRect=" + rect.toString());
+        Log.d("Better", "" + ScreenUtils.hasNavBar(this));
     }
 
     private void showScreenInfo() {
-        int statusBar1 = ScreenUtilsPlus.getStatusHeight(this),
-                statusBar2 = ScreenUtilsPlus.getStatusHeight2(this),
-                titleHeight = ScreenUtilsPlus.getTitleHeight(this),
-                contentHeight = ScreenUtilsPlus.getContentHeight(this),
-                decorViewHeight = ScreenUtilsPlus.getDecorHeight(this),
-                navHeight = ScreenUtilsPlus.getNavigationBarHeight(this);
-        showTxt("屏幕宽高：" + ScreenUtilsPlus.getScreenWidth(this) + "," + ScreenUtilsPlus.getScreenHeight(this),
-                "屏幕宽高Real：" + ScreenUtilsPlus.getScreenWidthReal(this) + "," + ScreenUtilsPlus.getScreenHeightReal(this),
+        int statusBar1 = ScreenUtils.getStatusHeight(this),
+                statusBar2 = ScreenUtils.getStatusHeight2(this),
+                titleHeight = ScreenUtils.getTitleHeight(this),
+                contentHeight = ScreenUtils.getContentHeight(this),
+                decorViewHeight = ScreenUtils.getDecorHeight(this),
+                navHeight = ScreenUtils.getNavigationBarHeight(this);
+        showTxt("屏幕宽高：" + ScreenUtils.getScreenWidth(this) + "," + ScreenUtils.getScreenHeight(this),
+                "屏幕宽高Real：" + ScreenUtils.getScreenWidthReal(this) + "," + ScreenUtils.getScreenHeightReal(this),
                 "状态栏：" + statusBar1 + ",or:" + statusBar2,
                 "标题栏：" + titleHeight,
                 "Content栏：" + contentHeight,

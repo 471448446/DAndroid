@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_login_Feed:
                 startActivity(new Intent(this, FeedActivity.class));
                 break;
+            case R.id.btn_Circle:
+                startActivity(new Intent(this, CircleConstrainActivity.class));
+                break;
         }
     }
 }
