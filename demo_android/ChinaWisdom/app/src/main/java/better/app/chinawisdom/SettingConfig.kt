@@ -8,6 +8,7 @@ import better.app.chinawisdom.support.constant.TextSizeEnum
 import better.app.chinawisdom.support.constant.TextTypeEnum
 import better.app.chinawisdom.support.utils.SharePref
 import better.app.chinawisdom.widget.book.BookAnimEnum
+import java.util.*
 
 /**
  * Created by better on 2017/8/17 11:43.

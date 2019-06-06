@@ -1,0 +1,32 @@
+//https://guides.gradle.org/writing-gradle-plugins/
+//https://www.jianshu.com/p/5a76a907aed9
+class FlavorAdIdPlug implements Plugin<Project> {
+    def normal = ["AD_ID_TENCENT": "0001", "AD_ID_GDT": "0002", "AD_ID_BAIDU": "0003"]
+    def us001 = ["AD_ID_TENCENT": "1111", "AD_ID_GDT": "1112", "AD_ID_BAIDU": "1113"]
+    def us002 = ["AD_ID_TENCENT": "2222", "AD_ID_GDT": "2222", "AD_ID_BAIDU": "2223"]
+
+    @Override
+    void apply(Project target) {
+        target.project.android.productFlavors.whenObjectAdded { flavor ->
+            println("________config__ad__id_______" + flavor.name)
+            def map = getConfig(flavor.name)
+            map.each { k, v ->
+                flavor.buildConfigField "String", "${k}", "\"${v}\""
+            }
+        }
+    }
+
+    Map<String, String> getConfig(String name) {
+        def map
+        if ("us001" == name) {
+            map = us001
+        } else if ("us002" == name) {
+            map = us002
+        } else {
+            map = normal
+        }
+        return map
+    }
+}
+
+apply plugin: FlavorAdIdPlug

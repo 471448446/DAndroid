@@ -1,5 +1,7 @@
 package better.app.chinawisdom.data.db
 
+import android.provider.SyncStateContract.Helpers.insert
+import android.text.method.TextKeyListener.clear
 import better.app.chinawisdom.App
 import better.app.chinawisdom.SettingConfig
 import better.app.chinawisdom.data.bean.BookInfoBean
@@ -16,6 +18,7 @@ import org.jetbrains.anko.uiThread
 import java.io.BufferedReader
 import java.io.File
 import java.io.InputStreamReader
+import java.util.*
 
 /**
  * Created by better on 2017/8/17 13:23.

@@ -1,0 +1,26 @@
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+// 找不到这个类，所以废弃
+//import com.android.build.gradle.internal.dsl.ProductFlavor
+
+//https://stackoverflow.com/questions/43258998/dynamically-add-build-flavor-from-within-a-custom-gradle-plugin
+//https://stackoverflow.com/questions/17697154/gradle-android-plugin-add-custom-flavor-attribute
+//https://google.github.io/android-gradle-dsl/current/com.android.build.gradle.internal.dsl.ProductFlavor.html
+//https://docs.gradle.org/current/javadoc/org/gradle/api/NamedDomainObjectContainer.html#create(java.lang.String)
+
+//https://guides.gradle.org/writing-gradle-plugins/
+class FlavorPlug implements Plugin<Project> {
+    def markets = """wandoujia huawei qq baidu 360 us001 us002""".split(/\s+/)
+
+    def normal = ["tencent": "0001", "gdt": "0002", "baidu": "0003"]
+    def us001 = ["tencent": "1111", "gdt": "1112", "baidu": "1113"]
+    def us002 = ["tencent": "2222", "gdt": "2222", "baidu": "2223"]
+
+    @Override
+    void apply(Project target) {
+//        ProductFlavor flavor = target.android.productFlavors.create("baidu")
+//        flavor.dimension = "channel"
+    }
+}
+
+apply plugin: FlavorPlug

@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.better.learn.flavor"
+        minSdkVersion 14
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    signingConfigs {
+        debug {
+            storeFile file('../key/better_debug.keystore')
+        }
+    }
+    def normal = ["tencent": "0001", "gdt": "0002", "baidu": "0003"]
+    def us001 = ["tencent": "1111", "gdt": "1112", "baidu": "1113"]
+    def us002 = ["tencent": "2222", "gdt": "2222", "baidu": "2223"]
+
+    productFlavors.whenObjectAdded { flavor ->
+        def map
+        if ("us001" == flavor.name) {
+            map = us001
+        } else if ("us002" == flavor.name) {
+            map = us002
+        } else {
+            map = normal
+        }
+        flavor.buildConfigField "String", "ADTencent", "\"${map["tencent"]}\""
+        flavor.buildConfigField "String", "ADBaidu", "\"${map["baidu"]}\""
+        flavor.buildConfigField "String", "ADGdt", "\"${map["gdt"]}\""
+    }
+
+    def markets = """wandoujia huawei qq baidu 360""".split(/\s+/)
+
+
+    flavorDimensions "channel"
+    productFlavors {
+        markets.each { channel ->
+            "$channel" {
+                dimension "channel"
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+class AdIdEx {
+    String id
+
+    AdIdEx(String id) {
+        this.id = id
+    }
+
+    void setId(String id) {
+        this.id = id
+    }
+}
