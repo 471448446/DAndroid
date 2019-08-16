@@ -16,11 +16,14 @@ public class MainActivity extends Activity {
     DevicePolicyManager devicePolicyManager;
     ComponentName componentName;
 
-    View lay;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        devicePolicyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+        componentName = new ComponentName(this, LockScreenAdmin.class);
+        if (lockOrApply(true)) {
+            return;
+        }
         setContentView(R.layout.activity_main);
         findViewById(R.id.lock).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -28,9 +31,6 @@ public class MainActivity extends Activity {
                 lockOrApply(true);
             }
         });
-        devicePolicyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-        componentName = new ComponentName(this, LockScreenAdmin.class);
-        lockOrApply(true);
     }
 
     @Override
@@ -39,10 +39,11 @@ public class MainActivity extends Activity {
         lockOrApply(false);
     }
 
-    private void lockOrApply(boolean apply) {
+    private boolean lockOrApply(boolean apply) {
         if (devicePolicyManager.isAdminActive(componentName)) {
             devicePolicyManager.lockNow();
             finish();
+            return true;
         } else {
             if (apply) {
                 Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
@@ -50,6 +51,7 @@ public class MainActivity extends Activity {
                 intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, getString(R.string.des));
                 startActivity(intent);
             }
+            return false;
         }
     }
 }

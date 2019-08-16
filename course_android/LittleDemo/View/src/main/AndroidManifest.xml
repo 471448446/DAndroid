@@ -1,25 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="better.learn.view">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="better.learn.view">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".custom.canvas.view.SwipeBitmapActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".useage.EditTextActivity">
+        <activity android:name=".custom.canvas.RoundImageActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".useage.EditTextActivity" />
         <activity android:name=".custom.bezier.BezierActivity">
 
             <!-- <intent-filter> -->
@@ -29,12 +43,9 @@
             <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".custom.bezier.BezierTwoOrderActivity">
-        </activity>
-        <activity android:name=".custom.bezier.BezierThreeOrderActivity">
-        </activity>
-        <activity android:name=".custom.bezier.BezierHeartActivity">
-        </activity>
+        <activity android:name=".custom.bezier.BezierTwoOrderActivity" />
+        <activity android:name=".custom.bezier.BezierThreeOrderActivity" />
+        <activity android:name=".custom.bezier.BezierHeartActivity" />
         <activity android:name=".custom.canvas.CanvasActivity">
 
             <!-- <intent-filter> -->
@@ -44,39 +55,21 @@
             <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".custom.canvas.GraphicsBasicActivity">
-        </activity>
-        <activity android:name=".custom.canvas.TranslateActivity">
-        </activity>
-        <activity android:name=".custom.canvas.ScaleActivity">
-        </activity>
-        <activity android:name=".custom.canvas.RotateActivity">
-        </activity>
-        <activity android:name=".custom.canvas.SkewActivity">
-        </activity>
-        <activity android:name=".custom.canvas.BitmapActivity">
-        </activity>
-        <activity android:name=".custom.canvas.TextActivity">
-        </activity>
-        <activity android:name=".custom.canvas.PathActivity">
-        </activity>
-        <activity android:name=".custom.canvas.PathGraphicsActivity">
-        </activity>
-        <activity android:name=".custom.canvas.demo.SpiderActivity">
-        </activity>
-        <activity android:name=".custom.canvas.ClipPathActivity">
-        </activity>
-        <activity android:name=".custom.matrix.MatrixActivity">
-        </activity>
-        <activity android:name=".custom.matrix.BasicMatrixActivity">
-        </activity>
-        <activity android:name=".useage.screencap.ScreenCapActivity">
-        </activity>
-
-        <!-- 系统级别View-->
-        <activity android:name=".systemview.SystemTypeViewActivity">
-
-        </activity>
+        <activity android:name=".custom.canvas.GraphicsBasicActivity" />
+        <activity android:name=".custom.canvas.TranslateActivity" />
+        <activity android:name=".custom.canvas.ScaleActivity" />
+        <activity android:name=".custom.canvas.RotateActivity" />
+        <activity android:name=".custom.canvas.SkewActivity" />
+        <activity android:name=".custom.canvas.BitmapActivity" />
+        <activity android:name=".custom.canvas.TextActivity" />
+        <activity android:name=".custom.canvas.PathActivity" />
+        <activity android:name=".custom.canvas.PathGraphicsActivity" />
+        <activity android:name=".custom.canvas.demo.SpiderActivity" />
+        <activity android:name=".custom.canvas.ClipPathActivity" />
+        <activity android:name=".custom.matrix.MatrixActivity" />
+        <activity android:name=".custom.matrix.BasicMatrixActivity" />
+        <activity android:name=".useage.screencap.ScreenCapActivity" /> <!-- 系统级别View -->
+        <activity android:name=".systemview.SystemTypeViewActivity" />
     </application>
 
 </manifest>
