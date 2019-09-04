@@ -1,0 +1,6 @@
+<resources>
+
+    <string name="empty_tip_loading">请稍候…</string>
+    <string name="empty_tip_fail">加载失败，请稍候再试！</string>
+    <string name="empty_tip_empty">暂时没有数据！</string>
+</resources>
