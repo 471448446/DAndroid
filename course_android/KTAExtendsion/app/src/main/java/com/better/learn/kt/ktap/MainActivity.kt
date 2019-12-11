@@ -1,8 +1,9 @@
-package com.better.learn.ktaextension
+package com.better.learn.kt.ktap
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.better.learn.kt.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -17,7 +18,10 @@ class MainActivity : AppCompatActivity() {
         main_title.visibility = View.VISIBLE
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.main_content, MainFragment())
+            .replace(
+                R.id.main_content,
+                MainFragment()
+            )
             .commit()
     }
 }

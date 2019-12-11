@@ -1,9 +1,10 @@
-package com.better.learn.ktaextension
+package com.better.learn.kt.ktap
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.better.learn.kt.R
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_list.*
 
@@ -12,9 +13,14 @@ class ContentListAdapterInnel : RecyclerView.Adapter<ContentListAdapterInnel.Hol
         l.addAll((1..20).map { "position: $it" })
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder = Holder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
-    )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder =
+        Holder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_list,
+                parent,
+                false
+            )
+        )
 
     override fun getItemCount() = list.size
 

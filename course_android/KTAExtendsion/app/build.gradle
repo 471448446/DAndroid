@@ -8,7 +8,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
     defaultConfig {
-        applicationId "com.better.learn.ktaextension"
+        applicationId "com.better.learn.kt"
         minSdkVersion 14
         targetSdkVersion 29
         versionCode 1

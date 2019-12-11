@@ -1,4 +1,4 @@
-package com.better.learn.ktaextension
+package com.better.learn.kt
 
 import org.junit.Test
 
