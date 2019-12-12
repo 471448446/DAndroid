@@ -5,12 +5,6 @@ interface Bicycle {
     fun wheel(): String
 }
 
-class NormalBicyle : Bicycle {
-    override fun bar(): String = "直杆"
-
-    override fun wheel(): String = "普通轮胎"
-}
-
 class MountainBicycle : Bicycle {
     override fun bar(): String = "直杆"
 
@@ -18,3 +12,7 @@ class MountainBicycle : Bicycle {
 }
 
 class MyBiycle : Bicycle by MountainBicycle()
+
+class AdamBicycle : Bicycle by MountainBicycle() {
+    override fun bar(): String = "Adam bicycle bar()"
+}
