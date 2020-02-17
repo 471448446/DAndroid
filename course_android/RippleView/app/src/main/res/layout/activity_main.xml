@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.better.learn.rippleview.RippleView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="#000000"
+        app:rippleColor2="#FFFFFF"
+        app:rippleColorAlpha="63"
+        app:rippleColorAlpha2="25"
+        app:rippleDensity="20dp"
+        app:rippleInitWith="64dp"
+        app:rippleIsAlpha="true" />
+    <!--    app:rippleColor1="#FFFFFF"-->
+    <!--    app:rippleColorAlpha2="25"-->
+    <!--    app:rippleColorAlpha="63"-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

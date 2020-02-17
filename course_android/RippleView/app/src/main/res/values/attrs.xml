@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RippleView">
+        <attr name="rippleColor" format="color" />
+        <attr name="rippleColorAlpha" format="integer" />
+        <attr name="rippleColor2" format="color" />
+        <attr name="rippleColorAlpha2" format="integer" />
+        <attr name="rippleSpeed" format="integer" />
+        <attr name="rippleDensity" format="dimension" />
+        <attr name="rippleIsAlpha" format="boolean" />
+        <attr name="rippleInitWith" format="dimension" />
+    </declare-styleable>
+
+</resources>
