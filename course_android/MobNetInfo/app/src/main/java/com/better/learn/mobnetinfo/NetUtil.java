@@ -42,6 +42,7 @@ public class NetUtil {
     }
 
     /**
+     * https://blog.csdn.net/ReadyShowShow/article/details/84308366
      * 当前设置的联网运营商
      */
     public static String getCurrentCarrierType(Context context) {
