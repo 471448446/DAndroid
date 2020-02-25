@@ -23,11 +23,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        applyInfo();
+        applyInfo(true);
     }
 
-    private void applyInfo() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+    private void applyInfo(boolean forceCheck) {
+        if (forceCheck &&
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
                 return;
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         String cg3 = NetUtil.cellularGeneration3(this);
         String cg4 = NetUtil.cellularGeneration4(this);
         String cg5 = NetUtil.cellularGeneration5(this);
+        String cg6 = NetUtil.cellularGeneration6(this);
+        String cg7 = NetUtil.cellularGeneration7(this);
         TextView textView = findViewById(R.id.netInfoTxt);
 
         String builder =
@@ -58,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
                         "cg3 =" + cg3 + "\n" +
                         "cg4 =" + cg4 + "\n" +
                         "cg5 =" + cg5 + "\n" +
+                        "cg6 =" + cg6 + "\n" +
+                        "cg7 =" + cg7 + "\n" +
                         "carrierName() =" + carrierName + "\n";
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             SubscriptionManager subscriptionManager = (SubscriptionManager) getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
@@ -78,6 +83,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        applyInfo();
+        applyInfo(false);
     }
 }
