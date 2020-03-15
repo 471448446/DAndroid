@@ -1,4 +1,4 @@
-package com.better.learn.gl20;
+package com.better.learn.gl20.training.three;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
@@ -8,7 +8,7 @@ import android.os.SystemClock;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-public class MyGLRenderer implements GLSurfaceView.Renderer {
+public class GLThreeRenderer implements GLSurfaceView.Renderer {
     private Triangle triangle;
 
     // vPMatrix is an abbreviation for "Model View Projection Matrix"
@@ -20,23 +20,35 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
-        // Set the background frame color
+        // 清除背景颜色
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         triangle = new Triangle();
+    }
+
+    @Override
+    public void onSurfaceChanged(GL10 unused, int width, int height) {
+        // 设置视图
+        GLES20.glViewport(0, 0, width, height);
+
+        float ratio = (float) width / height;
+
+        //设置透视投影
+        // this projection matrix is applied to object coordinates
+        // in the onDrawFrame() method
+        Matrix.frustumM(projectionMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
+        // 设置相机位置
+        Matrix.setLookAtM(viewMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+        // 应用矩阵
+        // Calculate the projection and view transformation
+        Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0);
     }
 
     @Override
     public void onDrawFrame(GL10 unused) {
         float[] scratch = new float[16];
 
-        // Redraw background color
+        // 绘制背景颜色 对应glClearColor 真实的生效
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-//        triangle.draw();
-        /**
-         * 投影
-         */
-        // 根据矩阵来绘制形状
-//        triangle.draw(vPMatrix);
 
         /**
          * 旋转
@@ -53,23 +65,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         // Draw triangle
         triangle.draw(scratch);
-    }
-
-    @Override
-    public void onSurfaceChanged(GL10 unused, int width, int height) {
-        GLES20.glViewport(0, 0, width, height);
-
-        float ratio = (float) width / height;
-
-        //设置透视投影
-        // this projection matrix is applied to object coordinates
-        // in the onDrawFrame() method
-        Matrix.frustumM(projectionMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
-        // 设置相机位置
-        Matrix.setLookAtM(viewMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
-        // 应用矩阵
-        // Calculate the projection and view transformation
-        Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0);
     }
 
     /**

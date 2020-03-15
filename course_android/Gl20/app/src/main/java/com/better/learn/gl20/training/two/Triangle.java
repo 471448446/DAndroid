@@ -1,4 +1,4 @@
-package com.better.learn.gl20;
+package com.better.learn.gl20.training.two;
 
 import android.opengl.GLES20;
 
@@ -7,16 +7,9 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 /**
- * 定义形状：
- * 右手作标系
- * 逆时针方向定义顶点
- * 绘制形状：
- * 1. 顶点着色
- * 2. 片段着色
- * 3. 绘制程序
+ * Created by better on 2020/3/14 4:27 PM.
  */
 public class Triangle {
-
     private FloatBuffer vertexBuffer;
 
     // number of coordinates per vertex in this array
@@ -29,24 +22,7 @@ public class Triangle {
 
     // Set color with red, green, blue and alpha (opacity) values
     float color[] = {0.63671875f, 0.76953125f, 0.22265625f, 1.0f};
-    /**
-     * 绘制形状 step 1.您需要至少一个顶点着色程序来绘制形状，以及一个片段着色程序来为该形状着色。您还必须对这些着色程序进行编译，然后将它们添加到之后用于绘制形状的 OpenGL ES 程序中。
-     */
-//    private final String vertexShaderCode =
-//            "attribute vec4 vPosition;" +
-//                    "void main() {" +
-//                    "  gl_Position = vPosition;" +
-//                    "}";
-
-    private final String fragmentShaderCode =
-            "precision mediump float;" +
-                    "uniform vec4 vColor;" +
-                    "void main() {" +
-                    "  gl_FragColor = vColor;" +
-                    "}";
-
-    private int mProgram;
-
+    // 着色器
 
     private final String vertexShaderCode =
             // This matrix member variable provides a hook to manipulate
@@ -61,13 +37,18 @@ public class Triangle {
                     "}";
 
     // Use to access and set the view transformation
+    private final String fragmentShaderCode =
+            "precision mediump float;" +
+                    "uniform vec4 vColor;" +
+                    "void main() {" +
+                    "  gl_FragColor = vColor;" +
+                    "}";
+
     private int vPMatrixHandle;
 
+    private final int mProgram;
+
     public Triangle() {
-        /**
-         *  创建作标
-         */
-//        将坐标数据转换为FloatBuffer，用以传入给OpenGL ES程序
         // initialize vertex byte buffer for shape coordinates
         ByteBuffer bb = ByteBuffer.allocateDirect(
                 // (number of coordinate values * 4 bytes per float)
@@ -82,27 +63,23 @@ public class Triangle {
         // set the buffer to read the first coordinate
         vertexBuffer.position(0);
 
-        /**
-         * step2 要绘制形状，您必须编译着色程序代码，将它们添加到 OpenGL ES 程序对象中，然后关联该程序。该操作需要在绘制对象的构造函数中完成，因此只需执行一次
-         */
-        int vertexShader = MyGLRenderer.loadShader(GLES20.GL_VERTEX_SHADER,
+        int vertexShader = GlTwoRender.loadShader(GLES20.GL_VERTEX_SHADER,
                 vertexShaderCode);
-        int fragmentShader = MyGLRenderer.loadShader(GLES20.GL_FRAGMENT_SHADER,
+        int fragmentShader = GlTwoRender.loadShader(GLES20.GL_FRAGMENT_SHADER,
                 fragmentShaderCode);
-        /**
-         * 创建Gl 程序
-         */
+
         // create empty OpenGL ES Program
         mProgram = GLES20.glCreateProgram();
 
-        //将顶点着色器加入到程序
+        // add the vertex shader to program
         GLES20.glAttachShader(mProgram, vertexShader);
 
-        // 将片元着色器加入到程序中
+        // add the fragment shader to program
         GLES20.glAttachShader(mProgram, fragmentShader);
 
-        // 连接到着色器程序
+        // creates OpenGL ES program executables
         GLES20.glLinkProgram(mProgram);
+
     }
 
     private int positionHandle;
@@ -111,15 +88,7 @@ public class Triangle {
     private final int vertexCount = triangleCoords.length / COORDS_PER_VERTEX;
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 
-    /**
-     * step 3 此时，您可以添加绘制形状的实际调用。使用 OpenGL ES 绘制形状时，您需要指定多个参数，以告知渲染管道您要绘制的形状以及如何进行绘制。由于绘制选项因形状而异，因此最好使您的形状类包含它们自己的绘制逻辑。
-     *
-     * @param vPMatrix
-     */
     public void draw(float[] vPMatrix) {
-        /**
-         *  绘制
-         */
         // Add program to OpenGL ES environment
         GLES20.glUseProgram(mProgram);
 
@@ -137,34 +106,21 @@ public class Triangle {
         // get handle to fragment shader's vColor member
         colorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
 
-        //设置绘制三角形的颜色
         // Set color for drawing the triangle
         GLES20.glUniform4fv(colorHandle, 1, color, 0);
 
-//        // Draw the triangle
-//        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
-//
-//        // Disable vertex array
-//        GLES20.glDisableVertexAttribArray(positionHandle);
-
-        /**
-         * 转换
-         */
         // get handle to shape's transformation matrix
         vPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
 
         // Pass the projection and view transformation to the shader
         GLES20.glUniformMatrix4fv(vPMatrixHandle, 1, false, vPMatrix, 0);
 
-        //绘制三角形
         // Draw the triangle
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
 
-        //禁止顶点数组的句柄
         // Disable vertex array
         GLES20.glDisableVertexAttribArray(positionHandle);
+
     }
 
-
 }
-

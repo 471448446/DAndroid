@@ -1,4 +1,4 @@
-package com.better.learn.gl20;
+package com.better.learn.gl20.training.three;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

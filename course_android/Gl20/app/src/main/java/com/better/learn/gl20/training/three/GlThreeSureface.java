@@ -1,24 +1,24 @@
-package com.better.learn.gl20;
+package com.better.learn.gl20.training.three;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
 
-public class MyGlSureface extends GLSurfaceView {
-    MyGLRenderer glRender;
+public class GlThreeSureface extends GLSurfaceView {
+    GLThreeRenderer glRender;
 
-    public MyGlSureface(Context context) {
+    public GlThreeSureface(Context context) {
         super(context);
         init(context);
     }
 
-    public MyGlSureface(Context context, AttributeSet attrs) {
+    public GlThreeSureface(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
     private void init(Context context) {
-        glRender = new MyGLRenderer();
+        glRender = new GLThreeRenderer();
         // Create an OpenGL ES 2.0 context ??
         setEGLContextClientVersion(2);
         setRenderer(glRender);
