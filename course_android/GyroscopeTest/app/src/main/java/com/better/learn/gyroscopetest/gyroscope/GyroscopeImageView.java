@@ -3,6 +3,7 @@ package com.better.learn.gyroscopetest.gyroscope;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -71,6 +72,7 @@ public class GyroscopeImageView extends AppCompatImageView {
     public void update(double scaleX, double scaleY) {
         mScaleX = scaleX;
         mScaleY = scaleY;
+//        Log.e("Better", "onSensorChanged x? y?" + scaleX + "," +scaleY);
         invalidate();
     }
 
@@ -95,6 +97,8 @@ public class GyroscopeImageView extends AppCompatImageView {
         }
         mOffsetX = (float) (mLenX * mScaleX);
         mOffsetY = (float) (mLenY * mScaleY);
+        Log.e("Better", "onSensorChanged x? y?" + mOffsetX + "," +mOffsetY);
+
         canvas.save();
         canvas.translate(mOffsetX, mOffsetY);
         super.onDraw(canvas);

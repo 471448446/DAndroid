@@ -119,6 +119,7 @@ public class GyroscopeManager implements SensorEventListener {
                         if (entry.getKey().mAngleY < -mMaxAngle) {
                             entry.getKey().mAngleY = -mMaxAngle;
                         }
+//                        Log.e("Better", "onSensorChanged x? y?" + entry.getKey().mAngleX + "," + entry.getKey().mAngleY);
                         entry.getKey()
                                 .update(entry.getKey().mAngleY / mMaxAngle, entry.getKey().mAngleX / mMaxAngle);
                     }
