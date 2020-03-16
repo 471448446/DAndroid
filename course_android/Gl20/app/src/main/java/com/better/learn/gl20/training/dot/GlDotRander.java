@@ -18,6 +18,8 @@ import javax.microedition.khronos.opengles.GL10;
  * 取值范围是[-1,1]
  * https://www.jianshu.com/p/890aa27b8dbc
  * https://www.jianshu.com/p/51ef66d53111
+ *
+ * https://www.jianshu.com/p/67f2e643f6ff
  * Created by better on 2020/3/15 9:46 PM.
  */
 public class GlDotRander implements GLSurfaceView.Renderer {
