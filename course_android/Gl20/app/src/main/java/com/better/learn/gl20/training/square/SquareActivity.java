@@ -11,7 +11,7 @@ public class SquareActivity extends GlActivity {
 
     @Override
     protected GLSurfaceView.Renderer createRender() {
-        return new GlSquareRender();
+        return new SquareRender();
     }
 
 }

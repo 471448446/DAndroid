@@ -37,33 +37,36 @@ public class GlUtils {
     }
 
     public static int createProgram(Context context, int rawVertex, int fragment) {
+        return createProgram(ResourceUtils.readTextFromResource(context, rawVertex),
+                ResourceUtils.readTextFromResource(context, fragment));
+    }
+
+    public static int createProgram(String vertexShaderCode, String fragmentShaderCode) {
         /**
          * 编译着色器
          */
-        int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER,
-                ResourceUtils.readTextFromResource(context, rawVertex));
+        int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderCode);
 
-        int fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER,
-                ResourceUtils.readTextFromResource(context, fragment));
+        int fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, fragmentShaderCode);
         /**
          * 创建OpenGLEs程序，并将着色器连接 OpenGLES程序
          */
         // create empty OpenGL ES Program
-        int mProgram = GLES20.glCreateProgram();
+        int program = GLES20.glCreateProgram();
 
         /**
          * 添加着色器
          */
         // add the vertex shader to program
-        GLES20.glAttachShader(mProgram, vertexShader);
+        GLES20.glAttachShader(program, vertexShader);
 
         // add the fragment shader to program
-        GLES20.glAttachShader(mProgram, fragmentShader);
+        GLES20.glAttachShader(program, fragmentShader);
 
         // creates OpenGL ES program executables
-        GLES20.glLinkProgram(mProgram);
+        GLES20.glLinkProgram(program);
 
-        return mProgram;
+        return program;
     }
 
     public static int loadShader(int type, String shaderCode) {

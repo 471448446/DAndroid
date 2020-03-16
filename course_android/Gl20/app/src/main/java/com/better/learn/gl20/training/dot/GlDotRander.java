@@ -23,14 +23,14 @@ import javax.microedition.khronos.opengles.GL10;
 public class GlDotRander implements GLSurfaceView.Renderer {
     private Context context;
 
+    private FloatBuffer vertexBuffer;
+    private FloatBuffer colorBuffer;
+
     // 顶点数据 圆点
     float coords[] = {
             -0f, 0f, 0f
     };
     float color[] = {0.63671875f, 0.76953125f, 0.22265625f, 1.0f};
-
-    private FloatBuffer vertBuffer;
-    private FloatBuffer colorBuffer;
 
     // gl相关
     private int program;
@@ -39,9 +39,6 @@ public class GlDotRander implements GLSurfaceView.Renderer {
 
     public GlDotRander(Context context) {
         this.context = context;
-        vertBuffer = GlUtils.arrayToFloatBuffer(coords);
-        //  r,g,b,a
-        colorBuffer = GlUtils.arrayToFloatBuffer(color);
     }
 
     /**
@@ -49,10 +46,16 @@ public class GlDotRander implements GLSurfaceView.Renderer {
      */
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        GLES20.glClearColor(1f, 1.0f, 1.0f, 1.0f);
+
+        vertexBuffer = GlUtils.arrayToFloatBuffer(coords);
+        //  r,g,b,a
+        colorBuffer = GlUtils.arrayToFloatBuffer(color);
+
         program = GlUtils.createProgram(context, R.raw.point_vertex_shader, R.raw.point_fragment_shader);
         vPositionLoc = GLES20.glGetAttribLocation(program, "vPosition");
-        uColorLoc = GLES20.glGetAttribLocation(program, "vColor");
+        // TODO: 2020/3/16  颜色获取时用glGetUniformLocation
+        uColorLoc = GLES20.glGetUniformLocation(program, "vColor");
     }
 
     /**
@@ -75,7 +78,7 @@ public class GlDotRander implements GLSurfaceView.Renderer {
 
         GLES20.glUseProgram(program);
         GLES20.glEnableVertexAttribArray(vPositionLoc);
-        GLES20.glVertexAttribPointer(vPositionLoc, 3, GLES20.GL_FLOAT, false, 0, vertBuffer);
+        GLES20.glVertexAttribPointer(vPositionLoc, 3, GLES20.GL_FLOAT, false, 0, vertexBuffer);
 
         GLES20.glUniform4fv(uColorLoc, 1, colorBuffer);
         /**

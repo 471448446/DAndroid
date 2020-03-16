@@ -1,10 +1,8 @@
 package com.better.learn.gl20.training.square;
 
-import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 
-import com.better.learn.gl20.R;
 import com.better.learn.gl20.training.GlUtils;
 
 import java.nio.FloatBuffer;
@@ -17,7 +15,10 @@ import javax.microedition.khronos.opengles.GL10;
  * Created by better on 2020/3/15 10:22 PM.
  */
 public class SquareRender implements GLSurfaceView.Renderer {
-    private Context context;
+
+    private FloatBuffer vertexBuffer;
+    private ShortBuffer indexBuffer;
+    private FloatBuffer colorBuffer;
 
     // 顶点数据 圆点
     static float coords[] = {
@@ -30,22 +31,26 @@ public class SquareRender implements GLSurfaceView.Renderer {
     //color
     float color[] = {0.63671875f, 0.76953125f, 0.22265625f, 1.0f};
 
-
-    private FloatBuffer vertBuffer;
-    private ShortBuffer indexBuffer;
-    private FloatBuffer colorBuffer;
-
     // gl相关
     private int program;
     private int vPositionLoc;
     private int uColorLoc;
 
-    public SquareRender(Context context) {
-        this.context = context;
-        vertBuffer = GlUtils.arrayToFloatBuffer(coords);
-        indexBuffer = GlUtils.arrayToShortBuffer(index);
-        //  r,g,b,a
-        colorBuffer = GlUtils.arrayToFloatBuffer(color);
+    private final String vertexShaderCode =
+            "attribute vec4 vPosition;" +
+                    "void main() {" +
+                    "  gl_Position = vPosition;" +
+                    "}";
+
+    private final String fragmentShaderCode =
+            "precision mediump float;" +
+                    "uniform vec4 vColor;" +
+                    "void main() {" +
+                    "  gl_FragColor = vColor;" +
+                    "}";
+
+    public SquareRender() {
+
     }
 
     /**
@@ -53,10 +58,16 @@ public class SquareRender implements GLSurfaceView.Renderer {
      */
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        program = GlUtils.createProgram(context, R.raw.square_vertex_shader, R.raw.square_fragment_shader);
+        GLES20.glClearColor(0f, 0.0f, 0.0f, 1.0f);
+
+        vertexBuffer = GlUtils.arrayToFloatBuffer(coords);
+        indexBuffer = GlUtils.arrayToShortBuffer(index);
+        //  r,g,b,a
+        colorBuffer = GlUtils.arrayToFloatBuffer(color);
+
+        program = GlUtils.createProgram(vertexShaderCode, fragmentShaderCode);
         vPositionLoc = GLES20.glGetAttribLocation(program, "vPosition");
-        uColorLoc = GLES20.glGetAttribLocation(program, "vColor");
+        uColorLoc = GLES20.glGetUniformLocation(program, "vColor");
     }
 
     /**
@@ -78,12 +89,16 @@ public class SquareRender implements GLSurfaceView.Renderer {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
         GLES20.glUseProgram(program);
+
         GLES20.glEnableVertexAttribArray(vPositionLoc);
-        GLES20.glVertexAttribPointer(vPositionLoc, 3, GLES20.GL_FLOAT, false, 12, vertBuffer);
+        GLES20.glVertexAttribPointer(vPositionLoc, 3, GLES20.GL_FLOAT, false, 12, vertexBuffer);
 
         // Set color for drawing the triangle
         GLES20.glUniform4fv(uColorLoc, 1, colorBuffer);
+//        GLES20.glUniform4fv(uColorLoc, 1, color, 0);
 
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, index.length, GLES20.GL_UNSIGNED_SHORT, indexBuffer);
+        // Disable vertex array
+        GLES20.glDisableVertexAttribArray(vPositionLoc);
     }
 }

@@ -14,10 +14,6 @@ public class ResourceUtils {
 
     /**
      * 用于读取GLSL Shader文件内容
-     *
-     * @param context
-     * @param resId
-     * @return
      */
     public static String readTextFromResource(Context context, int resId) {
         StringBuilder builder = new StringBuilder();
