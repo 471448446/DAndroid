@@ -1,7 +1,9 @@
 package com.better.learn.gl20.training;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.opengl.GLES20;
+import android.opengl.GLUtils;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -9,6 +11,8 @@ import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
 /**
+ * https://blog.csdn.net/cassiePython/article/details/51635744
+ * https://www.jianshu.com/p/b3455af356bb
  * Created by better on 2020/3/15 9:52 PM.
  */
 public class GlUtils {
@@ -81,5 +85,46 @@ public class GlUtils {
 
         return shader;
     }
+
+    public static int createTextureId(Bitmap bitmap) {
+        /*
+         * 第一步 : 创建纹理对象
+         */
+        int[] textures = new int[1];
+        /*
+        -count：生成纹理的个数。
+        -array：生成纹理id存放的数组。
+        -offset：存放纹理id数组的偏移。
+         */
+        GLES20.glGenTextures(1, textures, 0);
+        if (textures[0] == 0) {//若返回为0,,则创建失败
+            return 0;
+        }
+        // 通过纹理ID进行绑定
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[0]);
+        /*
+         * 第三步: 设置纹理过滤
+         */
+        //设置缩小时为三线性过滤
+        GLES20.glTexParameteri(
+                GLES20.GL_TEXTURE_2D,
+                GLES20.GL_TEXTURE_MIN_FILTER,
+                GLES20.GL_LINEAR_MIPMAP_LINEAR
+        );
+        //设置放大时为双线性过滤
+        GLES20.glTexParameteri(
+                GLES20.GL_TEXTURE_2D,
+                GLES20.GL_TEXTURE_MAG_FILTER,
+                GLES20.GL_LINEAR
+        );
+        /*
+         * 第四步: 加载纹理到Opengl并返回ID
+         */
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
+        bitmap.recycle();
+        GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
+        return textures[0];
+    }
+
 
 }
