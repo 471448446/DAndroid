@@ -1,4 +1,4 @@
-package com.better.learn.gl20.training.texture.square2.square;
+package com.better.learn.gl20.training.texture.square3.square2.square;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -23,7 +23,7 @@ import javax.microedition.khronos.opengles.GL10;
  * {@link com.better.learn.gl20.training.texture.square.SquareTextureRender} 添加了投影，这样界面上更正
  * Created by better on 2020/3/15 10:22 PM.
  */
-public class SquareTexture2Render implements GLSurfaceView.Renderer {
+public class SquareTexture3Render implements GLSurfaceView.Renderer {
     /*
         着色器代码
      */
@@ -84,9 +84,9 @@ public class SquareTexture2Render implements GLSurfaceView.Renderer {
     private final float[] vPMatrix = new float[16];
     private final float[] projectionMatrix = new float[16];
     private final float[] viewMatrix = new float[16];
+    private float[] rotationMatrix = new float[16];
 
-
-    public SquareTexture2Render(Context context) {
+    public SquareTexture3Render(Context context) {
         this.context = context;
     }
 
@@ -145,7 +145,17 @@ public class SquareTexture2Render implements GLSurfaceView.Renderer {
         GLES20.glUseProgram(program);
 
         // 处理矩阵
-        GLES20.glUniformMatrix4fv(uMvpMatrixLoc, 1, false, vPMatrix, 0);
+        float[] scratch = new float[16];
+        // Create a rotation transformation for the triangle
+        float angle = 45f;
+        Matrix.setRotateM(rotationMatrix, 0, angle, 0, 0, -1.0f);
+
+        // Combine the rotation matrix with the projection and camera view
+        // Note that the vPMatrix factor *must be first* in order
+        // for the matrix multiplication product to be correct.
+        Matrix.multiplyMM(scratch, 0, vPMatrix, 0, rotationMatrix, 0);
+        // 应用矩阵
+        GLES20.glUniformMatrix4fv(uMvpMatrixLoc, 1, false, scratch, 0);
 
         /*
         设置顶点坐标
