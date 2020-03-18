@@ -18,9 +18,10 @@ import javax.microedition.khronos.opengles.GL10;
 
 /**
  * https://learnopengl-cn.github.io/intro/
+ * Android OpenGL ES 视频应用开发教程目录: https://www.jianshu.com/p/d134a835ebec
  * 顶点索引：
- * https://blog.csdn.net/zhangjikuan/article/details/23126639
- * https://www.jianshu.com/p/92c12166a935
+ * Android OpenGL ES顶点坐标、纹理贴图坐标设置: https://blog.csdn.net/zhangjikuan/article/details/23126639
+ * Android OpenGL ES 6.索引法绘制: https://www.jianshu.com/p/92c12166a935
  * <p>
  * https://www.jianshu.com/u/eb01968a6673
  * es 1.0 :http://www.guidebee.info/wordpress/?page_id=2376
@@ -82,65 +83,48 @@ public class CubeTextureRender implements GLSurfaceView.Renderer {
             r, r, -r,     //反面右上7
     };
     private short[] indexVertex = {
-            0, 3, 2, 0, 2, 1,    //正面
-            0, 1, 5, 0, 5, 4,    //左面
-            0, 4, 7, 0, 7, 3,    //上面
-            6, 7, 4, 6, 4, 5,    //后面
-            6, 7, 3, 6, 3, 2,    //右面
-            6, 5, 1, 6, 1, 2     //下面
+            0, 1, 2, 0, 2, 3,    //正面
+            4, 0, 1, 4, 0, 5,    //左面
+            0, 3, 7, 0, 7, 4,    //上面
+            4, 7, 6, 4, 6, 5,    //后面
+            3, 2, 6, 3, 6, 7,    //右面
+            1, 5, 6, 1, 6, 2     //下面
     };
 
     //纹理坐标的原点是左上角，右下角是（1，1）
     private float[] coordsTexture = {
-            //正面
+            //正面 ok
             0f, 0f,
+            0f, 1f,
+            1f, 1f,
+            1f, 0f,
+            //左面 ok
             1f, 0f,
             1f, 1f,
             0f, 1f,
-            //左面
-            1f, 0f,
+            0f, 0f,
+            //上面
+            0f, 0f,
+            1f, 1f,
             1f, 1f,
             0f, 1f,
-            0f, 0f,
-            //上面 待定
-            0f, 1f,
-            0f, 0f,
-            1f, 0f,
-            1f, 1f,
             //后面
-            1f, 1f,
-            1f, 0f,
             0f, 0f,
+            1f, 0f,
+            1f, 1f,
             0f, 1f,
             //右面
-            1f, 1f,
-            1f, 0f,
             0f, 0f,
             0f, 1f,
+            1f, 1f,
+            1f, 0f,
+            //下面
+            0f, 1f,
+            0f, 0f,
+            1f, 0f,
+            1f, 1f,
 
     };
-
-    //    private short[] indexVertex = {
-//            0, 3, 2, 0, 2, 1,    //正面
-//            0, 1, 5, 0, 5, 4,    //左面
-//            0, 7, 3, 0, 4, 7,    //上面
-//            6, 7, 4, 6, 4, 5,    //后面
-//            6, 3, 7, 6, 2, 3,    //右面
-//            6, 5, 1, 6, 1, 2     //下面
-//    };
-
-    //color
-//    float color[] = {
-//            1f, 1f, 0f, 1f,
-//            1f, 1f, 0f, 1f,
-//            1f, 1f, 0f, 1f,
-//            1f, 1f, 0f, 1f,
-//            1f, 0f, 0f, 1f,
-//            1f, 0f, 0f, 1f,
-//            1f, 0f, 0f, 1f,
-//            1f, 0f, 0f, 1f
-//    };
-
 
     // gl相关
     private int program;
@@ -207,7 +191,7 @@ public class CubeTextureRender implements GLSurfaceView.Renderer {
 
         // 这俩步目前在这里设置也是没问题的，因为 不会涉及到改变
         // Set the camera position (View matrix)
-        Matrix.setLookAtM(viewMatrix, 0, -2, 2, 4.2f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+        Matrix.setLookAtM(viewMatrix, 0, 2, -2, 4.2f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 
         // Calculate the projection and view transformation
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0);
