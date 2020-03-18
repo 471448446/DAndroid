@@ -106,10 +106,17 @@ public class GlUtils {
          * 第三步: 设置纹理过滤
          */
         //设置缩小时为三线性过滤
+        /*
+            target:活动纹理单元的目标纹理，GLES20.GL_TEXTURE_2D表示2D纹理，还有其他纹理，比如GLES11Ext.GL_TEXTURE_EXTERNAL_OES，
+                    这是Android特有的OES纹理，预览相机或者视频使用此纹理
+            pname: 纹理参数的标记名，可以设置的值如下：GL_TEXTURE_MIN_FILTER, GL_TEXTURE_MAG_FILTER, GL_TEXTURE_WRAP_S 或 GL_TEXTURE_WRAP_T
+            param: 对应的值
+            https://www.jianshu.com/p/5e1c99e4c1b4
+         */
         GLES20.glTexParameteri(
                 GLES20.GL_TEXTURE_2D,
                 GLES20.GL_TEXTURE_MIN_FILTER,
-                GLES20.GL_LINEAR_MIPMAP_LINEAR
+                GLES20.GL_LINEAR
         );
         //设置放大时为双线性过滤
         GLES20.glTexParameteri(
@@ -117,11 +124,22 @@ public class GlUtils {
                 GLES20.GL_TEXTURE_MAG_FILTER,
                 GLES20.GL_LINEAR
         );
+        GLES20.glTexParameteri(
+                GLES20.GL_TEXTURE_2D,
+                GLES20.GL_TEXTURE_WRAP_S,
+                GLES20.GL_REPEAT
+        );
+        GLES20.glTexParameteri(
+                GLES20.GL_TEXTURE_2D,
+                GLES20.GL_TEXTURE_WRAP_T,
+                GLES20.GL_REPEAT
+        );
         /*
          * 第四步: 加载纹理到Opengl并返回ID
          */
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
         bitmap.recycle();
+        //绑定bitmap 后生成Mipmap
         GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
         return textures[0];
     }

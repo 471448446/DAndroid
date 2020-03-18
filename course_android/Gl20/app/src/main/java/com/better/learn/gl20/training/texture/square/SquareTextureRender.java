@@ -16,6 +16,9 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
+ * 最后展示的是白色：
+ * 需要注意的是，在某些硬件上，贴图需要的图片尺寸必须是2的n次方（1,2,4,8,16,32…）。如果你的图片是30X30的话，而且硬件不支持的话，那么你只能看到一个白色的方框（除非，你更改了默认颜色
+ * https://yq.aliyun.com/articles/258112
  * Created by better on 2020/3/15 10:22 PM.
  */
 public class SquareTextureRender implements GLSurfaceView.Renderer {
@@ -28,26 +31,24 @@ public class SquareTextureRender implements GLSurfaceView.Renderer {
     private Context context;
 
     private FloatBuffer vertexBuffer;
-    private ShortBuffer indexBuffer;
-    private ShortBuffer texBuffer;
+    private ShortBuffer vertexIndexBuffer;
+    private FloatBuffer textureCoordsBuffer;
 
     // 顶点数据 圆点
-    static float coords[] = {
+    static float coordsVertex[] = {
             -0.5f, 0.5f, 0.0f,   // top left
             -0.5f, -0.5f, 0.0f,   // bottom left
             0.5f, -0.5f, 0.0f,   // bottom right
             0.5f, 0.5f, 0.0f}; // top right
     // order to draw vertices
-    private short[] index = {0, 1, 2, 0, 2, 3};
+    private short[] indexVertex = {0, 1, 2, 0, 2, 3};
     //纹理坐标的原点是左上角，右下角是（1，1）
-    private short[] indexTexture = {
-            0, 0,
-            0, 1,
-            1, 1,
-            1, 0
+    private float[] coordsTexture = {
+            0f, 0f,
+            0f, 1f,
+            1f, 1f,
+            1f, 0f
     };
-    //color
-    float color[] = {0.63671875f, 0.76953125f, 0.22265625f, 1.0f};
 
     // gl相关
     private int program;
@@ -84,9 +85,9 @@ public class SquareTextureRender implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         GLES20.glClearColor(0f, 0.0f, 0.0f, 1.0f);
 
-        vertexBuffer = GlUtils.arrayToFloatBuffer(coords);
-        indexBuffer = GlUtils.arrayToShortBuffer(index);
-        texBuffer = GlUtils.arrayToShortBuffer(indexTexture);
+        vertexBuffer = GlUtils.arrayToFloatBuffer(coordsVertex);
+        vertexIndexBuffer = GlUtils.arrayToShortBuffer(indexVertex);
+        textureCoordsBuffer = GlUtils.arrayToFloatBuffer(coordsTexture);
 
         program = GlUtils.createProgram(vertexShaderCode, fragmentShaderCode);
 
@@ -117,17 +118,19 @@ public class SquareTextureRender implements GLSurfaceView.Renderer {
 
         GLES20.glUseProgram(program);
 
+//        gl.glEnable(GL10.GL_TEXTURE_2D);
+
         /*
         设置顶点坐标
          */
-        GLES20.glVertexAttribPointer(aPositionLocation, 3, GLES20.GL_FLOAT, false, 0, vertexBuffer);
         GLES20.glEnableVertexAttribArray(aPositionLocation);
+        GLES20.glVertexAttribPointer(aPositionLocation, 3, GLES20.GL_FLOAT, false, 0, vertexBuffer);
         /*
         设置纹理坐标
          */
         GLES20.glEnableVertexAttribArray(aTextureCoordinates);
         GLES20.glVertexAttribPointer(aTextureCoordinates, 2,
-                GLES20.GL_FLOAT, false, 0, texBuffer);
+                GLES20.GL_FLOAT, false, 0, textureCoordsBuffer);//GLES20.GL_FLOAT 要与顶点对应 是float
         /*
         设置纹理
          */
@@ -145,7 +148,14 @@ public class SquareTextureRender implements GLSurfaceView.Renderer {
         type：索引（indices）数组中的元素类型，注意不是顶点的类型，值必须是GL_UNSIGNED_BYTE或者GL_UNSIGNED_SHORT。
         indices：索引数组。
          */
-        GLES20.glDrawElements(GLES20.GL_TRIANGLES, index.length, GLES20.GL_UNSIGNED_SHORT, indexBuffer);
+        GLES20.glDrawElements(GLES20.GL_TRIANGLES, indexVertex.length, GLES20.GL_UNSIGNED_SHORT, vertexIndexBuffer);
+
+        //禁用顶点数据对象
+        GLES20.glDisableVertexAttribArray(aPositionLocation);
+        //禁用纹理坐标数据对象
+        GLES20.glDisableVertexAttribArray(aTextureCoordinates);
+        //解绑纹理
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
 
     }
 }
