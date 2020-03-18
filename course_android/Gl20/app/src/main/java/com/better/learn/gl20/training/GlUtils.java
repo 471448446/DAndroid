@@ -2,8 +2,10 @@ package com.better.learn.gl20.training;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
 import android.opengl.GLUtils;
+import android.util.Log;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -144,5 +146,80 @@ public class GlUtils {
         return textures[0];
     }
 
+    /**
+     * 立方体贴图
+     *
+     * @param context context
+     * @param resIds  贴图集合，顺序是：
+     *                <ul><li>右{@link GLES20#GL_TEXTURE_CUBE_MAP_POSITIVE_X}</li>
+     *                <li>左{@link GLES20#GL_TEXTURE_CUBE_MAP_NEGATIVE_X}</li>
+     *                <li>上{@link GLES20#GL_TEXTURE_CUBE_MAP_POSITIVE_Y}</li>
+     *                <li>下{@link GLES20#GL_TEXTURE_CUBE_MAP_NEGATIVE_Y}</li>
+     *                <li>后{@link GLES20#GL_TEXTURE_CUBE_MAP_POSITIVE_Z}</li>
+     *                <li>前{@link GLES20#GL_TEXTURE_CUBE_MAP_NEGATIVE_Z}</li></ul>
+     * @return int
+     */
+    public static int createTextureCube(Context context, int[] resIds) {
+        if (resIds != null && resIds.length >= 6) {
+            int[] texture = new int[1];
+            //生成纹理
+            GLES20.glGenTextures(1, texture, 0);
+            //生成纹理
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_CUBE_MAP, texture[0]);
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
+//            if (OpenGLVersion > 2 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP, GLES30.GL_TEXTURE_WRAP_R, GLES20.GL_CLAMP_TO_EDGE);
+//            }
 
+            Bitmap bitmap;
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inScaled = false;
+            for (int i = 0; i < resIds.length; i++) {
+                bitmap = BitmapFactory.decodeResource(context.getResources(),
+                        resIds[i], options);
+                if (bitmap == null) {
+                    Log.w("", "Resource ID " + resIds[i] + " could not be decoded.");
+                    GLES20.glDeleteTextures(1, texture, 0);
+                    return 0;
+                }
+                GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, bitmap, 0);
+                bitmap.recycle();
+            }
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture[0]);
+            return texture[0];
+        }
+        return 0;
+    }
+
+
+    public static void perspectiveM(float[] m, float yFovInDegrees, float aspect, float n, float f) {
+        final float angleInRadians = (float) (yFovInDegrees * Math.PI / 180.0);
+
+        final float a = (float) (1.0 / Math.tan(angleInRadians / 2.0));
+
+        int i = 0;
+
+        m[i++] = a / aspect;
+        m[i++] = 0f;
+        m[i++] = 0f;
+        m[i++] = 0f;
+
+        m[i++] = 0f;
+        m[i++] = a;
+        m[i++] = 0f;
+        m[i++] = 0f;
+
+        m[i++] = 0f;
+        m[i++] = 0f;
+        m[i++] = -((f + n) / (f - n));
+        m[i++] = -1f;
+
+        m[i++] = 0f;
+        m[i++] = 0f;
+        m[i++] = -(2f * f * n) / (f - n);
+        m[i++] = 0f;
+    }
 }
