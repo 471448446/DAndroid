@@ -78,9 +78,11 @@ public class CubeRender implements GLSurfaceView.Renderer {
                     "}";
 
     //矩阵
-    float[] mProjMatrix = new float[16];// 4x4矩阵 存储投影矩阵
-    float[] mVMatrix = new float[16];// 摄像机位置朝向9参数矩阵
-    float[] mMVPMatrix = new float[16];
+    // 4x4矩阵 存储投影矩阵
+    private float[] mProjectMatrix = new float[16];
+    // 摄像机位置朝向9参数矩阵
+    private float[] mMVPMatrix = new float[16];
+    private float[] mVPMatrix = new float[16];
 
     public CubeRender() {
 
@@ -113,8 +115,32 @@ public class CubeRender implements GLSurfaceView.Renderer {
         GLES20.glViewport(0, 0, width, height);
 
         float ratio = (float) width / height;
-        Matrix.frustumM(mProjMatrix, 0, -ratio, ratio, -1, 1, 20, 100);
-        Matrix.setLookAtM(mVMatrix, 0, -16f, 8f, 45, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+        // 设置透视投影参数
+        /*
+            float left, // near面的left
+			float right, // near面的right
+			float bottom, // near面的bottom
+			float top, // near面的top
+			float near, // near面距离 近平面距离
+			float far // far面距离  远平面距离
+         */
+        Matrix.frustumM(mProjectMatrix, 0, -ratio, ratio, -1, 1, 20, 100);
+        // 摄像机位置
+        /*
+            float eyeX, // 摄像机位置x
+            float eyeY, // 摄像机位置y
+            float eyeZ, // 摄像机位置z
+            float centerX, // 摄像机目标点x
+            float centerY, // 摄像机目标点y
+            float centerZ, // 摄像机目标点z
+            float upX, // 摄像机UP向量X分量
+            float upY, // 摄像机UP向量Y分量
+            float upX // 摄像机UP向量Z分量
+        */
+        Matrix.setLookAtM(mVPMatrix, 0,
+                -16f, 8f, 45,
+                0f, 0f, 0f,
+                0f, 1.0f, 0.0f);
     }
 
     /**
@@ -136,7 +162,7 @@ public class CubeRender implements GLSurfaceView.Renderer {
         GLES20.glEnableVertexAttribArray(vPositionLoc);
         GLES20.glVertexAttribPointer(vPositionLoc, 3, GLES20.GL_FLOAT, false, 0, vertexBuffer);
         // 应用矩阵
-        Matrix.multiplyMM(mMVPMatrix, 0, mProjMatrix, 0, mVMatrix, 0);
+        Matrix.multiplyMM(mMVPMatrix, 0, mProjectMatrix, 0, mVPMatrix, 0);
         /*GLES20.glUniform4f(uColorLoc, 1.0f, 0.0f, 0.0f, 0.0f);*/ //颜色写死
         GLES20.glUniform4fv(uColorLoc, 1, colorBuffer);
         GLES20.glUniformMatrix4fv(mvpMatrixLoc, 1, false, mMVPMatrix, 0);
