@@ -14,8 +14,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".training.texture.square2.square.SquareTexture2Activity"
+            android:label="GlTextureSquare2">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".training.texture.square.SquareTextureActivity"
-            android:label="GlCubeTexture">
+            android:label="GlTextureSquare">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
