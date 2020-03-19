@@ -172,7 +172,7 @@ public class CubeTextureRender2 implements GLSurfaceView.Renderer {
         uMvpMatrixLoc = GLES20.glGetUniformLocation(program, U_MVP_MATRIX);
         aTextureCoordinates = GLES20.glGetAttribLocation(program, A_TEXTURE_COORDINATES);
         uTextureUnitLoc = GLES20.glGetAttribLocation(program, U_TEXTURE_UNIT);
-        Bitmap textureBitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ss);
+        Bitmap textureBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.sss);
         textureId = GlUtils.createTextureId(textureBitmap);
 
     }
@@ -182,6 +182,7 @@ public class CubeTextureRender2 implements GLSurfaceView.Renderer {
      * 通常情况下在此方法中设置绘制窗口及和GLSurfaceView大小有关系的参数。
      */
     @Override
+
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         GLES20.glViewport(0, 0, width, height);
 
