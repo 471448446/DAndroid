@@ -169,6 +169,7 @@ public class SquareTexture2Render implements GLSurfaceView.Renderer {
         // 如果启用GLES20.GL_TEXTURE1，那么使用GLES20.glUniform1i(textureLoc, 1)
         GLES20.glUniform1i(uTextureUnitLoc, 0);
 
+
         /*
         mode：绘制方式，GLES20.GL_TRIANGLES表示绘制三角形。
         count：顶点的个数。

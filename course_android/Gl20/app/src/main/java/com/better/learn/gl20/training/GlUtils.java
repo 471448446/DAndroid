@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
 import android.opengl.GLUtils;
-import android.util.Log;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -159,41 +158,57 @@ public class GlUtils {
      *                <li>前{@link GLES20#GL_TEXTURE_CUBE_MAP_NEGATIVE_Z}</li></ul>
      * @return int
      */
-    public static int createTextureCube(Context context, int[] resIds) {
-        if (resIds != null && resIds.length >= 6) {
-            int[] texture = new int[1];
-            //生成纹理
-            GLES20.glGenTextures(1, texture, 0);
-            //生成纹理
-            GLES20.glBindTexture(GLES20.GL_TEXTURE_CUBE_MAP, texture[0]);
-            GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
-            GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
-            GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
-            GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
-//            if (OpenGLVersion > 2 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-//                GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP, GLES30.GL_TEXTURE_WRAP_R, GLES20.GL_CLAMP_TO_EDGE);
-//            }
+    /**
+     * Loads a cubemap texture from the provided resources and returns the
+     * texture ID. Returns 0 if the load failed.
+     *
+     * @param context
+     * @param cubeResources
+     *            An array of resources corresponding to the cube map. Should be
+     *            provided in this order: left, right, bottom, top, front, back.
+     * @return
+     */
+    public static int loadCubeMap(Context context, int[] cubeResources) {
+        final int[] textureObjectIds = new int[1];
+        GLES20.glGenTextures(1, textureObjectIds, 0);
 
-            Bitmap bitmap;
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inScaled = false;
-            for (int i = 0; i < resIds.length; i++) {
-                bitmap = BitmapFactory.decodeResource(context.getResources(),
-                        resIds[i], options);
-                if (bitmap == null) {
-                    Log.w("", "Resource ID " + resIds[i] + " could not be decoded.");
-                    GLES20.glDeleteTextures(1, texture, 0);
-                    return 0;
-                }
-                GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, bitmap, 0);
-                bitmap.recycle();
-            }
-            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture[0]);
-            return texture[0];
+        if (textureObjectIds[0] == 0) {
+            return 0;
         }
-        return 0;
-    }
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inScaled = false;
+        final Bitmap[] cubeBitmaps = new Bitmap[6];
+        for (int i = 0; i < 6; i++) {
+            cubeBitmaps[i] =
+                    BitmapFactory.decodeResource(context.getResources(),
+                            cubeResources[i], options);
 
+            if (cubeBitmaps[i] == null) {
+                GLES20.glDeleteTextures(1, textureObjectIds, 0);
+                return 0;
+            }
+        }
+        // Linear filtering for minification and magnification
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_CUBE_MAP, textureObjectIds[0]);
+
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, cubeBitmaps[0], 0);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, cubeBitmaps[1], 0);
+
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, cubeBitmaps[2], 0);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, cubeBitmaps[3], 0);
+
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, cubeBitmaps[4], 0);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, cubeBitmaps[5], 0);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
+
+        for (Bitmap bitmap : cubeBitmaps) {
+            bitmap.recycle();
+        }
+
+        return textureObjectIds[0];
+    }
 
     public static void perspectiveM(float[] m, float yFovInDegrees, float aspect, float n, float f) {
         final float angleInRadians = (float) (yFovInDegrees * Math.PI / 180.0);
