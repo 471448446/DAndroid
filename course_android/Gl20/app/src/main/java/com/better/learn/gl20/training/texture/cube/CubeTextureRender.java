@@ -83,47 +83,47 @@ public class CubeTextureRender implements GLSurfaceView.Renderer {
             r, r, -r,     //反面右上7
     };
     private short[] indexVertex = {
-            0, 1, 2, 0, 2, 3,    //正面
-            4, 0, 1, 4, 0, 5,    //左面
-            0, 3, 7, 0, 7, 4,    //上面
-            4, 7, 6, 4, 6, 5,    //后面
-            3, 2, 6, 3, 6, 7,    //右面
-            1, 5, 6, 1, 6, 2     //下面
+            2, 1, 0, 2, 0, 3,    //正面2103
+            6, 7, 4, 6, 4, 5,    //后面6745
+            3, 0, 4, 3, 4, 7,    //上面3047
+            2, 6, 5, 2, 5, 1,    //下面2651
+            6, 2, 3, 6, 3, 7,    //左面6237
+            5, 4, 0, 5, 0, 1,    //右面5401
     };
 
     //纹理坐标的原点是左上角，右下角是（1，1）
+
     private float[] coordsTexture = {
-            //正面 ok
-            0f, 0f,
+            //正面
             0f, 1f,
             1f, 1f,
             1f, 0f,
-            //左面 ok
-            1f, 0f,
-            1f, 1f,
-            0f, 1f,
             0f, 0f,
-            //上面
-            0f, 0f,
-            1f, 1f,
-            1f, 1f,
-            0f, 1f,
             //后面
+            0f, 1f,
             0f, 0f,
             1f, 0f,
             1f, 1f,
-            0f, 1f,
-            //右面
-            0f, 0f,
+            //上面
             0f, 1f,
             1f, 1f,
             1f, 0f,
+            0f, 0f,
             //下面
             0f, 1f,
             0f, 0f,
             1f, 0f,
             1f, 1f,
-
+            //左面
+            0f, 1f,
+            1f, 1f,
+            1f, 0f,
+            0f, 0f,
+            //右面
+            0f, 1f,
+            0f, 0f,
+            1f, 0f,
+            1f, 1f,
     };
 
     // gl相关
@@ -144,6 +144,19 @@ public class CubeTextureRender implements GLSurfaceView.Renderer {
     private final float[] vPMatrix = new float[16];
     private float[] rotationMatrix = new float[16];
 
+    private float roateX, roateY, roateZ;
+
+    public void setRoateX(float roateX) {
+        this.roateX = roateX;
+    }
+
+    public void setRoateY(float roateY) {
+        this.roateY = roateY;
+    }
+
+    public void setRoateZ(float roateZ) {
+        this.roateZ = roateZ;
+    }
 
     public CubeTextureRender(Context context) {
         this.context = context;
@@ -191,7 +204,7 @@ public class CubeTextureRender implements GLSurfaceView.Renderer {
 
         // 这俩步目前在这里设置也是没问题的，因为 不会涉及到改变
         // Set the camera position (View matrix)
-        Matrix.setLookAtM(viewMatrix, 0, 2, -2, 4.2f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+        Matrix.setLookAtM(viewMatrix, 0, 2, 2, 4.2f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 
         // Calculate the projection and view transformation
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0);
@@ -257,9 +270,9 @@ public class CubeTextureRender implements GLSurfaceView.Renderer {
         float[] scratch = new float[16];
         // Create a rotation transformation for the triangle
         float angle = 05f;
-//        Matrix.setRotateM(rotationMatrix, 0, angle, 1f, 0f, 0f);
-//        Matrix.setRotateM(rotationMatrix, 0, angle, 0, 1.0f, 0f);
-        Matrix.setRotateM(rotationMatrix, 0, angle, 0, 0, 1.0f);
+        Matrix.setRotateM(rotationMatrix, 0, roateX, 1f, 0f, 0f);
+        Matrix.setRotateM(rotationMatrix, 0, roateY, 0, 1.0f, 0f);
+        Matrix.setRotateM(rotationMatrix, 0, roateZ, 0, 0, 1.0f);
 
         // Combine the rotation matrix with the projection and camera view
         // Note that the vPMatrix factor *must be first* in order
