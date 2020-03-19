@@ -23,6 +23,8 @@ import static android.opengl.Matrix.setIdentityM;
 import static android.opengl.Matrix.setLookAtM;
 
 /**
+ * 顶点缓冲对象(VBO: Vertex Buffer Object)和索引缓冲对象(IBO: Indice Buffer Object) 绘制立方体
+ * https://elloop.github.io/opengl/2016-01-05/opengl-es-8-vbo
  * 最后渲染不对。文理坐标不对
  * Created by better on 2020/3/15 10:22 PM.
  */
