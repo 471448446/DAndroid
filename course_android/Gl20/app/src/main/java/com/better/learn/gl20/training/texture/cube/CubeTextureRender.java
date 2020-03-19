@@ -50,13 +50,6 @@ public class CubeTextureRender implements GLSurfaceView.Renderer {
                     "  gl_FragColor = texture2D(u_TextureUnit, v_TextureCoordinates);   \n" +
                     "}                                                                  \n";
 
-//    private static final String fragmentShaderCode =
-//            "precision mediump float;" +
-//                    "uniform vec4 u_Color;" +
-//                    "void main() {" +
-//                    "  gl_FragColor = u_Color;" +
-//                    "}";
-
     private static final String A_POSITION = "a_Position";
     private static final String U_MVP_MATRIX = "u_MVPMatrix";
     private static final String U_COLOR = "u_Color";
@@ -68,19 +61,18 @@ public class CubeTextureRender implements GLSurfaceView.Renderer {
     private FloatBuffer vertexBuffer;
     private ShortBuffer vertexIndexBuffer;
     private FloatBuffer textureCoordsBuffer;
-//    private FloatBuffer colorBuffer;
 
     // 顶点数据 圆点
     private float r = 0.5f;
     private float coordsVertex[] = {
-            -r, r, r,    //正面左上0
-            -r, -r, r,   //正面左下1
-            r, -r, r,    //正面右下2
-            r, r, r,     //正面右上3
-            -r, r, -r,    //反面左上4
-            -r, -r, -r,   //反面左下5
-            r, -r, -r,    //反面右下6
-            r, r, -r,     //反面右上7
+            r, r, r,     //正面右上0
+            r, -r, r,    //正面右下1
+            -r, -r, r,   //正面左下2
+            -r, r, r,    //正面左上3
+            r, r, -r,     //反面右上4
+            r, -r, -r,    //反面右下5
+            -r, -r, -r,   //反面左下6
+            -r, r, -r,    //反面左上7
     };
     private short[] indexVertex = {
             2, 1, 0, 2, 0, 3,    //正面2103
@@ -92,38 +84,13 @@ public class CubeTextureRender implements GLSurfaceView.Renderer {
     };
 
     //纹理坐标的原点是左上角，右下角是（1，1）
-
     private float[] coordsTexture = {
-            //正面
-            0f, 1f,
-            1f, 1f,
-            1f, 0f,
-            0f, 0f,
-            //后面
-            0f, 1f,
-            0f, 0f,
-            1f, 0f,
-            1f, 1f,
-            //上面
-            0f, 1f,
-            1f, 1f,
-            1f, 0f,
-            0f, 0f,
-            //下面
-            0f, 1f,
-            0f, 0f,
-            1f, 0f,
-            1f, 1f,
-            //左面
-            0f, 1f,
-            1f, 1f,
-            1f, 0f,
-            0f, 0f,
-            //右面
-            0f, 1f,
-            0f, 0f,
-            1f, 0f,
-            1f, 1f,
+            0, 1, 1, 1, 1, 0, 0, 0, //前面
+            0, 1, 0, 0, 1, 0, 1, 1, //后面 
+            0, 1, 1, 1, 1, 0, 0, 0, //上面   
+            0, 0, 0, 1, 1, 1, 1, 0, //下面  
+            0, 1, 1, 1, 1, 0, 0, 0, //左面
+            1, 1, 1, 0, 0, 0, 0, 1, //右面
     };
 
     // gl相关
@@ -174,7 +141,6 @@ public class CubeTextureRender implements GLSurfaceView.Renderer {
         vertexBuffer = GlUtils.arrayToFloatBuffer(coordsVertex);
         vertexIndexBuffer = GlUtils.arrayToShortBuffer(indexVertex);
         textureCoordsBuffer = GlUtils.arrayToFloatBuffer(coordsTexture);
-//        colorBuffer = GlUtils.arrayToFloatBuffer(color);
 
         program = GlUtils.createProgram(vertexShaderCode, fragmentShaderCode);
 
@@ -182,7 +148,6 @@ public class CubeTextureRender implements GLSurfaceView.Renderer {
         uMvpMatrixLoc = GLES20.glGetUniformLocation(program, U_MVP_MATRIX);
         aTextureCoordinates = GLES20.glGetAttribLocation(program, A_TEXTURE_COORDINATES);
         uTextureUnitLoc = GLES20.glGetAttribLocation(program, U_TEXTURE_UNIT);
-//        uColorLoc = GLES20.glGetUniformLocation(program, U_COLOR);
         Bitmap textureBitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ss);
         textureId = GlUtils.createTextureId(textureBitmap);
 
@@ -204,7 +169,7 @@ public class CubeTextureRender implements GLSurfaceView.Renderer {
 
         // 这俩步目前在这里设置也是没问题的，因为 不会涉及到改变
         // Set the camera position (View matrix)
-        Matrix.setLookAtM(viewMatrix, 0, 2, 2, 4.2f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+        Matrix.setLookAtM(viewMatrix, 0, 2, 2, -4.2f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 
         // Calculate the projection and view transformation
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0);
@@ -245,8 +210,6 @@ public class CubeTextureRender implements GLSurfaceView.Renderer {
         //设置纹理，textureLoc是Fragment Shader中纹理句柄，后面的参数0和GLES20.GL_TEXTURE0是对应的，
         // 如果启用GLES20.GL_TEXTURE1，那么使用GLES20.glUniform1i(textureLoc, 1)
         GLES20.glUniform1i(uTextureUnitLoc, 0);
-
-//        GLES20.glUniform4fv(uColorLoc, 1, colorBuffer);
 
         /*
         mode：绘制方式，GLES20.GL_TRIANGLES表示绘制三角形。
