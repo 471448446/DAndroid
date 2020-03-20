@@ -17,7 +17,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
- * 猜测是不是矩阵的问题
+ * 猜测是不是矩阵的问题，按照官方旋转方式，失败
  * Created by better on 2020/3/15 10:22 PM.
  */
 public class CubeTextureRender4 implements GLSurfaceView.Renderer {
@@ -44,7 +44,6 @@ public class CubeTextureRender4 implements GLSurfaceView.Renderer {
 
     private static final String A_POSITION = "a_Position";
     private static final String U_MVP_MATRIX = "u_MVPMatrix";
-    private static final String U_COLOR = "u_Color";
     private static final String A_TEXTURE_COORDINATES = "a_TextureCoordinates";//纹理坐标
     private static final String U_TEXTURE_UNIT = "u_TextureUnit";//纹理图
 
@@ -190,6 +189,7 @@ public class CubeTextureRender4 implements GLSurfaceView.Renderer {
          */
         GLES20.glEnableVertexAttribArray(aPositionLocation);
         GLES20.glVertexAttribPointer(aPositionLocation, 3, GLES20.GL_FLOAT, false, 0, vertexBuffer);
+
         /*
         设置纹理坐标
          */
@@ -206,6 +206,9 @@ public class CubeTextureRender4 implements GLSurfaceView.Renderer {
         //设置纹理，textureLoc是Fragment Shader中纹理句柄，后面的参数0和GLES20.GL_TEXTURE0是对应的，
         // 如果启用GLES20.GL_TEXTURE1，那么使用GLES20.glUniform1i(textureLoc, 1)
         GLES20.glUniform1i(uTextureUnitLoc, 0);
+
+        // Pass the projection and view transformation to the shader
+        GLES20.glUniformMatrix4fv(uMvpMatrixLoc, 1, false, vPMatrix, 0);
 
         /*
         mode：绘制方式，GLES20.GL_TRIANGLES表示绘制三角形。
@@ -238,14 +241,6 @@ public class CubeTextureRender4 implements GLSurfaceView.Renderer {
         // for the matrix multiplication product to be correct.
         Matrix.multiplyMM(scratch, 0, vPMatrix, 0, rotationMatrix, 0);
 
-        /**
-         * 转换
-         */
-        // get handle to shape's transformation matrix
-        uMvpMatrixLoc = GLES20.glGetUniformLocation(program, U_MVP_MATRIX);
-
-        // Pass the projection and view transformation to the shader
-        GLES20.glUniformMatrix4fv(uMvpMatrixLoc, 1, false, vPMatrix, 0);
 
     }
 
