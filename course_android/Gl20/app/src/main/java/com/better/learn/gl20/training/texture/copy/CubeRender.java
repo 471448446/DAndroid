@@ -16,7 +16,7 @@ import javax.microedition.khronos.opengles.GL10;
 /**
  * 正方体的绘制，增加透视投影和纹理贴图
  */
-public class Cube2Render implements GLSurfaceView.Renderer {
+public class CubeRender implements GLSurfaceView.Renderer {
     //顶点shader
     private final String vertexShaderCode =
             "attribute vec4 vPosition;" +            //顶点坐标
@@ -97,7 +97,7 @@ public class Cube2Render implements GLSurfaceView.Renderer {
             1, 1, 0, 0, 1, 0
     };
 
-    public Cube2Render() {
+    public CubeRender() {
     }
 
     @Override
