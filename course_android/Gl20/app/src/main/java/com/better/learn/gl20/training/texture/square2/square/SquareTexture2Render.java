@@ -63,23 +63,35 @@ public class SquareTexture2Render implements GLSurfaceView.Renderer {
             0.5f, -0.5f, 0.0f,   // bottom right
             0.5f, 0.5f, 0.0f}; // top right
     // order to draw vertices
-    private short[] indexVertex = {0, 1, 2, 0, 2, 3};
+    private short[] indexVertex = {0, 3, 2, 0, 2, 1};
     /*
     这种方式图像位置 左右反了
-    private short[] indexVertex = {0, 3, 1, 3, 1, 2};
+    private short[] indexVertex = {0, 1, 2, 0, 2, 3};
     private float[] coordsTexture = {
             0f, 0f,
             0f, 1f,
             1f, 1f,
             1f, 0f
     };
+    ok
+    0, 1, 2, 0, 2, 3
+    0, 3, 2, 0, 2, 1
+    对应这个都ok
+            1f, 0f,
+            1f, 1f,
+            0f, 1f,
+            0f, 0f,
      */
     //纹理坐标的原点是左上角，右下角是（1，1）
     private float[] coordsTexture = {
-            0f, 0f,
-            0f, 1f,
+            1f, 0f,
             1f, 1f,
-            1f, 0f
+            0f, 1f,
+            0f, 0f,
+//            0f, 0f,
+//            0f, 1f,
+//            1f, 1f,
+//            1f, 0f
     };
 
     // gl相关
