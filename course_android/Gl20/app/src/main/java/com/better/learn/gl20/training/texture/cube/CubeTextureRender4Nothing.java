@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.opengl.Matrix;
-import android.util.Log;
 
 import com.better.learn.gl20.R;
 import com.better.learn.gl20.training.GlUtils;
@@ -18,21 +16,20 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
- * 猜测是不是矩阵的问题，按照官方旋转方式，失败
+ * 不适用矩阵，看起来ok
  * Created by better on 2020/3/15 10:22 PM.
  */
-public class CubeTextureRender4 implements GLSurfaceView.Renderer {
+public class CubeTextureRender4Nothing implements GLSurfaceView.Renderer {
     /*
      着色器代码
-  */
+    */
     private static final String vertexShaderCode =
-            "uniform mat4 u_MVPMatrix;                                  \n" +
-                    "attribute vec4 a_Position;                         \n" +
+            "attribute vec4 a_Position;                                 \n" +
                     "attribute vec2 a_TextureCoordinates;               \n" +
                     "varying vec2 v_TextureCoordinates;                 \n" +
                     "void main() {                                      \n" +
                     "  v_TextureCoordinates = a_TextureCoordinates;     \n" +
-                    "  gl_Position = u_MVPMatrix * a_Position;          \n" +
+                    "  gl_Position =  a_Position;                       \n" +
                     "}                                                  \n";
 
     private static final String fragmentShaderCode =
@@ -82,33 +79,7 @@ public class CubeTextureRender4 implements GLSurfaceView.Renderer {
             //右
             2, 6, 7, 2, 7, 3,
     };
-    /*
-        private float coordsVertex[] = {
-            -r, r, r,      // (0) Top-left near
-            r, r, r,       // (1) Top-right near
-            -r, -r, r,     // (2) Bottom-left near
-            r, -r, r,      // (3) Bottom-right near
-            -r, r, -r,     // (4) Top-left far
-            r, r, -r,      // (5) Top-right far
-            -r, -r, -r,    // (6) Bottom-left far
-            r, -r, -r      // (7) Bottom-right far
-    };
-    private short[] indexVertex = {
-            // Front
-            1, 3, 0, 0, 3, 2,
-            // Back
-            4, 6, 5, 5, 6, 7,
-            // Left
-            0, 2, 4, 4, 2, 6,
-            // Right
-            5, 7, 1, 1, 7, 3,
-            // Top
-            5, 1, 4, 4, 1, 0,
-            // Bottom
-            6, 2, 7, 7, 2, 3
-    };
 
-     */
 
     //纹理坐标的原点是左上角，右下角是（1，1）
     private float[] coordsTexture = {
@@ -131,14 +102,6 @@ public class CubeTextureRender4 implements GLSurfaceView.Renderer {
     // 矩阵
     // 投影
 
-    // vPMatrix is an abbreviation for "Model View Projection Matrix"
-    private final float[] vPMatrix = new float[16];
-    private final float[] projectionMatrix = new float[16];
-    private final float[] viewMatrix = new float[16];
-
-    private float[] rotationMatrix = new float[16];
-
-
     private float rotateX, rotateY, rotateZ;
     private float ratio;
 
@@ -148,7 +111,7 @@ public class CubeTextureRender4 implements GLSurfaceView.Renderer {
         this.rotateZ += z;
     }
 
-    public CubeTextureRender4(Context context) {
+    public CubeTextureRender4Nothing(Context context) {
         this.context = context;
     }
 
@@ -183,19 +146,6 @@ public class CubeTextureRender4 implements GLSurfaceView.Renderer {
 
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         GLES20.glViewport(0, 0, width, height);
-
-
-        ratio = (float) width / height;
-
-        //设置透视投影
-        // this projection matrix is applied to object coordinates
-        // in the onDrawFrame() method
-        Matrix.frustumM(projectionMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
-        // 设置相机位置
-        Matrix.setLookAtM(viewMatrix, 0, 2, 2, 4.2f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
-        // 应用矩阵
-        // Calculate the projection and view transformation
-        Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0);
     }
 
     /**
@@ -205,8 +155,6 @@ public class CubeTextureRender4 implements GLSurfaceView.Renderer {
      */
     @Override
     public void onDrawFrame(GL10 gl) {
-        float[] scratch = prepareDraw();
-
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
         GLES20.glUseProgram(program);
@@ -218,8 +166,6 @@ public class CubeTextureRender4 implements GLSurfaceView.Renderer {
         GLES20.glEnableVertexAttribArray(aPositionLocation);
         GLES20.glVertexAttribPointer(aPositionLocation, 3, GLES20.GL_FLOAT, false, 0, vertexBuffer);
 
-        // Pass the projection and view transformation to the shader
-        GLES20.glUniformMatrix4fv(uMvpMatrixLoc, 1, false, scratch, 0);
         /*
         设置纹理坐标
          */
@@ -252,23 +198,6 @@ public class CubeTextureRender4 implements GLSurfaceView.Renderer {
         //解绑纹理
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
 
-    }
-
-    private float[] prepareDraw() {
-        Log.e("Better", "onDrawFrame" + rotateX + "," + rotateY + "," + rotateZ);
-
-        float[] scratch = new float[16];
-
-        Matrix.setRotateM(rotationMatrix, 0, rotateX, 1f, 0, 0f);
-        Matrix.setRotateM(rotationMatrix, 0, rotateY, 0, 1f, 0f);
-        Matrix.setRotateM(rotationMatrix, 0, rotateZ, 0, 0, 1.0f);
-
-        // Combine the rotation matrix with the projection and camera view
-        // Note that the vPMatrix factor *must be first* in order
-        // for the matrix multiplication product to be correct.
-        Matrix.multiplyMM(scratch, 0, vPMatrix, 0, rotationMatrix, 0);
-
-        return scratch;
     }
 
 }
