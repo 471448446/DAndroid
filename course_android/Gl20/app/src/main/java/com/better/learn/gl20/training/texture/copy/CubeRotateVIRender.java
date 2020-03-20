@@ -9,6 +9,7 @@ import com.better.learn.gl20.fuck.CommonUtils;
 import com.better.learn.gl20.training.GlUtils;
 
 import java.nio.FloatBuffer;
+import java.nio.ShortBuffer;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -20,10 +21,10 @@ import static android.opengl.Matrix.setIdentityM;
 import static android.opengl.Matrix.setLookAtM;
 
 /**
- * https://blog.csdn.net/u013279462/article/details/72929921?depth_1-utm_source=distribute.pc_relevant_right.none-task&utm_source=distribute.pc_relevant_right.none-task
- * 正方体的绘制，增加透视投影和纹理贴图
+ * 顶点VBO、索引IBO绘制立方体是ok的，但是贴图就有点绕了
+ * 具体绘制方式参考：https://blog.csdn.net/byhook/article/details/83895262?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task
  */
-public class CubeRotateRender implements GLSurfaceView.Renderer {
+public class CubeRotateVIRender implements GLSurfaceView.Renderer {
     //顶点shader
     private final String vertexShaderCode =
             "attribute vec4 vPosition;" +            //顶点坐标
@@ -50,54 +51,41 @@ public class CubeRotateRender implements GLSurfaceView.Renderer {
     private int mTextureCoordHandle;
 
     private FloatBuffer vertexBuffer;
+    private ShortBuffer vertexIndexBuffer;
     private FloatBuffer textureCoordBuffer;
     private int program;
     private int texture;
 
 
-    private int vertexShader, fragmentShader;
-
     private float s = 0.5f;
     //正方体顶点坐标
     private float[] coords = {
-            -s, s, -s, s, s, s, s, s, -s,       //023
-            -s, s, -s, -s, s, s, s, s, s,       //012
-            -s, s, s, -s, -s, s, s, s, s,       //152
-            s, s, s, -s, -s, s, s, -s, s,       //256
-            s, s, s, s, -s, s, s, -s, -s,       //267
-            s, s, s, s, -s, -s, s, s, -s,       //273
-            s, s, -s, s, -s, -s, -s, -s, -s,    //374
-            s, s, -s, -s, -s, -s, -s, s, -s,    //340
-            -s, s, -s, -s, -s, -s, -s, s, s,    //041
-            -s, s, s, -s, -s, -s, -s, -s, s,    //145
-            -s, -s, s, -s, -s, -s, s, -s, s,    //546
-            s, -s, s, -s, -s, -s, s, -s, -s     //647
-
-//            -s,s,-s,    // 0
-//            -s,s,s,     // 1
-//            s,s,s,      // 2
-//            s,s,-s,     // 3
-//            -s,-s,-s,   // 4
-//            -s,-s,s,    // 5
-//            s,-s,s,     // 6
-//            s,-s,-s,    // 7
+            -s, s, -s,    // 0
+            -s, s, s,     // 1
+            s, s, s,      // 2
+            s, s, -s,     // 3
+            -s, -s, -s,   // 4
+            -s, -s, s,    // 5
+            s, -s, s,     // 6
+            s, -s, -s,    // 7
+    };
+    private short[] coordsIndex = {
+            0, 2, 3, 0, 1, 2, // 上
+            1, 5, 2, 2, 5, 6, // 前
+            2, 6, 7, 2, 7, 3, // 右
+            3, 7, 4, 3, 4, 0, // 后
+            0, 4, 1, 1, 4, 5, // 左
+            5, 4, 6, 6, 4, 7, // 下
     };
 
     //纹理坐标,对比后发现纹理的坐标是左下(0,0) 右上(1,1) 水平为正，向上为正⏫
     private float[] textureCoord = {
-
-            0, 1, 1, 0, 1, 1,//023
-            0, 1, 0, 0, 1, 0,//012
-            0, 1, 0, 0, 1, 1,//152
-            1, 1, 0, 0, 1, 0,//256
-            0, 1, 0, 0, 1, 0,//267
-            0, 1, 1, 0, 1, 1,//273
-            0, 1, 0, 0, 1, 0,//374
-            0, 1, 1, 0, 1, 1,//340
-            0, 1, 0, 0, 1, 1,//041
-            1, 1, 0, 0, 1, 0,//145
-            0, 1, 0, 0, 1, 1,//546
-            1, 1, 0, 0, 1, 0,//647
+            0, 1, 0, 0, 1, 0, 1, 1,// 上 🔄
+            0, 1, 0, 0, 1, 1, 1, 0,// 前 1526
+            0, 1, 0, 0, 1, 0, 1, 1,// 右 🔄
+            0, 1, 0, 0, 1, 0, 1, 1,// 后 🔄
+            0, 1, 0, 0, 1, 1, 1, 0,// 左 0415
+            0, 1, 0, 0, 1, 1, 1, 0,// 下 5467
     };
     // 矩阵
     // 投影
@@ -113,7 +101,7 @@ public class CubeRotateRender implements GLSurfaceView.Renderer {
         this.rotateZ += z;
     }
 
-    public CubeRotateRender() {
+    public CubeRotateVIRender() {
     }
 
     @Override
@@ -122,7 +110,7 @@ public class CubeRotateRender implements GLSurfaceView.Renderer {
         //打开深度测试
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
-        //逆时针为正面
+        //逆时针为正面 https://blog.csdn.net/flycatdeng/article/details/82667124
         GLES20.glFrontFace(GLES20.GL_CCW);
         //打开背面剪裁
         GLES20.glEnable(GLES20.GL_CULL_FACE);
@@ -131,11 +119,12 @@ public class CubeRotateRender implements GLSurfaceView.Renderer {
 
         // 初始化缓冲数据
         vertexBuffer = GlUtils.arrayToFloatBuffer(coords);
+        vertexIndexBuffer = GlUtils.arrayToShortBuffer(coordsIndex);
         textureCoordBuffer = GlUtils.arrayToFloatBuffer(textureCoord);
 
         // 编译shader代码
-        vertexShader = GlUtils.loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderCode);
-        fragmentShader = GlUtils.loadShader(GLES20.GL_FRAGMENT_SHADER, fragmentShaderCode);
+        int vertexShader = GlUtils.loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderCode);
+        int fragmentShader = GlUtils.loadShader(GLES20.GL_FRAGMENT_SHADER, fragmentShaderCode);
 
         //加载纹理贴图
         texture = GlUtils.createTextureId(App.application, R.mipmap.ss);
@@ -171,8 +160,6 @@ public class CubeRotateRender implements GLSurfaceView.Renderer {
         mTextureCoordHandle = GLES20.glGetAttribLocation(program, "aTextureCoords");
 
         prepareDraw();
-        //矩阵变换
-//        GLES20.glUniformMatrix4fv(mMatrixHandle, 1, false, mVMatrix, 0);
 
         //设置纹理
         //激活纹理单元，GL_TEXTURE0代表纹理单元0，GL_TEXTURE1代表纹理单元1，以此类推。OpenGL使用纹理单元来表示被绘制的纹理
@@ -191,7 +178,7 @@ public class CubeRotateRender implements GLSurfaceView.Renderer {
         GLES20.glVertexAttribPointer(mTextureCoordHandle, 2, GLES20.GL_FLOAT, false, 0, textureCoordBuffer);
 
         //绘制图形
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, coords.length / 3);
+        GLES20.glDrawElements(GLES20.GL_TRIANGLES, coordsIndex.length, GLES20.GL_UNSIGNED_SHORT, vertexIndexBuffer);
 
         GLES20.glDisableVertexAttribArray(mPositionHandle);
     }
