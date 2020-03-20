@@ -174,7 +174,7 @@ public class CubeTextureRender2 implements GLSurfaceView.Renderer {
         uMvpMatrixLoc = GLES20.glGetUniformLocation(program, U_MVP_MATRIX);
         aTextureCoordinates = GLES20.glGetAttribLocation(program, A_TEXTURE_COORDINATES);
         uTextureUnitLoc = GLES20.glGetAttribLocation(program, U_TEXTURE_UNIT);
-        Bitmap textureBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.sss);
+        Bitmap textureBitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ss);
         textureId = GlUtils.createTextureId(textureBitmap);
 
     }
