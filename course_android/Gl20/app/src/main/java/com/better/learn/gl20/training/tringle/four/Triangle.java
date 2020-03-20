@@ -1,4 +1,4 @@
-package com.better.learn.gl20.training.three;
+package com.better.learn.gl20.training.tringle.four;
 
 import android.opengl.GLES20;
 
@@ -78,9 +78,9 @@ public class Triangle {
         /**
          * step2 要绘制形状，您必须编译着色程序代码，将它们添加到 OpenGL ES 程序对象中，然后关联该程序。该操作需要在绘制对象的构造函数中完成，因此只需执行一次
          */
-        int vertexShader = GLThreeRenderer.loadShader(GLES20.GL_VERTEX_SHADER,
+        int vertexShader = GLFourRenderer.loadShader(GLES20.GL_VERTEX_SHADER,
                 vertexShaderCode);
-        int fragmentShader = GLThreeRenderer.loadShader(GLES20.GL_FRAGMENT_SHADER,
+        int fragmentShader = GLFourRenderer.loadShader(GLES20.GL_FRAGMENT_SHADER,
                 fragmentShaderCode);
         /**
          * 创建Gl 程序

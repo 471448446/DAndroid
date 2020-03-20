@@ -1,4 +1,4 @@
-package com.better.learn.gl20.training.two;
+package com.better.learn.gl20.training.tringle.two;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;

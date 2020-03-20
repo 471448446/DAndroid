@@ -1,14 +1,14 @@
-package com.better.learn.gl20.training.four;
+package com.better.learn.gl20.training.tringle.three;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
-import android.util.Log;
+import android.os.SystemClock;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-public class GLFourRenderer implements GLSurfaceView.Renderer {
+public class GLThreeRenderer implements GLSurfaceView.Renderer {
     private Triangle triangle;
 
     // vPMatrix is an abbreviation for "Model View Projection Matrix"
@@ -17,15 +17,6 @@ public class GLFourRenderer implements GLSurfaceView.Renderer {
     private final float[] viewMatrix = new float[16];
 
     private float[] rotationMatrix = new float[16];
-    public volatile float mAngle;
-
-    public float getAngle() {
-        return mAngle;
-    }
-
-    public void setAngle(float angle) {
-        mAngle = angle;
-    }
 
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
@@ -63,9 +54,10 @@ public class GLFourRenderer implements GLSurfaceView.Renderer {
          * 旋转
          */
         // Create a rotation transformation for the triangle
-        Matrix.setRotateM(rotationMatrix, 0, mAngle, 0, 0, -1.0f);
+        long time = SystemClock.uptimeMillis() % 4000L;
+        float angle = 0.090f * ((int) time);
+        Matrix.setRotateM(rotationMatrix, 0, angle, 0, 0, -1.0f);
 
-        Log.e("Better", "onDraw: " + mAngle);
         // Combine the rotation matrix with the projection and camera view
         // Note that the vPMatrix factor *must be first* in order
         // for the matrix multiplication product to be correct.

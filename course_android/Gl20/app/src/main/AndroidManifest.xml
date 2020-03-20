@@ -106,7 +106,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".training.one.GlOneActivity"
+            android:name=".training.tringle.one.GlOneActivity"
             android:label="GlOne">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -115,7 +115,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".training.two.GlTwoActivity"
+            android:name=".training.tringle.two.GlTwoActivity"
             android:label="GlTwo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -124,7 +124,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".training.three.GlThreeActivity"
+            android:name=".training.tringle.three.GlThreeActivity"
             android:label="GlThree">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -133,7 +133,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".training.four.GlFourActivity"
+            android:name=".training.tringle.four.GlFourActivity"
             android:label="GlFour">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

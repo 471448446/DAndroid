@@ -1,4 +1,4 @@
-package com.better.learn.gl20.training.four;
+package com.better.learn.gl20.training.tringle.four;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;

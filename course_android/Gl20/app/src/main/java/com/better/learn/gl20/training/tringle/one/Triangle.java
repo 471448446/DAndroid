@@ -1,4 +1,4 @@
-package com.better.learn.gl20.training.one;
+package com.better.learn.gl20.training.tringle.one;
 
 import android.opengl.GLES20;
 

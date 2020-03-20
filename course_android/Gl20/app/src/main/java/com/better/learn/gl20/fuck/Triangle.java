@@ -2,7 +2,7 @@ package com.better.learn.gl20.fuck;
 
 import android.opengl.GLES20;
 
-import com.better.learn.gl20.training.one.GlOneRender;
+import com.better.learn.gl20.training.tringle.one.GlOneRender;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

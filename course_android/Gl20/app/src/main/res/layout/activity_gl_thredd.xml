@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.better.learn.gl20.training.four.GlFourSureface xmlns:android="http://schemas.android.com/apk/res/android"
+<com.better.learn.gl20.training.tringle.four.GlFourSureface xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".training.three.GlThreeActivity">
+    tools:context=".training.tringle.three.GlThreeActivity">
 
-</com.better.learn.gl20.training.four.GlFourSureface>
+</com.better.learn.gl20.training.tringle.four.GlFourSureface>

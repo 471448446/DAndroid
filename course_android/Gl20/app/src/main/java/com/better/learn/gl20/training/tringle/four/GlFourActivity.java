@@ -1,4 +1,4 @@
-package com.better.learn.gl20.training.three;
+package com.better.learn.gl20.training.tringle.four;
 
 import android.os.Bundle;
 
@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 /**
  * https://developer.android.com/training/graphics/opengl/projection
  */
-public class GlThreeActivity extends AppCompatActivity {
+public class GlFourActivity extends AppCompatActivity {
 
-    private GlThreeSureface glSurfaceView;
+    private GlFourSureface glSurfaceView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
