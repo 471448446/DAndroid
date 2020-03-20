@@ -87,6 +87,10 @@ public class GlUtils {
         return shader;
     }
 
+    public static int createTextureId(Context context, int resid) {
+        return createTextureId(BitmapFactory.decodeResource(context.getResources(), resid));
+    }
+
     public static int createTextureId(Bitmap bitmap) {
         /*
          * 第一步 : 创建纹理对象
@@ -163,9 +167,8 @@ public class GlUtils {
      * texture ID. Returns 0 if the load failed.
      *
      * @param context
-     * @param cubeResources
-     *            An array of resources corresponding to the cube map. Should be
-     *            provided in this order: left, right, bottom, top, front, back.
+     * @param cubeResources An array of resources corresponding to the cube map. Should be
+     *                      provided in this order: left, right, bottom, top, front, back.
      * @return
      */
     public static int loadCubeMap(Context context, int[] cubeResources) {
