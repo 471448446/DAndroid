@@ -24,6 +24,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".skybox.ParticlesActivity"
+            android:label="GlSkybox">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".training.texture.square3.square2.square.SquareTexture3Activity"
             android:label="GlTextureSquare3">
             <intent-filter>
@@ -116,6 +126,15 @@
         <activity
             android:name=".training.three.GlThreeActivity"
             android:label="GlThree">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".training.four.GlFourActivity"
+            android:label="GlFour">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
