@@ -1,4 +1,4 @@
-package com.better.learn.gl20.training.texture.square3.square2.square;
+package com.better.learn.gl20.training.texture.square2;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -23,7 +23,7 @@ import javax.microedition.khronos.opengles.GL10;
  * {@link com.better.learn.gl20.training.texture.square.SquareTextureRender} 添加了投影，这样界面上更正
  * Created by better on 2020/3/15 10:22 PM.
  */
-public class SquareTexture3Render implements GLSurfaceView.Renderer {
+public class SquareTexture2Render implements GLSurfaceView.Renderer {
     /*
         着色器代码
      */
@@ -63,13 +63,35 @@ public class SquareTexture3Render implements GLSurfaceView.Renderer {
             0.5f, -0.5f, 0.0f,   // bottom right
             0.5f, 0.5f, 0.0f}; // top right
     // order to draw vertices
+    private short[] indexVertex = {0, 3, 2, 0, 2, 1};
+    /*
+    这种方式图像位置 左右反了
     private short[] indexVertex = {0, 1, 2, 0, 2, 3};
-    //纹理坐标的原点是左上角，右下角是（1，1）
     private float[] coordsTexture = {
             0f, 0f,
             0f, 1f,
             1f, 1f,
             1f, 0f
+    };
+    ok
+    0, 1, 2, 0, 2, 3
+    0, 3, 2, 0, 2, 1
+    对应这个都ok
+            1f, 0f,
+            1f, 1f,
+            0f, 1f,
+            0f, 0f,
+     */
+    //纹理坐标的原点是左上角，右下角是（1，1）
+    private float[] coordsTexture = {
+            1f, 0f,
+            1f, 1f,
+            0f, 1f,
+            0f, 0f,
+//            0f, 0f,
+//            0f, 1f,
+//            1f, 1f,
+//            1f, 0f
     };
 
     // gl相关
@@ -84,9 +106,9 @@ public class SquareTexture3Render implements GLSurfaceView.Renderer {
     private final float[] vPMatrix = new float[16];
     private final float[] projectionMatrix = new float[16];
     private final float[] viewMatrix = new float[16];
-    private float[] rotationMatrix = new float[16];
 
-    public SquareTexture3Render(Context context) {
+
+    public SquareTexture2Render(Context context) {
         this.context = context;
     }
 
@@ -145,17 +167,7 @@ public class SquareTexture3Render implements GLSurfaceView.Renderer {
         GLES20.glUseProgram(program);
 
         // 处理矩阵
-        float[] scratch = new float[16];
-        // Create a rotation transformation for the triangle
-        float angle = 45f;
-        Matrix.setRotateM(rotationMatrix, 0, angle, 0, 0, -1.0f);
-
-        // Combine the rotation matrix with the projection and camera view
-        // Note that the vPMatrix factor *must be first* in order
-        // for the matrix multiplication product to be correct.
-        Matrix.multiplyMM(scratch, 0, vPMatrix, 0, rotationMatrix, 0);
-        // 应用矩阵
-        GLES20.glUniformMatrix4fv(uMvpMatrixLoc, 1, false, scratch, 0);
+        GLES20.glUniformMatrix4fv(uMvpMatrixLoc, 1, false, vPMatrix, 0);
 
         /*
         设置顶点坐标
@@ -178,6 +190,7 @@ public class SquareTexture3Render implements GLSurfaceView.Renderer {
         //设置纹理，textureLoc是Fragment Shader中纹理句柄，后面的参数0和GLES20.GL_TEXTURE0是对应的，
         // 如果启用GLES20.GL_TEXTURE1，那么使用GLES20.glUniform1i(textureLoc, 1)
         GLES20.glUniform1i(uTextureUnitLoc, 0);
+
 
         /*
         mode：绘制方式，GLES20.GL_TRIANGLES表示绘制三角形。

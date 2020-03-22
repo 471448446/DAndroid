@@ -52,7 +52,7 @@
         </activity>
 
         <activity
-            android:name=".training.texture.square3.square2.square.SquareTexture3Activity"
+            android:name=".training.texture.square3.SquareTexture3Activity"
             android:label="GlTextureSquare3">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,7 +61,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".training.texture.square2.square.SquareTexture2Activity"
+            android:name=".training.texture.square2.SquareTexture2Activity"
             android:label="GlTextureSquare2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
