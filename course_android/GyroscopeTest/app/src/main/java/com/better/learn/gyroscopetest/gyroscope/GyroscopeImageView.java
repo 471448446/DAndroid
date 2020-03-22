@@ -72,7 +72,7 @@ public class GyroscopeImageView extends AppCompatImageView {
     public void update(double scaleX, double scaleY) {
         mScaleX = scaleX;
         mScaleY = scaleY;
-//        Log.e("Better", "onSensorChanged x? y?" + scaleX + "," +scaleY);
+        Log.e("Better", "onSensorChanged x? y?" + scaleX + "," +scaleY);
         invalidate();
     }
 
@@ -97,7 +97,8 @@ public class GyroscopeImageView extends AppCompatImageView {
         }
         mOffsetX = (float) (mLenX * mScaleX);
         mOffsetY = (float) (mLenY * mScaleY);
-        Log.e("Better", "onSensorChanged x? y?" + mOffsetX + "," +mOffsetY);
+//        Log.e("Better", "onSensorChanged x? y?" + mOffsetX + "," +mOffsetY);
+//        Log.e("Better", "onSensorChanged x? y?" + mScaleX + "," +mScaleY);
 
         canvas.save();
         canvas.translate(mOffsetX, mOffsetY);

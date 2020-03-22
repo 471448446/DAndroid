@@ -17,6 +17,7 @@ import java.util.Map;
 public class GyroscopeManager implements SensorEventListener {
 
     private static final String TAG = GyroscopeManager.class.getSimpleName();
+    private static double mMaxAngle = Math.PI / 2;
 
     /**
      * 将纳秒转化为秒
@@ -35,7 +36,6 @@ public class GyroscopeManager implements SensorEventListener {
 
     private SensorManager sensorManager;
     private long mLastTimestamp;
-    private double mMaxAngle = Math.PI / 2;
 
     private GyroscopeManager() {
     }

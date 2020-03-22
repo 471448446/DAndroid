@@ -25,16 +25,7 @@
         </activity>
         <activity
             android:name=".training.texture.copy.GlCubeActivity"
-            android:label="GlCube2">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".training.texture.cube.CubeTextureActivity"
-            android:label="GlTextureCube">
+            android:label="GlCubeCopy">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,10 +41,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".training.texture.cube.CubeTextureActivity"
+            android:label="GlTexCube">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".training.texture.square3.SquareTexture3Activity"
-            android:label="GlTextureSquare3">
+            android:label="GlTexSquare3">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -62,7 +61,7 @@
         </activity>
         <activity
             android:name=".training.texture.square2.SquareTexture2Activity"
-            android:label="GlTextureSquare2">
+            android:label="GlTexSquare2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -71,7 +70,7 @@
         </activity>
         <activity
             android:name=".training.texture.square.SquareTextureActivity"
-            android:label="GlTextureSquare">
+            android:label="GlTexSquare">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
