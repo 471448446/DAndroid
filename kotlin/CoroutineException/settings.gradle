@@ -1,0 +1,2 @@
+rootProject.name='CoroutineException'
+include ':app'
