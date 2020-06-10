@@ -2,15 +2,20 @@ package better.bindservices;
 
 import android.app.Service;
 import android.content.ComponentName;
+import android.content.ContentProvider;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.os.Parcelable;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import better.bindservices.data.MyMessage;
@@ -28,6 +33,8 @@ import better.bindservices.data.MyMessage;
  */
 public class MainActivity extends AppCompatActivity {
 
+    ImageView imageView;
+
     private DemoBinderServices mDemoServices;
     private ServiceConnectPlus mBinderConnection = new ServiceConnectPlus() {
         @Override
@@ -44,6 +51,17 @@ public class MainActivity extends AppCompatActivity {
             switch (msg.what) {
                 case DemoMessengerService.INIT:
                     toast(msg.getData().getString(DemoMessengerService.EXTRA_STR));
+                    break;
+                case DemoMessengerService.BIG_BITMAP:
+                    Bitmap bitmap = msg.getData().getParcelable(DemoMessengerService.EXTRA_BITMAP);
+                    if (null != bitmap) {
+                        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 300, 150, true);
+                        imageView.setImageBitmap(scaledBitmap);
+                    } else {
+                        toast("shit no back bitmap");
+                    }
+                    break;
+                default:
                     break;
             }
             return false;
@@ -116,11 +134,29 @@ public class MainActivity extends AppCompatActivity {
         }
 
     };
+    /**
+     * 准备大图 进程传递
+     */
+    Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        imageView = (ImageView) findViewById(R.id.bitmap);
+        // 这里简单加载bitmap
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.xl);
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        toast("bitmap load done");
+                    }
+                });
+            }
+        }).start();
     }
 
     @Override
@@ -230,6 +266,25 @@ public class MainActivity extends AppCompatActivity {
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
+                break;
+            case R.id.messenger_bitmap:
+                if (null == bitmap || !mMessengerConnect.isBind()) {
+                    toast("还没准备好");
+                    return;
+                }
+                Message message = Message.obtain(null, DemoMessengerService.BIG_BITMAP);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(DemoMessengerService.EXTRA_BITMAP, bitmap);
+                message.setData(bundle);
+                message.replyTo = mCustomerMessager;
+                try {
+                    mSeverMessenger.send(message);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+
+                break;
+            default:
                 break;
         }
     }

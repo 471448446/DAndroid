@@ -18,7 +18,9 @@ import android.widget.Toast;
 
 public class DemoMessengerService extends BaseServices {
     public static final int INIT = 1;
+    public static final int BIG_BITMAP = 2;
     public static final String EXTRA_STR = "extra_str";
+    public static final String EXTRA_BITMAP = "extra_bitmap";
     /**
      * 处理客户端的请求
      */
@@ -39,6 +41,19 @@ public class DemoMessengerService extends BaseServices {
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
+                case BIG_BITMAP:
+                    android.os.Message msgBitmap = android.os.Message.obtain(null, BIG_BITMAP);
+                    android.os.Bundle extra = new Bundle();
+                    extra.putParcelable(EXTRA_BITMAP, msg.getData().getParcelable(EXTRA_BITMAP));
+                    msgBitmap.setData(extra);
+                    try {
+                        msg.replyTo.send(msgBitmap);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
+                default:
                     break;
             }
             return false;

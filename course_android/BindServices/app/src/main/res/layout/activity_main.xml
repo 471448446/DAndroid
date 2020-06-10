@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="better.bindservices.MainActivity">
+    tools:context="better.bindservices.MainActivity"
+    tools:ignore="HardcodedText">
 
     <TextView
         android:id="@+id/binder"
@@ -14,7 +15,7 @@
         android:gravity="center"
         android:onClick="OnClick"
         android:padding="15dp"
-        android:text="use Binder"/>
+        android:text="use Binder" />
 
     <TextView
         android:id="@+id/messenger"
@@ -23,7 +24,7 @@
         android:gravity="center"
         android:onClick="OnClick"
         android:padding="15dp"
-        android:text="use Meaaenger"/>
+        android:text="use Meaaenger" />
 
     <TextView
         android:id="@+id/aidl_get"
@@ -32,7 +33,7 @@
         android:gravity="center"
         android:onClick="OnClick"
         android:padding="15dp"
-        android:text="use Aidl get msg"/>
+        android:text="use Aidl get msg" />
 
     <TextView
         android:id="@+id/aidl_send"
@@ -41,7 +42,7 @@
         android:gravity="center"
         android:onClick="OnClick"
         android:padding="15dp"
-        android:text="use Aidl send msg"/>
+        android:text="use Aidl send msg" />
 
     <TextView
         android:id="@+id/aidl_in_Out_InOut"
@@ -50,6 +51,21 @@
         android:gravity="center"
         android:onClick="OnClick"
         android:padding="15dp"
-        android:text="aidl_in_Out_InOut"/>
+        android:text="aidl_in_Out_InOut" />
+
+    <TextView
+        android:id="@+id/messenger_bitmap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="OnClick"
+        android:padding="15dp"
+        android:text="messenger_bitmap" />
+
+    <ImageView
+        android:id="@+id/bitmap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:src="@drawable/xl" />
 
 </LinearLayout>
