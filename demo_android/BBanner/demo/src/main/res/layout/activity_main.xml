@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="better.bbanner.MainActivity">
 
     <com.better.banner.BBanner
         android:id="@+id/banner1"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:layout_height="150dp"
+        app:banner_oneitemCanPlayAble="true" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_margin="10dp"
-        android:background="#000000"/>
+        android:background="#000000" />
 
     <com.better.banner.BBanner
         android:id="@+id/banner2"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:banner_ScrollEndless="false"/>
+        android:layout_height="150dp"
+        app:banner_ScrollEndless="false" />
+
+    <com.better.banner.BBanner
+        android:id="@+id/banner3"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:banner_ScrollEndless="true"
+        app:banner_oneitemCanPlayAble="true" />
 
 </LinearLayout>
