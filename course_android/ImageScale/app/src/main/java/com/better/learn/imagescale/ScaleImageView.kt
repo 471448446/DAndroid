@@ -2,7 +2,6 @@ package com.better.learn.imagescale
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
@@ -10,6 +9,7 @@ import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
+import android.widget.Scroller
 import androidx.annotation.Nullable
 import androidx.appcompat.widget.AppCompatImageView
 import kotlinx.coroutines.delay
@@ -22,6 +22,23 @@ import kotlin.math.roundToInt
  * 矩阵:
  * https://stackoverflow.com/questions/5198125/how-do-you-find-out-the-scale-of-an-graphics-matrix-in-android
  * 使用 View.post() 是为了防止在修改matrix过程中,被其他的打断,造成并发修改
+ * [-]虚线就是手机屏幕，[+]加号就是真实的图片
+ * 高满足：
+ * +++++------+++++++
+ * +    -    -      +
+ * +    -    -      +
+ * +    -    -      +
+ * +    -    -      +
+ * +++++------+++++++
+ * 宽满足:
+ * ++++++++
+ * +      +
+ * --------
+ * -      -
+ * -      -
+ * --------
+ * +      +
+ * ++++++++
  * @author Better
  * @date 2020/8/10 15:27
  */
@@ -44,18 +61,29 @@ class ScaleImageView @JvmOverloads constructor(
         /**
          * 最大缩放倍数
          */
-        private const val MAX_SCALE_FACTORY = 3f
+        private const val MAX_SCALE_FACTORY = 5f
     }
 
     private val localMatrix = Matrix()
     private val localMatrixArray = FloatArray(9)
     private var initScale = 0f
-    private val scaleGestureDetector: ScaleGestureDetector
-    private val gestureDetector: GestureDetector
     private var hasGetDrawable = false
+
+    /**
+     * 缩放事件
+     */
+    private val scaleGestureDetector: ScaleGestureDetector
+
+    /**
+     * 滑动事件
+     */
+    private val gestureDetector: GestureDetector
+    private val overScroller: Scroller
+    private var flingStart: Float = 0f
 
     init {
         scaleType = ScaleType.MATRIX
+        overScroller = Scroller(context)
         gestureDetector = GestureDetector(context, object :
             GestureDetector.SimpleOnGestureListener() {
             override fun onScroll(
@@ -64,6 +92,7 @@ class ScaleImageView @JvmOverloads constructor(
                 distanceX: Float,
                 distanceY: Float
             ): Boolean {
+                overScroller.forceFinished(true)
                 // 刚好与实际图片移动作标相反
                 val x = -distanceX
                 val y = -distanceY
@@ -71,6 +100,45 @@ class ScaleImageView @JvmOverloads constructor(
                 return true
             }
 
+            override fun onFling(
+                e1: MotionEvent,
+                e2: MotionEvent,
+                velocityX: Float,
+                velocityY: Float
+            ): Boolean {
+                //velocity 已经是过滤了最小滑动距离
+                if (null == drawable) {
+                    return super.onFling(e1, e2, velocityX, velocityY)
+                }
+                // 区分水平还是竖直滑动
+                val horizontal = abs(e2.x - e1.x) > abs(e2.y - e1.y)
+                localMatrix.set(imageMatrix)
+                localMatrix.getValues(localMatrixArray)
+                if (horizontal) {
+                    flingStart = localMatrixArray[Matrix.MTRANS_X]
+                    val distanceFactory =
+                        abs(width - drawable.intrinsicWidth * localMatrixArray[Matrix.MSCALE_X])
+                    overScroller.fling(
+                        flingStart.toInt(), 0,
+                        velocityX.toInt(), 0,
+                        // min max 就是一个区间，使得 min<=current<=max
+                        (-distanceFactory).toInt(), distanceFactory.toInt(),
+                        0, 0
+                    )
+                } else {
+                    flingStart = localMatrixArray[Matrix.MTRANS_Y]
+                    val distanceFactory =
+                        abs(height - drawable.intrinsicHeight * localMatrixArray[Matrix.MSCALE_Y])
+                    overScroller.fling(
+                        0, flingStart.toInt(),
+                        0, velocityY.toInt(),
+                        0, 0,
+                        (-distanceFactory).toInt(), distanceFactory.toInt()
+                    )
+                }
+                invalidate()
+                return true
+            }
         })
         scaleGestureDetector = ScaleGestureDetector(context,
             object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
@@ -83,6 +151,11 @@ class ScaleImageView @JvmOverloads constructor(
                     return true
                 }
             })
+    }
+
+    override fun setScaleType(scaleType: ScaleType?) {
+        // 只支持矩阵
+        super.setScaleType(ScaleType.MATRIX)
     }
 
     /**
@@ -102,6 +175,27 @@ class ScaleImageView @JvmOverloads constructor(
         gestureDetector.onTouchEvent(event)
         scaleGestureDetector.onTouchEvent(event)
         return true
+    }
+
+    override fun computeScroll() {
+        super.computeScroll()
+        if (overScroller.computeScrollOffset()) {
+            // 如果结果是 0 那就不需要滑动了
+            // setImageMatrix() 会调用  invalidate()
+            val point = if (overScroller.finalX != 0) {
+                val consume = (overScroller.currX - flingStart)
+                flingStart = overScroller.currX.toFloat()
+                Triple(consume != 0f, consume, 0f)
+            } else {
+                val consume = (overScroller.currY - flingStart)
+                flingStart = overScroller.currY.toFloat()
+                Triple(consume != 0f, 0f, consume)
+            }
+            if (point.first) {
+                translateXY(point.second, point.third)
+                Log.e("Better", "${point.second},${point.third}")
+            }
+        }
     }
 
     /**

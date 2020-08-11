@@ -2,6 +2,7 @@ package com.better.learn.imagescale
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 //            Log.i("Better", "imageView size: ${scale_image_view.width},${scale_image_view.height}")
 //            scale_image_view.setImageBitmap(bitmap)
 //        }
-        scale_image_view.setImageResource(R.drawable.twuk)
+//        scale_image_view.setImageResource(R.drawable.twuk)
+        Glide.with(this).load(R.drawable.twuk).into(scale_image_view)
     }
 }
