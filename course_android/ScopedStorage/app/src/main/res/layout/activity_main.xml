@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".MainActivity"
+        tools:ignore="HardcodedText">
+
+        <Button
+            android:id="@+id/btn_create_dir_self"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自己存储空间-创建文件夹\n sdcard/Android/data/pkg/files"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_sdcard_dir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="公共存储空间-创建文件夹\n sdcard目录、SAF"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_saf_choose_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SAF选中图片\n能展示算成功"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_choosed_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+
+        <Button
+            android:id="@+id/btn_media_store_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MediaStore公共存储空间\n存入非流文件到sdcard/Download"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_media_store_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MediaStore公共存储空间\n 创建图片到 sdcard/Pictures"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_media_store_load_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MediaStore公共存储空间\n加载刚刚创建的图片\n如果能展现就算成功"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+
+        <Button
+            android:id="@+id/btn_media_store_load_all_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MediaStore公共存储空间 加载Picture目录"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+</ScrollView>

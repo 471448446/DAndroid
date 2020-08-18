@@ -1,0 +1,3 @@
+include ':directorySelection'
+include ':app'
+rootProject.name = "ScopedStorage"
