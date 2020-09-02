@@ -13,6 +13,46 @@
         tools:context=".MainActivity"
         tools:ignore="HardcodedText">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="---【注意】使用android:requestLegacyExternalStorage=true---" />
+
+        <Button
+            android:id="@+id/btn_create_dir_29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="29设备直接访问外部存储- \n sdcard\BBBB\test.txt"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="---【注意】不限制android:requestLegacyExternalStorage=true，\n 尝试true、false两种方式---" />
+
+        <Button
+            android:id="@+id/btn_saf_dir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SAF-create dir"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="---【注意】采用android:requestLegacyExternalStorage=false---" />
+
         <Button
             android:id="@+id/btn_create_dir_self"
             android:layout_width="wrap_content"

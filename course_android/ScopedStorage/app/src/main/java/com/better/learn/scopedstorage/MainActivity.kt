@@ -3,7 +3,6 @@ package com.better.learn.scopedstorage
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.DownloadManager
 import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Intent
@@ -22,6 +21,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.documentfile.provider.DocumentFile
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.io.FileOutputStream
@@ -89,13 +89,24 @@ import java.nio.charset.StandardCharsets
  * 实践：
  * https://mp.weixin.qq.com/s/djTZykAvPc3uWcdvAjHZMw
  * https://open.oppomobile.com/wiki/doc#id=10432
+ * https://medium.com/androiddevelopers/android-11-storage-faq-78cefea52b7c
+ * documentfile:
+ * https://developer.android.com/jetpack/androidx/releases/documentfile
+ * https://github.com/android/storage-samples
+ *
+ * 在manifest设置需要注意
+ * targetSDK = 29, 默认开启 Scoped Storage, 但可通过在 manifest 里添加 requestLegacyExternalStorage = true 关闭
+ * targetSDK < 29, 默认不开启 Scoped Storage, 但可通过在 manifest 里添加requestLegacyExternalStorage = false 打开
+ *
  */
 class MainActivity : AppCompatActivity() {
     companion object {
         const val TAG = "Better"
         const val REQ_CREATE_DIR = 100
         const val REQ_CHOOSE_IMG = 101
+        const val REQ_SAF_CHOOSE_DIR = 102
         private const val image_name = "Image2.png"
+        private const val DIR_NAME = "BBBB"
         fun oldWay() = Build.VERSION.SDK_INT < Build.VERSION_CODES.Q ||
                 /**
                  * isExternalStorageLegacy():
@@ -110,6 +121,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         // 下面操作，基本上来说没有提示，则算成功
 
+        btn_create_dir_29.setOnClickListener {
+            androidQAccessSdcard()
+        }
+        btn_saf_dir.setOnClickListener {
+            safCreateDirAndFile()
+        }
         btn_create_dir_self.setOnClickListener {
             accessAppSpec()
         }
@@ -203,7 +220,141 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+            REQ_SAF_CHOOSE_DIR -> {
+                if (requestCode == REQ_SAF_CHOOSE_DIR && Activity.RESULT_OK == resultCode) {
+                    safCreateDirAndFile(data)
+                }
+            }
         }
+    }
+
+    /**
+     * 尝试使用用户选中的dir操作文件，只能使用DocumentFile
+     */
+    private fun safCreateDirAndFile(data: Intent?): Boolean {
+        val treeUri = data?.data ?: return true
+        val takeFlags =
+            (data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            contentResolver.takePersistableUriPermission(treeUri, takeFlags)
+        } else {
+            TODO("VERSION.SDK_INT < KITKAT")
+        }
+        //content://com.android.externalstorage.documents/tree/primary%3ADownload
+        Log.e("Better", treeUri.toString())
+        Log.e("Better", "${FileUtil.getFullPathFromTreeUri(treeUri, this)}")
+        // 5.0 DocumentFile.fromTreeUri
+        // 4.4 DocumentFile.fromSingleUri
+        DocumentFile.fromTreeUri(this, treeUri)?.let { documentFile ->
+            val directName = DIR_NAME
+            val exist = documentFile.findFile(directName)?.run {
+                exists() && isDirectory
+            } ?: false
+            val directoryDocumentFile = if (exist) {
+                documentFile.findFile(directName)
+            } else {
+                documentFile.createDirectory(directName)
+            }
+            Log.e("Better", "creste dir: ${directoryDocumentFile?.toString()}")
+            // 创建文件
+            directoryDocumentFile?.let {
+                val createFile = it.createFile("application/text", "helloSaf.txt")
+                Log.e("Better", "create file ${createFile?.exists()}")
+                createFile?.let { helloFile ->
+                    contentResolver.openOutputStream(helloFile.uri)?.apply {
+                        catch { write("hello thank you".toByteArray()) }
+                        close()
+                    }
+                }
+                Toast.makeText(
+                    this,
+                    "create file  ${createFile?.exists()}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        // 以分区存储的方式，尝试用File 类操作
+        val path = FileUtil.getFullPathFromTreeUri(treeUri, this)
+        if (null == path || path == File.pathSeparator) {
+            // 不支持的路径
+            Log.e("Better", "not support directory path")
+        }
+        // 居然可以操作！！！
+        val directoryFile = File(path, DIR_NAME + File.separator + "aaa.txt")
+        catch {
+            directoryFile.createNewFile()
+            directoryFile.outputStream().apply {
+                catch { write("hello thank you".toByteArray()) }
+                close()
+            }
+        }
+        return false
+    }
+
+    /**
+     * 如果使用兼容模式android:requestLegacyExternalStorage="true"
+     * 需要在manifest中修改下
+     * 可以像之前一样，授权存储权限后就直接操作sdcard
+     */
+    private fun androidQAccessSdcard() {
+        val sdkInt = Build.VERSION.SDK_INT
+        val have = if (sdkInt < Build.VERSION_CODES.M) {
+            true
+        } else {
+            (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                    PackageManager.PERMISSION_GRANTED).also {
+                if (!it) {
+                    ActivityCompat.requestPermissions(
+                        this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                        99
+                    )
+                }
+            }
+        }
+        if (have) {
+            val bbbb = File(Environment.getExternalStorageDirectory(), DIR_NAME)
+            if (!bbbb.exists()) {
+                bbbb.mkdir()
+            }
+            val testFile = File(bbbb, "test.txt")
+            val suc = if (testFile.exists()) {
+                true
+            } else {
+                testFile.createNewFile()
+            }
+            Toast.makeText(this, "create file: $suc", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    /**
+     * 在scopeStorage 模式下 android:requestLegacyExternalStorage="false"
+     * 在选中的文件夹中创建自己的文件夹，并写入文件是不需要权限的
+     * android 10 没权限执行成功
+     * android 8 成功
+     */
+    private fun safCreateDirAndFile() {
+//        if (ActivityCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            ActivityCompat.requestPermissions(
+//                this,
+//                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+//                99
+//            )
+//            Toast.makeText(this, "先授予存储权限", Toast.LENGTH_SHORT).show()
+//            return
+//        }
+        // 直接用过用户 授予权限方式 不需要权限
+        val intent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
+                putExtra(Intent.EXTRA_LOCAL_ONLY, true)
+            }
+        } else {
+            TODO("VERSION.SDK_INT < LOLLIPOP")
+        }
+        startActivityForResult(intent, REQ_SAF_CHOOSE_DIR)
     }
 
     private fun chooseImage() {
@@ -456,6 +607,11 @@ class MainActivity : AppCompatActivity() {
                 val mkdirResult = mockDir.mkdir()
                 Log.e(TAG, "make dir ${mockDir.absolutePath} ,suc?$mkdirResult")
             } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    99
+                )
                 Toast.makeText(this, "先授予存储权限", Toast.LENGTH_SHORT).show()
             }
             return
