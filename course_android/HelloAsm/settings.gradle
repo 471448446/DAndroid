@@ -1,0 +1,4 @@
+include ':plugin-print'
+include ':plugin-hello'
+include ':app'
+rootProject.name = "HelloAsm"

@@ -1,0 +1,19 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.groupId = 'com.better.learn.plugin'
+            pom.artifactId = 'hello-asm-plugin'
+            pom.version = '1.0.0'
+            //生成的插件存放地址
+            repository(url: uri('../plugin-hello-repo'))
+        }
+    }
+}

@@ -1,0 +1,43 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+// 申明使用kotlin来实现插件，既在src/main/kotlin/路径下
+apply plugin: 'kotlin'
+
+sourceSets {
+    main {
+        groovy {
+            srcDir 'src/main/groovy'
+        }
+
+        java {
+            srcDir "src/main/java"
+        }
+
+        kotlin {
+            srcDir "src/main/kotlin"
+        }
+
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+    // 需要使用Transform
+    implementation 'com.android.tools.build:gradle:4.0.2'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.groupId = 'com.better.learn.plugin'
+            pom.artifactId = 'print-method'
+            pom.version = '1.0.0'
+            //生成的插件存放地址
+            repository(url: uri('../plugin-print-repo'))
+        }
+    }
+}
