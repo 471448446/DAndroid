@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * https://github.com/react-native-community/react-native-netinfo/issues/153
+ * 从 Android 11 开始，5g检查：https://developer.android.com/about/versions/11/features/5g#detection
+ * 还必须有 READ_PHONE_STATE
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -71,8 +73,10 @@ public class MainActivity extends AppCompatActivity {
                 builder += "sim list = no permission";
             } else {
                 List<SubscriptionInfo> infoList = subscriptionManager.getActiveSubscriptionInfoList();
-                for (SubscriptionInfo info : infoList) {
-                    builder += "sim number?,subscription?,displayName? =" + info.getNumber() + "," + info.getSubscriptionId() + "," + info.getDisplayName() + "\n";
+                if (null != infoList) {
+                    for (SubscriptionInfo info : infoList) {
+                        builder += "sim number?,subscription?,displayName? =" + info.getNumber() + "," + info.getSubscriptionId() + "," + info.getDisplayName() + "\n";
+                    }
                 }
             }
         }
