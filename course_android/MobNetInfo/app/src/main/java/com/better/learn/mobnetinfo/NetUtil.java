@@ -7,6 +7,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.telephony.CellInfo;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,6 +17,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 
 /**
@@ -420,4 +423,73 @@ public class NetUtil {
 
         return mapSubtype(subtype, null);
     }
+
+    /**
+     * 华硕手机5G roga 3,android 10，可以获取
+     * 判断是否是5G网络，因为在设置页面（我的手机-状态信息-Sim状态）中可以看见是否是5G网络，反编译查看源码后大致如下逻辑：
+     * com.android.settings.deviceinfo.SimStatus#updateNetworkType()
+     * 如果支持5G网络，
+     * 1. 首先系统有个flag表示支持，既：persist.vendor.asus.mobile_slot
+     * 2. 通过全局的系统广播获取当前sim卡网络类型。必须不小于20
+     * 3. 根据系统提供的网络名称判断是否是LTE网络
+     * 这样看起来，这个是系统自己实现了一套5G网络类型，因为这种时候getNetworkType()返回的还是13.
+     *
+     * @return 网络类型
+     */
+    public static String asusRogaSimStatusName(Context context) throws Exception {
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            return "not support";
+        }
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            return "no permission";
+        }
+        SubscriptionInfo mSubscriptionInfo = SubscriptionManager.from(context).getActiveSubscriptionInfoForSimSlotIndex(0);
+        TelephonyManager mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        int dataNetworkType = mTelephonyManager.getDataNetworkType();
+//        String networkTypeName = TelephonyManager.getNetworkTypeName(dataNetworkType);
+        Class telClass = TelephonyManager.class;
+        Method getNetworkTypeName = telClass.getMethod("getNetworkTypeName");
+        String networkTypeName = (String) getNetworkTypeName.invoke(mTelephonyManager, null);
+        String ii = Other.get("persist.vendor.asus.mobile_slot");
+        int i = 0;
+        int dataType = AusuReceiver.getInstance().getmStatusbarDataType()[i];
+        i = Integer.parseInt(ii);
+        if (i == 0 && dataType >= 20 && ("LTE".equals(networkTypeName) || "LTE_CA".equals(networkTypeName))) {
+            networkTypeName = "LTE (4G) & NR (5G)";
+        }
+
+        return networkTypeName + ":" + dataType;
+    }
+//
+//    private boolean isIWLANAndNoImsRegistered(Context context) {
+//        boolean z = false;
+//        try {
+//            if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+//                return true;
+//            }
+//            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+//                return true;
+//            }
+//
+//            SubscriptionInfo mSubscriptionInfo = SubscriptionManager.from(context).getActiveSubscriptionInfoForSimSlotIndex(0);
+//            TelephonyManager mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+//            int subscriptionId = mSubscriptionInfo.getSubscriptionId();
+//            int accessNetworkTechnology = getCurrentServiceState().getNetworkRegistrationInfo(2, 1).getAccessNetworkTechnology();
+//            Log.d("SimStatus", "isIWLANAndNoImsRegistered(): actualDataNetworkType = " + accessNetworkTechnology);
+//            if (accessNetworkTechnology == 0) {
+//                accessNetworkTechnology = mTelephonyManager.getDataNetworkType(subscriptionId);
+//            }
+//            boolean isImsRegistered = mTelephonyManager.isImsRegistered(subscriptionId);
+//            Log.d("SimStatus", "isIWLANAndNoImsRegistered(): actualDataNetworkType = " + accessNetworkTechnology + ", isImsRegistered = " + isImsRegistered);
+//            if (accessNetworkTechnology == 18 && !isImsRegistered) {
+//                z = true;
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        Log.d("SimStatus", "isIWLANAndNoImsRegistered(): ret = " + z);
+//        return z;
+//    }
+
+
 }

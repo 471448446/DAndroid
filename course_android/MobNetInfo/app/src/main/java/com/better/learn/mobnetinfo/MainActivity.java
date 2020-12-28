@@ -52,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
         String cg5 = NetUtil.cellularGeneration5(this);
         String cg6 = NetUtil.cellularGeneration6(this);
         String cg7 = NetUtil.cellularGeneration7(this);
+        String cg8 = "";
+        try {
+            cg8 = NetUtil.asusRogaSimStatusName(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         TextView textView = findViewById(R.id.netInfoTxt);
 
         String builder =
@@ -65,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                         "cg5 =" + cg5 + "\n" +
                         "cg6 =" + cg6 + "\n" +
                         "cg7 =" + cg7 + "\n" +
+                        "cg8 =" + cg8 + "\n" +
                         "carrierName() =" + carrierName + "\n";
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             SubscriptionManager subscriptionManager = (SubscriptionManager) getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
