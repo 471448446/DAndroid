@@ -1,25 +1,26 @@
 package com.better.learn.fridademo;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import static com.better.learn.fridademo.FridaDemo1Activity.TAG;
 
 /**
- * https://11x256.github.io/Frida-hooking-android-part-2/
- * 1. 调用重载方法
- * 2. 调用没有被调用的方法
+ * https://11x256.github.io/Frida-hooking-android-part-3/
+ * 利用 Remote Procedure Call 将JS的函数注册到外部，让python调用。
+ * 这样就可以修改调用时机，其实这种方案：我在需要调用的时候在运行loader.py是一样的效果
  * 运行：
  * 1. 运行APK后，打开这个页面
- * 2. 命令行执行进入frida/FridaDemo2目录下，python3 loader.py
+ * 2. 命令行执行进入frida/FridaDemo3目录下，python3 loader.py
+ *
  * @author Better
- * @date 2020/12/29 10:55
+ * @date 2020/12/29 15:13
  */
-public class FridaDemo2Activity extends AppCompatActivity {
+public class FridaDemo3Activity extends AppCompatActivity {
 
     private String total = "0x@##";
 
@@ -28,7 +29,7 @@ public class FridaDemo2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ((TextView) findViewById(R.id.main_content)).setText("FridaDemo2");
+        ((TextView) findViewById(R.id.main_content)).setText("FridaDemo3");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -57,11 +58,6 @@ public class FridaDemo2Activity extends AppCompatActivity {
         return total.toLowerCase();
     }
 
-    /**
-     * 因为它没有被调用，所以直接hook是不行的
-     * Now lets assume that we want to call function secret, it is not being called from the onCreate function,
-     * so hooking calls to it would be useless.
-     */
     String secret() {
         return total;
     }

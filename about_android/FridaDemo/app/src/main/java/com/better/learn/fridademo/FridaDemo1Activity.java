@@ -13,6 +13,10 @@ import android.widget.TextView;
  * 2. 打印日志
  * 3. 修改参数
  * 这种方式打印参数日志，比起修改APK看日志（反编译APK修改smali代码再打包）方便多了
+ * 运行：
+ * 1. 运行APK后，打开这个页面（不是必须的，这种方式会kill当前的进程）
+ * 2. 命令行执行进入frida/FridaDemo1目录下，python3 loader.py
+ *
  * @author Better
  * @date 2020/12/28 10:14
  */
@@ -41,6 +45,9 @@ public class FridaDemo1Activity extends AppCompatActivity {
         }).start();
     }
 
+    /**
+     * 私有方法也是可以被拦截的
+     */
     private void fun(int a, int b) {
         int sum = a + b;
         Log.d(TAG, a + "+" + b + "=" + sum);
