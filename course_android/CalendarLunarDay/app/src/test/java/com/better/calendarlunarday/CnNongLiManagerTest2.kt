@@ -21,8 +21,11 @@ class CnNongLiManagerTest2 {
 
     @Test
     fun calGongliToNongli() {
+        val tripleToday = Calendar.getInstance().run {
+            Triple(get(Calendar.YEAR), get(Calendar.MONTH) + 1, get(Calendar.DAY_OF_MONTH))
+        }
         val cnNongLiManager = CnNongLiManager()
-        val nongli = cnNongLiManager.calGongliToNongli(2021, 3, 4)
+        val nongli = cnNongLiManager.calGongliToNongli(tripleToday.first, tripleToday.second, tripleToday.third)
         println(nongli.joinToString(","))
     }
 

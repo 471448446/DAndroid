@@ -158,9 +158,9 @@ public class CnNongLiManager {
      * 0:年
      * 1:月
      * 2:日
-     * 3:
-     * 4:
-     * 5: 干支
+     * 3: 干支纪年中年的的算法
+     * 4: 干支纪年中年月的算法，表huangli2012中jx列相关。(array[5] - (array[4] - 2) % 12) % 12
+     * 5: 干支纪年中年日的算法，干支相关。array[5] % 60
      * 6:
      */
     public long[] calGongliToNongli(int year, int month, int day) {
@@ -332,8 +332,17 @@ public class CnNongLiManager {
         return cyclicalm((i - 1900) + 36);
     }
 
-    public String cyclicalm(int i) {
-        return this.Gan[i % 10] + this.Zhi[i % 12];
+    /**
+     * 干支纪年法
+     * number年：{@link #calGongliToNongli(int, int, int)}[3]
+     * number月：{@link #calGongliToNongli(int, int, int)}[4]
+     * number日：{@link #calGongliToNongli(int, int, int)}[5]
+     *
+     * @param number 年月日的数字
+     * @return 干支纪年
+     */
+    public String cyclicalm(int number) {
+        return this.Gan[number % 10] + this.Zhi[number % 12];
     }
 
     /**
