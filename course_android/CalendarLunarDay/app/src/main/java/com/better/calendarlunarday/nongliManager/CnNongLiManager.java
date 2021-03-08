@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * 十天干: 甲（baijiǎ）、乙（yǐ）、丙（bǐng）、丁（dīng）、戊（wù）、己（jǐ）、庚（gēng）、辛（xīn）、壬（rén）、癸（guǐ）。
+ * 十二地支: 子（zǐ）、丑（chǒu）、寅（yín）、卯（mǎo）、辰（chén）、巳（sì）、午（wǔ）、未（wèi）、申（shēn）、酉（yǒu）、戌（xū）、亥（hài）。
+ */
 public class CnNongLiManager {
     public static String[] lunarDate = {"初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十", "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十", "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十"};
     public static String[] lunarMonth = {"正月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "冬月", "腊月"};
@@ -68,7 +72,7 @@ public class CnNongLiManager {
      * @param year  公历年
      * @param month 月
      * @param day   日
-     * @return 时辰冲煞、凶吉
+     * @return 时辰冲煞、凶吉 12个时辰信息
      * 0:冲煞{@link #calChongSha(int)}
      * 1:凶（值为0）吉（值为1）
      */
@@ -156,7 +160,7 @@ public class CnNongLiManager {
      * 2:日
      * 3:
      * 4:
-     * 5:
+     * 5: 干支
      * 6:
      */
     public long[] calGongliToNongli(int year, int month, int day) {
