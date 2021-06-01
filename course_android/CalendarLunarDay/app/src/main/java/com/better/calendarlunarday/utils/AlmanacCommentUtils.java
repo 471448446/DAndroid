@@ -1,21 +1,30 @@
 package com.better.calendarlunarday.utils;
 
+/**
+ * cn.etouch.ecalendar.tools.almanac.i
+ */
 public class AlmanacCommentUtils {
-    private static AlmanacCommentUtils a;
+    private static AlmanacCommentUtils instance;
 
     public static AlmanacCommentUtils getInstance() {
         synchronized (AlmanacCommentUtils.class) {
-            if (AlmanacCommentUtils.a == null) {
-                AlmanacCommentUtils.a = new AlmanacCommentUtils();
+            if (AlmanacCommentUtils.instance == null) {
+                AlmanacCommentUtils.instance = new AlmanacCommentUtils();
             }
         }
 
-        return AlmanacCommentUtils.a;
+        return AlmanacCommentUtils.instance;
     }
 
-    public String a(int arg18) {
-        int v3 = (arg18 + 6) % 12;
-        return "冲" + new String[]{"鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"}[v3] + "(" + new String[]{"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"}[(arg18 + 4) % 10] + new String[]{"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"}[v3] + ")煞" + new String[]{"东", "北", "西", "南"}[(arg18 + 3) % 4];
+    /**
+     * 今日冲煞详情
+     *
+     * @param gz 干支信息，{@link com.better.calendarlunarday.nongliManager.CnNongLiManager#calGongliToNongli(int, int, int)}[5]
+     * @return 今日冲煞
+     */
+    public String chongShaMore(int gz) {
+        int v3 = (gz + 6) % 12;
+        return "冲" + new String[]{"鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"}[v3] + "(" + new String[]{"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"}[(gz + 4) % 10] + new String[]{"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"}[v3] + ")煞" + new String[]{"东", "北", "西", "南"}[(gz + 3) % 4];
     }
 
     /**
@@ -51,11 +60,17 @@ public class AlmanacCommentUtils {
         return new String[]{"青龙", "明堂", "天刑", "朱雀", "金匮", "天德", "白虎", "玉堂", "天牢", "玄武", "司命", "勾陈"}[(gz + 4 - jx % 60 * 2) % 12];
     }
 
-    public String c(int arg11) {
+    /**
+     * 冲煞白话
+     *
+     * @param gz 干支信息，{@link com.better.calendarlunarday.nongliManager.CnNongLiManager#calGongliToNongli(int, int, int)}[5]
+     * @return 冲煞白话
+     */
+    public String chongShaBaihua(int gz) {
         String[] v1 = new String[]{"鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"};
         String[] v7 = new String[]{"东", "北", "西", "南"};
-        Object[] v8 = new Object[]{v1[(arg11 + 6) % 12], null, null};
-        int v11 = (arg11 + 3) % 4;
+        Object[] v8 = new Object[]{v1[(gz + 6) % 12], null, null};
+        int v11 = (gz + 3) % 4;
         v8[1] = v7[v11];
         v8[2] = v7[v11];
         return String.format("本日对属%1$s的人不太有利。\n本日煞神方位在%2$s方，向%3$s方行事要小心。", v8);

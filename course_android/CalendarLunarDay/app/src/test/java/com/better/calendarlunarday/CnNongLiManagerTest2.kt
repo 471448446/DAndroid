@@ -27,6 +27,8 @@ class CnNongLiManagerTest2 {
         }
         val cnNongLiManager = CnNongLiManager()
         val nongli = cnNongLiManager.calGongliToNongli(tripleToday.first, tripleToday.second, tripleToday.third)
+//        val nongli = cnNongLiManager.calGongliToNongli(2020, 4, 23)
+//        val nongli = cnNongLiManager.calGongliToNongli(2020, 5, 23)
         println(nongli.joinToString(","))
     }
 

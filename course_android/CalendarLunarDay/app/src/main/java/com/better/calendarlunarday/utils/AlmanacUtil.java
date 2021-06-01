@@ -4,8 +4,9 @@ import android.text.TextUtils;
 
 import com.better.calendarlunarday.nongliManager.CnNongLiManager;
 
-import java.util.Calendar;
-
+/**
+ * cn.etouch.ecalendar.tools.almanac.C
+ */
 public class AlmanacUtil {
 
     /* renamed from: a */
