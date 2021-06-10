@@ -7,10 +7,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.IInterface;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -85,6 +88,13 @@ public class MainActivity extends AppCompatActivity {
                 mIInterCommunication.sendInt(8);
             } catch (RemoteException e) {
                 e.printStackTrace();
+            }
+            if (null != service) {
+                String DESCRIPTOR = "better.bindservices.IInterCommunication";
+                IInterface iin = service.queryLocalInterface(DESCRIPTOR);
+                // 由于客户端和服务端不在一个进程中，queryLocalInterface返回的是NULL
+                // 所以IInterCommunication.Stub.asInterface构造了客户端的代理对象IInterCommunication.Stub.Proxy
+                Log.i("Better", "onServiceConnected return binder have local interface?:" + iin);
             }
         }
 
