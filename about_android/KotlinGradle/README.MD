@@ -1,5 +1,6 @@
 [Migrate to Gradle Kotlin DSL](https://blog.mindorks.com/migrate-to-gradle-kotlin-dsl)
 [Migrating build logic from Groovy to Kotlin](https://docs.gradle.org/nightly/userguide/migrating_from_groovy_to_kotlin_dsl.html)，这篇中有步骤
+[Migrate from Groovy to Kotlin DSL](https://proandroiddev.com/migrate-from-groovy-to-kotlin-dsl-951266f3c072)
 
 好处是可以有提示，坏处是，在编译的时候可能会变慢一点，比如第一次的时候
 利用kotlin的DSL语法来访问变量，省略`this`关键字
