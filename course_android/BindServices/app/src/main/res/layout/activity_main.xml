@@ -8,59 +8,75 @@
     tools:context="better.bindservices.MainActivity"
     tools:ignore="HardcodedText">
 
-    <TextView
-        android:id="@+id/binder"
+    <Button
+        android:id="@+id/crash_file_descriptor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:onClick="OnClick"
         android:padding="15dp"
-        android:text="use Binder" />
+        android:text="crash file descriptor"
+        android:textAllCaps="false" />
 
-    <TextView
+    <Button
+        android:id="@+id/use_binder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="OnClick"
+        android:padding="15dp"
+        android:text="use Binder"
+        android:textAllCaps="false" />
+
+    <Button
         android:id="@+id/messenger"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:onClick="OnClick"
         android:padding="15dp"
-        android:text="use Meaaenger" />
+        android:text="use Meaaenger"
+        android:textAllCaps="false" />
 
-    <TextView
+    <Button
         android:id="@+id/aidl_get"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:onClick="OnClick"
         android:padding="15dp"
-        android:text="use Aidl get msg" />
+        android:text="use Aidl get msg"
+        android:textAllCaps="false" />
 
-    <TextView
+    <Button
         android:id="@+id/aidl_send"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:onClick="OnClick"
         android:padding="15dp"
-        android:text="use Aidl send msg" />
+        android:text="use Aidl send msg"
+        android:textAllCaps="false" />
 
-    <TextView
+    <Button
         android:id="@+id/aidl_in_Out_InOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:onClick="OnClick"
         android:padding="15dp"
-        android:text="aidl_in_Out_InOut" />
+        android:text="aidl_in_Out_InOut"
+        android:textAllCaps="false" />
 
-    <TextView
+    <Button
         android:id="@+id/messenger_bitmap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:onClick="OnClick"
         android:padding="15dp"
-        android:text="messenger_bitmap" />
+        android:text="messenger_bitmap"
+        android:textAllCaps="false" />
 
     <ImageView
         android:id="@+id/bitmap"

@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.os.IInterface;
 import android.os.Message;
 import android.os.Messenger;
+import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import better.bindservices.data.MyMessage;
 
@@ -190,9 +195,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void OnClick(View view) {
+    public void OnClick(View view) throws FileNotFoundException {
         switch (view.getId()) {
-            case R.id.binder:
+            case R.id.crash_file_descriptor:
+                testCrashFd();
+                break;
+            case R.id.use_binder:
                 if (mBinderConnection.isBind()) {
                     toast("获取到" + mDemoServices.getLat());
                 } else {
@@ -295,6 +303,77 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
+    }
+
+    /*
+    2021-06-29 14:25:29.076 24804-24804/better.bindservices E/AndroidRuntime: FATAL EXCEPTION: main
+    Process: better.bindservices, PID: 24804
+    java.lang.IllegalStateException: Could not execute method for android:onClick
+        at androidx.appcompat.app.AppCompatViewInflater$DeclaredOnClickListener.onClick(AppCompatViewInflater.java:414)
+        at android.view.View.performClick(View.java:6294)
+        at android.view.View$PerformClick.run(View.java:24770)
+        at android.os.Handler.handleCallback(Handler.java:790)
+        at android.os.Handler.dispatchMessage(Handler.java:99)
+        at android.os.Looper.loop(Looper.java:164)
+        at android.app.ActivityThread.main(ActivityThread.java:6494)
+        at java.lang.reflect.Method.invoke(Native Method)
+        at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:438)
+        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:807)
+     Caused by: java.lang.reflect.InvocationTargetException
+        at java.lang.reflect.Method.invoke(Native Method)
+        at androidx.appcompat.app.AppCompatViewInflater$DeclaredOnClickListener.onClick(AppCompatViewInflater.java:409)
+        at android.view.View.performClick(View.java:6294) 
+        at android.view.View$PerformClick.run(View.java:24770) 
+        at android.os.Handler.handleCallback(Handler.java:790) 
+        at android.os.Handler.dispatchMessage(Handler.java:99) 
+        at android.os.Looper.loop(Looper.java:164) 
+        at android.app.ActivityThread.main(ActivityThread.java:6494) 
+        at java.lang.reflect.Method.invoke(Native Method) 
+        at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:438) 
+        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:807) 
+     Caused by: java.lang.RuntimeException: Not allowed to write file descriptors here
+        at android.os.Parcel.nativeWriteFileDescriptor(Native Method)
+        at android.os.Parcel.writeFileDescriptor(Parcel.java:730)
+        at android.os.ParcelFileDescriptor.writeToParcel(ParcelFileDescriptor.java:1026)
+        at android.os.Parcel.writeParcelable(Parcel.java:1792)
+        at android.os.Parcel.writeValue(Parcel.java:1698)
+        at android.os.Parcel.writeArrayMapInternal(Parcel.java:838)
+        at android.os.BaseBundle.writeToParcelInner(BaseBundle.java:1542)
+        at android.os.Bundle.writeToParcel(Bundle.java:1232)
+        at android.os.Parcel.writeBundle(Parcel.java:878)
+        at android.content.Intent.writeToParcel(Intent.java:9595)
+        at android.app.IActivityManager$Stub$Proxy.startService(IActivityManager.java:4864)
+        at android.app.ContextImpl.startServiceCommon(ContextImpl.java:1507)
+        at android.app.ContextImpl.startService(ContextImpl.java:1477)
+        at android.content.ContextWrapper.startService(ContextWrapper.java:650)
+        at android.content.ContextWrapper.startService(ContextWrapper.java:650)
+        at better.bindservices.MainActivity.testCrashFd(MainActivity.java:320)
+        at better.bindservices.MainActivity.OnClick(MainActivity.java:201)
+        at java.lang.reflect.Method.invoke(Native Method) 
+        at androidx.appcompat.app.AppCompatViewInflater$DeclaredOnClickListener.onClick(AppCompatViewInflater.java:409) 
+        at android.view.View.performClick(View.java:6294) 
+        at android.view.View$PerformClick.run(View.java:24770) 
+        at android.os.Handler.handleCallback(Handler.java:790) 
+        at android.os.Handler.dispatchMessage(Handler.java:99) 
+        at android.os.Looper.loop(Looper.java:164) 
+        at android.app.ActivityThread.main(ActivityThread.java:6494) 
+        at java.lang.reflect.Method.invoke(Native Method) 
+        at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:438) 
+        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:807) 
+     */
+    private void testCrashFd() throws FileNotFoundException {
+        Intent intent = new Intent(this, DemoBinderServices.class);
+        File file = new File(getCacheDir(), "haha.txt");
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        // 放入一个fd，按照AMS中的检查逻辑，必崩
+        intent.putExtra("fd", ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_WRITE));
+        startService(intent);
     }
 
     private void toast(String msg) {
