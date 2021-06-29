@@ -2,6 +2,8 @@ package better.bindservices;
 
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 
 /**
@@ -34,6 +36,7 @@ public class DemoBinderServices extends BaseServices {
      * 向外暴露的方法
      */
     public double getLat() {
+        Log.d("Binder", "getLat()" + Thread.currentThread().getName());
         return 78.90098;
     }
 }

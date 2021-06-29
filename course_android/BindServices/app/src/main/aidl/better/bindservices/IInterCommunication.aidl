@@ -29,4 +29,8 @@ interface IInterCommunication {
       */
       void registerCallBack(in ILocCallBack callBack);
       void unRegisterCallBack(in ILocCallBack callBack);
+      /**
+      * 如果remote 崩溃，客户端会怎样
+      */
+      int justCrash();
 }

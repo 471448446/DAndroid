@@ -132,6 +132,17 @@ public class DemoAidlServices extends BaseServices {
             mCallbackList.unregister(callBack);
 
         }
+
+        @Override
+        public int justCrash() throws RemoteException {
+            Log.d("Binder", "aidl justCrash()" + Thread.currentThread().getName());
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            throw new RuntimeException("haha justCrash()");
+        }
     }
 
     private void log2(String ms) {

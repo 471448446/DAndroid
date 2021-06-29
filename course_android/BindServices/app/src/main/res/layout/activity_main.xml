@@ -39,6 +39,16 @@
         android:textAllCaps="false" />
 
     <Button
+        android:id="@+id/aidl_remote_crash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="OnClick"
+        android:padding="15dp"
+        android:text="use Aidl remote crash"
+        android:textAllCaps="false" />
+
+    <Button
         android:id="@+id/aidl_get"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

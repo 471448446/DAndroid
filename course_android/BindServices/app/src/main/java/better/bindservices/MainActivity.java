@@ -233,6 +233,22 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 break;
+            case R.id.aidl_remote_crash:
+                if (mAidlConnect.isBind()) {
+                    try {
+                        long s = System.currentTimeMillis();
+                        // 服务端崩溃，返回了默认值
+                        int deliverResult = mIInterCommunication.justCrash();
+                        String msg = "consume:" + (System.currentTimeMillis() - s) / 1000 + "s, result:" + deliverResult;
+                        toast(msg);
+                        log(msg);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    toast("还没准备好");
+                }
+                break;
             case R.id.aidl_get:
                 if (mAidlConnect.isBind()) {
                     try {
