@@ -15,12 +15,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".night.NightActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".TargetActivity"
+            android:name=".start.TargetActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:noHistory="true" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".start.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +36,7 @@
         </activity>
 
         <service
-            android:name=".OtherService"
+            android:name=".start.OtherService"
             android:process=":other" />
     </application>
 

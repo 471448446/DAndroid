@@ -1,4 +1,4 @@
-package com.better.learn.teststart
+package com.better.learn.teststart.start
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -11,6 +11,7 @@ import android.os.Process
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.better.learn.teststart.R
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.BufferedReader
 import java.io.File

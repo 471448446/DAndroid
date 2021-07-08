@@ -1,10 +1,11 @@
-package com.better.learn.teststart
+package com.better.learn.teststart.start
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.better.learn.teststart.R
 import kotlinx.android.synthetic.main.activity_target.*
 import kotlin.random.Random
 

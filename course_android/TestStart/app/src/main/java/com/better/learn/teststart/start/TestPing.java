@@ -1,4 +1,4 @@
-package com.better.learn.teststart;
+package com.better.learn.teststart.start;
 
 import android.content.Context;
 import android.util.Log;

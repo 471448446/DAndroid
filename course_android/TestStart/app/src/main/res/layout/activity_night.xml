@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".night.NightActivity">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="1.0dip"
+            android:layout_height="20.0dip"
+            android:layout_margin="20dp"
+            android:alpha="0.15"
+            android:background="#ff1d1d1d"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/rn_b"
+            android:layout_width="1.0dip"
+            android:layout_height="20.0dip"
+            android:layout_margin="20dp"
+            android:alpha="0.15"
+            android:background="#ff1d1d1d"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/rn_w"
+            android:layout_width="1.0dip"
+            android:layout_height="20.0dip"
+            android:layout_margin="20dp"
+            android:alpha="0.15"
+            android:background="#ff1d1d1d"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/rn"
+            android:layout_width="1.0dip"
+            android:layout_height="20.0dip"
+            android:layout_margin="20dp"
+            android:alpha="0.15"
+            android:background="#ff1d1d1d"
+            android:scaleType="fitXY" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</LinearLayout>
