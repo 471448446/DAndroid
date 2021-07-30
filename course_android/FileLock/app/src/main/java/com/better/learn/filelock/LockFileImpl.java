@@ -76,11 +76,16 @@ public class LockFileImpl implements LockFile {
     public void onDestroy() {
         unLock();
         try {
+            fileChannel.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
             fileOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        fileOutputStream = null;
         fileChannel = null;
+        fileOutputStream = null;
     }
 }
