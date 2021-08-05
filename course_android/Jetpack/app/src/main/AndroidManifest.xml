@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.better.learn.jetpack">
 
     <application
@@ -9,6 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Jetpack">
+        <activity
+            android:name=".app_startup.InitializeActivity"
+            android:exported="true" />
         <activity
             android:name=".start_activity_result.StartedActivity"
             android:exported="true" />
@@ -21,6 +25,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+
+            <!-- This entry makes ExampleLoggerInitializer discoverable. -->
+            <meta-data
+                android:name="com.better.learn.jetpack.app_startup.InitializesAge"
+                android:value="androidx.startup" />
+        </provider>
     </application>
 
 </manifest>

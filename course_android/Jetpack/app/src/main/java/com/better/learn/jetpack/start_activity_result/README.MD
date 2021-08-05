@@ -1,4 +1,8 @@
 [Activity Result API](https://developer.android.com/training/basics/intents/result?hl=zh-cn#launch)
+```
+androidx.activity:activity:1.2.4
+```
+
 传统的启动`Activity`获取结果，步骤是怎样：
 1. 首先得定义启动得`Intent`数据
 2. 确定当前得启动环境，是在`Activity`还是在`Fragment`。因为`Activity.startActivityForResult()`和`Fragment.startActivityForResult()`决定了，结果数据是在`Activity`中还是在`Fragment`中处理

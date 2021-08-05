@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.better.learn.jetpack.app_startup.InitializeActivity
 import com.better.learn.jetpack.databinding.ActivityMainBinding
 import com.better.learn.jetpack.start_activity_result.StartedActivity
 
@@ -17,6 +18,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         jStartActivityForResult()
+        jAppStartup()
+    }
+
+    private fun jAppStartup() {
+        binding.appStartup.setOnClickListener {
+            startActivity(Intent(this, InitializeActivity::class.java))
+        }
     }
 
     private fun jStartActivityForResult() {
