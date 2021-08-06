@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "com.better.learn.jetpack";
+option java_multiple_files = true;
+
+message SettingsPb {
+  // 数值1是一个唯一标识
+  int32 click_btn_times = 1;
+}

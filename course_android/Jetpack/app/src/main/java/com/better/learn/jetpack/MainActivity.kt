@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.better.learn.jetpack.app_startup.InitializeActivity
 import com.better.learn.jetpack.databinding.ActivityMainBinding
 import com.better.learn.jetpack.datastore.dataStorePreference
+import com.better.learn.jetpack.datastore.dataStoreProtobuf
 import com.better.learn.jetpack.start_activity_result.StartedActivity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -40,18 +41,32 @@ class MainActivity : AppCompatActivity() {
                 // 取值，以及默认值。[]取出来的类型不一定安全
                 it[key] ?: 0
             }.first()
+            val times2 = dataStoreProtobuf.data.map {
+                it.clickBtnTimes
+            }.first()
             if (0 != times) {
-                binding.dataStore.text = "DataStore click preference:$times"
+                binding.dataStore.text = "DataStore click \n preference:$times,protobuf:$times2"
             }
         }
         binding.dataStore.setOnClickListener {
             lifecycleScope.launch {
+                val t1 = dataStorePreference.data.map {
+                    // 取值，以及默认值。[]取出来的类型不一定安全
+                    it[key] ?: 0
+                }.first() + 1
+                val t2 = dataStoreProtobuf.data.map {
+                    it.clickBtnTimes
+                }.first() + 1
                 // 3. 保存KEY的值
                 dataStorePreference.edit {
-                    val times = it[key] ?: 0
-                    it[key] = times + 1
-                    binding.dataStore.text = "DataStore click preference:${times + 1}"
+                    it[key] = t1
                 }
+                dataStoreProtobuf.updateData { current ->
+                    current.toBuilder()
+                        .setClickBtnTimes(t2)
+                        .build()
+                }
+                binding.dataStore.text = "DataStore click \n preference:$t1,protobuf:$t2"
             }
         }
     }
