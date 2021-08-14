@@ -8,6 +8,10 @@ dependencies {
     implementation localGroovy()
 
     implementation 'com.android.tools.build:gradle:3.4.2'
+
+    //ASM 依赖
+    implementation 'org.ow2.asm:asm:7.1'
+    implementation 'org.ow2.asm:asm-commons:7.1'
 }
 group = 'danny.lifecycle.plugin'
 version = '1.0.0'
