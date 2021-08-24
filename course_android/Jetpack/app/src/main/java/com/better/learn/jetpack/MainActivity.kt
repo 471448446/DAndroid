@@ -3,8 +3,10 @@ package com.better.learn.jetpack
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.GuardedBy
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
@@ -14,6 +16,7 @@ import com.better.learn.jetpack.databinding.ActivityMainBinding
 import com.better.learn.jetpack.datastore.dataStorePreference
 import com.better.learn.jetpack.datastore.dataStoreProtobuf
 import com.better.learn.jetpack.start_activity_result.StartedActivity
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -29,6 +32,12 @@ class MainActivity : AppCompatActivity() {
         jStartActivityForResult()
         jAppStartup()
         jDataStore()
+        testThread()
+    }
+
+    private fun testThread() {
+        val test = TestThreadSafety()
+        test.money = 100
     }
 
     @SuppressLint("SetTextI18n")
@@ -41,6 +50,9 @@ class MainActivity : AppCompatActivity() {
                 // 取值，以及默认值。[]取出来的类型不一定安全
                 it[key] ?: 0
             }.first()
+//            dataStorePreference.data.collect {
+//                Log.i("Better",it.toString())
+//            }
             val times2 = dataStoreProtobuf.data.map {
                 it.clickBtnTimes
             }.first()
@@ -94,4 +106,11 @@ class MainActivity : AppCompatActivity() {
             startActivity.launch(Intent(this, StartedActivity::class.java))
         }
     }
+}
+
+class TestThreadSafety {
+    private val moneyLock = Any()
+
+    @GuardedBy("moneyLock")
+    var money: Int = 0
 }
