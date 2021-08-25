@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
                 // 3. 保存KEY的值
                 dataStorePreference.edit {
                     it[key] = t1
+                    Log.d("Better", "update()： ${Thread.currentThread().name}")
                 }
                 dataStoreProtobuf.updateData { current ->
                     current.toBuilder()
