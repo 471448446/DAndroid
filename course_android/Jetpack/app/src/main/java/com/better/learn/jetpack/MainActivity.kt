@@ -13,10 +13,10 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.lifecycle.lifecycleScope
 import com.better.learn.jetpack.app_startup.InitializeActivity
 import com.better.learn.jetpack.databinding.ActivityMainBinding
+import com.better.learn.jetpack.datastore.DataStoreJavaImpl
 import com.better.learn.jetpack.datastore.dataStorePreference
 import com.better.learn.jetpack.datastore.dataStoreProtobuf
 import com.better.learn.jetpack.start_activity_result.StartedActivity
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun jDataStore() {
+        val javaImpl = DataStoreJavaImpl.getInstance(this)
         // 1. 申明KEY
         val key = intPreferencesKey("click_btn_times")
         lifecycleScope.launch {
@@ -81,6 +82,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 binding.dataStore.text = "DataStore click \n preference:$t1,protobuf:$t2"
             }
+            javaImpl.getTest()
+            javaImpl.setTest()
         }
     }
 
