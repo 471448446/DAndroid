@@ -9,3 +9,5 @@ dependencyResolutionManagement {
 rootProject.name = "Flavor_Library"
 include ':app'
 include ':Library'
+include ':app2'
+include ':Library2'
