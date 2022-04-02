@@ -1,0 +1,3 @@
+-keep class com.tencent.shadow.core.common.**{*;}
+-keep class com.tencent.shadow.core.runtime.**{*;}
+-keep class com.tencent.shadow.dynamic.host.**{*;}

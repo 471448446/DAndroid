@@ -1,0 +1,24 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+        mavenLocal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        mavenLocal()
+    }
+}
+rootProject.name = "LearnShadow"
+include ':app'
+include ':plugin_manager'
+include ':plugin_constant'
+include ':plugin_project:runtime'
+include ':plugin_project:loader'
+include ':plugin_project:plugin1'
+include ':plugin_host_lib'
