@@ -2,6 +2,7 @@ package com.better.app.loader;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.util.Log;
 
 import com.tencent.shadow.core.loader.infos.ContainerProviderInfo;
 import com.tencent.shadow.core.loader.managers.ComponentManager;
@@ -19,6 +20,7 @@ public class SampleComponentManager extends ComponentManager {
 
     public SampleComponentManager(Context context) {
         this.context = context;
+        Log.d("BetterLearnShadow","SampleComponentManager() create");
     }
 
 
@@ -35,6 +37,7 @@ public class SampleComponentManager extends ComponentManager {
              * 这里配置对应的对应关系
              */
         }
+        Log.d("BetterLearnShadow", "onBindContainerActivity:" + pluginActivity.getClassName());
         return new ComponentName(context, DEFAULT_ACTIVITY);
     }
 

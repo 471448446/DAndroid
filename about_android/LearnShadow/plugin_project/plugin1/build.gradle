@@ -82,7 +82,8 @@ shadow {
                         //businessName相同的插件，context获取的Dir是相同的。businessName留空，表示和宿主相同业务，直接使用宿主的Dir。
                         partKey = 'plugin-demo01'
                         buildTask = 'assembleDebug'
-                        apkName = 'plugin1-debug.apk'
+                        // apkName和apkPath的文件后缀要一致，因为apkName是在配置文件中跟进，名称去zip里面找这个文件
+                        apkName = 'plugin1-plugin-debug.apk'
                         apkPath = 'plugin_project/plugin1/build/outputs/apk/plugin/debug/plugin1-plugin-debug.apk'
                     }
                 }
@@ -96,7 +97,7 @@ shadow {
                         businessName = 'plugin-demo01'
                         partKey = 'plugin-demo01'
                         buildTask = 'assembleRelease'
-                        apkName = 'plugin1-release.apk'
+                        apkName = 'plugin1-plugin-release.apk'
                         apkPath = 'plugin_project/plugin1/build/outputs/apk/plugin/release/plugin1-plugin-release.apk'
                     }
                 }

@@ -13,9 +13,6 @@ import com.tencent.shadow.dynamic.host.PluginManager
 
 class MainActivity : AppCompatActivity() {
 
-    val FROM_ID_START_ACTIVITY = 1001
-    val FROM_ID_CALL_SERVICE = 1002
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val linearLayout = LinearLayout(this)
@@ -28,13 +25,13 @@ class MainActivity : AppCompatActivity() {
             v.isEnabled = false //防止点击重入
             val pluginManager: PluginManager = InitApplication.getPluginManager()
             val bundle = Bundle().apply {
-                putString(Constant.KEY_ACTIVITY_CLASSNAME, "com.better.app.plugin1.MainActivity")
-                putString(Constant.KEY_PLUGIN_PART_KEY, "plugin-demo01")
-                putString(Constant.KEY_PLUGIN_ZIP_PATH, "/data/local/tmp/plugin1-debug.zip")
+                putString(Constant.KEY_ACTIVITY_CLASSNAME, Constant.Plugin1.ACTIVITY_MAIN)
+                putString(Constant.KEY_PLUGIN_PART_KEY, Constant.Plugin1.PART_KEY)
+                putString(Constant.KEY_PLUGIN_ZIP_PATH, Constant.Plugin1.PATH)
             }
             pluginManager.enter(
                 this@MainActivity,
-                FROM_ID_START_ACTIVITY.toLong(),
+                Constant.FROM_ID_START_ACTIVITY,
                 bundle,
                 object : EnterCallback {
                     override fun onShowLoadingView(view: View) {
@@ -43,10 +40,10 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onCloseLoadingView() {
                         this@MainActivity.setContentView(linearLayout)
+                        v.isEnabled = true
                     }
 
                     override fun onEnterComplete() {
-                        v.isEnabled = true
                     }
                 })
         }
@@ -55,9 +52,13 @@ class MainActivity : AppCompatActivity() {
         val callServiceButton = Button(this)
         callServiceButton.text = "调用插件Service，结果打印到Log"
         callServiceButton.setOnClickListener { v ->
-            v.isEnabled = false //防止点击重入
             val pluginManager: PluginManager = InitApplication.getPluginManager()
-            pluginManager.enter(this@MainActivity, FROM_ID_CALL_SERVICE.toLong(), null, null)
+            pluginManager.enter(
+                this@MainActivity,
+                Constant.FROM_ID_CALL_SERVICE,
+                null,
+                null
+            )
         }
         linearLayout.addView(callServiceButton)
         setContentView(linearLayout)

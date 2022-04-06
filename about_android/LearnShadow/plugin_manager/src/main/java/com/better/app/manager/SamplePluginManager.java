@@ -3,6 +3,9 @@ package com.better.app.manager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -10,6 +13,7 @@ import com.better.app.plugin_constant.Constant;
 import com.tencent.shadow.core.manager.installplugin.InstalledPlugin;
 import com.tencent.shadow.dynamic.host.EnterCallback;
 
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -19,6 +23,7 @@ public class SamplePluginManager extends FastPluginManager {
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     private Context mCurrentContext;
+    private Handler handler = new Handler(Looper.getMainLooper());
 
     public SamplePluginManager(Context context) {
         super(context);
@@ -46,10 +51,8 @@ public class SamplePluginManager extends FastPluginManager {
      */
     @Override
     protected String getPluginProcessServiceName(String partKey) {
-        if ("sample-plugin-app".equals(partKey)) {
-            return "com.tencent.shadow.sample.host.PluginProcessPPS";
-        } else if ("sample-plugin-app2".equals(partKey)) {
-            return "com.tencent.shadow.sample.host.Plugin2ProcessPPS";//在这里支持多个插件
+        if (Constant.Plugin1.PART_KEY.equals(partKey)) {
+            return "com.better.app.plugin_host_lib.MainPluginProcessService";
         } else {
             //如果有默认PPS，可用return代替throw
             throw new IllegalArgumentException("unexpected plugin load request: " + partKey);
@@ -84,6 +87,20 @@ public class SamplePluginManager extends FastPluginManager {
             public void run() {
                 try {
                     InstalledPlugin installedPlugin = installPlugin(pluginZipPath, null, true);
+                    StringBuilder sp = new StringBuilder();
+                    sp.append("installedPlugin:")
+                            .append("uuid=")
+                            .append(installedPlugin.UUID).append(",")
+                            .append("loader file =")
+                            .append(installedPlugin.pluginLoaderFile.pluginFile.getAbsolutePath())
+                            .append("\n")
+                            .append("plugins:")
+                            .append("\n");
+                    for (Map.Entry<String, InstalledPlugin.PluginPart> entry : installedPlugin.plugins.entrySet()) {
+                        sp.append(entry.getKey()).append("=").append(entry.getValue().pluginFile.getAbsoluteFile());
+                    }
+                    sp.append("\n");
+                    Log.d("BetterLearnShadow", sp.toString());
                     Intent pluginIntent = new Intent();
                     pluginIntent.setClassName(
                             context.getPackageName(),
@@ -98,7 +115,12 @@ public class SamplePluginManager extends FastPluginManager {
                     throw new RuntimeException(e);
                 }
                 if (callback != null) {
-                    callback.onCloseLoadingView();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callback.onCloseLoadingView();
+                        }
+                    });
                 }
             }
         });

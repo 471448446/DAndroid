@@ -21,6 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivityExtendsActivity"
+            android:exported="false" />
 
         <service android:name=".MyService" />
     </application>
