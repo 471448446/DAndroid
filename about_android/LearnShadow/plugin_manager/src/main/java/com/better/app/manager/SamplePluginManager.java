@@ -1,17 +1,23 @@
 package com.better.app.manager;
 
+import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.better.app.plugin1.IMyAidlInterface;
 import com.better.app.plugin_constant.Constant;
 import com.tencent.shadow.core.manager.installplugin.InstalledPlugin;
 import com.tencent.shadow.dynamic.host.EnterCallback;
+import com.tencent.shadow.dynamic.loader.PluginServiceConnection;
 
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -63,9 +69,59 @@ public class SamplePluginManager extends FastPluginManager {
     public void enter(final Context context, long fromId, Bundle bundle, final EnterCallback callback) {
         if (fromId == Constant.FROM_ID_START_ACTIVITY) {
             onStartActivity(context, bundle, callback);
+        } else if (fromId == Constant.FROM_ID_CALL_SERVICE) {
+            callPluginService(context, bundle, callback);
         } else {
             throw new IllegalArgumentException("不认识的fromId==" + fromId);
         }
+    }
+
+    private void callPluginService(final Context context, Bundle bundle, EnterCallback callback) {
+        final String pluginZipPath = bundle.getString(Constant.KEY_PLUGIN_ZIP_PATH);
+        final String partKey = bundle.getString(Constant.KEY_PLUGIN_PART_KEY);
+        final String className = bundle.getString(Constant.KEY_ACTIVITY_CLASSNAME);
+
+        Intent pluginIntent = new Intent();
+        pluginIntent.setClassName(context.getPackageName(), className);
+
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    InstalledPlugin installedPlugin
+                            = installPlugin(pluginZipPath, null, true);//这个调用是阻塞的
+
+                    loadPlugin(installedPlugin.UUID, partKey);
+
+                    Intent pluginIntent = new Intent();
+                    pluginIntent.setClassName(context.getPackageName(), className);
+
+                    boolean callSuccess = mPluginLoader.bindPluginService(pluginIntent, new PluginServiceConnection() {
+                        @Override
+                        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+                            IMyAidlInterface iMyAidlInterface = IMyAidlInterface.Stub.asInterface(iBinder);
+                            try {
+                                String s = iMyAidlInterface.basicTypes(1, 2, true, 4.0f, 5.0, "6");
+                                Log.i("SamplePluginManager", "iMyAidlInterface.basicTypes : " + s);
+                            } catch (RemoteException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+
+                        @Override
+                        public void onServiceDisconnected(ComponentName componentName) {
+                            throw new RuntimeException("onServiceDisconnected");
+                        }
+                    }, Service.BIND_AUTO_CREATE);
+
+                    if (!callSuccess) {
+                        throw new RuntimeException("bind service失败 className==" + className);
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
     private void onStartActivity(final Context context, Bundle bundle, final EnterCallback callback) {

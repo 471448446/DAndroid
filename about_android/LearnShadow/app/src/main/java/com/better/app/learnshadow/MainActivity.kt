@@ -53,10 +53,15 @@ class MainActivity : AppCompatActivity() {
         callServiceButton.text = "调用插件Service，结果打印到Log"
         callServiceButton.setOnClickListener { v ->
             val pluginManager: PluginManager = InitApplication.getPluginManager()
+            val bundle = Bundle().apply {
+                putString(Constant.KEY_ACTIVITY_CLASSNAME, Constant.Plugin1.SERVICE1)
+                putString(Constant.KEY_PLUGIN_PART_KEY, Constant.Plugin1.PART_KEY)
+                putString(Constant.KEY_PLUGIN_ZIP_PATH, Constant.Plugin1.PATH)
+            }
             pluginManager.enter(
                 this@MainActivity,
                 Constant.FROM_ID_CALL_SERVICE,
-                null,
+                bundle,
                 null
             )
         }

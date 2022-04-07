@@ -14,5 +14,6 @@ public interface Constant {
         String PART_KEY = "plugin-demo01";
         String PATH = "/data/local/tmp/plugin-debug.zip";
         String ACTIVITY_MAIN = "com.better.app.plugin1.MainActivity";
+        String SERVICE1 = "com.better.app.plugin1.MyService";
     }
 }
