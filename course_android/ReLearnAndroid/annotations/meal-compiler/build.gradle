@@ -1,0 +1,17 @@
+plugins {
+    id 'java-library'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+dependencies {
+
+    implementation project(path: ':annotations:meal-annotation')
+    // 一个方便生成java代码的工具
+    implementation('com.squareup:javapoet:1.13.0')
+    // 一个方便注册注解处理器的工具
+    implementation('com.google.auto.service:auto-service:1.0-rc7')
+    annotationProcessor 'com.google.auto.service:auto-service:1.0-rc7'
+}
