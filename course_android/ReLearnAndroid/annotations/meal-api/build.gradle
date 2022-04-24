@@ -1,18 +1,16 @@
 plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
+    id 'com.android.library'
 }
 
 android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.better.app.app"
         minSdk 21
         targetSdk 31
-        versionCode 1
-        versionName "1.0"
 
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -25,13 +23,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
 }
 
 dependencies {
-    implementation project(path: ':app')
-    implementation project(path: ':annotations:meal-api')
-    annotationProcessor project(path: ':annotations:meal-compiler')
+    api project(path: ':annotations:meal-annotation')
 }
