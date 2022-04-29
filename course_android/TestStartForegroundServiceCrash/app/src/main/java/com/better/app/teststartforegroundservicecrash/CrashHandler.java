@@ -1,6 +1,5 @@
 package com.better.app.teststartforegroundservicecrash;
 
-import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -12,16 +11,17 @@ import java.lang.reflect.Field;
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
     @Override
     public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
-        Log.d("Better", "crash begin-------------------");
+        boolean mainThreadCrash = Looper.myLooper() == Looper.getMainLooper();
+        Log.d("Better", threadName() + "crash begin-------------------");
         e.printStackTrace();
-        Log.d("Better", e.getMessage());
-        Log.d("Better", "crash end-------------------");
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Log.d("Better", "check if messageQueue running");
-            }
-        }, 100);
+        Log.d("Better", threadName() + e.getMessage());
+        Log.d("Better", threadName() + "crash end-------------------");
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Log.d("Better", "check if messageQueue running");
+//            }
+//        }, 100);
         // 收到一个UI线程的crash
         // 此处，如果不做任何处理会ANR，猜测是Looper退出循环了
         // 下面尝试开启循环
@@ -37,7 +37,13 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
          但是，下面{@link #looper()}这里死循了，让主线程不会结束。虽然这里崩溃了，
          但是这里死循环，让主线程退不出去 {@link ActivityThread#main} 那么main方法里面的looper肯定也是不能继续执行的
          */
-        looper();
+        if (mainThreadCrash) {
+            looper();
+        }
+    }
+
+    private static String threadName() {
+        return "Thread[" + Thread.currentThread().getName() + "]";
     }
 
     private void rescue() {
@@ -75,7 +81,13 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             }
         });
         //这里运行在主线程，所以获取的是主线程的Looper
-        Looper.loop();
-        Log.d("Better", " loop() died-------------------");
+        try {
+            Looper.loop();
+        } catch (Throwable e) {
+            e.printStackTrace();
+        } finally {
+            Log.d("Better", " loop() died-------------------");
+            looper();
+        }
     }
 }
