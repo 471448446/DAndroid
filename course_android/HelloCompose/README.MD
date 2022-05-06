@@ -1,0 +1,64 @@
+* [Jetpack Compose 基础知识](https://developer.android.com/codelabs/jetpack-compose-basics#0)
+* [Jetpack Compose 中的布局](https://developer.android.com/codelabs/jetpack-compose-layouts#0)
+
+官方资源列表：
+[为什么采用 Compose](https://developer.android.com/jetpack/compose/why-adopt)
+官方Demo：
+[GitHub:compose-samples](https://github.com/android/compose-samples)
+
+> Compose 与您所有的现有代码兼容：您可以从 View 调用 Compose 代码，也可以从 Compose 调用 View。大多数常用库（如 Navigation、ViewModel 和 Kotlin 协程）都适用于 Compose，因此您可以随时随地开始采用。
+
+# 基础知识
+
+[jetpack-compose-basics](https://developer.android.com/codelabs/jetpack-compose-basics)
+
+## 从已有的项目中支持Compose：
+
+[将 Android Studio 与 Jetpack Compose 配合使用 ](https://developer.android.com/jetpack/compose/setup)
+
+## 如何使用 Compose 构建界面
+
+1. 使用 `Compose` 时，`Activities` 仍然是 `Android` 应用的入口点。只不过在`setContent`时会采用 `Compose` 的方式来设置。
+2. 使用 `@Composable` 来标记函数，这里函数，就是UI相关。可以被渲染到屏幕上。 使用`Surface`来包裹组件，使用`modifier`来控制组件的外观。
+3. `Compose` 中的三个基本标准布局元素是 `Column`、`Row` 和 `Box` 可组合项。
+
+### 如何在可组合函数中管理状态
+
+* 使用`State` 和 `MutableState`这两个接口，它们具有特定的值，每当该值发生变化时，它们就会触发界面更新（重组）。
+* 使用`remember`来记录每个元素状态信息（上一步添加的状态），避免每次刷新时，每次都是默认值。
+* 屏幕旋转保留状态。使用 `rememberSaveable`，而不使用 `remember`。这会保存每个在配置更改（如旋转）和进程终止后保留下来的状态。
+
+### 如何创建高效列表
+
+* `LazyColumn` 只会渲染屏幕上可见的内容，从而在渲染大型列表时提升效率。
+* 注意：`LazyColumn` 和 `LazyRow` 相当于 Android View 中的 `RecyclerView`。
+* 注意：`LazyColumn` 不会像 `RecyclerView` 一样回收其子级。它会在您滚动它时发出新的可组合项，并保持高效运行，因为与实例化 Android Views
+  相比，发出可组合项的成本相对较低。
+
+### 如何添加动画
+
+* 全新的方式
+
+### 如何为应用设置样式和主题
+
+* 代码中定义了主题
+
+## Compose注解
+
+* `@Composable`，标记函数。使用了`@Composable`标记了的函数是可组合函数。可组合函数是带有 `@Composable`
+  注解的常规函数。这类函数自身可以调用其他 `@Composable` 函数。
+* `@Preview`，标记的无参函数，可以用于预览。您可以在同一个文件中包含多个预览，并为它们指定名称。
+
+## Compose 思想
+
+**重组**
+当数据发生变化时会重绘界面。
+> Compose 应用通过调用可组合函数将数据转换为界面。如果您的数据发生变化，Compose 会使用新数据重新执行这些函数，从而创建更新后的界面，此过程称为重组。Compose 还会查看各个可组合项需要哪些数据，以便只需重组数据发生了变化的组件，而避免重组未受影响的组件。
+> 正如 [Compose 编程思想](https://developer.android.com/jetpack/compose/mental-model#recomposition)一文中所述：
+> 可组合函数可以按任意顺序频繁执行，因此您不能以代码的执行顺序或该函数的重组次数为判断依据。
+
+Compose 可以实时在手机上预览，666
+
+# Other
+
+[How to get activity in compose](https://stackoverflow.com/questions/64675386/how-to-get-activity-in-compose)

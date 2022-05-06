@@ -3,6 +3,9 @@ package com.better.app.hellocompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -15,6 +18,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -73,7 +78,7 @@ fun mockMessage() = (0 until 30).map {
     }
     val random = (random() * 100).toInt()
     val s = (0 until random).joinToString { randomWold((random() * 25).toInt()) }
-    Message("水浒传", "张飞: $s")
+    Message("水浒传:$it", "张飞: $s")
 }
 
 @Composable
@@ -90,7 +95,10 @@ fun Greeting(name: Message) {
 //    Text(text = "Hello $name!")
     // Modifier.width(IntrinsicSize.Max) 无效
     // Modifier.fillMaxWidth()
-    Row(modifier = Modifier.fillMaxWidth()) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Image(
             painterResource(id = R.mipmap.wechat),
             "",
@@ -98,14 +106,26 @@ fun Greeting(name: Message) {
                 .size(Dp(50f))
                 .padding(5.dp)
                 .clip(RoundedCornerShape(Dp(50f)))
-                .border(0.5.dp, Color(0xFFBB86FC), CircleShape)
+                .border(1.5.dp, Color(0xFFBB86FC), CircleShape)
         )
         // 水平间距
         Spacer(modifier = Modifier.width(8.dp))
-        var isExpand by remember {
+        // remember 是记录状态，不然每次进入这个方法，都会赋默认值
+        // rememberSaveable也是记录状态，不过在屏幕旋转时会恢复状态，而remember会被丢弃掉
+        var isExpand by rememberSaveable {
+            // mutableStateOf 只是值变化的时候，触发重绘
             mutableStateOf(false)
         }
+        // 动画
+        val extraPadding by animateDpAsState(
+            if (isExpand) 48.dp else 0.dp,
+            animationSpec = spring(
+                dampingRatio = Spring.DampingRatioMediumBouncy,
+                stiffness = Spring.StiffnessLow
+            )
+        )
         Column(modifier = Modifier
+            .fillMaxWidth()
             .padding(vertical = 5.dp)
             .clickable {
                 isExpand = !isExpand
@@ -120,10 +140,14 @@ fun Greeting(name: Message) {
             Surface(
                 shape = MaterialTheme.shapes.medium,
                 elevation = 1.dp,
-                color = if (isExpand) MaterialTheme.colors.primary else MaterialTheme.colors.surface
+                color = if (isExpand) MaterialTheme.colors.primary else MaterialTheme.colors.surface,
             ) {
                 Text(
-                    modifier = Modifier.padding(horizontal = 5.dp),
+                    modifier = Modifier.padding(
+                        start = 5.dp,
+                        end = 5.dp,
+                        bottom = extraPadding.coerceAtLeast(0.dp)
+                    ),
                     text = "author: ${name.author}",
                     style = MaterialTheme.typography.subtitle1,
                     maxLines = if (isExpand) Int.MAX_VALUE else 1,
