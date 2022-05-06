@@ -59,6 +59,14 @@
 
 Compose 可以实时在手机上预览，666
 
+通过
+
+1. 所有的组件都用`Modifier`字段，用来控制UI的外观，大小、间距、背景、点击等
+   * modifier的修饰符，可以多次应用。比如设置margin、
+2. `Column`,`Row`使用`Arrangement.Vertical`，`Alignment.Horizontal` 来控制竖直或水平方向的对其方式
+
 # Other
 
 [How to get activity in compose](https://stackoverflow.com/questions/64675386/how-to-get-activity-in-compose)
+[How to add Margin in Jetpack Compose?](https://stackoverflow.com/questions/62939473/how-to-add-margin-in-jetpack-compose)
+[How can I specify an exact amount of spacing between children in a Jetpack Compose Column?](https://stackoverflow.com/questions/68200057/how-can-i-specify-an-exact-amount-of-spacing-between-children-in-a-jetpack-compo)
