@@ -8,10 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -67,22 +64,34 @@ fun Splash() {
                 })
             // 这里因为只在Activity中使用，所以这里强转成了Activity。这里使用 as? 是因为预览不过
             val context = LocalContext.current as? Activity
-            Button(
-                onClick = {
-                    context?.startActivity(Intent(context, MainActivity::class.java))
-                    context?.finish()
-                },
-                modifier = Modifier
-                    .padding(top = 4.dp) // 第一个padding是margin作用
-                    .clip(CircleShape)
-                    .border(2.dp, MaterialTheme.colors.error, CircleShape)
-                    .padding(4.dp)
-                    .clip(CircleShape)
-                    .border(2.dp, MaterialTheme.colors.error, CircleShape)
-                    .background(MaterialTheme.colors.background)
-            ) {
-                //content 是一个@Composable标记的，所以Button是可以支持其它函数的调用
-                Text(text = "列表演示", color = Color.White, fontSize = 16.sp)
+            Row {
+                Button(
+                    onClick = {
+                        context?.startActivity(Intent(context, MainActivity::class.java))
+                        context?.finish()
+                    },
+                    modifier = Modifier
+                        .padding(top = 4.dp) // 第一个padding是margin作用
+                        .clip(CircleShape)
+                        .border(2.dp, MaterialTheme.colors.error, CircleShape)
+                        .padding(4.dp)
+                        .clip(CircleShape)
+                        .border(2.dp, MaterialTheme.colors.error, CircleShape)
+                        .background(MaterialTheme.colors.background)
+                ) {
+                    //content 是一个@Composable标记的，所以Button是可以支持其它函数的调用
+                    Text(text = "列表演示", color = Color.White, fontSize = 16.sp)
+                }
+                Button(onClick = {
+                    context?.startActivity(Intent(context, ConstraintLayoutActivity::class.java))
+                }, modifier = Modifier.padding(8.dp)) {
+                    Text(text = "ConstraintLayout", color = Color.White, fontSize = 16.sp)
+                }
+            }
+            Button(onClick = {
+                context?.startActivity(Intent(context, WatchStateActivity::class.java))
+            }, modifier = Modifier.padding(8.dp)) {
+                Text(text = "WatchState", color = Color.White, fontSize = 16.sp)
             }
             Column(
                 modifier = Modifier.fillMaxSize(),

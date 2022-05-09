@@ -29,8 +29,11 @@
 * 屏幕旋转保留状态。使用 `rememberSaveable`，而不使用 `remember`。这会保存每个在配置更改（如旋转）和进程终止后保留下来的状态。
 
 ### 如何创建高效列表
+`Column` 
+* 不会处理滚动操作，某些项是看不到的，因为它们在界面范围外。请添加 `verticalScroll` 修饰符，以在 `Column` 内启用滚动。
+* 会渲染所有列表项，甚至包括界面上看不到的项，当列表变大时，这会造成性能问题
 
-* `LazyColumn` 只会渲染屏幕上可见的内容，从而在渲染大型列表时提升效率。
+`LazyColumn` 只会渲染屏幕上可见的内容，从而在渲染大型列表时提升效率。
 * 注意：`LazyColumn` 和 `LazyRow` 相当于 Android View 中的 `RecyclerView`。
 * 注意：`LazyColumn` 不会像 `RecyclerView` 一样回收其子级。它会在您滚动它时发出新的可组合项，并保持高效运行，因为与实例化 Android Views
   相比，发出可组合项的成本相对较低。
@@ -64,6 +67,10 @@ Compose 可以实时在手机上预览，666
 1. 所有的组件都用`Modifier`字段，用来控制UI的外观，大小、间距、背景、点击等
    * modifier的修饰符，可以多次应用。比如设置margin、
 2. `Column`,`Row`使用`Arrangement.Vertical`，`Alignment.Horizontal` 来控制竖直或水平方向的对其方式
+
+# 布局
+[Compose布局](https://developer.android.com/codelabs/jetpack-compose-layouts)
+注：在 View 系统中，创建自定义布局必须扩展 ViewGroup 并实现测量和布局函数。在 Compose 中，您只需使用 Layout 可组合项编写一个函数即可。
 
 # Other
 

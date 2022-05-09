@@ -6,6 +6,8 @@ buildscript {
 plugins {
     id 'com.android.application' version '7.1.3' apply false
     id 'com.android.library' version '7.1.3' apply false
+    //This version (1.0.1) of the Compose Compiler requires Kotlin version 1.5.21 but you appear to be using Kotlin version 1.6.21 which is not known to be compatible.
+    //Please fix your configuration (or `suppressKotlinVersionCompatibilityCheck` but don't say I didn't warn you!).
     id 'org.jetbrains.kotlin.android' version '1.5.21' apply false
 }
 

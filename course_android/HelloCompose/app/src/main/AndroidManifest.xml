@@ -9,6 +9,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HelloCompose">
         <activity
+            android:name=".WatchStateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ConstraintLayoutActivity"
+            android:exported="false" />
+        <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
