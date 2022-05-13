@@ -13,8 +13,9 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "ReLearnAndroid"
-include ':app'
+include ':applib'
 include ':annotations:app'
 include ':annotations:meal-annotation'
 include ':annotations:meal-compiler'
 include ':annotations:meal-api'
+include ':handler:app'
