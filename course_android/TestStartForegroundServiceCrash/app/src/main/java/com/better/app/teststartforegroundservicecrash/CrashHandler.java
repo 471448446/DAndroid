@@ -12,10 +12,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     @Override
     public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
         boolean mainThreadCrash = Looper.myLooper() == Looper.getMainLooper();
-        Log.d("Better", threadName() + "crash begin-------------------");
-        e.printStackTrace();
-        Log.d("Better", threadName() + e.getMessage());
-        Log.d("Better", threadName() + "crash end-------------------");
+        printCrash(e);
 //        new Handler().postDelayed(new Runnable() {
 //            @Override
 //            public void run() {
@@ -40,6 +37,26 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         if (mainThreadCrash) {
             looper();
         }
+    }
+
+    private void printCrash(@NonNull Throwable e) {
+        Log.d("Better", threadName() + "crash begin-------------------");
+        e.printStackTrace();
+        Log.d("Better", threadName() + getCrashStack(e));
+        Log.d("Better", threadName() + "crash end-------------------");
+    }
+
+    private String getCrashStack(Throwable e) {
+        StringBuilder stringBuilder = new StringBuilder();
+        while (e != null) {
+            stringBuilder.append(e);
+            StackTraceElement[] stackTrace = e.getStackTrace();
+            for (StackTraceElement stackTraceElement : stackTrace) {
+                stringBuilder.append(stackTraceElement.toString()).append("\n");
+            }
+            e = e.getCause();
+        }
+        return stringBuilder.toString();
     }
 
     private static String threadName() {
@@ -84,7 +101,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         try {
             Looper.loop();
         } catch (Throwable e) {
-            e.printStackTrace();
+            printCrash(e);
         } finally {
             Log.d("Better", " loop() died-------------------");
             looper();
