@@ -20,7 +20,7 @@ public class SampleComponentManager extends ComponentManager {
 
     public SampleComponentManager(Context context) {
         this.context = context;
-        Log.d("BetterLearnShadow","SampleComponentManager() create");
+        Log.d("BetterLearnShadow", "SampleComponentManager() create");
     }
 
 
@@ -32,13 +32,18 @@ public class SampleComponentManager extends ComponentManager {
      */
     @Override
     public ComponentName onBindContainerActivity(ComponentName pluginActivity) {
+        /**
+         * 这里配置对应的对应关系
+         */
+        String which = DEFAULT_ACTIVITY;
         switch (pluginActivity.getClassName()) {
-            /**
-             * 这里配置对应的对应关系
-             */
+            case "com.better.app.plugin1.MainActivity":
+            case "com.better.app.plugin1.MainActivityJava":
+                which = SINGLE_TASK_ACTIVITY;
+                break;
         }
-        Log.d("BetterLearnShadow", "onBindContainerActivity:" + pluginActivity.getClassName());
-        return new ComponentName(context, DEFAULT_ACTIVITY);
+        Log.d("BetterLearnShadow", "onBindContainerActivity:" + pluginActivity.getClassName() + "->" + which);
+        return new ComponentName(context, which);
     }
 
     /**
