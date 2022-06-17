@@ -83,10 +83,22 @@ shadow {
                         //businessName相同的插件，context获取的Dir是相同的。businessName留空，表示和宿主相同业务，直接使用宿主的Dir。
                         //既：放到Context.getXXXDir()的子目录 com.tencent.shadow.core.runtime.ShadowContext里面
                         businessName = 'plugin-demo01'
-                        buildTask = 'assembleDebug'
+                        buildTask = ':plugin_project:plugin1:assembleDebug'
                         // apkName和apkPath的文件后缀要一致，因为apkName是在配置文件中跟进，名称去zip里面找这个文件
                         apkName = 'plugin1-plugin-debug.apk'
                         apkPath = 'plugin_project/plugin1/build/outputs/apk/plugin/debug/plugin1-plugin-debug.apk'
+                        // 插件访问宿主的代码所在的包名
+                        hostWhiteList = ["com.better.app.framework"]
+                    }
+                    pluginApk2 {
+                        partKey = 'plugin-demo02'
+                        //businessName相同的插件，context获取的Dir是相同的。businessName留空，表示和宿主相同业务，直接使用宿主的Dir。
+                        //既：放到Context.getXXXDir()的子目录 com.tencent.shadow.core.runtime.ShadowContext里面
+                        businessName = 'plugin-demo02'
+                        buildTask = ':plugin_project:plugin2:assembleDebug'
+                        // apkName和apkPath的文件后缀要一致，因为apkName是在配置文件中跟进，名称去zip里面找这个文件
+                        apkName = 'plugin2-plugin-debug.apk'
+                        apkPath = 'plugin_project/plugin2/build/outputs/apk/plugin/debug/plugin2-plugin-debug.apk'
                         // 插件访问宿主的代码所在的包名
                         hostWhiteList = ["com.better.app.framework"]
                     }

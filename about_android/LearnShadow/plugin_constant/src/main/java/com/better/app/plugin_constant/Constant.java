@@ -17,4 +17,10 @@ public interface Constant {
         String ACTIVITY_MAIN_JAVA = "com.better.app.plugin1.MainActivityJava";
         String SERVICE1 = "com.better.app.plugin1.MyService";
     }
+    interface Plugin2 {
+        // 为了方便其它地方调用，外一写错了呢
+        String PART_KEY = "plugin-demo02";
+        String PATH = "/data/local/tmp/plugin-debug.zip";
+        String ACTIVITY_MAIN = "com.better.app.plugin2.MainActivity";
+    }
 }

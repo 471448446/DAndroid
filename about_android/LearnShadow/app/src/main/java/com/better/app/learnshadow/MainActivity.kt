@@ -23,8 +23,20 @@ class MainActivity : AppCompatActivity() {
         button.text = "启动插件"
         button.setOnClickListener { v ->
             v.isEnabled = false //防止点击重入
-            startPlugin(linearLayout, v, Constant.Plugin1.ACTIVITY_MAIN)
-//            startPlugin(linearLayout, v, Constant.Plugin1.ACTIVITY_MAIN_JAVA)
+            startPlugin(
+                linearLayout,
+                v,
+                Constant.Plugin2.PATH,
+                Constant.Plugin2.PART_KEY,
+                Constant.Plugin2.ACTIVITY_MAIN
+            )
+//            startPlugin(
+//                linearLayout,
+//                v,
+//                Constant.Plugin1.PATH,
+//                Constant.Plugin1.PART_KEY,
+//                Constant.Plugin1.ACTIVITY_MAIN
+//            )
         }
         linearLayout.addView(textView)
         linearLayout.addView(button)
@@ -48,13 +60,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(linearLayout)
     }
 
-    private fun startPlugin(linearLayout: LinearLayout, v: View, activityMain: String) {
+    private fun startPlugin(
+        linearLayout: LinearLayout,
+        v: View,
+        path: String,
+        partKey: String,
+        activity: String,
+    ) {
         val pluginManager: PluginManager = InitApplication.getPluginManager()
         val bundle = Bundle().apply {
 //            putString(Constant.KEY_ACTIVITY_CLASSNAME, Constant.Plugin1.ACTIVITY_MAIN)
-            putString(Constant.KEY_ACTIVITY_CLASSNAME, activityMain)
-            putString(Constant.KEY_PLUGIN_PART_KEY, Constant.Plugin1.PART_KEY)
-            putString(Constant.KEY_PLUGIN_ZIP_PATH, Constant.Plugin1.PATH)
+            putString(Constant.KEY_ACTIVITY_CLASSNAME, activity)
+            putString(Constant.KEY_PLUGIN_PART_KEY, partKey)
+            putString(Constant.KEY_PLUGIN_ZIP_PATH, path)
         }
         pluginManager.enter(
             this@MainActivity,

@@ -57,7 +57,8 @@ public class SamplePluginManager extends FastPluginManager {
      */
     @Override
     protected String getPluginProcessServiceName(String partKey) {
-        if (Constant.Plugin1.PART_KEY.equals(partKey)) {
+        if (Constant.Plugin1.PART_KEY.equals(partKey) ||
+                Constant.Plugin2.PART_KEY.equals(partKey)) {
             return "com.better.app.plugin_host_lib.MainPluginProcessService";
         } else {
             //如果有默认PPS，可用return代替throw

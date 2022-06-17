@@ -1,6 +1,18 @@
-plugins {
-    id 'com.android.library'
+//这段buildscript配置的dependencies是为了apply plugin: 'com.tencent.shadow.plugin'能找到实现
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+
+    dependencies {
+        classpath "com.tencent.shadow.core:gradle-plugin:${project.shadow_version}"
+    }
 }
+
+plugins {
+    id 'com.android.application'
+}
+apply plugin: 'com.tencent.shadow.plugin'
 
 android {
     compileSdk project.COMPILE_SDK_VERSION
@@ -23,12 +35,20 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    // 将插件applicationId设置为和宿主相同
+    productFlavors {
+        plugin {
+            applicationId project.HOST_APP_APPLICATION_ID
+        }
+    }
+
 }
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
