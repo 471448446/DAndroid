@@ -21,4 +21,30 @@ public abstract class BaseAct extends AppCompatActivity {
         super.onDestroy();
         Log.e("Better", "onDestroy()" + this.getClass().getSimpleName());
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e("Better", "onStart()" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e("Better", "onPause()" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("Better", "onResume()" + this.getClass().getSimpleName());
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e("Better", "onStop()" + this.getClass().getSimpleName());
+
+    }
 }
