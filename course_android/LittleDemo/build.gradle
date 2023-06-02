@@ -4,8 +4,16 @@ buildscript {
     ext.kotlin_version = '1.2.51'
 
     repositories {
-        jcenter()
-        google()
+        maven {
+            url 'https://maven.aliyun.com/repository/google'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter'
+        }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+//        jcenter()
+//        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0'
@@ -18,8 +26,16 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
-        google()
+        maven {
+            url 'https://maven.aliyun.com/repository/google'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter'
+        }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+//        jcenter()
+//        google()
     }
 }
 
