@@ -6,7 +6,7 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 
 /**

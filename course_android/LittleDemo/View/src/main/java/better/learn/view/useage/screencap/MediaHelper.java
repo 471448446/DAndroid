@@ -1,6 +1,5 @@
 package better.learn.view.useage.screencap;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
@@ -12,6 +11,7 @@ import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Handler;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 
 import java.nio.ByteBuffer;
@@ -21,7 +21,7 @@ import java.nio.ByteBuffer;
  */
 
 public class MediaHelper {
-    Activity mActivity;
+    AppCompatActivity mActivity;
     int req;
 
     ImageReader imageReader;
@@ -31,7 +31,7 @@ public class MediaHelper {
 
     android.os.Handler mHandler = new Handler();
 
-    public MediaHelper(Activity activity, int i) {
+    public MediaHelper(AppCompatActivity activity, int i) {
         this.req = i;
         this.mActivity = activity;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -101,12 +101,12 @@ public class MediaHelper {
         return bitmap;
     }
 
-    public void prepareMediaScreenCap(Activity activity, int req) {
+    public void prepareMediaScreenCap(AppCompatActivity activity, int req) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             return;
         }
         if (null == mManager) {
-            mManager = (MediaProjectionManager) activity.getSystemService(Activity.MEDIA_PROJECTION_SERVICE);
+            mManager = (MediaProjectionManager) activity.getSystemService(AppCompatActivity.MEDIA_PROJECTION_SERVICE);
         }
 
         activity.startActivityForResult(mManager.createScreenCaptureIntent(), req);

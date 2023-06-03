@@ -7,14 +7,14 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.Toast
 import better.learn.view.BuildConfig
 import better.learn.view.R
-import kotlinx.android.synthetic.main.activity_system_type_view.*
 
 /**
  * 通过Window添加VIew，设置一个高的order
@@ -25,7 +25,7 @@ class SystemTypeViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_system_type_view)
-        view_genSysView.setOnClickListener {
+        findViewById<View>(R.id.view_genSysView).setOnClickListener {
             if (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         Settings.canDrawOverlays(this)
                     } else {

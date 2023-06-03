@@ -14,7 +14,7 @@ public class BaseDialog extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setStyle(android.support.v4.app.DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog);
-        setStyle(android.support.v4.app.DialogFragment.STYLE_NO_TITLE, R.style.Trans);
+        setStyle(androidx.core.app.DialogFragment.STYLE_NO_TITLE, R.style.Trans);
 
     }
 

@@ -1,13 +1,13 @@
 package better.learn.view.useage.screencap;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ScrollView;
 
@@ -45,7 +45,7 @@ public class ScreenCapHelper {
         return bitmap;
     }
 
-    public static void saveBitmap(final Activity activity, final Bitmap bitmap, final ISaveBitmap l) {
+    public static void saveBitmap(final AppCompatActivity activity, final Bitmap bitmap, final ISaveBitmap l) {
         if (PackageManager.PERMISSION_GRANTED != ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             Utils.toast(activity, "磁盘权限");
             return;
