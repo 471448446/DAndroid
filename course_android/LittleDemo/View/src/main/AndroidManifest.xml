@@ -58,6 +58,8 @@
         <activity android:name=".custom.matrix.BasicMatrixActivity" />
         <activity android:name=".useage.screencap.ScreenCapActivity" /> <!-- 系统级别View -->
         <activity android:name=".systemview.SystemTypeViewActivity" />
+        <activity android:name=".custom.canvas.compose.xfermode.CanvasXFermodeActivity" />
+        <activity android:name=".custom.canvas.compose.path.HollowActivity" />
     </application>
 
 </manifest>

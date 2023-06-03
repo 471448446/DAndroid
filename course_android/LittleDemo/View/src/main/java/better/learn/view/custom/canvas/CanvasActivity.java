@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import better.learn.view.R;
+import better.learn.view.custom.canvas.compose.path.HollowActivity;
 import better.learn.view.custom.canvas.view.SwipeBitmapActivity;
+import better.learn.view.custom.canvas.compose.xfermode.CanvasXFermodeActivity;
 import better.library.base.ui.BaseActivity;
 import better.library.utils.ForWordUtil;
 
@@ -60,6 +62,12 @@ public class CanvasActivity extends BaseActivity {
                 break;
             case R.id.canvas_btn_swipe:
                 ForWordUtil.to(this, SwipeBitmapActivity.class);
+                break;
+            case R.id.canvas_compose_xfermode:
+                ForWordUtil.to(this, CanvasXFermodeActivity.class);
+                break;
+            case R.id.canvas_compose_path:
+                ForWordUtil.to(this, HollowActivity.class);
                 break;
         }
     }

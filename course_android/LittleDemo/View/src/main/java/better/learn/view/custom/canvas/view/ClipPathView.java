@@ -6,10 +6,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Region;
-import androidx.annotation.Nullable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import better.learn.view.custom.ICustomView;
 
 /**
@@ -93,7 +94,14 @@ public class ClipPathView extends View implements ICustomView {
         canvas.save();
         canvas.translate(index * 110, 110);
         canvas.clipRect(10, 10, 90, 90);
-        canvas.clipRect(30, 30, 70, 70, ox);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && (
+                ox == Region.Op.INTERSECT ||
+                        ox == Region.Op.DIFFERENCE
+        )) {
+            canvas.clipRect(30, 30, 70, 70, ox);
+        } else {
+            canvas.clipRect(30, 30, 70, 70);
+        }
         drawScene(canvas, ox.name());
         canvas.restore();
     }
@@ -102,7 +110,14 @@ public class ClipPathView extends View implements ICustomView {
         canvas.save();
         canvas.translate(index * 110, 220);
         canvas.clipRect(0, 0, 60, 60);
-        canvas.clipRect(40, 40, 100, 100, ox);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && (
+                ox == Region.Op.INTERSECT ||
+                        ox == Region.Op.DIFFERENCE
+        )) {
+            canvas.clipRect(40, 40, 100, 100, ox);
+        } else {
+            canvas.clipRect(40, 40, 100, 100);
+        }
         drawScene(canvas, ox.name());
         canvas.restore();
     }
@@ -113,7 +128,14 @@ public class ClipPathView extends View implements ICustomView {
         canvas.save();
         canvas.translate(index * 110, 330);
         //前面没有clip相当于和一个空的Path裁剪
-        canvas.clipPath(mPath, ox);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && (
+                ox == Region.Op.INTERSECT ||
+                        ox == Region.Op.DIFFERENCE
+        )) {
+            canvas.clipPath(mPath, ox);
+        } else {
+            canvas.clipPath(mPath);
+        }
         drawScene(canvas, ox.name());
         canvas.restore();
     }
