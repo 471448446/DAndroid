@@ -1,10 +1,12 @@
 package better.learn.view.custom.canvas;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import better.learn.view.R;
 import better.learn.view.custom.canvas.compose.path.HollowActivity;
+import better.learn.view.custom.canvas.compose.path.HollowActivity2;
 import better.learn.view.custom.canvas.view.SwipeBitmapActivity;
 import better.learn.view.custom.canvas.compose.xfermode.CanvasXFermodeActivity;
 import better.library.base.ui.BaseActivity;
@@ -67,7 +69,11 @@ public class CanvasActivity extends BaseActivity {
                 ForWordUtil.to(this, CanvasXFermodeActivity.class);
                 break;
             case R.id.canvas_compose_path:
-                ForWordUtil.to(this, HollowActivity.class);
+                startActivities(
+                        new Intent[]{
+                                new Intent(this, HollowActivity.class),
+                                new Intent(this, HollowActivity2.class),
+                        });
                 break;
         }
     }
