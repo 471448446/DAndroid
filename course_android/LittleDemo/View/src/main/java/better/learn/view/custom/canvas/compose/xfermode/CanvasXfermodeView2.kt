@@ -1,6 +1,7 @@
 package better.learn.view.custom.canvas.compose.xfermode
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -14,9 +15,11 @@ import android.view.View
 /**
  * 这里方便计算，强制设定，宽高一致
  * 先绘制的是DST，后绘制的是SRC
- * Created by better on 2023/6/3 17:52.
+ * 使用两个大小一致的Bitmap
+ * @author Better
+ * @date 2023/6/6 15:44
  */
-class CanvasXfermodeView @JvmOverloads constructor(
+class CanvasXfermodeView2 @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
     // 使用透明通道
@@ -56,10 +59,14 @@ class CanvasXfermodeView @JvmOverloads constructor(
     private var circleCenter = PointF()
     private var circleRadius = 0f
     private var squareRectF = RectF()
+    private lateinit var dstBitMap: Bitmap
+    private lateinit var dstCanvas: Canvas
+    private lateinit var srcBitMap: Bitmap
+    private lateinit var srcCanvas: Canvas
 
     init {
-        // 关闭硬件加速， 没发现区别
-//        setLayerType(View.LAYER_TYPE_SOFTWARE,null)
+        // 关闭硬件加速，
+//        setLayerType(View.LAYER_TYPE_SOFTWARE, null)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -68,6 +75,10 @@ class CanvasXfermodeView @JvmOverloads constructor(
         circleCenter = PointF(width * 0.4f, width * 0.4f)
         circleRadius = width * 0.3f
         squareRectF = RectF(width * 0.4f, width * 0.4f, width * 0.9f, width * 0.9f)
+        dstBitMap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        srcBitMap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        dstCanvas = Canvas(dstBitMap)
+        srcCanvas = Canvas(srcBitMap)
     }
 
     override fun draw(canvas: Canvas) {
@@ -85,14 +96,16 @@ class CanvasXfermodeView @JvmOverloads constructor(
             paintFill,
             Canvas.ALL_SAVE_FLAG
         )
-        // 绘制圆，先绘制的是是目标图 DST
+        //  DST
         paintFill.color = dstColor
-        canvas.drawCircle(circleCenter.x, circleCenter.y, circleRadius, paintFill)
+        dstCanvas.drawCircle(circleCenter.x, circleCenter.y, circleRadius, paintFill)
+        canvas.drawBitmap(dstBitMap, 0f, 0f, paintFill)
+        paintFill.color = srcColor
+        srcCanvas.drawRect(squareRectF, paintFill)
+        // SRC
         // 设置混合模式
         paintFill.xfermode = PorterDuffXfermode(xfermode)
-        // 绘制矩形，现在绘制源图 SRC
-        paintFill.color = srcColor
-        canvas.drawRect(squareRectF, paintFill)
+        canvas.drawBitmap(srcBitMap, 0f, 0f, paintFill)
         // 清除混合模式
         paintFill.xfermode = null
 

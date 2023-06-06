@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import better.learn.view.R
 
-class HollowActivity: AppCompatActivity() {
+// 绘制一个中间镂空的效果
+class HollowActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hollow)
