@@ -63,6 +63,7 @@
         <activity android:name=".custom.canvas.compose.xfermode.SampleActivity" />
         <activity android:name=".custom.canvas.compose.path.HollowActivity" />
         <activity android:name=".custom.canvas.compose.path.HollowActivity2" />
+        <activity android:name=".custom.canvas.compose.shader.ComposeShaderActivity" />
     </application>
 
 </manifest>

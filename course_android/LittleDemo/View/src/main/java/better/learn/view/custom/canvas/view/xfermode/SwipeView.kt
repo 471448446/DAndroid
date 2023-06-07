@@ -33,13 +33,13 @@ class SwipeView(ctx: Context, attributeSet: AttributeSet, style: Int) : View(ctx
             MotionEvent.ACTION_DOWN -> {
                 lastX = event.x
                 lastY = event.y
-                path.lineTo(lastX, lastY)
+                path.moveTo(lastX, lastY)
             }
             MotionEvent.ACTION_MOVE -> {
                 if (abs(event.x - lastX) > 3 || abs(event.y - lastY) > 3) {
+                    path.quadTo(event.x, event.y, lastX, lastY)
                     lastX = event.x
                     lastY = event.y
-                    path.lineTo(lastX, lastY)
                 }
             }
         }

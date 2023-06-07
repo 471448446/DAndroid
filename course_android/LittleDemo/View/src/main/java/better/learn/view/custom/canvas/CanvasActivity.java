@@ -7,6 +7,7 @@ import android.view.View;
 import better.learn.view.R;
 import better.learn.view.custom.canvas.compose.path.HollowActivity;
 import better.learn.view.custom.canvas.compose.path.HollowActivity2;
+import better.learn.view.custom.canvas.compose.shader.ComposeShaderActivity;
 import better.learn.view.custom.canvas.compose.xfermode.CanvasXFermodeBitmapActivity;
 import better.learn.view.custom.canvas.compose.xfermode.SampleActivity;
 import better.learn.view.custom.canvas.view.SwipeBitmapActivity;
@@ -80,6 +81,12 @@ public class CanvasActivity extends BaseActivity {
                         new Intent[]{
                                 new Intent(this, HollowActivity.class),
                                 new Intent(this, HollowActivity2.class),
+                        });
+                break;
+                case R.id.canvas_btn_compose_shader:
+                startActivities(
+                        new Intent[]{
+                                new Intent(this, ComposeShaderActivity.class),
                         });
                 break;
         }
