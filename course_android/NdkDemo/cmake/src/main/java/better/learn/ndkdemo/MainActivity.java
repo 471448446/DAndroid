@@ -3,6 +3,7 @@ package better.learn.ndkdemo;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * 使用cmake工具构建
@@ -22,5 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
         TextView textView = findViewById(R.id.mainTxt);
         textView.setText(new JNIUtil().sayHelloJNI());
+        Toast.makeText(this,""+new JNIUtil().sayHelloJInt(),Toast.LENGTH_SHORT).show();
     }
 }
