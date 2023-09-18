@@ -21,22 +21,27 @@ class PrintTransform : Transform(), Plugin<Project> {
         appExtension.registerTransform(this)
     }
 
+    // 指明 Transform 的名字，也对应了该 Transform 所代表的 Task 名称，例如当返回值为 InjectTransform 时，编译后可以看到名为transformClassesWithInjectTransformForxxx 的 task。
     override fun getName(): String {
         return "KotlinPrintTransform"
     }
 
+    //指明 Transform 处理的输入类型，在 TransformManager 中定义了很多类型：
     override fun getInputTypes(): MutableSet<QualifiedContent.ContentType> {
         return TransformManager.CONTENT_CLASS
     }
 
+    //指明 Transform 输入文件所属的范围, 因为 gradle 是支持多工程编译的。
     override fun getScopes(): MutableSet<in QualifiedContent.Scope> {
-        return TransformManager.SCOPE_FULL_PROJECT
+        return TransformManager.SCOPE_FULL_PROJECT //所有project
     }
 
+    //指明该 Transform 是否支持增量编译。有时即使返回 true, 在某些情况下它还是会当作 false 返回。
     override fun isIncremental(): Boolean {
         return false
     }
 
+    //transform是一个空实现，input的内容将会打包成一个 TransformInvocation 对象。
     override fun transform(transformInvocation: TransformInvocation?) {
         super.transform(transformInvocation)
         val inputs = transformInvocation?.inputs
