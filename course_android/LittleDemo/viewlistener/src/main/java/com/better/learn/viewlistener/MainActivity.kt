@@ -3,16 +3,22 @@ package com.better.learn.viewlistener
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.MotionEvent
 import better.library.utils.ForWordUtil
 import better.library.utils.Utils
-import kotlinx.android.synthetic.main.activity_main.*
+import com.better.learn.viewlistener.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        textView.setOnClickListener {
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.textView.setOnClickListener {
             ForWordUtil.to(this, SecondActivity::class.java)
+        }
+        binding.textView2.setOnTouchListener { v, event ->
+            Utils.log(Tag,"view touch:"+event.action)
+            return@setOnTouchListener true
         }
     }
 

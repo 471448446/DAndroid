@@ -17,7 +17,7 @@ public class DemoAidlServices extends BaseServices {
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
-        return mBinder;
+        return mBinder.asBinder();
     }
 
     @Override

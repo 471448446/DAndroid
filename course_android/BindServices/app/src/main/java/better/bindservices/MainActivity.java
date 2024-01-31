@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (null != service) {
+                Log.i("Better", "onServiceConnected return binder :" + service.getClass().getName());
                 String DESCRIPTOR = "better.bindservices.IInterCommunication";
                 IInterface iin = service.queryLocalInterface(DESCRIPTOR);
                 // 由于客户端和服务端不在一个进程中，queryLocalInterface返回的是NULL
