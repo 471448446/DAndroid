@@ -79,6 +79,16 @@
         android:textAllCaps="false" />
 
     <Button
+        android:id="@+id/aidl_send_oneway"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="OnClick"
+        android:padding="15dp"
+        android:text="use Aidl oneway msg"
+        android:textAllCaps="false" />
+
+    <Button
         android:id="@+id/messenger_bitmap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -143,6 +143,11 @@ public class DemoAidlServices extends BaseServices {
             }
             throw new RuntimeException("haha justCrash()");
         }
+
+        @Override
+        public void hello(String name) {
+            Log.d("Binder", Thread.currentThread().getName() + " aidl hello() receive" + name);
+        }
     }
 
     private void log2(String ms) {

@@ -33,4 +33,8 @@ interface IInterCommunication {
       * 如果remote 崩溃，客户端会怎样
       */
       int justCrash();
+      /**
+      * 测试编译出，FLAG_ONEWAY的通信，原来有关键字可以选择
+      */
+      oneway void hello(in String name);
 }

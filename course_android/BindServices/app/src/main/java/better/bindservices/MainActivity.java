@@ -317,6 +317,16 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 break;
+            case R.id.aidl_send_oneway:
+                if (!mAidlConnect.isBind()) {
+                    return;
+                }
+                try {
+                    mIInterCommunication.hello("您好");
+                } catch (Exception e) {
+
+                }
+                break;
             default:
                 break;
         }
