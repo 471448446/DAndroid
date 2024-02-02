@@ -8,7 +8,14 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -21,8 +28,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.better.app.hellocompose.splash.HelloComposeLayout
+import com.better.app.hellocompose.splash.ModifierTest
+import com.better.app.hellocompose.splash.StateDemo
 import com.better.app.hellocompose.ui.theme.HelloComposeTheme
 
+/**
+ * View在Compose中组件：
+ * https://www.jetpackcompose.app/What-is-the-equivalent-of-DrawerLayout-in-Jetpack-Compose
+ * Compose 中的 Material 组件：
+ * https://developer.android.google.cn/jetpack/compose/components?hl=zh-cn
+ * > 声明式UI的工作流程有点像是刷新网页一样。即我们去描述一个控件时要附带上它的状态。
+ * 然后当有任何状态需要发生改变时，只需要像刷新网页一样，让界面上的元素刷新一遍，那么自然状态就能得到更新了。
+ */
 class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +79,11 @@ fun Splash() {
                             .padding(4.dp)
                             .clip(CircleShape)
                     )
-                })
+                },
+            )
+            HelloComposeLayout()
+            ModifierTest()
+            StateDemo()
             // 这里因为只在Activity中使用，所以这里强转成了Activity。这里使用 as? 是因为预览不过
             val context = LocalContext.current as? Activity
             Row {
@@ -81,11 +103,6 @@ fun Splash() {
                 ) {
                     //content 是一个@Composable标记的，所以Button是可以支持其它函数的调用
                     Text(text = "列表演示", color = Color.White, fontSize = 16.sp)
-                }
-                Button(onClick = {
-                    context?.startActivity(Intent(context, ConstraintLayoutActivity::class.java))
-                }, modifier = Modifier.padding(8.dp)) {
-                    Text(text = "ConstraintLayout", color = Color.White, fontSize = 16.sp)
                 }
             }
             Button(onClick = {
