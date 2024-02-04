@@ -8,8 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -46,7 +47,7 @@ class StateHelloCounterActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloComposeTheme {
-                androidx.compose.material.Surface {
+                Surface {
                     StateHelloCounterView()
                 }
             }
@@ -164,7 +165,6 @@ fun StateHelloCounterView(viewModel: HelloCountViewModel = viewModel()) {
         Column {
             StateHoistingCounter(
                 modifierColum = Modifier
-                    .weight(1f)
                     .padding(10.dp),
                 horAlignment = Alignment.CenterHorizontally,
                 title = "使用", count = viewModel.countLiveData.observeAsState(0).value,

@@ -14,9 +14,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = MaterialTheme.colorScheme.background
                 ) {
                     Column {
                         Greeting(
@@ -139,8 +139,9 @@ fun Greeting(name: Message) {
             Spacer(modifier = Modifier.height(2.dp))
             Surface(
                 shape = MaterialTheme.shapes.medium,
-                elevation = 1.dp,
-                color = if (isExpand) MaterialTheme.colors.primary else MaterialTheme.colors.surface,
+//                elevation = 1.dp,
+                shadowElevation = 1.dp,
+                color = if (isExpand) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
             ) {
                 Text(
                     modifier = Modifier.padding(
@@ -149,7 +150,8 @@ fun Greeting(name: Message) {
                         bottom = extraPadding.coerceAtLeast(0.dp)
                     ),
                     text = "author: ${name.author}",
-                    style = MaterialTheme.typography.subtitle1,
+//                    style = MaterialTheme.typography.subtitle1,
+                    style = MaterialTheme.typography.titleMedium,
                     maxLines = if (isExpand) Int.MAX_VALUE else 1,
                     overflow = TextOverflow.Ellipsis
                 )

@@ -8,16 +8,13 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,9 +54,10 @@ class SplashActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Splash() {
-    androidx.compose.material.Surface(
+    Surface(
         color = Color.White
     ) {
         Column(
@@ -95,11 +93,11 @@ fun Splash() {
                     modifier = Modifier
                         .padding(top = 4.dp) // 第一个padding是margin作用
                         .clip(CircleShape)
-                        .border(2.dp, MaterialTheme.colors.error, CircleShape)
+                        .border(2.dp, MaterialTheme.colorScheme.error, CircleShape)
                         .padding(4.dp)
                         .clip(CircleShape)
-                        .border(2.dp, MaterialTheme.colors.error, CircleShape)
-                        .background(MaterialTheme.colors.background)
+                        .border(2.dp, MaterialTheme.colorScheme.error, CircleShape)
+                        .background(MaterialTheme.colorScheme.background)
                 ) {
                     //content 是一个@Composable标记的，所以Button是可以支持其它函数的调用
                     Text(text = "列表演示", color = Color.White, fontSize = 16.sp)

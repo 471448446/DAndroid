@@ -8,6 +8,9 @@
 
 > Compose 与您所有的现有代码兼容：您可以从 View 调用 Compose 代码，也可以从 Compose 调用 View。大多数常用库（如 Navigation、ViewModel 和 Kotlin 协程）都适用于 Compose，因此您可以随时随地开始采用。
 
+# 版本
+[Compose 与 Kotlin 的兼容性对应关系](https://developer.android.com/jetpack/androidx/releases/compose-kotlin?hl=zh-cn)
+
 # 基础知识
 
 [jetpack-compose-basics](https://developer.android.com/codelabs/jetpack-compose-basics)
