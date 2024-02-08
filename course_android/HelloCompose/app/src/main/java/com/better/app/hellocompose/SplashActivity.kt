@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -25,9 +26,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.better.app.hellocompose.splash.HelloComposeLayout
-import com.better.app.hellocompose.splash.ModifierTest
-import com.better.app.hellocompose.splash.StateDemo
+import com.better.app.hellocompose.splash.ComposeUnderHook
+import com.better.app.hellocompose.splash.FourLazyLayout
+import com.better.app.hellocompose.splash.OneHelloComposeLayout
+import com.better.app.hellocompose.splash.TwoModifiertwoTest
+import com.better.app.hellocompose.splash.ThreeStateDemo
+import com.better.app.hellocompose.splash.UiLayoutDemo
 import com.better.app.hellocompose.ui.theme.HelloComposeTheme
 
 /**
@@ -37,6 +41,7 @@ import com.better.app.hellocompose.ui.theme.HelloComposeTheme
  * https://developer.android.google.cn/jetpack/compose/components?hl=zh-cn
  * > 声明式UI的工作流程有点像是刷新网页一样。即我们去描述一个控件时要附带上它的状态。
  * 然后当有任何状态需要发生改变时，只需要像刷新网页一样，让界面上的元素刷新一遍，那么自然状态就能得到更新了。
+ * https://jetpackcompose.cn/docs/
  */
 class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,14 +79,16 @@ fun Splash() {
                         painter = painterResource(id = R.mipmap.wechat),
                         contentDescription = "",
                         Modifier
+                            .size(50.dp)
                             .padding(4.dp)
                             .clip(CircleShape)
                     )
                 },
             )
-            HelloComposeLayout()
-            ModifierTest()
-            StateDemo()
+            OneHelloComposeLayout()
+            TwoModifiertwoTest()
+            ThreeStateDemo()
+            FourLazyLayout()
             // 这里因为只在Activity中使用，所以这里强转成了Activity。这里使用 as? 是因为预览不过
             val context = LocalContext.current as? Activity
             Row {
@@ -108,6 +115,8 @@ fun Splash() {
             }, modifier = Modifier.padding(8.dp)) {
                 Text(text = "WatchState", color = Color.White, fontSize = 16.sp)
             }
+            UiLayoutDemo()
+            ComposeUnderHook()
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,

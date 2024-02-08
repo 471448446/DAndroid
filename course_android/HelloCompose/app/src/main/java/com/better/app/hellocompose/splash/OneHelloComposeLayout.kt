@@ -27,7 +27,7 @@ import com.better.app.hellocompose.UiRowActivity
  * https://guolin.blog.csdn.net/article/details/131622694
  */
 @Composable
-fun HelloComposeLayout() {
+fun OneHelloComposeLayout() {
     val context = LocalContext.current as? Activity
     Row(
         modifier = Modifier

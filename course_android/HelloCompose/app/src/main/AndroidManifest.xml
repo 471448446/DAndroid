@@ -9,6 +9,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HelloCompose">
         <activity
+            android:name=".ComposeUnderHookScopeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UiNavigationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UiBottomBarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UiLazyKeyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UiLazyItemActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UiLazyNestListSameOrientationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UiLazyListStateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UiLazyRowActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UiLazyColumActivity"
+            android:exported="false" />
+        <activity
             android:name=".StateHelloCounterActivity"
             android:exported="false" />
         <activity

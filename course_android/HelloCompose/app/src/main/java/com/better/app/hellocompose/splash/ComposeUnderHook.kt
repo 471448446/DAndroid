@@ -1,8 +1,8 @@
 package com.better.app.hellocompose.splash
 
-import android.app.Activity
 import android.content.Intent
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -13,24 +13,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.better.app.hellocompose.StateHelloCounterActivity
+import com.better.app.hellocompose.ComposeUnderHookScopeActivity
 
-/**
- * https://guolin.blog.csdn.net/article/details/133970363
- * 如何刷新UI，使用状态
- */
+
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ThreeStateDemo() {
-    val context = LocalContext.current as? Activity
-    Row(
+fun ComposeUnderHook() {
+    val context = LocalContext.current
+    FlowRow(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 2.dp)
+            .padding(vertical = 4.dp)
     ) {
         Button(onClick = {
-            context?.startActivity(Intent(context, StateHelloCounterActivity::class.java))
+            context.startActivity(Intent(context, ComposeUnderHookScopeActivity::class.java))
         }) {
-            Text(text = "State计数", color = Color.White, fontSize = 16.sp)
+            Text(text = "重组范围", color = Color.White, fontSize = 16.sp)
         }
     }
 }

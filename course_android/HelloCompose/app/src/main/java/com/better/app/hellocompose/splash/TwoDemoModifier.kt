@@ -29,7 +29,7 @@ import com.better.app.hellocompose.UiModifierTouchEventActivity
  * https://guolin.blog.csdn.net/article/details/132253342
  */
 @Composable
-fun ModifierTest() {
+fun TwoModifiertwoTest() {
     Column {
         ModifierSizeTest()
         ModifierInput()
