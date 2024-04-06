@@ -23,6 +23,7 @@ dependencyResolutionManagement {
             url 'https://maven.aliyun.com/repository/jcenter'
         }
         maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral()
 //        google()
 //        mavenCentral()
     }

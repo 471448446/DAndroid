@@ -25,7 +25,6 @@ import better.learn.view.R
 class ComposeShaderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        PorterDuffColorFilter
         setContentView(ComposeShaderView(this))
     }
 }

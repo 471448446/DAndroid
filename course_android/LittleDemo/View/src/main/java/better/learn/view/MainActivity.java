@@ -5,6 +5,7 @@ import android.view.View;
 
 import better.learn.view.custom.canvas.CanvasActivity;
 import better.learn.view.custom.matrix.MatrixActivity;
+import better.learn.view.inflate.InflateMainActivity;
 import better.learn.view.systemview.SystemTypeViewActivity;
 import better.learn.view.useage.EditTextActivity;
 import better.learn.view.useage.screencap.ScreenCapActivity;
@@ -36,6 +37,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.main_btn_windowView:
                 ForWordUtil.to(this, SystemTypeViewActivity.class);
+                break;
+            case R.id.main_btn_inflate:
+                ForWordUtil.to(this, InflateMainActivity.class);
                 break;
 
         }

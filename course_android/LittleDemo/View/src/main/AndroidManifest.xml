@@ -64,6 +64,10 @@
         <activity android:name=".custom.canvas.compose.path.HollowActivity" />
         <activity android:name=".custom.canvas.compose.path.HollowActivity2" />
         <activity android:name=".custom.canvas.compose.shader.ComposeShaderActivity" />
+        <activity android:name=".inflate.InflateMainActivity" />
+        <activity android:name=".inflate.InflateProblemActivity" />
+        <activity android:name=".inflate.InflateBlinkActivity" />
+        <activity android:name=".inflate.InflateRequestFocusActivity" />
     </application>
 
 </manifest>
