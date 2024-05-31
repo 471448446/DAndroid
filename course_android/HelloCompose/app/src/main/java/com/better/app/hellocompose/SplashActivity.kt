@@ -9,12 +9,17 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -66,7 +71,9 @@ fun Splash() {
         color = Color.White
     ) {
         Column(
-            modifier = Modifier.padding(5.dp),
+            modifier = Modifier
+                .padding(5.dp)
+                .verticalScroll(rememberScrollState()),
             // 每行的间距
             verticalArrangement = Arrangement.spacedBy(5.dp)
         ) {
@@ -117,13 +124,20 @@ fun Splash() {
             }
             UiLayoutDemo()
             ComposeUnderHook()
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+            Box(
+                modifier = Modifier
+                    .height(400.dp)
+                    .fillMaxWidth()
             ) {
-                Text(text = "Hello World!!!", color = Color.Green, fontSize = 20.sp)
-                Text(text = "Welcome", color = Color.Red)
+                Column(
+                    // 这里是之前演示如何填充父布局大小
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(text = "Hello World!!!", color = Color.Green, fontSize = 20.sp)
+                    Text(text = "Welcome", color = Color.Red)
+                }
             }
         }
     }
